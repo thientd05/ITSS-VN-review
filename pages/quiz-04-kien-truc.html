@@ -48,7 +48,7 @@ window.QUIZ = {
       type: "single",
       q: "Mục đích chính của <b>Architectural Design</b> là gì?",
       options: [
-        "Đưa ra một thiết kế có thể <b>cài đặt và kiểm chứng được</b> với yêu cầu phần mềm",
+        "Đưa ra một thiết kế có thể cài đặt và kiểm chứng được với yêu cầu phần mềm",
         "Viết mã nguồn thực thi cuối cùng cho hệ thống",
         "Thu thập và thỏa thuận yêu cầu với khách hàng",
         "Sinh bộ test case cho pha kiểm thử hệ thống"
@@ -86,7 +86,7 @@ window.QUIZ = {
       type: "single",
       q: "Chuỗi tinh chỉnh (refinement) nào đúng khi đi từ yêu cầu tới bản thực thi?",
       options: [
-        "Use Cases → <b>Analysis Classes</b> → Design Elements → Source Code → Executable",
+        "Use Cases → Analysis Classes → Design Elements → Source Code → Executable",
         "Source Code → Analysis Classes → Use Cases → Executable",
         "Design Elements → Use Cases → Analysis Classes → Executable",
         "Use Cases → Executable → Source Code → Analysis Classes"
@@ -113,7 +113,7 @@ window.QUIZ = {
       type: "single",
       q: "Toàn bộ hành vi của một use case cần được xử lý như thế nào trong Analysis Model?",
       options: [
-        "<b>Phân phối (distribute)</b> cho các analysis class, dùng stereotype làm kim chỉ nam",
+        "Phân phối (distribute) cho các analysis class, dùng stereotype làm kim chỉ nam",
         "Gom hết vào một lớp God class duy nhất",
         "Chỉ đặt vào entity class để dễ lưu trữ",
         "Bỏ qua vì hành vi thuộc pha implementation"
@@ -125,7 +125,7 @@ window.QUIZ = {
       type: "single",
       q: "Lớp <b>&laquo;boundary&raquo;</b> đóng vai trò gì và có đặc điểm nào?",
       options: [
-        "Trung gian giữa giao diện &amp; thứ bên ngoài hệ thống — <b>phụ thuộc môi trường</b> (environment dependent)",
+        "Trung gian giữa giao diện &amp; thứ bên ngoài hệ thống — phụ thuộc môi trường (environment dependent)",
         "Lưu &amp; quản lý thông tin trong hệ thống — độc lập môi trường",
         "Điều phối hành vi của use case — phụ thuộc use case",
         "Chỉ chứa dữ liệu tĩnh, không có hành vi"
@@ -137,7 +137,7 @@ window.QUIZ = {
       type: "single",
       q: "Lớp <b>&laquo;entity&raquo;</b> có đặc điểm nào?",
       options: [
-        "Là <b>key abstraction</b>, lưu &amp; quản lý thông tin, <b>độc lập môi trường</b> (environment independent)",
+        "Là key abstraction, lưu &amp; quản lý thông tin, độc lập môi trường (environment independent)",
         "Phụ thuộc môi trường vì gắn với thiết bị nhập/xuất",
         "Phụ thuộc use case và biến mất khi use case kết thúc",
         "Chỉ giao tiếp trực tiếp với actor bên ngoài"
@@ -149,7 +149,7 @@ window.QUIZ = {
       type: "single",
       q: "Lớp <b>&laquo;control&raquo;</b> có đặc điểm nào?",
       options: [
-        "<b>Điều phối</b> hành vi của use case — <b>phụ thuộc use case, độc lập môi trường</b>",
+        "Điều phối hành vi của use case — phụ thuộc use case, độc lập môi trường",
         "Phụ thuộc môi trường và độc lập use case",
         "Lưu trữ dữ liệu bền vững của hệ thống",
         "Chỉ trình bày thông tin ra màn hình cho user"
@@ -161,7 +161,7 @@ window.QUIZ = {
       type: "single",
       q: "Về <b>Boundary class</b>, quy tắc số lượng nào là đúng?",
       options: [
-        "Một boundary class cho <b>mỗi cặp actor / use-case</b>",
+        "Một boundary class cho mỗi cặp actor / use-case",
         "Một boundary class cho toàn bộ hệ thống",
         "Một boundary class cho mỗi entity class",
         "Một boundary class cho mỗi thuộc tính hiển thị"
@@ -186,7 +186,7 @@ window.QUIZ = {
       type: "single",
       q: "Guideline thiết kế Boundary class nhấn mạnh điều gì?",
       options: [
-        "Tập trung vào <b>trách nhiệm</b> (thông tin nào / giao thức nào), KHÔNG tập trung chi tiết cài đặt UI",
+        "Tập trung vào trách nhiệm (thông tin nào / giao thức nào), KHÔNG tập trung chi tiết cài đặt UI",
         "Tập trung tối đa vào chi tiết pixel, font, màu của UI",
         "Tập trung vào cách lưu dữ liệu xuống database",
         "Tập trung vào thuật toán tối ưu hiệu năng"
@@ -198,7 +198,7 @@ window.QUIZ = {
       type: "single",
       q: "Kỹ thuật tìm <b>Entity class</b> chủ yếu dựa vào gì?",
       options: [
-        "<b>Filtering nouns</b>: gạch chân cụm danh từ trong flow of events rồi loại các ứng viên không hợp lệ",
+        "Filtering nouns: gạch chân cụm danh từ trong flow of events rồi loại các ứng viên không hợp lệ",
         "Gạch chân các động từ trong flow of events",
         "Đếm số lần một actor xuất hiện",
         "Phân tích sơ đồ triển khai phần cứng"
@@ -211,7 +211,7 @@ window.QUIZ = {
       q: "Khi lọc danh từ để tìm entity class, những ứng viên nào cần <b>loại bỏ</b>?",
       options: [
         "Ứng viên trùng lặp (redundant) hoặc mơ hồ (vague)",
-        "Danh từ thực chất là <b>actor</b> (nằm ngoài phạm vi)",
+        "Danh từ thực chất là actor (nằm ngoài phạm vi)",
         "Danh từ là cấu trúc cài đặt, hoặc thực chất là attribute / operation",
         "Mọi danh từ là key abstraction của domain",
         "Danh từ xuất hiện trong Glossary"
@@ -223,7 +223,7 @@ window.QUIZ = {
       type: "single",
       q: "Guideline về số lượng <b>Control class</b> cho một use case là gì?",
       options: [
-        "Thường <b>1 control class cho mỗi use case</b>; use case đơn giản có thể bỏ control (chỉ boundary + entity)",
+        "Thường 1 control class cho mỗi use case; use case đơn giản có thể bỏ control (chỉ boundary + entity)",
         "Luôn cần đúng 3 control class cho mỗi use case",
         "Mỗi entity class phải có một control class riêng",
         "Không bao giờ dùng control class trong phân tích"
@@ -235,7 +235,7 @@ window.QUIZ = {
       type: "single",
       q: "Mẫu tương tác chuẩn giữa các analysis class là gì?",
       options: [
-        "Actor ↔ <b>boundary</b> ↔ <b>control</b> ↔ <b>entity</b>",
+        "Actor ↔ boundary ↔ control ↔ entity",
         "Actor ↔ entity ↔ control ↔ boundary",
         "Actor ↔ control ↔ boundary ↔ entity",
         "Actor ↔ boundary ↔ entity ↔ control"
@@ -285,7 +285,7 @@ window.QUIZ = {
       type: "single",
       q: "Kết quả của việc phân phối hành vi use case cho các lớp được gọi là gì?",
       options: [
-        "Một <b>Use-Case Realization</b> (gồm Sequence, Communication, Class diagram)",
+        "Một Use-Case Realization (gồm Sequence, Communication, Class diagram)",
         "Một Deployment Model",
         "Một Supplementary Specification",
         "Một Glossary mới"
@@ -299,7 +299,7 @@ window.QUIZ = {
       type: "single",
       q: "<b>Sequence Diagram</b> nhấn mạnh khía cạnh nào?",
       options: [
-        "<b>Thứ tự thời gian (time ordering)</b> của các message",
+        "Thứ tự thời gian (time ordering) của các message",
         "Tổ chức cấu trúc (structural) của các object",
         "Cấu trúc lớp tĩnh và thừa kế",
         "Phân bố phần cứng lên các node"
@@ -311,7 +311,7 @@ window.QUIZ = {
       type: "single",
       q: "<b>Communication Diagram</b> nhấn mạnh khía cạnh nào?",
       options: [
-        "<b>Tổ chức cấu trúc (structural organization)</b> của các object — object, <b>link</b>, message có đánh số",
+        "Tổ chức cấu trúc (structural organization) của các object — object, link, message có đánh số",
         "Thứ tự thời gian tường minh của message",
         "Ràng buộc thời gian (timing constraint) của message",
         "Luồng điều khiển giữa các activity"
@@ -323,7 +323,7 @@ window.QUIZ = {
       type: "single",
       q: "Quan hệ giữa Sequence Diagram và Communication Diagram là gì?",
       options: [
-        "<b>Tương đương về ngữ nghĩa</b> — chuyển đổi qua lại không mất thông tin",
+        "Tương đương về ngữ nghĩa — chuyển đổi qua lại không mất thông tin",
         "Hoàn toàn khác nhau, không thể chuyển đổi",
         "Sequence là tập con của Communication",
         "Communication chỉ dùng cho lớp tĩnh, Sequence cho lớp động"
@@ -374,7 +374,7 @@ window.QUIZ = {
       type: "single",
       q: "Nguyên tắc \"Finding Relationships\" khi rút ra Analysis Class Diagram là gì?",
       options: [
-        "<b>Mỗi link trong communication diagram → một association</b> trong class diagram (\"relationship for every link\")",
+        "Mỗi link trong communication diagram → một association trong class diagram (\"relationship for every link\")",
         "Mỗi message → một association",
         "Mỗi object → một association",
         "Mỗi actor → một association"
@@ -386,7 +386,7 @@ window.QUIZ = {
       type: "single",
       q: "Khi lớp :Supplier nhận message <code>PerformResponsibility</code>, ta làm gì với class diagram?",
       options: [
-        "Thêm một <b>trách nhiệm (responsibility)</b> tương ứng vào lớp Supplier",
+        "Thêm một trách nhiệm (responsibility) tương ứng vào lớp Supplier",
         "Xóa lớp Supplier vì nó bị động",
         "Chuyển Supplier thành actor",
         "Gộp Supplier vào boundary class"
@@ -398,7 +398,7 @@ window.QUIZ = {
       type: "single",
       q: "Bước \"<b>Unify Analysis Classes</b>\" nhằm mục đích gì?",
       options: [
-        "<b>Hợp nhất</b> các lớp trùng vai trò để có class diagram gọn",
+        "Hợp nhất các lớp trùng vai trò để có class diagram gọn",
         "Tách một lớp thành nhiều lớp con",
         "Đổi mọi entity thành boundary",
         "Thêm càng nhiều lớp càng tốt"
@@ -410,7 +410,7 @@ window.QUIZ = {
       type: "multi",
       q: "Theo review points cho Analysis Classes, một lớp tốt cần thỏa những tiêu chí nào?",
       options: [
-        "Tên phản ánh vai trò &amp; đại diện <b>một</b> abstraction rõ ràng",
+        "Tên phản ánh vai trò &amp; đại diện một abstraction rõ ràng",
         "Trách nhiệm gắn kết chức năng (functionally coupled) và đủ hành vi cần thiết",
         "Đáp ứng các yêu cầu đặc thù đặt lên lớp",
         "Chứa càng nhiều trách nhiệm không liên quan càng tốt",
@@ -425,7 +425,7 @@ window.QUIZ = {
       type: "single",
       q: "<b>Architectural pattern</b> là gì?",
       options: [
-        "Giải pháp tổng quát, <b>tái sử dụng</b> cho một vấn đề thường gặp trong kiến trúc phần mềm ở một ngữ cảnh",
+        "Giải pháp tổng quát, tái sử dụng cho một vấn đề thường gặp trong kiến trúc phần mềm ở một ngữ cảnh",
         "Một đoạn mã cụ thể copy-paste được ngay",
         "Một loại biểu đồ UML tĩnh",
         "Một công cụ tự sinh mã nguồn"
@@ -437,7 +437,7 @@ window.QUIZ = {
       type: "single",
       q: "Trong <b>classic (active) MVC</b>, điểm hay bị coi là \"vấn đề\" là gì?",
       options: [
-        "<b>View phụ thuộc trực tiếp Model</b> (Model notifies View theo observer)",
+        "View phụ thuộc trực tiếp Model (Model notifies View theo observer)",
         "Controller không bao giờ ghi vào Model",
         "Model tự render giao diện",
         "View và Controller là cùng một đối tượng"
@@ -474,7 +474,7 @@ window.QUIZ = {
       type: "single",
       q: "Khác biệt cấu trúc giữa 3-tier và MVC là gì?",
       options: [
-        "3-tier xếp <b>tầng tuyến tính</b> (tầng trên chỉ gọi tầng ngay dưới); MVC là <b>tam giác</b> 3 phần tương tác lẫn nhau",
+        "3-tier xếp tầng tuyến tính (tầng trên chỉ gọi tầng ngay dưới); MVC là tam giác 3 phần tương tác lẫn nhau",
         "3-tier là tam giác; MVC là tuyến tính",
         "Cả hai đều tuyến tính, không khác gì",
         "Cả hai đều là tam giác, không khác gì"
@@ -486,7 +486,7 @@ window.QUIZ = {
       type: "single",
       q: "Về <b>Front-end vs Back-end</b>, phát biểu nào đúng?",
       options: [
-        "Front-end = UI &amp; API/caching (phía user); Back-end = lưu trữ lớn, xử lý &amp; phân tích chạy lâu; hai bên có thể dùng <b>mẫu kiến trúc khác nhau</b>",
+        "Front-end = UI &amp; API/caching (phía user); Back-end = lưu trữ lớn, xử lý &amp; phân tích chạy lâu; hai bên có thể dùng mẫu kiến trúc khác nhau",
         "Front-end và Back-end bắt buộc dùng cùng một mẫu kiến trúc",
         "Back-end lo giao diện người dùng; Front-end lo lưu trữ dữ liệu",
         "Front-end chạy các phân tích dữ liệu lâu dài"

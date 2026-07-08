@@ -87,7 +87,7 @@ window.QUIZ = {
       type: "single",
       q: "Phân biệt <b>Operation</b> và <b>Method</b> trong class design là gì?",
       options: [
-        "Operation = hành vi (từ message); Method = mô tả <b>cách cài đặt</b> operation (thuật toán, object/operation dùng)",
+        "Operation = hành vi (từ message); Method = mô tả cách cài đặt operation (thuật toán, object/operation dùng)",
         "Operation = cách cài đặt; Method = hành vi trừu tượng",
         "Chúng hoàn toàn giống nhau",
         "Operation chỉ dùng cho entity, Method chỉ cho control"
@@ -111,8 +111,8 @@ window.QUIZ = {
       type: "multi",
       q: "Đâu là các <b>guideline về signature</b> của operation?",
       options: [
-        "<b>Càng ít tham số càng tốt</b>",
-        "Truyền <b>object</b> thay vì \"data bits\" rời rạc",
+        "Càng ít tham số càng tốt",
+        "Truyền object thay vì \"data bits\" rời rạc",
         "Xét tham số: by value/by reference, có bị đổi, optional, giá trị mặc định, khoảng hợp lệ",
         "Càng nhiều tham số càng linh hoạt, nên thêm nhiều",
         "Luôn truyền từng \"data bit\" riêng lẻ thay vì object"
@@ -136,7 +136,7 @@ window.QUIZ = {
       type: "single",
       q: "Sự khác nhau giữa <b>Instance scope</b> và <b>Classifier scope</b> là gì?",
       options: [
-        "Instance scope: 1 bản cho mỗi instance; Classifier scope: 1 bản cho <b>toàn bộ</b> instance (như <code>static</code>), vẽ bằng <u>gạch chân</u>",
+        "Instance scope: 1 bản cho mỗi instance; Classifier scope: 1 bản cho toàn bộ instance (như <code>static</code>), vẽ bằng <u>gạch chân</u>",
         "Instance scope là static; Classifier scope là mỗi object một bản",
         "Cả hai đều là static",
         "Classifier scope vẽ bằng in nghiêng, Instance scope gạch chân"
@@ -150,7 +150,7 @@ window.QUIZ = {
       type: "single",
       q: "Quan hệ <b>Association</b> có bản chất gì?",
       options: [
-        "Quan hệ <b>cấu trúc (structural)</b>: object lớp này nối object lớp kia — \"use-a\"",
+        "Quan hệ cấu trúc (structural): object lớp này nối object lớp kia — \"use-a\"",
         "Quan hệ tạm thời, phi cấu trúc",
         "Quan hệ whole-part với part chết cùng whole",
         "Quan hệ \"is a kind of\" (kế thừa)"
@@ -162,7 +162,7 @@ window.QUIZ = {
       type: "single",
       q: "Khác biệt cốt lõi giữa <b>Aggregation</b> và <b>Composition</b> là gì?",
       options: [
-        "Composition mạnh hơn: part <b>không chia sẻ</b> &amp; <b>chết cùng</b> whole (share life-time); Aggregation thì part có thể tồn tại độc lập",
+        "Composition mạnh hơn: part không chia sẻ &amp; chết cùng whole (share life-time); Aggregation thì part có thể tồn tại độc lập",
         "Aggregation mạnh hơn, part chết cùng whole",
         "Cả hai giống hệt nhau",
         "Composition vẽ hình thoi rỗng, Aggregation hình thoi đặc"
@@ -174,7 +174,7 @@ window.QUIZ = {
       type: "single",
       q: "Quan hệ <b>Dependency</b> được vẽ và hiểu thế nào?",
       options: [
-        "Đường <b>nét đứt có mũi tên ⇢</b> — quan hệ phi cấu trúc, <b>tạm thời</b>",
+        "Đường nét đứt có mũi tên ⇢ — quan hệ phi cấu trúc, tạm thời",
         "Đường thẳng liền — quan hệ cấu trúc lâu dài",
         "Mũi tên tam giác rỗng — kế thừa",
         "Hình thoi đặc — whole-part"
@@ -186,7 +186,7 @@ window.QUIZ = {
       type: "single",
       q: "Quan hệ <b>Generalization</b> mang ý nghĩa nào và vẽ ra sao?",
       options: [
-        "\"is a kind of\" — mũi tên <b>tam giác rỗng △</b>; subclass kế thừa cấu trúc/hành vi của superclass",
+        "\"is a kind of\" — mũi tên tam giác rỗng △; subclass kế thừa cấu trúc/hành vi của superclass",
         "\"has-a\" — hình thoi rỗng",
         "\"use-a\" — đường thẳng",
         "Quan hệ tạm thời — nét đứt"
@@ -198,7 +198,7 @@ window.QUIZ = {
       type: "single",
       q: "Nguyên tắc chuyển từ communication diagram sang class diagram về quan hệ là gì?",
       options: [
-        "Mỗi <b>link</b> → một <b>association</b> (\"relationship for every link\"); instance của association là một link",
+        "Mỗi link → một association (\"relationship for every link\"); instance của association là một link",
         "Mỗi message → một association",
         "Mỗi object → một generalization",
         "Mỗi actor → một dependency"
@@ -258,7 +258,7 @@ window.QUIZ = {
       type: "single",
       q: "Khi phân vân giữa Association và Aggregation, lời khuyên là gì?",
       options: [
-        "Hai object gắn chặt whole-part → Aggregation; thường độc lập → Association; <b>khi nghi ngờ, dùng Association</b>",
+        "Hai object gắn chặt whole-part → Aggregation; thường độc lập → Association; khi nghi ngờ, dùng Association",
         "Khi nghi ngờ, luôn dùng Composition",
         "Khi nghi ngờ, luôn dùng Aggregation",
         "Khi nghi ngờ, dùng Dependency"
@@ -282,7 +282,7 @@ window.QUIZ = {
       type: "single",
       q: "Về <b>Navigability</b>, khi nào nên giữ <b>cả hai chiều</b> của association?",
       options: [
-        "Chỉ khi số instance của <b>cả hai</b> lớp đều lớn &amp; thực sự cần đi cả hai chiều",
+        "Chỉ khi số instance của cả hai lớp đều lớn &amp; thực sự cần đi cả hai chiều",
         "Luôn giữ cả hai chiều cho an toàn",
         "Khi ít nhất một lớp có nhiều instance",
         "Không bao giờ giữ hai chiều"
@@ -307,7 +307,7 @@ window.QUIZ = {
       type: "single",
       q: "Khi hai lớp có quan hệ <b>lâu dài</b>, nên dùng loại visibility nào?",
       options: [
-        "Association với <b>field reference</b>",
+        "Association với field reference",
         "Dependency với local variable",
         "Dependency với parameter",
         "Generalization"
@@ -321,7 +321,7 @@ window.QUIZ = {
       type: "single",
       q: "<b>State Machine</b> là gì?",
       options: [
-        "Đồ thị có hướng gồm <b>state (node)</b> nối bởi <b>transition (cung)</b>; mô tả lịch sử đời của một reactive object",
+        "Đồ thị có hướng gồm state (node) nối bởi transition (cung); mô tả lịch sử đời của một reactive object",
         "Sơ đồ lớp tĩnh thể hiện quan hệ",
         "Lưu đồ dòng dữ liệu giữa các subsystem",
         "Bảng liệt kê các operation của lớp"
@@ -345,7 +345,7 @@ window.QUIZ = {
       type: "single",
       q: "Ba loại <b>activity (action)</b> gắn với một state là gì?",
       options: [
-        "<b>Entry</b> (khi vào state) · <b>Do</b> (đang chạy) · <b>Exit</b> (khi ra state)",
+        "Entry (khi vào state) · Do (đang chạy) · Exit (khi ra state)",
         "Start · Run · Stop",
         "Initial · Choice · Final",
         "In · Out · Inout"
@@ -357,11 +357,11 @@ window.QUIZ = {
       type: "multi",
       q: "Phát biểu nào ĐÚNG về các <b>pseudo-state</b>?",
       options: [
-        "<b>Initial state</b>: khi object được tạo, <b>bắt buộc</b>, chỉ có 1",
-        "<b>Final state</b>: kết thúc đời object, <b>tùy chọn</b>, có thể có nhiều",
-        "<b>Choice</b>: đánh giá động guard sau, chỉ segment đầu có trigger",
-        "<b>Initial state</b> là tùy chọn và có thể có nhiều",
-        "<b>Final state</b> là bắt buộc và chỉ có đúng một"
+        "Initial state: khi object được tạo, bắt buộc, chỉ có 1",
+        "Final state: kết thúc đời object, tùy chọn, có thể có nhiều",
+        "Choice: đánh giá động guard sau, chỉ segment đầu có trigger",
+        "Initial state là tùy chọn và có thể có nhiều",
+        "Final state là bắt buộc và chỉ có đúng một"
       ],
       answer: [0, 1, 2],
       explain: "<b>Initial state</b>: bắt buộc, chỉ 1 (khi object được tạo). <b>Final state</b>: tùy chọn, có thể nhiều. <b>Choice</b>: đánh giá động guard, chỉ segment đầu có trigger. Hai phương án cuối đảo ngược tính chất của initial/final."
@@ -372,7 +372,7 @@ window.QUIZ = {
       options: [
         "Object ánh xạ thẳng sang cài đặt",
         "Object không bị điều khiển bởi state",
-        "Object chỉ có <b>một state tính toán</b>",
+        "Object chỉ có một state tính toán",
         "Object có vai trò được làm rõ bởi state transitions",
         "Use case phức tạp bị điều khiển bởi state"
       ],
@@ -383,7 +383,7 @@ window.QUIZ = {
       type: "single",
       q: "Khi ánh xạ State Machine về mô hình lớp, một <b>state</b> thường được biểu diễn bằng gì?",
       options: [
-        "Một <b>attribute</b> (đầu vào cho bước Define Attributes)",
+        "Một attribute (đầu vào cho bước Define Attributes)",
         "Một operation public",
         "Một association mới",
         "Một subsystem"
@@ -409,9 +409,9 @@ window.QUIZ = {
       type: "multi",
       q: "Một \"danh từ\" nên trở thành <b>attribute</b> (thay vì lớp) khi nào?",
       options: [
-        "Chỉ có <b>giá trị</b> của nó là điều quan trọng",
-        "Thông tin thuộc <b>sở hữu duy nhất</b> của một object",
-        "Nó <b>không có hành vi</b>",
+        "Chỉ có giá trị của nó là điều quan trọng",
+        "Thông tin thuộc sở hữu duy nhất của một object",
+        "Nó không có hành vi",
         "Nó có nhiều hành vi phức tạp riêng",
         "Nó tương tác với nhiều actor"
       ],
@@ -422,7 +422,7 @@ window.QUIZ = {
       type: "single",
       q: "<b>Derived Attribute</b> (thuộc tính dẫn xuất) là gì và khi nào dùng?",
       options: [
-        "Attribute có giá trị được <b>tính từ attribute khác</b>; dùng khi không đủ thời gian tính lại mỗi lần, hoặc đánh đổi performance với bộ nhớ",
+        "Attribute có giá trị được tính từ attribute khác; dùng khi không đủ thời gian tính lại mỗi lần, hoặc đánh đổi performance với bộ nhớ",
         "Attribute không bao giờ thay đổi giá trị",
         "Attribute chỉ tồn tại trong một state",
         "Attribute được kế thừa từ superclass"
@@ -449,7 +449,7 @@ window.QUIZ = {
       type: "multi",
       q: "Theo review points, một <b>Class</b> tốt cần thỏa gì?",
       options: [
-        "Tên rõ ràng, đại diện <b>một</b> abstraction",
+        "Tên rõ ràng, đại diện một abstraction",
         "Attribute/behavior gắn kết chức năng &amp; nhất quán với state machine",
         "Mô tả đủ vòng đời instance &amp; đủ hành vi cần thiết",
         "Chứa càng nhiều abstraction khác nhau càng tốt",

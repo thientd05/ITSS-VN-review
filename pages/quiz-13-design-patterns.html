@@ -61,7 +61,7 @@ window.QUIZ = {
       type: "single",
       q: "<b>GoF (Gang of Four)</b> là ai và có quy tắc gì đáng nhớ?",
       options: [
-        "Gamma, Helm, Johnson, Vlissides (1994); quy tắc: không gì thành pattern trừ khi tìm được <b>≥3 ví dụ thực tế</b>",
+        "Gamma, Helm, Johnson, Vlissides (1994); quy tắc: không gì thành pattern trừ khi tìm được ≥3 ví dụ thực tế",
         "Robert C. Martin; quy tắc SOLID",
         "Christopher Alexander; quy tắc kiến trúc nhà",
         "Martin Fowler; quy tắc refactoring"
@@ -73,7 +73,7 @@ window.QUIZ = {
       type: "single",
       q: "Nhóm <b>Creational</b> pattern trừu tượng hóa điều gì?",
       options: [
-        "Quá trình <b>khởi tạo object</b> (vd Factory Method, Abstract Factory, Singleton, Builder, Prototype)",
+        "Quá trình khởi tạo object (vd Factory Method, Abstract Factory, Singleton, Builder, Prototype)",
         "Cách kết hợp object/class",
         "Cách giao tiếp giữa các object",
         "Cách triển khai phần cứng"
@@ -85,7 +85,7 @@ window.QUIZ = {
       type: "single",
       q: "Nhóm <b>Structural</b> pattern trừu tượng hóa điều gì?",
       options: [
-        "Cách <b>kết hợp</b> object/class (vd Adapter, Bridge, Composite, Decorator, Façade, Flyweight, Proxy)",
+        "Cách kết hợp object/class (vd Adapter, Bridge, Composite, Decorator, Façade, Flyweight, Proxy)",
         "Quá trình khởi tạo object",
         "Cách giao tiếp giữa object",
         "Cách chuẩn hóa cơ sở dữ liệu"
@@ -137,7 +137,7 @@ window.QUIZ = {
       type: "single",
       q: "<b>Singleton</b> đảm bảo điều gì?",
       options: [
-        "Một lớp có <b>chính xác một instance</b> &amp; cung cấp <b>điểm truy cập toàn cục</b> tới nó",
+        "Một lớp có chính xác một instance &amp; cung cấp điểm truy cập toàn cục tới nó",
         "Một lớp có thể tạo vô số instance",
         "Một lớp không thể được khởi tạo",
         "Nhiều lớp chia sẻ chung một interface"
@@ -149,9 +149,9 @@ window.QUIZ = {
       type: "multi",
       q: "Cách hiện thực Singleton gồm những yếu tố nào?",
       options: [
-        "Constructor để <b>private</b> — client không thể <code>new</code> từ ngoài",
-        "Khai báo một instance <b>private static</b> của lớp",
-        "Cung cấp <b>public static getInstance()</b> trả về instance duy nhất",
+        "Constructor để private — client không thể <code>new</code> từ ngoài",
+        "Khai báo một instance private static của lớp",
+        "Cung cấp public static getInstance() trả về instance duy nhất",
         "Constructor để public để dễ tạo",
         "Khai báo instance là public để truy cập trực tiếp"
       ],
@@ -162,7 +162,7 @@ window.QUIZ = {
       type: "single",
       q: "Khác biệt giữa Singleton <b>Eager</b> và <b>Lazy</b> là gì?",
       options: [
-        "Eager: khởi tạo instance <b>ngay khi load lớp</b> (<code>static final ... = new</code>); Lazy: khởi tạo <b>khi getInstance() được gọi lần đầu</b> (if null then new)",
+        "Eager: khởi tạo instance ngay khi load lớp (<code>static final ... = new</code>); Lazy: khởi tạo khi getInstance() được gọi lần đầu (if null then new)",
         "Eager: khởi tạo muộn; Lazy: khởi tạo sớm",
         "Cả hai đều khởi tạo lúc load lớp",
         "Cả hai đều khởi tạo khi gọi getInstance()"
@@ -187,9 +187,9 @@ window.QUIZ = {
       type: "multi",
       q: "So với <b>static method/class</b>, vì sao thường ưu tiên Singleton?",
       options: [
-        "Static <b>lacks flexibility</b>: không truyền làm tham số/return được",
-        "Static class <b>cannot be extended</b>: không kế thừa/override được",
-        "Static kém về <b>testability</b> (khó mock, test ảnh hưởng nhau)",
+        "Static lacks flexibility: không truyền làm tham số/return được",
+        "Static class cannot be extended: không kế thừa/override được",
+        "Static kém về testability (khó mock, test ảnh hưởng nhau)",
         "Static method luôn nhanh hơn nên luôn tốt hơn",
         "Static class hỗ trợ đa hình tốt hơn Singleton"
       ],
@@ -202,7 +202,7 @@ window.QUIZ = {
       type: "single",
       q: "<b>Intent</b> của Template Method là gì?",
       options: [
-        "Định nghĩa <b>khung xương của thuật toán</b> trong một operation, hoãn một số bước cho lớp con (không đổi cấu trúc thuật toán)",
+        "Định nghĩa khung xương của thuật toán trong một operation, hoãn một số bước cho lớp con (không đổi cấu trúc thuật toán)",
         "Đảm bảo một lớp chỉ có một instance",
         "Tạo họ object liên quan mà không chỉ rõ concrete class",
         "Cho phép nhiều object cùng lắng nghe một thay đổi"
@@ -226,7 +226,7 @@ window.QUIZ = {
       type: "single",
       q: "Trong Template Method, để <b>BUỘC</b> lớp con hiện thực một bước, ta khai báo bước đó thế nào?",
       options: [
-        "<b>abstract</b> / interface",
+        "abstract / interface",
         "hook non-abstract",
         "final",
         "private"
@@ -250,7 +250,7 @@ window.QUIZ = {
       type: "single",
       q: "Một <b>hook</b> trong Template Method là gì?",
       options: [
-        "Bước <b>non-abstract</b> mà lớp con <b>có thể</b> (tùy chọn) override để bổ sung hành vi",
+        "Bước non-abstract mà lớp con có thể (tùy chọn) override để bổ sung hành vi",
         "Bước bắt buộc lớp con phải hiện thực",
         "Bước bị khóa không cho override (final)",
         "Bước private không kế thừa được"
@@ -276,7 +276,7 @@ window.QUIZ = {
       type: "single",
       q: "Trong ví dụ PizzaStore, <code>orderPizza()</code> dùng chuỗi <code>if(type...)new XxxPizza()</code> vi phạm nguyên lý nào?",
       options: [
-        "Trộn creation &amp; preparation → đổi cách tạo vi phạm <b>SRP</b>; thêm/bớt loại pizza vi phạm <b>OCP</b>",
+        "Trộn creation &amp; preparation → đổi cách tạo vi phạm SRP; thêm/bớt loại pizza vi phạm OCP",
         "Vi phạm LSP và ISP",
         "Vi phạm DIP nhưng không vi phạm SRP/OCP",
         "Không vi phạm nguyên lý nào"
@@ -288,7 +288,7 @@ window.QUIZ = {
       type: "single",
       q: "Ý tưởng cốt lõi để sửa PizzaStore (bước đầu — Simple Factory) là gì?",
       options: [
-        "Tách <b>creation</b> khỏi <b>usage</b>: đóng gói code tạo object vào lớp riêng (<code>SimplePizzaFactory.createPizza(type)</code>)",
+        "Tách creation khỏi usage: đóng gói code tạo object vào lớp riêng (<code>SimplePizzaFactory.createPizza(type)</code>)",
         "Gộp creation &amp; preparation vào một hàm lớn hơn",
         "Dùng biến global lưu loại pizza",
         "Biến orderPizza thành static method"
@@ -300,7 +300,7 @@ window.QUIZ = {
       type: "single",
       q: "<b>Factory Method</b> (đúng nghĩa GoF) được định nghĩa thế nào?",
       options: [
-        "Định nghĩa interface để tạo object, nhưng để <b>lớp con quyết định lớp nào được khởi tạo</b>",
+        "Định nghĩa interface để tạo object, nhưng để lớp con quyết định lớp nào được khởi tạo",
         "Đảm bảo một lớp chỉ có một instance",
         "Định nghĩa khung thuật toán, hoãn bước cho lớp con",
         "Tạo cả một họ sản phẩm liên quan cùng lúc"
@@ -340,7 +340,7 @@ window.QUIZ = {
       type: "single",
       q: "Khác biệt giữa <b>Abstract Factory</b> và <b>Factory Method</b> là gì?",
       options: [
-        "Abstract Factory: lớp factory cấp cao nhất &amp; method tạo của nó <b>đều abstract</b>, nâng lên mức \"họ sản phẩm\"; Factory Method: factory có thể được khởi tạo &amp; method tạo overridable",
+        "Abstract Factory: lớp factory cấp cao nhất &amp; method tạo của nó đều abstract, nâng lên mức \"họ sản phẩm\"; Factory Method: factory có thể được khởi tạo &amp; method tạo overridable",
         "Abstract Factory tạo đúng một object; Factory Method tạo cả họ",
         "Chúng hoàn toàn giống nhau",
         "Abstract Factory là Behavioral; Factory Method là Structural"
@@ -353,7 +353,7 @@ window.QUIZ = {
       q: "Khi nào nên dùng <b>Abstract Factory</b>?",
       options: [
         "Hệ thống nên độc lập với cách sản phẩm được tạo/kết hợp/biểu diễn",
-        "Cấu hình được với <b>một trong nhiều họ sản phẩm (families)</b>",
+        "Cấu hình được với một trong nhiều họ sản phẩm (families)",
         "Một họ object liên quan phải dùng cùng nhau &amp; cần cưỡng chế ràng buộc đó",
         "Chỉ cần tạo đúng một object đơn lẻ, không liên quan gì khác",
         "Muốn đảm bảo lớp chỉ có một instance"
@@ -366,7 +366,7 @@ window.QUIZ = {
       q: "Ưu điểm chính của Abstract Factory là gì?",
       options: [
         "Cô lập concrete class (client thao tác qua interface trừu tượng), đổi họ sản phẩm dễ, cưỡng chế tính nhất quán",
-        "Hỗ trợ thêm <b>kiểu sản phẩm mới</b> rất dễ dàng",
+        "Hỗ trợ thêm kiểu sản phẩm mới rất dễ dàng",
         "Không cần sửa gì khi thêm sản phẩm mới",
         "Chạy nhanh hơn mọi pattern khác"
       ],
@@ -377,7 +377,7 @@ window.QUIZ = {
       type: "single",
       q: "Nhược điểm chính của Abstract Factory là gì?",
       options: [
-        "Hỗ trợ <b>kiểu sản phẩm MỚI khó</b> — phải sửa lại Abstract Factory &amp; mọi lớp con",
+        "Hỗ trợ kiểu sản phẩm MỚI khó — phải sửa lại Abstract Factory &amp; mọi lớp con",
         "Không cô lập được concrete class",
         "Không cưỡng chế được tính nhất quán",
         "Đổi họ sản phẩm rất khó"

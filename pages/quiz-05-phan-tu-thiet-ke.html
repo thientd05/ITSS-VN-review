@@ -48,7 +48,7 @@ window.QUIZ = {
       type: "single",
       q: "Mục đích của bước <b>Identify Design Elements</b> là gì?",
       options: [
-        "Phân tích tương tác của analysis class → xác định các phần tử của <b>Design Model</b> (Design classes, Package, Subsystem)",
+        "Phân tích tương tác của analysis class → xác định các phần tử của Design Model (Design classes, Package, Subsystem)",
         "Thu thập yêu cầu chức năng từ khách hàng",
         "Viết mã nguồn cho các design class",
         "Kiểm thử tích hợp các phần tử thiết kế"
@@ -75,7 +75,7 @@ window.QUIZ = {
       type: "single",
       q: "Quan hệ ánh xạ giữa <b>Analysis class</b> và <b>Design element</b> là gì?",
       options: [
-        "<b>Nhiều-nhiều (many-to-many)</b>, không phải 1-1",
+        "Nhiều-nhiều (many-to-many), không phải 1-1",
         "Luôn 1-1: mỗi analysis class → đúng 1 design class",
         "Một-nhiều: mỗi design element → nhiều analysis class",
         "Không có quan hệ nào, chúng độc lập"
@@ -88,8 +88,8 @@ window.QUIZ = {
       q: "Một analysis class <b>phức tạp</b> có thể trở thành những dạng design element nào?",
       options: [
         "Tách thành nhiều design class",
-        "Trở thành một <b>package</b>",
-        "Trở thành một <b>subsystem</b>",
+        "Trở thành một package",
+        "Trở thành một subsystem",
         "Bất kỳ tổ hợp nào của các dạng trên",
         "Bắt buộc biến thành đúng một actor"
       ],
@@ -100,7 +100,7 @@ window.QUIZ = {
       type: "single",
       q: "Một lớp phân tích <b>đơn giản</b>, đại diện một abstraction logic đơn, thường ánh xạ thế nào?",
       options: [
-        "<b>Ánh xạ trực tiếp</b> → 1 design class",
+        "Ánh xạ trực tiếp → 1 design class",
         "Luôn phải tách thành một subsystem",
         "Luôn phải gộp vào một package lớn",
         "Bị loại bỏ khỏi Design Model"
@@ -114,7 +114,7 @@ window.QUIZ = {
       type: "single",
       q: "<b>Package</b> là gì?",
       options: [
-        "Cơ chế tổng quát để <b>tổ chức các phần tử thành nhóm</b>; là model element có thể chứa các model element khác",
+        "Cơ chế tổng quát để tổ chức các phần tử thành nhóm; là model element có thể chứa các model element khác",
         "Một lớp đặc biệt có hành vi runtime",
         "Một interface đóng gói hoàn toàn nội dung",
         "Một actor nhóm nhiều người dùng"
@@ -140,7 +140,7 @@ window.QUIZ = {
       options: [
         "Configuration units (đơn vị cấu hình)",
         "Phân bổ nguồn lực giữa các nhóm phát triển",
-        "Phản ánh <b>loại user</b>",
+        "Phản ánh loại user",
         "Đại diện sản phẩm/dịch vụ sẵn có mà hệ thống dùng",
         "Số dòng code của mỗi lớp phải bằng nhau"
       ],
@@ -153,7 +153,7 @@ window.QUIZ = {
       type: "single",
       q: "Với <b>Boundary class</b> gắn giao diện <b>DỄ thay đổi nhiều</b>, nên đóng gói thế nào?",
       options: [
-        "Đặt vào <b>package riêng</b> để cô lập thay đổi",
+        "Đặt vào package riêng để cô lập thay đổi",
         "Gộp cùng tất cả entity của hệ thống",
         "Đặt cùng control để tối ưu tốc độ",
         "Xóa boundary vì nó không ổn định"
@@ -166,9 +166,9 @@ window.QUIZ = {
       q: "Đâu là dấu hiệu hai lớp \"<b>liên quan chức năng</b>\" (nên đóng gói chung)?",
       options: [
         "Thay đổi hành vi/cấu trúc lớp này bắt buộc đổi lớp kia; xóa lớp này ảnh hưởng lớp kia",
-        "Hai object trao đổi <b>nhiều message</b> hoặc giao tiếp phức tạp",
-        "Hai lớp tương tác với / bị ảnh hưởng bởi <b>cùng một actor</b>",
-        "Hai lớp liên quan tới các <b>actor khác nhau</b>",
+        "Hai object trao đổi nhiều message hoặc giao tiếp phức tạp",
+        "Hai lớp tương tác với / bị ảnh hưởng bởi cùng một actor",
+        "Hai lớp liên quan tới các actor khác nhau",
         "Một lớp optional còn lớp kia mandatory"
       ],
       answer: [0, 1, 2],
@@ -178,8 +178,8 @@ window.QUIZ = {
       type: "multi",
       q: "Khi nào <b>KHÔNG</b> nên đặt hai lớp chung một package?",
       options: [
-        "Hai lớp liên quan tới các <b>actor khác nhau</b>",
-        "Một lớp <b>optional</b> và một lớp <b>mandatory</b>",
+        "Hai lớp liên quan tới các actor khác nhau",
+        "Một lớp optional và một lớp mandatory",
         "Hai lớp trao đổi rất nhiều message với nhau",
         "Hai lớp bị ảnh hưởng bởi cùng một actor"
       ],
@@ -190,7 +190,7 @@ window.QUIZ = {
       type: "single",
       q: "Nguyên lý <b>Package Element Visibility</b> (encapsulation) phát biểu gì?",
       options: [
-        "<b>Chỉ các lớp public</b> mới được tham chiếu từ ngoài package sở hữu; lớp private (<code>-</code>) bị ẩn",
+        "Chỉ các lớp public mới được tham chiếu từ ngoài package sở hữu; lớp private (<code>-</code>) bị ẩn",
         "Mọi lớp trong package đều truy cập được từ bên ngoài",
         "Chỉ lớp private mới được tham chiếu từ ngoài",
         "Visibility không áp dụng cho package"
@@ -204,9 +204,9 @@ window.QUIZ = {
       type: "multi",
       q: "Đâu là ba <b>vi phạm coupling</b> giữa các package (bị đánh dấu X)?",
       options: [
-        "Package <b>cross-coupled</b> (phụ thuộc vòng lẫn nhau)",
-        "Package tầng dưới <b>phụ thuộc</b> package tầng trên",
-        "Phụ thuộc <b>nhảy tầng (skip layers)</b>",
+        "Package cross-coupled (phụ thuộc vòng lẫn nhau)",
+        "Package tầng dưới phụ thuộc package tầng trên",
+        "Phụ thuộc nhảy tầng (skip layers)",
         "Package tầng trên phụ thuộc package tầng ngay dưới",
         "Package public chứa lớp public"
       ],
@@ -217,7 +217,7 @@ window.QUIZ = {
       type: "single",
       q: "Trong ví dụ Registration Package, quan hệ phụ thuộc giữa boundary và control là gì?",
       options: [
-        "<b>Boundary phụ thuộc vào control</b> cùng package (vd RegisterForCoursesForm → RegistrationController)",
+        "Boundary phụ thuộc vào control cùng package (vd RegisterForCoursesForm → RegistrationController)",
         "Control phụ thuộc vào boundary ở package khác",
         "Entity phụ thuộc vào boundary",
         "Boundary và control không được phụ thuộc nhau"
@@ -229,7 +229,7 @@ window.QUIZ = {
       type: "single",
       q: "Package \"External System Interfaces\" chứa gì và nhằm mục đích gì?",
       options: [
-        "Các &laquo;Interface&raquo; như <code>IBillingSystem</code>, <code>ICourseCatalogSystem</code> — <b>cô lập hệ thống ngoài</b>",
+        "Các &laquo;Interface&raquo; như <code>IBillingSystem</code>, <code>ICourseCatalogSystem</code> — cô lập hệ thống ngoài",
         "Các entity chính như Student, Course, Professor",
         "Các boundary form của người dùng",
         "Các control class điều phối use case"
@@ -243,7 +243,7 @@ window.QUIZ = {
       type: "single",
       q: "Điểm khác biệt cốt lõi giữa <b>Subsystem</b> và <b>Package</b> là gì?",
       options: [
-        "Subsystem <b>cung cấp hành vi</b> &amp; <b>đóng gói hoàn toàn</b> nội dung sau một interface; package chỉ nhóm phần tử",
+        "Subsystem cung cấp hành vi &amp; đóng gói hoàn toàn nội dung sau một interface; package chỉ nhóm phần tử",
         "Package cung cấp hành vi; subsystem chỉ nhóm phần tử",
         "Cả hai giống hệt nhau, chỉ khác tên",
         "Subsystem không thể chứa lớp nào"

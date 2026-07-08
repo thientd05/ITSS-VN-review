@@ -60,9 +60,9 @@ window.QUIZ = {
       type: "multi",
       q: "Vì sao SOLID hữu ích?",
       options: [
-        "Làm <b>tham chiếu</b> khi thiết kế",
-        "Quản lý dependency giúp <b>maintainability</b> dễ hơn",
-        "Cung cấp phương tiện <b>chẩn đoán</b> vấn đề thiết kế",
+        "Làm tham chiếu khi thiết kế",
+        "Quản lý dependency giúp maintainability dễ hơn",
+        "Cung cấp phương tiện chẩn đoán vấn đề thiết kế",
         "Đảm bảo chương trình chạy nhanh hơn về runtime",
         "Thay thế hoàn toàn cho việc kiểm thử"
       ],
@@ -75,7 +75,7 @@ window.QUIZ = {
       type: "single",
       q: "<b>SRP (Single Responsibility Principle)</b> phát biểu gì?",
       options: [
-        "Một lớp chỉ nên có <b>một lý do để thay đổi</b> (một loại trách nhiệm)",
+        "Một lớp chỉ nên có một lý do để thay đổi (một loại trách nhiệm)",
         "Một lớp nên mở cho mở rộng, đóng với sửa đổi",
         "Lớp con phải thay thế được lớp cha",
         "Phụ thuộc vào abstraction, không vào concretion"
@@ -87,7 +87,7 @@ window.QUIZ = {
       type: "single",
       q: "Interface Modem có <code>dial/hangup</code> + <code>send/recv</code> vi phạm SRP thế nào và sửa ra sao?",
       options: [
-        "Gộp <b>2 trách nhiệm</b> (quản lý kết nối + truyền dữ liệu) → tách thành <code>Connection</code> &amp; <code>DataChannel</code>",
+        "Gộp 2 trách nhiệm (quản lý kết nối + truyền dữ liệu) → tách thành <code>Connection</code> &amp; <code>DataChannel</code>",
         "Chỉ có 1 trách nhiệm, không vi phạm gì",
         "Vi phạm OCP, sửa bằng polymorphism",
         "Vi phạm LSP, sửa bằng composition"
@@ -113,7 +113,7 @@ window.QUIZ = {
       type: "single",
       q: "<b>OCP (Open-Closed Principle)</b> — Bertrand Meyer — phát biểu gì?",
       options: [
-        "Software entity nên <b>mở cho mở rộng (extension)</b>, nhưng <b>đóng với sửa đổi (modification)</b>",
+        "Software entity nên mở cho mở rộng (extension), nhưng đóng với sửa đổi (modification)",
         "Mọi lớp phải public hết để mở rộng",
         "Lớp con thay thế được lớp cha",
         "Một lớp chỉ có một lý do thay đổi"
@@ -125,7 +125,7 @@ window.QUIZ = {
       type: "single",
       q: "Theo OCP, đâu là \"chìa khóa\" để vừa mở rộng vừa không sửa code cũ?",
       options: [
-        "<b>Abstraction</b>: Client phụ thuộc abstraction (interface); các Supplier concrete implement nó",
+        "Abstraction: Client phụ thuộc abstraction (interface); các Supplier concrete implement nó",
         "Copy-paste code Supplier vào Client",
         "Dùng nhiều biến global chia sẻ",
         "Đặt tất cả logic trong một hàm lớn"
@@ -137,7 +137,7 @@ window.QUIZ = {
       type: "single",
       q: "<code>printEmpRoster()</code> dùng <code>if(empType==FACULTY)... else if(STAFF)...</code>. Sửa theo OCP thế nào?",
       options: [
-        "Dùng <b>Dynamic Polymorphism</b>: Employee có <code>printInfo()</code>, lớp con override, vòng lặp chỉ gọi <code>emps[i].printInfo()</code>",
+        "Dùng Dynamic Polymorphism: Employee có <code>printInfo()</code>, lớp con override, vòng lặp chỉ gọi <code>emps[i].printInfo()</code>",
         "Thêm nhiều nhánh <code>else if</code> hơn cho từng loại",
         "Chuyển sang dùng biến global cho empType",
         "Gộp mọi loại Employee vào một lớp duy nhất"
@@ -149,7 +149,7 @@ window.QUIZ = {
       type: "single",
       q: "Phân biệt <b>Dynamic</b> và <b>Static polymorphism</b> (ví dụ trong bài) là gì?",
       options: [
-        "Dynamic: override/Comparator (vd 3 phiên bản sort); Static: <b>Generics</b> (vd <code>class LinkedList&lt;E&gt;</code>)",
+        "Dynamic: override/Comparator (vd 3 phiên bản sort); Static: Generics (vd <code>class LinkedList&lt;E&gt;</code>)",
         "Dynamic: Generics; Static: override method",
         "Cả hai đều là Generics",
         "Cả hai đều là method overriding"
@@ -163,7 +163,7 @@ window.QUIZ = {
       type: "single",
       q: "<b>LSP (Liskov Substitution Principle)</b> phát biểu gì?",
       options: [
-        "Hàm dùng tham chiếu tới base class phải dùng được object của derived class <b>mà không cần biết</b> — lớp con thay thế được lớp cha",
+        "Hàm dùng tham chiếu tới base class phải dùng được object của derived class mà không cần biết — lớp con thay thế được lớp cha",
         "Một lớp chỉ có một trách nhiệm",
         "Nhiều interface chuyên biệt hơn một interface tổng",
         "Phụ thuộc vào abstraction"
@@ -175,8 +175,8 @@ window.QUIZ = {
       type: "multi",
       q: "Hai quy tắc của LSP là gì?",
       options: [
-        "<b>Demand no more</b>: lớp con chấp nhận mọi đối số mà cha chấp nhận",
-        "<b>Promise no less</b>: mọi giả định đúng khi dùng cha phải đúng khi dùng con",
+        "Demand no more: lớp con chấp nhận mọi đối số mà cha chấp nhận",
+        "Promise no less: mọi giả định đúng khi dùng cha phải đúng khi dùng con",
         "Demand more: lớp con được yêu cầu thêm điều kiện chặt hơn cha",
         "Promise more: lớp con được hứa ít hơn cha"
       ],
@@ -199,7 +199,7 @@ window.QUIZ = {
       type: "single",
       q: "Về quan hệ giữa LSP và OCP, phát biểu nào đúng?",
       options: [
-        "<b>LSP là mở rộng của OCP</b>",
+        "LSP là mở rộng của OCP",
         "LSP và OCP mâu thuẫn nhau",
         "OCP là mở rộng của LSP",
         "Hai nguyên lý không liên quan"
@@ -211,7 +211,7 @@ window.QUIZ = {
       type: "single",
       q: "Khi muốn dùng cài đặt của <code>List</code> để implement <code>Queue</code> trong Java, nên dùng gì (theo bài)?",
       options: [
-        "<b>Composition, KHÔNG inheritance</b> — vì ý định chỉ là dùng cài đặt của List",
+        "Composition, KHÔNG inheritance — vì ý định chỉ là dùng cài đặt của List",
         "Implementation inheritance (extends List)",
         "Interface inheritance từ Queue và List cùng lúc",
         "Sao chép code của List vào Queue"
@@ -225,7 +225,7 @@ window.QUIZ = {
       type: "single",
       q: "<b>ISP (Interface Segregation Principle)</b> phát biểu gì?",
       options: [
-        "Client <b>không nên bị buộc phụ thuộc</b> vào interface mà nó không dùng — nhiều interface chuyên biệt tốt hơn một interface đa dụng",
+        "Client không nên bị buộc phụ thuộc vào interface mà nó không dùng — nhiều interface chuyên biệt tốt hơn một interface đa dụng",
         "Một lớp chỉ có một trách nhiệm",
         "Lớp con thay thế được lớp cha",
         "High-level không phụ thuộc low-level"
@@ -237,7 +237,7 @@ window.QUIZ = {
       type: "single",
       q: "Vấn đề của một <b>fat interface</b> (Service gồm method cho ClientA + B + C) là gì?",
       options: [
-        "Thay đổi do <b>một</b> client (A) khiến Service &amp; <b>các client khác</b> (B, C) phải recompile → coupling không cần thiết",
+        "Thay đổi do một client (A) khiến Service &amp; các client khác (B, C) phải recompile → coupling không cần thiết",
         "Chạy chậm hơn về runtime",
         "Không thể biên dịch được",
         "Vi phạm SRP nhưng không ảnh hưởng client khác"
@@ -251,7 +251,7 @@ window.QUIZ = {
       type: "single",
       q: "<b>DIP (Dependency Inversion Principle)</b> phát biểu gì?",
       options: [
-        "High-level module KHÔNG phụ thuộc low-level module; <b>cả hai phụ thuộc abstraction</b>; abstraction không phụ thuộc detail",
+        "High-level module KHÔNG phụ thuộc low-level module; cả hai phụ thuộc abstraction; abstraction không phụ thuộc detail",
         "Low-level module phụ thuộc high-level module trực tiếp",
         "Mọi module phải là concrete để rõ ràng",
         "Một interface cho mỗi client"
@@ -275,7 +275,7 @@ window.QUIZ = {
       type: "single",
       q: "<b>Ownership Inversion</b> trong DIP nghĩa là gì?",
       options: [
-        "Tầng <b>trên (client)</b> sở hữu interface; tầng dưới phụ thuộc interface do tầng trên định nghĩa",
+        "Tầng trên (client) sở hữu interface; tầng dưới phụ thuộc interface do tầng trên định nghĩa",
         "Tầng dưới sở hữu interface, tầng trên phụ thuộc",
         "Không tầng nào sở hữu interface",
         "Interface thuộc về một tầng thứ ba độc lập"

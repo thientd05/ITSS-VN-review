@@ -48,7 +48,7 @@ window.QUIZ = {
       type: "single",
       q: "Phân biệt <b>Test</b> và <b>Debug</b> đúng là gì?",
       options: [
-        "Test: <b>tiết lộ sự tồn tại</b> của vấn đề (+tăng độ tin cậy); Debug: <b>xác định vị trí + nguyên nhân</b>",
+        "Test: tiết lộ sự tồn tại của vấn đề (+tăng độ tin cậy); Debug: xác định vị trí + nguyên nhân",
         "Test: xác định nguyên nhân; Debug: tiết lộ sự tồn tại vấn đề",
         "Cả hai giống nhau",
         "Test: sửa lỗi; Debug: viết tài liệu"
@@ -60,7 +60,7 @@ window.QUIZ = {
       type: "single",
       q: "Câu nói của Martin Fowler nhấn mạnh điều gì về code tốt?",
       options: [
-        "\"Good programmers write code that <b>humans</b> can understand\" — code dễ hiểu cho con người",
+        "\"Good programmers write code that humans can understand\" — code dễ hiểu cho con người",
         "Code chạy nhanh nhất là code tốt nhất",
         "Code ngắn nhất là code tốt nhất",
         "Chỉ máy tính cần hiểu được code"
@@ -74,10 +74,10 @@ window.QUIZ = {
       type: "multi",
       q: "Đâu là các nguyên tắc <b>Programming Style</b> (coding convention)?",
       options: [
-        "Dùng <b>hằng số</b> cho mọi giá trị hằng; khai báo hằng trước biến ở đầu thủ tục",
-        "Đặt tên biến <b>mô tả</b>; comment chỗ mơ hồ nhưng không lạm dụng",
+        "Dùng hằng số cho mọi giá trị hằng; khai báo hằng trước biến ở đầu thủ tục",
+        "Đặt tên biến mô tả; comment chỗ mơ hồ nhưng không lạm dụng",
         "Dùng ngoặc cho biểu thức toán học dù không bắt buộc để rõ ý",
-        "Kèm <b>header</b> đầu file (tác giả, ngày, project, mô tả)",
+        "Kèm header đầu file (tác giả, ngày, project, mô tả)",
         "Dùng magic number trực tiếp thay vì hằng số cho gọn"
       ],
       answer: [0, 1, 2, 3],
@@ -101,7 +101,7 @@ window.QUIZ = {
       type: "single",
       q: "Quy tắc <b>80/20</b> trong code tuning nói gì?",
       options: [
-        "<b>20% method</b> tiêu tốn <b>80% thời gian chạy</b>",
+        "20% method tiêu tốn 80% thời gian chạy",
         "80% method tiêu tốn 20% thời gian chạy",
         "80% code phải được tối ưu ngay khi viết",
         "20% bug gây 80% crash"
@@ -138,7 +138,7 @@ window.QUIZ = {
       type: "single",
       q: "Trong optimize theo vòng lặp, nếu một lần tối ưu KHÔNG cải thiện performance thì làm gì?",
       options: [
-        "<b>Revert</b> (hoàn tác) thay đổi đó",
+        "Revert (hoàn tác) thay đổi đó",
         "Giữ lại vì có thể hữu ích sau này",
         "Tối ưu thêm nữa cho tới khi cải thiện",
         "Bỏ đo và chuyển sang module khác"
@@ -165,7 +165,7 @@ window.QUIZ = {
       type: "single",
       q: "Định nghĩa <b>Refactoring</b> (Martin Fowler) là gì?",
       options: [
-        "Cải thiện thiết kế &amp; chất lượng mã nguồn hiện có <b>mà không thay đổi hành vi bên ngoài</b>",
+        "Cải thiện thiết kế &amp; chất lượng mã nguồn hiện có mà không thay đổi hành vi bên ngoài",
         "Thêm chức năng mới vào hệ thống",
         "Tối ưu performance bằng cách sửa thuật toán",
         "Viết lại toàn bộ hệ thống từ đầu"
@@ -177,7 +177,7 @@ window.QUIZ = {
       type: "single",
       q: "Điều gì <b>bảo đảm</b> refactoring không làm đổi hành vi?",
       options: [
-        "<b>Unit test</b> — nếu chưa có test thì viết test trước khi refactor",
+        "Unit test — nếu chưa có test thì viết test trước khi refactor",
         "Comment đầy đủ trong code",
         "Backup code cũ vào Git",
         "Chạy static analysis một lần"
@@ -202,7 +202,7 @@ window.QUIZ = {
       type: "single",
       q: "Trong Typical Process của refactoring, nên refactor với nhịp độ nào?",
       options: [
-        "Refactor <b>từng cái một</b>, giữ nhỏ; chạy test sau mỗi bước, pass thì tiếp / không thì revert",
+        "Refactor từng cái một, giữ nhỏ; chạy test sau mỗi bước, pass thì tiếp / không thì revert",
         "Refactor thật nhiều thứ cùng lúc rồi test một lần cuối",
         "Refactor xong toàn bộ rồi mới viết test",
         "Không cần test, chỉ cần đọc lại code"
@@ -216,7 +216,7 @@ window.QUIZ = {
       type: "single",
       q: "<b>Code smell</b> là gì?",
       options: [
-        "Các cấu trúc trong code <b>gợi ý</b> khả năng cần refactoring",
+        "Các cấu trúc trong code gợi ý khả năng cần refactoring",
         "Lỗi biên dịch trong code",
         "Lỗi runtime gây crash",
         "Chuẩn đặt tên biến"
@@ -288,7 +288,7 @@ window.QUIZ = {
       type: "single",
       q: "Comment tốt (theo nhóm Obfuscators) nên nói gì?",
       options: [
-        "Nói <b>WHY</b> (vì sao) chứ không phải WHAT/HOW",
+        "Nói WHY (vì sao) chứ không phải WHAT/HOW",
         "Nói WHAT (làm gì) từng dòng một",
         "Nói HOW (cách làm) chi tiết mọi bước",
         "Không cần comment gì cả"
@@ -326,7 +326,7 @@ window.QUIZ = {
       type: "single",
       q: "Tầng 1 của <b>Defense in depth</b> — \"Make errors impossible\" — nghĩa là gì?",
       options: [
-        "Làm lỗi <b>không thể xảy ra by design</b> (ngôn ngữ/protocol/quy ước, vd Java chặn memory overwrite, BigInteger không tràn)",
+        "Làm lỗi không thể xảy ra by design (ngôn ngữ/protocol/quy ước, vd Java chặn memory overwrite, BigInteger không tràn)",
         "Sửa mọi lỗi sau khi đã xảy ra",
         "Che giấu lỗi để chương trình không fail",
         "Chỉ dùng assertion để bắt lỗi"
@@ -338,7 +338,7 @@ window.QUIZ = {
       type: "single",
       q: "Tầng 3 \"Make errors immediately visible\" gắn với nguyên tắc nào?",
       options: [
-        "<b>Fail-fast</b>: assertions bắt lỗi sớm, unit test cô lập module, regression test",
+        "Fail-fast: assertions bắt lỗi sớm, unit test cô lập module, regression test",
         "Robust giả tạo: không bao giờ để chương trình fail",
         "Optimize as you go",
         "Big-bang integration"
@@ -375,7 +375,7 @@ window.QUIZ = {
       q: "Đâu là các kỹ thuật debug theo <b>scientific method</b>?",
       options: [
         "Formulate hypothesis → design experiment → perform → adjust",
-        "<b>Binary search</b> trên code lỗi (kiểm kết quả trung gian ở nửa đường)",
+        "Binary search trên code lỗi (kiểm kết quả trung gian ở nửa đường)",
         "Reducing input size (divide-and-conquer)",
         "Đoán bừa và sửa nhiều chỗ cùng lúc cho nhanh",
         "Localizing: bỏ dần/thêm dần từng phần tới khi failure đổi trạng thái"

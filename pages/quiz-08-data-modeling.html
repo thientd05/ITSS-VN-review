@@ -60,7 +60,7 @@ window.QUIZ = {
       type: "single",
       q: "Mức <b>Conceptual</b> data model có đặc điểm gì và ví dụ là gì?",
       options: [
-        "Biểu diễn tự nhiên, <b>độc lập DBMS</b> — ví dụ: E-R model (E-R diagram)",
+        "Biểu diễn tự nhiên, độc lập DBMS — ví dụ: E-R model (E-R diagram)",
         "Phụ thuộc DBMS — ví dụ: Relational model",
         "Khi được cài đặt (data manipulation) — ví dụ: Relational database",
         "Phụ thuộc phần cứng lưu trữ vật lý"
@@ -72,7 +72,7 @@ window.QUIZ = {
       type: "single",
       q: "Mức <b>Logical</b> data model khác Conceptual ở điểm nào?",
       options: [
-        "Logical <b>phụ thuộc DBMS</b> (DBMS selection); Conceptual độc lập DBMS",
+        "Logical phụ thuộc DBMS (DBMS selection); Conceptual độc lập DBMS",
         "Logical độc lập DBMS; Conceptual phụ thuộc DBMS",
         "Cả hai đều là database đã cài đặt",
         "Logical chỉ mô tả phần cứng"
@@ -97,7 +97,7 @@ window.QUIZ = {
       type: "single",
       q: "Mô hình <b>Hierarchical</b> có đặc điểm gì về quan hệ parent–child?",
       options: [
-        "Chia record theo cây; parent–child là <b>1:n</b>",
+        "Chia record theo cây; parent–child là 1:n",
         "Parent–child là m:n",
         "Dữ liệu là bảng 2 chiều, không có cây",
         "Một entity = một document schema-free"
@@ -109,7 +109,7 @@ window.QUIZ = {
       type: "single",
       q: "Mô hình <b>Network</b> database (còn gọi là gì) khác Hierarchical thế nào?",
       options: [
-        "Parent–child là <b>m:n</b> (không 1:n); còn gọi là <b>CODASYL</b> database",
+        "Parent–child là m:n (không 1:n); còn gọi là CODASYL database",
         "Parent–child là 1:1; còn gọi là NoSQL",
         "Không có quan hệ parent–child",
         "Dùng document schema-free"
@@ -133,7 +133,7 @@ window.QUIZ = {
       type: "multi",
       q: "Phát biểu nào ĐÚNG về <b>NoSQL</b> (document database)?",
       options: [
-        "Non-relational, <b>schema-free</b>, một entity = một document",
+        "Non-relational, schema-free, một entity = một document",
         "Vẫn hỗ trợ index/query/CRUD/concurrency; tối ưu append/retrieve, scalability tốt",
         "Relational: entity trải trên nhiều bảng; NoSQL: gộp về một document",
         "Bắt buộc phải chuẩn hóa 3NF trước khi lưu",
@@ -161,9 +161,9 @@ window.QUIZ = {
       type: "multi",
       q: "So sánh <b>RDBMS</b> và <b>Object-Oriented</b>, phát biểu nào ĐÚNG?",
       options: [
-        "RDBMS tập trung vào <b>Dữ liệu</b>; OO tập trung vào <b>Hành vi</b>",
+        "RDBMS tập trung vào Dữ liệu; OO tập trung vào Hành vi",
         "RDBMS phù hợp quan hệ ad-hoc &amp; báo cáo; OO phù hợp hành vi phụ thuộc state",
-        "RDBMS <b>lộ</b> dữ liệu (expose column); OO <b>ẩn</b> dữ liệu (encapsulation)",
+        "RDBMS lộ dữ liệu (expose column); OO ẩn dữ liệu (encapsulation)",
         "RDBMS tập trung hành vi; OO tập trung dữ liệu",
         "Cả hai hoàn toàn tương thích với nhau"
       ],
@@ -200,7 +200,7 @@ window.QUIZ = {
       type: "single",
       q: "Quan hệ <b>Many-to-many (m:n)</b> thường được xử lý thế nào ở mức thiết kế thông thường?",
       options: [
-        "Tách thành <b>1:m + m:1</b> (qua một entity trung gian)",
+        "Tách thành 1:m + m:1 (qua một entity trung gian)",
         "Giữ nguyên m:n, không cần tách",
         "Chuyển thành 1:1",
         "Bỏ đi vì không hợp lệ"
@@ -212,7 +212,7 @@ window.QUIZ = {
       type: "single",
       q: "Trong <b>Dependency relationship</b>, FK của entity con nằm ở đâu và vẽ thế nào?",
       options: [
-        "<b>FK NẰM TRONG PK</b> của con; con chỉ tồn tại khi cha tồn tại; vẽ <b>đường liền</b>",
+        "FK NẰM TRONG PK của con; con chỉ tồn tại khi cha tồn tại; vẽ đường liền",
         "FK KHÔNG nằm trong PK của con; vẽ đường nét đứt",
         "Không có FK; vẽ hình thoi đặc",
         "FK nằm trong PK của cha; vẽ tam giác rỗng"
@@ -224,7 +224,7 @@ window.QUIZ = {
       type: "single",
       q: "Trong <b>Independency relationship</b>, đặc điểm FK và cách vẽ là gì?",
       options: [
-        "<b>FK KHÔNG nằm trong PK</b> con; con tồn tại được dù cha không; vẽ <b>đường nét đứt</b>",
+        "FK KHÔNG nằm trong PK con; con tồn tại được dù cha không; vẽ đường nét đứt",
         "FK nằm trong PK con; vẽ đường liền",
         "Con chết cùng cha; vẽ hình thoi đặc",
         "Không dùng FK, chỉ dùng khóa chính chung"
@@ -238,7 +238,7 @@ window.QUIZ = {
       type: "single",
       q: "Khi ánh xạ class diagram → ER, lớp nào được map thành Entity/Table?",
       options: [
-        "Lớp thiết kế <b>persistent</b> (mỗi row = một object, mỗi column = một persistent attribute)",
+        "Lớp thiết kế persistent (mỗi row = một object, mỗi column = một persistent attribute)",
         "Mọi boundary class",
         "Chỉ các control class",
         "Chỉ các lớp có state machine"
@@ -250,7 +250,7 @@ window.QUIZ = {
       type: "single",
       q: "Một <b>Association</b> giữa hai object persistent được ánh xạ sang ER thế nào?",
       options: [
-        "<b>Foreign key</b> tới object liên kết (FK không nằm trong PK → independency)",
+        "Foreign key tới object liên kết (FK không nằm trong PK → independency)",
         "Một bảng trung gian bắt buộc",
         "Một cột gạch chân (primary key)",
         "Không map được"
@@ -262,7 +262,7 @@ window.QUIZ = {
       type: "single",
       q: "Khi map <b>Aggregation</b>/<b>Composition</b> sang ER, điều gì đúng?",
       options: [
-        "Cả hai dùng FK; riêng <b>composition</b> thêm ràng buộc <b>cascading delete</b>",
+        "Cả hai dùng FK; riêng composition thêm ràng buộc cascading delete",
         "Aggregation dùng cascading delete; composition thì không",
         "Cả hai đều tạo bảng trung gian m:n",
         "Cả hai không thể map sang ER"
@@ -274,7 +274,7 @@ window.QUIZ = {
       type: "single",
       q: "Vì sao <b>Inheritance</b> phải xử lý đặc biệt khi map sang data model?",
       options: [
-        "Data model <b>KHÔNG hỗ trợ trực tiếp</b> inheritance → phải chọn normalized hoặc de-normalized",
+        "Data model KHÔNG hỗ trợ trực tiếp inheritance → phải chọn normalized hoặc de-normalized",
         "Data model hỗ trợ inheritance sẵn nên map 1-1",
         "Inheritance tự động thành bảng trung gian m:n",
         "Inheritance bị bỏ hoàn toàn"
@@ -286,7 +286,7 @@ window.QUIZ = {
       type: "single",
       q: "Khác biệt giữa map inheritance <b>normalized</b> và <b>de-normalized</b> là gì?",
       options: [
-        "Normalized: mỗi lớp con một bảng riêng, dùng lại PK; De-normalized: mỗi bảng con <b>lặp lại (replication)</b> mọi cột kế thừa",
+        "Normalized: mỗi lớp con một bảng riêng, dùng lại PK; De-normalized: mỗi bảng con lặp lại (replication) mọi cột kế thừa",
         "Normalized lặp lại mọi cột; de-normalized dùng bảng riêng",
         "Cả hai đều tạo một bảng duy nhất",
         "Cả hai đều dùng bảng trung gian"
@@ -298,7 +298,7 @@ window.QUIZ = {
       type: "single",
       q: "Quan hệ <b>Many-to-many</b> giữa lớp A và B được map sang ER thế nào?",
       options: [
-        "Thêm <b>entity trung gian \"C\"</b> chứa 2 FK trỏ tới PK của A &amp; B (+ attribute nếu cần)",
+        "Thêm entity trung gian \"C\" chứa 2 FK trỏ tới PK của A &amp; B (+ attribute nếu cần)",
         "Đặt FK của A vào bảng B",
         "Gộp A và B thành một bảng",
         "Dùng cascading delete"
@@ -312,7 +312,7 @@ window.QUIZ = {
       type: "single",
       q: "Mục đích của <b>Normalization</b> là gì?",
       options: [
-        "Loại bỏ <b>dư thừa (redundancy)</b>; cải thiện storage efficiency, data integrity, scalability",
+        "Loại bỏ dư thừa (redundancy); cải thiện storage efficiency, data integrity, scalability",
         "Tăng dư thừa để truy vấn nhanh hơn",
         "Gộp mọi bảng thành một bảng lớn",
         "Chuyển relational sang NoSQL"
@@ -324,7 +324,7 @@ window.QUIZ = {
       type: "single",
       q: "Ai đề xuất 1NF/2NF/3NF, và mức nào được xem là \"đủ\" cho hầu hết ứng dụng?",
       options: [
-        "Edgar F. Codd đề xuất; <b>3NF</b> đủ cho hầu hết ứng dụng",
+        "Edgar F. Codd đề xuất; 3NF đủ cho hầu hết ứng dụng",
         "Edgar F. Codd; 1NF đủ cho hầu hết ứng dụng",
         "Grady Booch; BCNF là mức tối thiểu bắt buộc",
         "James Rumbaugh; 2NF đủ cho mọi ứng dụng"
@@ -336,7 +336,7 @@ window.QUIZ = {
       type: "single",
       q: "<b>Functional Dependency</b> X → Y nghĩa là gì?",
       options: [
-        "Mỗi giá trị X ứng với <b>tối đa một</b> giá trị Y (\"biết X thì chỉ có một khả năng cho Y\")",
+        "Mỗi giá trị X ứng với tối đa một giá trị Y (\"biết X thì chỉ có một khả năng cho Y\")",
         "Mỗi giá trị X ứng với nhiều giá trị Y khác nhau",
         "X và Y hoàn toàn độc lập",
         "Y luôn là khóa chính của bảng"
@@ -348,7 +348,7 @@ window.QUIZ = {
       type: "single",
       q: "Điều kiện của <b>1NF</b> là gì?",
       options: [
-        "Mọi giá trị đều <b>nguyên tử (atomic)</b>",
+        "Mọi giá trị đều nguyên tử (atomic)",
         "Không có phụ thuộc bộ phận",
         "Không có phụ thuộc bắc cầu",
         "Mọi bảng phải join lại được"
@@ -360,7 +360,7 @@ window.QUIZ = {
       type: "single",
       q: "Điều kiện của <b>2NF</b> là gì?",
       options: [
-        "Là 1NF + <b>không có phụ thuộc bộ phận (partial dependency)</b>: non-key không phụ thuộc một phần của PK",
+        "Là 1NF + không có phụ thuộc bộ phận (partial dependency): non-key không phụ thuộc một phần của PK",
         "Là 1NF + không có phụ thuộc bắc cầu",
         "Mọi giá trị nguyên tử",
         "Là 3NF + đạt BCNF"
@@ -372,7 +372,7 @@ window.QUIZ = {
       type: "single",
       q: "Điều kiện của <b>3NF</b> là gì?",
       options: [
-        "Là 2NF + <b>không có phụ thuộc bắc cầu (transitive)</b>: non-key không phụ thuộc bắc cầu vào PK",
+        "Là 2NF + không có phụ thuộc bắc cầu (transitive): non-key không phụ thuộc bắc cầu vào PK",
         "Là 2NF + không có phụ thuộc bộ phận",
         "Là 1NF + mọi giá trị atomic",
         "Là BCNF + mọi cột là khóa"
@@ -384,7 +384,7 @@ window.QUIZ = {
       type: "single",
       q: "Trong ví dụ đơn hàng, phụ thuộc {Order}→{Address} (qua {Order}→{Customer}→{Address}) là loại nào và bị loại ở NF nào?",
       options: [
-        "Phụ thuộc <b>bắc cầu (transitive)</b> — bị loại ở bước lên <b>3NF</b>",
+        "Phụ thuộc bắc cầu (transitive) — bị loại ở bước lên 3NF",
         "Phụ thuộc bộ phận — bị loại ở 2NF",
         "Giá trị không atomic — bị loại ở 1NF",
         "Không phải phụ thuộc, giữ nguyên"

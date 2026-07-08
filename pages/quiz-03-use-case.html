@@ -88,8 +88,8 @@ window.QUIZ = {
       type: "single",
       q: "Use-Case Diagram mô hình hóa khía cạnh nào của hệ thống?",
       options: [
-        "Khía cạnh <b>động (dynamic)</b> — yêu cầu chức năng của phần mềm",
-        "Khía cạnh <b>tĩnh (static)</b> — cấu trúc lớp và dữ liệu",
+        "Khía cạnh động (dynamic) — yêu cầu chức năng của phần mềm",
+        "Khía cạnh tĩnh (static) — cấu trúc lớp và dữ liệu",
         "Cách triển khai phần cứng lên các node",
         "Trình tự thời gian gọi hàm giữa các đối tượng"
       ],
@@ -113,7 +113,7 @@ window.QUIZ = {
       type: "single",
       q: "Phát biểu nào <b>đúng</b> về Actor?",
       options: [
-        "Actor là một <b>vai trò (role)</b> mà người/hệ thống đóng, và nằm <b>NGOÀI (external)</b> hệ thống",
+        "Actor là một vai trò (role) mà người/hệ thống đóng, và nằm NGOÀI (external) hệ thống",
         "Actor luôn là một con người cụ thể, không thể là hệ thống khác hay thiết bị",
         "Actor là một thành phần bên trong hệ thống chịu trách nhiệm xử lý",
         "Mỗi actor chỉ được tương tác với đúng một use case"
@@ -125,7 +125,7 @@ window.QUIZ = {
       type: "single",
       q: "Định nghĩa nào đúng nhất cho <b>Use Case</b>?",
       options: [
-        "Một chuỗi sự kiện do phần mềm thực hiện, mang lại kết quả có giá trị <b>quan sát được</b> cho một actor cụ thể",
+        "Một chuỗi sự kiện do phần mềm thực hiện, mang lại kết quả có giá trị quan sát được cho một actor cụ thể",
         "Một lớp (class) trong sơ đồ thiết kế của hệ thống",
         "Một bước đơn lẻ mà người dùng thực hiện trên giao diện",
         "Một yêu cầu phi chức năng như thời gian phản hồi"
@@ -137,7 +137,7 @@ window.QUIZ = {
       type: "single",
       q: "Charlie là giáo sư toán nhưng đang theo học một lớp kinh tế. Trong Course Registration System, cách mô hình hóa nào là đúng?",
       options: [
-        "Charlie đóng cả vai <b>Student</b> lẫn <b>Professor</b> — một người có thể đóng nhiều vai (actor)",
+        "Charlie đóng cả vai Student lẫn Professor — một người có thể đóng nhiều vai (actor)",
         "Phải tạo một actor riêng tên \"Charlie\" cho đúng một người",
         "Charlie chỉ được là Professor vì đó là nghề nghiệp thật",
         "Student và Professor phải gộp thành một actor duy nhất"
@@ -151,7 +151,7 @@ window.QUIZ = {
       type: "single",
       q: "Khi tìm <b>Actor</b> và <b>Use Case</b> từ mô tả bài toán, nên chú ý từ loại nào?",
       options: [
-        "Actor ← <b>danh từ</b> (chủ thể); Use Case ← <b>động từ</b> (chuỗi hành động)",
+        "Actor ← danh từ (chủ thể); Use Case ← động từ (chuỗi hành động)",
         "Actor ← động từ; Use Case ← danh từ",
         "Cả hai đều rút ra từ tính từ mô tả",
         "Cả hai đều rút ra từ các con số trong mô tả"
@@ -163,7 +163,7 @@ window.QUIZ = {
       type: "single",
       q: "Quy ước đặt tên Use Case nào là <b>đúng</b>?",
       options: [
-        "Bắt đầu bằng <b>động từ + danh từ</b> (verb-noun), nêu rõ kết quả giá trị, nhìn từ góc actor — vd \"Register for Courses\"",
+        "Bắt đầu bằng động từ + danh từ (verb-noun), nêu rõ kết quả giá trị, nhìn từ góc actor — vd \"Register for Courses\"",
         "Chỉ dùng một danh từ ngắn gọn, vd \"Courses\"",
         "Đặt theo tên lớp cài đặt, vd \"CourseController\"",
         "Đặt theo số thứ tự, vd \"UC-01\", để ngắn gọn"
@@ -202,7 +202,7 @@ window.QUIZ = {
       type: "single",
       q: "Quan hệ giữa <b>Actor ↔ Use Case</b> được gọi là gì và vẽ ra sao?",
       options: [
-        "Association (communicates) — vẽ bằng một <b>đường thẳng</b>",
+        "Association (communicates) — vẽ bằng một đường thẳng",
         "Include — vẽ bằng mũi tên đứt nét có stereotype",
         "Generalization — vẽ bằng mũi tên tam giác rỗng",
         "Dependency — vẽ bằng đường đứt nét có mũi tên"
@@ -214,7 +214,7 @@ window.QUIZ = {
       type: "single",
       q: "Trong quan hệ communicates giữa actor và use case, một đầu <b>không có mũi tên</b> nghĩa là gì?",
       options: [
-        "Cả hai đầu <b>đều có thể</b> khởi tạo (initiator) sự tương tác",
+        "Cả hai đầu đều có thể khởi tạo (initiator) sự tương tác",
         "Không đầu nào được phép khởi tạo",
         "Quan hệ bị lỗi, thiếu thông tin",
         "Đây là quan hệ include chứ không phải association"
@@ -226,8 +226,8 @@ window.QUIZ = {
       type: "single",
       q: "Phát biểu nào mô tả đúng quan hệ <b>&laquo;include&raquo;</b>?",
       options: [
-        "Use case gốc <b>LUÔN</b> tích hợp hành vi của use case được include; use case được include không đứng một mình",
-        "Use case gốc <b>đôi khi</b> tích hợp hành vi tùy điều kiện; gốc vẫn chạy độc lập được",
+        "Use case gốc LUÔN tích hợp hành vi của use case được include; use case được include không đứng một mình",
+        "Use case gốc đôi khi tích hợp hành vi tùy điều kiện; gốc vẫn chạy độc lập được",
         "Use case con kế thừa và có thể ghi đè hành vi của use case cha",
         "Hai use case giao tiếp trực tiếp qua một đường thẳng"
       ],
@@ -238,7 +238,7 @@ window.QUIZ = {
       type: "single",
       q: "Phát biểu nào mô tả đúng quan hệ <b>&laquo;extend&raquo;</b>?",
       options: [
-        "Gốc <b>đứng độc lập được</b>, chỉ bị mở rộng <b>trong điều kiện nhất định</b>, tại vị trí do use case mở rộng chỉ ra",
+        "Gốc đứng độc lập được, chỉ bị mở rộng trong điều kiện nhất định, tại vị trí do use case mở rộng chỉ ra",
         "Gốc luôn tích hợp hành vi được mở rộng ở mọi lần chạy",
         "Use case mở rộng không thể tồn tại nếu thiếu use case gốc chạy trước",
         "Đây là quan hệ giữa actor và use case"
@@ -274,7 +274,7 @@ window.QUIZ = {
       type: "single",
       q: "Về việc dùng quan hệ giữa các use case, lời khuyên nào là đúng?",
       options: [
-        "<b>Không nên dùng quá nhiều</b> quan hệ giữa use case vì làm sơ đồ rối; và use-case diagram <b>không</b> thể hiện thứ tự",
+        "Không nên dùng quá nhiều quan hệ giữa use case vì làm sơ đồ rối; và use-case diagram không thể hiện thứ tự",
         "Nên nối càng nhiều quan hệ càng tốt để sơ đồ chi tiết",
         "Use-case diagram phải thể hiện rõ thứ tự thực hiện các use case",
         "Chỉ được dùng đúng một loại quan hệ trong toàn sơ đồ"
@@ -288,7 +288,7 @@ window.QUIZ = {
       type: "single",
       q: "Quan hệ giữa <b>Use-Case Specification</b> và <b>Use-Case Diagram</b> là gì?",
       options: [
-        "Diagram cho cái nhìn tổng thể; Specification mô tả <b>chi tiết</b> từng use case và là <b>hợp đồng</b> giữa khách hàng &amp; developer",
+        "Diagram cho cái nhìn tổng thể; Specification mô tả chi tiết từng use case và là hợp đồng giữa khách hàng &amp; developer",
         "Specification chỉ là bản vẽ đẹp hơn của diagram, nội dung như nhau",
         "Diagram thay thế hoàn toàn Specification nên không cần Specification",
         "Specification chỉ dùng ở pha kiểm thử, không dùng ở pha yêu cầu"
@@ -300,7 +300,7 @@ window.QUIZ = {
       type: "single",
       q: "<b>Scenario</b> (kịch bản) của một use case là gì?",
       options: [
-        "Một <b>instance (thể hiện)</b> của use case — một đường đi cụ thể qua flow of events",
+        "Một instance (thể hiện) của use case — một đường đi cụ thể qua flow of events",
         "Toàn bộ tập hợp mọi luồng có thể của use case",
         "Một use case khác được include vào",
         "Sơ đồ activity của use case"
@@ -312,7 +312,7 @@ window.QUIZ = {
       type: "single",
       q: "Flow of Events của một use case gồm những gì?",
       options: [
-        "Một <b>luồng chính (basic/normal flow)</b> và nhiều <b>luồng thay thế (alternative flows)</b>",
+        "Một luồng chính (basic/normal flow) và nhiều luồng thay thế (alternative flows)",
         "Chỉ đúng một luồng duy nhất, không có ngoại lệ",
         "Danh sách các lớp và thuộc tính của use case",
         "Bảng các actor và quyền của họ"
@@ -337,7 +337,7 @@ window.QUIZ = {
       type: "single",
       q: "Trong ví dụ UC \"Log in\" (ATM): khách nhập sai PIN. Đây thuộc loại luồng nào, và điều gì xảy ra khi sai 3 lần liên tiếp?",
       options: [
-        "<b>Exceptional flow</b> — sai <b>3 lần liên tiếp</b> thì hệ thống hủy giao dịch &amp; giữ thẻ",
+        "Exceptional flow — sai 3 lần liên tiếp thì hệ thống hủy giao dịch &amp; giữ thẻ",
         "Regular variant — hệ thống khởi động lại use case",
         "Odd case — khách xóa PIN rồi nhập lại",
         "Basic flow — kết thúc thành công bình thường"
@@ -349,7 +349,7 @@ window.QUIZ = {
       type: "single",
       q: "Trong Use-Case Specification, quan hệ <b>&laquo;include&raquo;</b> được đặc tả trong flow như thế nào?",
       options: [
-        "<b>Gọi tường minh (call)</b> use case được include tại một bước (inclusion point) trong basic flow — vd \"Software calls the use case Pay receipt\"",
+        "Gọi tường minh (call) use case được include tại một bước (inclusion point) trong basic flow — vd \"Software calls the use case Pay receipt\"",
         "Chèn (insert) hành vi vào extension point nếu điều kiện mở rộng đúng",
         "Dùng placeholder trong use case cha",
         "Không cần ghi gì, hệ thống tự hiểu"
@@ -361,7 +361,7 @@ window.QUIZ = {
       type: "single",
       q: "Cách đặc tả <b>&laquo;extend&raquo;</b> trong flow of events là gì?",
       options: [
-        "<b>Chèn (insert)</b> hành vi của use case mở rộng vào <b>extension point</b> nếu <b>điều kiện mở rộng</b> đúng, rồi resume ở bước tiếp theo",
+        "Chèn (insert) hành vi của use case mở rộng vào extension point nếu điều kiện mở rộng đúng, rồi resume ở bước tiếp theo",
         "Gọi tường minh use case tại một bước cố định trong basic flow",
         "Dùng placeholder trong use case cha để con thay thế",
         "Ghi vào precondition của use case gốc"
@@ -373,7 +373,7 @@ window.QUIZ = {
       type: "single",
       q: "Khi một hành vi <b>lặp lại phức tạp</b> xuất hiện trong use case, nên xử lý thế nào?",
       options: [
-        "Bắt bằng một <b>subflow</b> (vd \"S1: Obtain Course Information\") và gọi từ basic flow",
+        "Bắt bằng một subflow (vd \"S1: Obtain Course Information\") và gọi từ basic flow",
         "Sao chép nguyên đoạn mô tả ở mỗi chỗ lặp",
         "Tách hẳn thành một actor mới",
         "Bỏ qua vì use case không mô tả vòng lặp"
@@ -385,10 +385,10 @@ window.QUIZ = {
       type: "multi",
       q: "Phát biểu nào <b>đúng</b> về Precondition và Postcondition?",
       options: [
-        "Precondition = trạng thái phải có <b>TRƯỚC</b> khi use case bắt đầu",
-        "Postcondition = trạng thái hệ thống <b>khi use case kết thúc</b>",
-        "Cả hai phải dễ kiểm chứng và <b>không</b> tham chiếu use case khác cần chạy trước/sau",
-        "Cả hai là <b>bắt buộc</b>, mọi use case đều phải có",
+        "Precondition = trạng thái phải có TRƯỚC khi use case bắt đầu",
+        "Postcondition = trạng thái hệ thống khi use case kết thúc",
+        "Cả hai phải dễ kiểm chứng và không tham chiếu use case khác cần chạy trước/sau",
+        "Cả hai là bắt buộc, mọi use case đều phải có",
         "Precondition phải liệt kê các use case cần hoàn thành trước đó"
       ],
       answer: [0, 1, 2],
@@ -398,7 +398,7 @@ window.QUIZ = {
       type: "single",
       q: "Các use case <b>không</b> tương tác trực tiếp với nhau. Vậy làm sao \"xâu chuỗi\" thứ tự thực hiện chúng?",
       options: [
-        "Dùng việc <b>postcondition của UC này trùng precondition của UC khác</b> để nối thứ tự",
+        "Dùng việc postcondition của UC này trùng precondition của UC khác để nối thứ tự",
         "Dùng quan hệ &laquo;include&raquo; để ép thứ tự chạy",
         "Vẽ mũi tên thứ tự trực tiếp trên use-case diagram",
         "Ghi số thứ tự 1, 2, 3 lên từng use case"
@@ -412,7 +412,7 @@ window.QUIZ = {
       type: "single",
       q: "Activity Diagram trong Use-Case Model về bản chất là gì?",
       options: [
-        "Một <b>lưu đồ (flow chart)</b> thể hiện dòng điều khiển giữa các activity/action trong một use case",
+        "Một lưu đồ (flow chart) thể hiện dòng điều khiển giữa các activity/action trong một use case",
         "Một sơ đồ lớp thể hiện quan hệ giữa các entity",
         "Một sơ đồ triển khai phần cứng",
         "Một bảng liệt kê actor và quyền"
@@ -424,7 +424,7 @@ window.QUIZ = {
       type: "single",
       q: "Trong Activity Diagram, <b>Synchronization bar</b> dùng để làm gì?",
       options: [
-        "<b>Fork</b> (tách luồng song song) và <b>Join</b> (gộp các luồng song song lại)",
+        "Fork (tách luồng song song) và Join (gộp các luồng song song lại)",
         "Rẽ nhánh theo điều kiện (decision) với guard condition",
         "Đánh dấu điểm bắt đầu và kết thúc",
         "Phân chia trách nhiệm giữa các tổ chức (swimlane)"
@@ -436,7 +436,7 @@ window.QUIZ = {
       type: "single",
       q: "Trong Activity Diagram, một <b>Partition (swimlane)</b> biểu diễn điều gì?",
       options: [
-        "Một <b>trách nhiệm</b> của một phần trong tổ chức (vd Sales / Fulfillment)",
+        "Một trách nhiệm của một phần trong tổ chức (vd Sales / Fulfillment)",
         "Một điều kiện bảo vệ (guard) trên một transition",
         "Một điểm đồng bộ hóa các luồng song song",
         "Một use case được include"
@@ -463,7 +463,7 @@ window.QUIZ = {
       type: "single",
       q: "Phát biểu nào đúng về <b>Glossary</b>?",
       options: [
-        "Định nghĩa các thuật ngữ quan trọng dùng chung; <b>chỉ có MỘT Glossary</b> cho cả hệ thống",
+        "Định nghĩa các thuật ngữ quan trọng dùng chung; chỉ có MỘT Glossary cho cả hệ thống",
         "Mỗi use case có một Glossary riêng của nó",
         "Chứa các yêu cầu phi chức năng theo FURPS",
         "Là sơ đồ mô tả luồng điều khiển của hệ thống"
@@ -475,7 +475,7 @@ window.QUIZ = {
       type: "single",
       q: "<b>Supplementary Specification</b> chứa loại yêu cầu nào, và theo mô hình gì?",
       options: [
-        "Yêu cầu <b>phi chức năng</b> (không gắn với một use case cụ thể) — theo mô hình <b>FURPS</b>",
+        "Yêu cầu phi chức năng (không gắn với một use case cụ thể) — theo mô hình FURPS",
         "Chỉ yêu cầu chức năng gắn với đúng một use case",
         "Danh sách thuật ngữ và định nghĩa của hệ thống",
         "Sơ đồ lớp và quan hệ giữa các entity"
