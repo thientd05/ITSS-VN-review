@@ -391,6 +391,55 @@ window.QUIZ = {
       ],
       answer: [0],
       explain: "{Order}→{Customer}→{Address} tạo phụ thuộc <b>bắc cầu</b> {Order}→{Address}. Bắc cầu bị loại khi chuẩn hóa lên <b>3NF</b> — tách thành {Order, Customer} và {Customer, Address}."
+    },
+    /* ===== Câu bổ sung từ bộ NotebookLM (không trùng câu web) ===== */
+    {
+      type: "single",
+      q: "Khái niệm \"Aggregation\" trong mô hình NoSQL dạng tài liệu (document-based) mang ý nghĩa gì?",
+      options: [
+        "Gom nhóm các thông tin liên quan thành một đối tượng duy nhất để truy xuất nhanh chóng.",
+        "Phân tách dữ liệu thành nhiều bảng nhỏ và thiết lập các khóa ngoại để đảm bảo tính toàn vẹn dữ liệu.",
+        "Sử dụng các hàm toán học phức tạp để tính toán các giá trị dẫn xuất từ nhiều nguồn dữ liệu khác nhau.",
+        "Loại bỏ hoàn toàn các thuộc tính dư thừa để đạt được dạng chuẩn thứ ba trong thiết kế cơ sở dữ liệu."
+      ],
+      answer: [0],
+      explain: "Đáp án đúng: Gom nhóm các thông tin liên quan thành một đối tượng duy nhất để truy xuất nhanh chóng."
+    },
+    {
+      type: "single",
+      q: "Kiến trúc ba lớp (Three-layer schema) cung cấp lợi ích quan trọng nhất nào cho hệ thống?",
+      options: [
+        "Đảm bảo rằng mã nguồn ứng dụng sẽ chạy nhanh hơn do không phải đi qua các tầng trừu tượng hóa dữ liệu.",
+        "Tạo ra sự độc lập dữ liệu, cho phép thay đổi cấu trúc ở một tầng mà không ảnh hưởng tầng khác.",
+        "Bắt buộc mọi người dùng đều phải truy cập trực tiếp vào cấu trúc lưu trữ vật lý để lấy thông tin.",
+        "Giúp giảm thiểu số lượng các bảng dữ liệu cần thiết bằng cách gộp tất cả các schema vào một lớp duy nhất."
+      ],
+      answer: [1],
+      explain: "Đáp án đúng: Tạo ra sự độc lập dữ liệu, cho phép thay đổi cấu trúc ở một tầng mà không ảnh hưởng tầng khác."
+    },
+    {
+      type: "single",
+      q: "Tại sao tài liệu khuyến nghị cân nhắc chuyển đổi thuộc tính định danh từ kiểu chuỗi sang kiểu số trong DB?",
+      options: [
+        "Để tiết kiệm không gian hiển thị trên các báo cáo in ấn (hardcopy) dành cho người dùng cuối của hệ thống.",
+        "Vì các hệ quản trị cơ sở dữ liệu hiện đại không hỗ trợ việc thiết lập khóa chính cho các cột kiểu chuỗi.",
+        "Vì các truy vấn và phép nối (joins) trên kiểu số thường mang lại hiệu năng thực thi nhanh hơn.",
+        "Để đảm bảo rằng các giá trị định danh sẽ tự động tăng mỗi khi có một bản ghi mới được thêm vào bảng."
+      ],
+      answer: [2],
+      explain: "Đáp án đúng: Vì các truy vấn và phép nối (joins) trên kiểu số thường mang lại hiệu năng thực thi nhanh hơn."
+    },
+    {
+      type: "single",
+      q: "Khi nào nhà thiết kế nên thực hiện \"phi chuẩn hóa\" (denormalization)?",
+      options: [
+        "Khi muốn tiết kiệm tối đa dung lượng bộ nhớ lưu trữ vật lý trên hệ thống máy chủ cơ sở dữ liệu quan hệ.",
+        "Khi hệ thống có quá nhiều các lớp thực thể bền vững và nhà thiết kế muốn giảm bớt số lượng các sơ đồ.",
+        "Khi có thể chứng minh được rằng việc đó sẽ giúp cải thiện đáng kể hiệu năng truy xuất của hệ thống.",
+        "Khi ứng dụng được phát triển theo mô hình Agile và nhóm phát triển không có đủ thời gian để chuẩn hóa."
+      ],
+      answer: [2],
+      explain: "Đáp án đúng: Khi có thể chứng minh được rằng việc đó sẽ giúp cải thiện đáng kể hiệu năng truy xuất của hệ thống."
     }
   ]
 };

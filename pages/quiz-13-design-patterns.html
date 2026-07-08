@@ -384,6 +384,67 @@ window.QUIZ = {
       ],
       answer: [0],
       explain: "Nhược điểm lớn: thêm <b>kiểu sản phẩm mới</b> (vd thêm CreateButton() vào WidgetFactory) buộc phải sửa <b>Abstract Factory &amp; mọi ConcreteFactory con</b>. (Đỡ tệ hơn trong ngôn ngữ định kiểu động.) Cô lập concrete, cưỡng chế nhất quán, đổi họ dễ đều là <b>ưu điểm</b>."
+    },
+    /* ===== Câu bổ sung từ bộ NotebookLM (không trùng câu web) ===== */
+    {
+      type: "single",
+      q: "Thuật ngữ \"Design Patterns\" có nguồn gốc xa xưa từ lĩnh vực nào trước khi được áp dụng vào phần mềm?",
+      options: [
+        "Lĩnh vực sản xuất dây chuyền công nghiệp nhằm tối ưu hóa quy trình lắp ráp linh kiện điện tử.",
+        "Lĩnh vực toán học rời rạc dùng để giải quyết các bài toán về đồ thị và tổ hợp phức tạp.",
+        "Lĩnh vực kiến trúc và xây dựng, được phát triển bởi Christopher Alexander vào năm 1977.",
+        "Lĩnh vực quản trị kinh doanh nhằm chuẩn hóa các mô hình tương tác giữa khách hàng và doanh nghiệp."
+      ],
+      answer: [2],
+      explain: "Đáp án đúng: Lĩnh vực kiến trúc và xây dựng, được phát triển bởi Christopher Alexander vào năm 1977."
+    },
+    {
+      type: "single",
+      q: "Theo bảng phân loại GoF, các mẫu thiết kế được tổ chức dựa trên hai tiêu chí chính nào?",
+      options: [
+        "Dựa trên mức độ phức tạp của thuật toán và tổng số lượng dòng mã nguồn cần thiết để triển khai.",
+        "Dựa trên loại ngôn ngữ lập trình sử dụng và môi trường triển khai thực tế của sản phẩm phần mềm.",
+        "Dựa trên mục đích (Tạo lập, Cấu trúc, Hành vi) và phạm vi tác động (Lớp hoặc Đối tượng).",
+        "Dựa trên khả năng tương thích với cơ sở dữ liệu và tốc độ thực thi của các phương thức tĩnh."
+      ],
+      answer: [2],
+      explain: "Đáp án đúng: Dựa trên mục đích (Tạo lập, Cấu trúc, Hành vi) và phạm vi tác động (Lớp hoặc Đối tượng)."
+    },
+    {
+      type: "single",
+      q: "Tại sao phương thức getInstance() trong Singleton thường cần sử dụng từ khóa synchronized?",
+      options: [
+        "Để tăng tốc độ truy xuất dữ liệu từ các bảng trong hệ quản trị cơ sở dữ liệu quan hệ của hệ thống.",
+        "Để đảm bảo an toàn trong môi trường đa luồng, tránh việc tạo ra nhiều thể hiện cùng lúc.",
+        "Để cho phép các lớp con có thể ghi đè hành vi khởi tạo đối tượng theo các điều kiện đặc thù.",
+        "Để tự động đồng bộ hóa trạng thái của đối tượng Singleton với các bản sao của nó trên máy chủ."
+      ],
+      answer: [1],
+      explain: "Đáp án đúng: Để đảm bảo an toàn trong môi trường đa luồng, tránh việc tạo ra nhiều thể hiện cùng lúc."
+    },
+    {
+      type: "single",
+      q: "Tại sao việc sử dụng Singleton lại bị coi là một hình thức của \"Biến toàn cục trá hình\"?",
+      options: [
+        "Vì nó cung cấp khả năng truy cập đối tượng từ bất kỳ đâu, làm tăng độ kết nối (coupling).",
+        "Vì nó yêu cầu bộ nhớ RAM phải được cấp phát liên tục ngay cả khi chương trình đã kết thúc chạy.",
+        "Vì đối tượng Singleton luôn luôn có kích thước lớn hơn so với các đối tượng thông thường khác.",
+        "Vì nó chỉ có thể lưu trữ các giá trị hằng số và không cho phép thay đổi dữ liệu trong thời gian chạy."
+      ],
+      answer: [0],
+      explain: "Đáp án đúng: Vì nó cung cấp khả năng truy cập đối tượng từ bất kỳ đâu, làm tăng độ kết nối (coupling)."
+    },
+    {
+      type: "single",
+      q: "Mẫu thiết kế nào trực tiếp hỗ trợ nguyên tắc \"Dependency Inversion Principle\" (DIP)?",
+      options: [
+        "Singleton – bằng cách tập trung hóa việc quản lý các biến trạng thái vào một điểm duy nhất.",
+        "Template Method – bằng cách ép buộc các lớp con phải tuân theo cấu trúc của lớp cha trừu tượng.",
+        "Factory Method – bằng cách làm cho client phụ thuộc vào interface của sản phẩm thay vì lớp cụ thể.",
+        "Proxy – bằng cách cung cấp một đại diện thay thế cho các hệ thống kế thừa của khách hàng."
+      ],
+      answer: [2],
+      explain: "Đáp án đúng: Factory Method – bằng cách làm cho client phụ thuộc vào interface của sản phẩm thay vì lớp cụ thể."
     }
   ]
 };

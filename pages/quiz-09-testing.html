@@ -444,6 +444,67 @@ window.QUIZ = {
       ],
       answer: [0],
       explain: "\"Khi sửa một bug, bạn tạo ra vài bug mới\" → <b>Regression Test</b> chạy lại test case cũ &amp; kiểm side-effect sau mỗi lần đổi code, để chắc hệ thống vẫn đúng. Nên chạy <b>càng thường xuyên càng tốt</b> bằng công cụ tự động."
+    },
+    /* ===== Câu bổ sung từ bộ NotebookLM (không trùng câu web) ===== */
+    {
+      type: "single",
+      q: "Trong các thuật ngữ về lỗi phần mềm, \"Failure\" được định nghĩa chính xác là gì?",
+      options: [
+        "Là những sai sót do con người gây ra trong quá trình thiết kế, lập trình hoặc phân tích yêu cầu hệ thống.",
+        "Là một lỗi cụ thể nằm trong mã nguồn khiến cho phần mềm không hoạt động đúng như mong đợi của lập trình viên.",
+        "Là trạng thái hoặc điều kiện trong phần mềm mà tại đó lỗi xảy ra, dẫn đến sự sai lệch trong hoạt động thực tế.",
+        "Là hiện tượng phần mềm không thể thực hiện chức năng dự kiến khi vận hành trong môi trường thực tế."
+      ],
+      answer: [3],
+      explain: "Đáp án đúng: Là hiện tượng phần mềm không thể thực hiện chức năng dự kiến khi vận hành trong môi trường thực tế."
+    },
+    {
+      type: "single",
+      q: "Nguyên nhân gốc rễ dẫn đến sự xuất hiện của các \"Bug\" trong mã nguồn phần mềm thường được gọi là gì?",
+      options: [
+        "Error – những trạng thái sai lệch quan sát được từ bên ngoài khi hệ thống đang thực thi các tác vụ.",
+        "Mistake – những sai sót hoặc nhầm lẫn của con người trong quá trình phát triển các hiện vật phần mềm.",
+        "Fault – các ranh giới trừu tượng bị vi phạm giữa các lớp kiến trúc khác nhau trong hệ thống phần mềm.",
+        "Defect – phần tài liệu đặc tả không đáp ứng đúng các tiêu chuẩn chất lượng đã được phê duyệt từ trước."
+      ],
+      answer: [1],
+      explain: "Đáp án đúng: Mistake – những sai sót hoặc nhầm lẫn của con người trong quá trình phát triển các hiện vật phần mềm."
+    },
+    {
+      type: "single",
+      q: "Đặc điểm cốt lõi của phương pháp phát triển dựa trên kiểm thử (Test-Driven Development - TDD) là gì?",
+      options: [
+        "Lập trình viên chỉ thực hiện việc viết các bài kiểm thử sau khi toàn bộ mã nguồn chức năng đã được cài đặt xong.",
+        "Tập trung vào việc sử dụng các công cụ phân tích tĩnh để phát hiện lỗi mà không cần thực thi chương trình thực tế.",
+        "Quy trình lặp lại bắt đầu bằng việc viết bài kiểm thử trước, sau đó mới viết mã nguồn để vượt qua kiểm thử đó.",
+        "Ưu tiên việc xây dựng các kịch bản kiểm thử chấp nhận người dùng trước khi tiến hành thiết kế kiến trúc hệ thống."
+      ],
+      answer: [2],
+      explain: "Đáp án đúng: Quy trình lặp lại bắt đầu bằng việc viết bài kiểm thử trước, sau đó mới viết mã nguồn để vượt qua kiểm thử đó."
+    },
+    {
+      type: "single",
+      q: "Tham số thứ ba trong phương thức assertEquals khi so sánh hai số thực (floating point) dùng để làm gì?",
+      options: [
+        "Là một chuỗi văn bản mô tả chi tiết nguyên nhân tại sao phép so sánh này lại quan trọng đối với nghiệp vụ.",
+        "Là độ dung sai (tolerance), xác định mức sai số chấp nhận được giữa giá trị thực tế và giá trị mong đợi.",
+        "Là một biến boolean xác định xem phép so sánh có nên được thực hiện theo kiểu so sánh tham chiếu hay không.",
+        "Là chỉ số định danh duy nhất của bài kiểm thử để hệ thống có thể ghi nhật ký hoạt động vào tệp tin log."
+      ],
+      answer: [1],
+      explain: "Đáp án đúng: Là độ dung sai (tolerance), xác định mức sai số chấp nhận được giữa giá trị thực tế và giá trị mong đợi."
+    },
+    {
+      type: "single",
+      q: "Cơ chế \"timeout\" trong JUnit hỗ trợ giải quyết vấn đề nào?",
+      options: [
+        "Ngăn chặn việc thực thi các bài kiểm thử vào những thời điểm hệ thống máy chủ đang quá tải về tài nguyên.",
+        "Giới hạn thời gian chạy của bài kiểm thử để phát hiện các trường hợp lỗi gây ra vòng lặp vô hạn.",
+        "Tự động trì hoãn việc kiểm thử cho đến khi tất cả các module phụ thuộc đã được tích hợp thành công.",
+        "Xác định khoảng thời gian chờ đợi tối thiểu giữa hai lần chạy bài kiểm thử hồi quy liên tiếp của dự án."
+      ],
+      answer: [1],
+      explain: "Đáp án đúng: Giới hạn thời gian chạy của bài kiểm thử để phát hiện các trường hợp lỗi gây ra vòng lặp vô hạn."
     }
   ]
 };

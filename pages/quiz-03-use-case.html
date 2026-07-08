@@ -533,6 +533,79 @@ window.QUIZ = {
       ],
       answer: [0, 1, 2],
       explain: "Checkpoints yêu cầu: mỗi actor liên quan ≥1 use case và ngược lại; tên trực giác/duy nhất/rõ ràng để mọi bên hiểu; model đã phủ hết yêu cầu chức năng, không thừa hành vi, chia package hợp lý. Việc dùng chung design pattern hay cân bằng số actor = số use case không phải tiêu chí của use-case model."
+    },
+    /* ===== Câu bổ sung từ bộ NotebookLM (không trùng câu web) ===== */
+    {
+      type: "single",
+      q: "Vai trò quan trọng nhất của các Tác nhân trong việc mô hình hóa hệ thống là gì?",
+      options: [
+        "Giúp xác định các phương thức (methods) cần thiết cho các lớp biên trong giai đoạn thiết kế chi tiết.",
+        "Cung cấp các kịch bản kiểm thử hộp trắng cho đội ngũ đảm bảo chất lượng phần mềm (QA) sau này.",
+        "Đóng vai trò then chốt trong việc xác định chính xác ranh giới của hệ thống cần phát triển.",
+        "Loại bỏ hoàn toàn nhu cầu về các tài liệu đặc tả bổ sung liên quan đến yêu cầu phi chức năng."
+      ],
+      answer: [2],
+      explain: "Đáp án đúng: Đóng vai trò then chốt trong việc xác định chính xác ranh giới của hệ thống cần phát triển."
+    },
+    {
+      type: "single",
+      q: "Ưu điểm lớn nhất của mô hình Use Case so với phương pháp phân rã chức năng (Functional Decomposition) là gì?",
+      options: [
+        "Cho phép chia nhỏ hệ thống thành các phần cực kỳ đơn giản để dễ dàng giao việc cho lập trình viên.",
+        "Giảm bớt số lượng kịch bản kiểm thử mà các tester cần phải viết cho từng chức năng riêng biệt.",
+        "Các yêu cầu được đặt trong một ngữ cảnh rõ ràng, giúp các bên liên quan dễ dàng thấu hiểu.",
+        "Loại bỏ hoàn toàn sự phụ thuộc giữa các thành phần, giúp việc bảo trì trở nên đơn giản hơn rất nhiều."
+      ],
+      answer: [2],
+      explain: "Đáp án đúng: Các yêu cầu được đặt trong một ngữ cảnh rõ ràng, giúp các bên liên quan dễ dàng thấu hiểu."
+    },
+    {
+      type: "single",
+      q: "Đối với các thao tác CRUD (Thêm, Xem, Sửa, Xóa) trên một thực thể dữ liệu, tài liệu khuyến nghị nên xử lý như thế nào?",
+      options: [
+        "Tách mỗi thao tác thành một Use Case độc lập để dễ dàng theo dõi tiến độ của đội ngũ phát triển.",
+        "Kết hợp các thao tác này vào một Use Case duy nhất tập trung vào mục tiêu mang lại giá trị.",
+        "Chỉ mô hình hóa thao tác \"Thêm\" và \"Sửa\", còn các thao tác khác được xem là mặc định phải có.",
+        "Sử dụng mối quan hệ Extend để mở rộng các thao tác Sửa và Xóa từ Use Case cơ sở là thao tác Xem."
+      ],
+      answer: [1],
+      explain: "Đáp án đúng: Kết hợp các thao tác này vào một Use Case duy nhất tập trung vào mục tiêu mang lại giá trị."
+    },
+    {
+      type: "single",
+      q: "Mối quan hệ Generalization giữa các tác nhân thể hiện điều gì trong thiết kế hệ thống?",
+      options: [
+        "Tác nhân con chỉ có thể thực hiện một tập hợp con các Use Case mà tác nhân cha được phép.",
+        "Hai tác nhân có thể trao đổi thông tin trực tiếp với nhau mà không cần thông qua hệ thống.",
+        "Tác nhân con kế thừa toàn bộ các đặc điểm, quyền hạn và hành vi của tác nhân cha.",
+        "Tác nhân cha sẽ thay thế tác nhân con thực hiện các nhiệm vụ phức tạp khi hệ thống bị quá tải."
+      ],
+      answer: [2],
+      explain: "Đáp án đúng: Tác nhân con kế thừa toàn bộ các đặc điểm, quyền hạn và hành vi của tác nhân cha."
+    },
+    {
+      type: "single",
+      q: "\"Điểm mở rộng\" (Extension Point) trong mối quan hệ Extend đóng vai trò như thế nào?",
+      options: [
+        "Là một tham số được truyền từ Use Case mở rộng vào để thay đổi trạng thái của Use Case cơ sở.",
+        "Là vị trí bắt buộc mà hệ thống sẽ dừng lại để chờ tác nhân xác nhận trước khi tiếp tục luồng chính.",
+        "Là một \"móc nối\" trong Use Case cơ sở, nơi các hành vi mở rộng có thể được gắn thêm vào.",
+        "Là điểm kết thúc của Use Case cơ sở, tại đó hệ thống sẽ tự động chuyển sang Use Case mở rộng."
+      ],
+      answer: [2],
+      explain: "Đáp án đúng: Là một \"móc nối\" trong Use Case cơ sở, nơi các hành vi mở rộng có thể được gắn thêm vào."
+    },
+    {
+      type: "single",
+      q: "Một Use Case được coi là \"trừu tượng\" (Abstract Use Case) khi nó thỏa mãn đặc điểm nào?",
+      options: [
+        "Nó không chứa bất kỳ hành vi thực tế nào mà chỉ dùng để minh họa cho các yêu cầu phi chức năng.",
+        "Nó được mô tả bằng ngôn ngữ tự nhiên thay vì sử dụng các sơ đồ hoạt động hoặc sơ đồ tương tác.",
+        "Nó bao hàm tất cả các trường hợp CRUD cho mọi thực thể dữ liệu tồn tại trong hệ thống phần mềm.",
+        "Nó chỉ tồn tại để phục vụ các Use Case khác và không bao giờ được thực hiện độc lập."
+      ],
+      answer: [3],
+      explain: "Đáp án đúng: Nó chỉ tồn tại để phục vụ các Use Case khác và không bao giờ được thực hiện độc lập."
     }
   ]
 };

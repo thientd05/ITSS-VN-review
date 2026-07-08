@@ -406,6 +406,43 @@ window.QUIZ = {
       ],
       answer: [0],
       explain: "<b>FindBugs</b> làm <b>static analysis</b> tìm bug &amp; performance issue (&gt;200 rule: Correctness, Bad practice, Performance, Dodgy), input là file <code>.class</code>, dùng \"bug patterns\". Checkstyle mới lo coding standard; JUnit lo test."
+    },
+    /* ===== Câu bổ sung từ bộ NotebookLM (không trùng câu web) ===== */
+    {
+      type: "single",
+      q: "\"Nợ kỹ thuật\" (Technical Debt) trong phát triển phần mềm được hiểu là gì?",
+      options: [
+        "Những đoạn mã được viết tạm bợ để đáp ứng thời hạn nhưng cần được cải thiện chất lượng về lâu dài.",
+        "Khoản chi phí mà khách hàng còn nợ doanh nghiệp phần mềm sau khi sản phẩm đã được bàn giao chính thức.",
+        "Tổng số lượng lỗi chưa được phát hiện trong quá trình kiểm thử hệ thống do thiếu hụt tài nguyên nhân sự.",
+        "Việc sử dụng quá nhiều thư viện mã nguồn mở của bên thứ ba khiến hệ thống trở nên phụ thuộc vào họ."
+      ],
+      answer: [0],
+      explain: "Đáp án đúng: Những đoạn mã được viết tạm bợ để đáp ứng thời hạn nhưng cần được cải thiện chất lượng về lâu dài."
+    },
+    {
+      type: "single",
+      q: "Kỹ thuật \"Binary search on buggy code\" được thực hiện như thế nào?",
+      options: [
+        "Kiểm tra kết quả trung gian tại điểm giữa của chuỗi các câu lệnh để thu hẹp nhanh phạm vi vị trí lỗi.",
+        "Sử dụng thuật toán tìm kiếm nhị phân để sắp xếp lại thứ tự các phương thức trong một lớp thiết kế bền vững.",
+        "Chia đôi danh sách các thành viên trong nhóm phát triển để thực hiện việc kiểm tra chéo mã nguồn của nhau.",
+        "Tìm kiếm lỗi bằng cách chỉ kiểm tra các dòng lệnh có chỉ số là số nguyên tố trong tệp tin mã nguồn sản phẩm."
+      ],
+      answer: [0],
+      explain: "Đáp án đúng: Kiểm tra kết quả trung gian tại điểm giữa của chuỗi các câu lệnh để thu hẹp nhanh phạm vi vị trí lỗi."
+    },
+    {
+      type: "single",
+      q: "Tại sao việc \"Giải thích vấn đề cho một người khác\" lại hiệu quả trong gỡ lỗi?",
+      options: [
+        "Vì người nghe chắc chắn sẽ có trình độ kỹ thuật cao hơn lập trình viên đang gặp rắc rối với mã nguồn.",
+        "Giúp lập trình viên tổ chức lại suy nghĩ, nhìn nhận lại vấn đề khách quan và phát hiện chi tiết bị bỏ sót.",
+        "Để chuyển giao toàn bộ trách nhiệm sửa lỗi cho người nghe và tập trung vào các nhiệm vụ phát triển khác.",
+        "Vì các công cụ gỡ lỗi hiện đại bắt buộc phải có hai người cùng xác nhận mới cho phép thay đổi mã nguồn."
+      ],
+      answer: [1],
+      explain: "Đáp án đúng: Giúp lập trình viên tổ chức lại suy nghĩ, nhìn nhận lại vấn đề khách quan và phát hiện chi tiết bị bỏ sót."
     }
   ]
 };

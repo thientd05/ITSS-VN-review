@@ -457,6 +457,31 @@ window.QUIZ = {
       ],
       answer: [0, 1, 2],
       explain: "Review points cho Class: tên rõ, <b>một</b> abstraction, attribute/behavior gắn kết chức năng, có generalization phù hợp, đáp ứng yêu cầu, <b>nhất quán với state machine</b>, mô tả đủ vòng đời instance, đủ hành vi. Nhồi nhiều abstraction hay bỏ qua state machine là dấu hiệu xấu."
+    },
+    /* ===== Câu bổ sung từ bộ NotebookLM (không trùng câu web) ===== */
+    {
+      type: "single",
+      q: "Chiến lược sử dụng lớp \"FatClass\" kết hợp với \"DataHelper\" nhằm mục đích chính là gì?",
+      options: [
+        "Tối ưu hiệu năng bằng cách chỉ truy xuất các thuộc tính ít dùng khi có yêu cầu thực tế từ phía khách hàng.",
+        "Giảm bớt số lượng các bảng dữ liệu cần phải tạo ra trong hệ quản trị cơ sở dữ liệu quan hệ của hệ thống.",
+        "Bắt buộc mọi thuộc tính của đối tượng phải được nạp vào bộ nhớ đệm ngay khi đối tượng được khởi tạo.",
+        "Đóng gói các hành vi điều khiển phức tạp để tránh việc lớp biên phải tương tác quá sâu vào dữ liệu."
+      ],
+      answer: [0],
+      explain: "Đáp án đúng: Tối ưu hiệu năng bằng cách chỉ truy xuất các thuộc tính ít dùng khi có yêu cầu thực tế từ phía khách hàng."
+    },
+    {
+      type: "single",
+      q: "\"Điểm bản lề\" (hinge points) trong thiết kế dựa trên trừu tượng hóa có ý nghĩa gì?",
+      options: [
+        "Là các vị trí quan trọng nơi hệ thống có thể cung cấp nhiều cách cài đặt khác nhau thông qua interface.",
+        "Là các điểm kết thúc của một vòng đời đối tượng nơi mọi tài nguyên sẽ được giải phóng hoàn toàn.",
+        "Là các thông báo lỗi hiển thị trên giao diện người dùng khi có sự cố xảy ra trong quá trình tính toán.",
+        "Là ranh giới giữa tầng chính sách (policy) và tầng cơ chế (mechanism) trong kiến trúc phân tầng."
+      ],
+      answer: [0],
+      explain: "Đáp án đúng: Là các vị trí quan trọng nơi hệ thống có thể cung cấp nhiều cách cài đặt khác nhau thông qua interface."
     }
   ]
 };

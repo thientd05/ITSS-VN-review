@@ -308,6 +308,55 @@ window.QUIZ = {
       ],
       answer: [0],
       explain: "<b>Reminder program</b> (định kỳ nhắc/bắt người dùng nghỉ giải lao) — naive design gộp hiển thị message + gợi ý bài tập + vòng lặp theo thời gian — được dùng làm <b>bài tập áp dụng &amp; kiểm tra SRP/OCP/LSP/ISP/DIP</b>, rà codebase tách trách nhiệm/dựa abstraction/tách interface."
+    },
+    /* ===== Câu bổ sung từ bộ NotebookLM (không trùng câu web) ===== */
+    {
+      type: "single",
+      q: "Nguyên lý Single Responsibility Principle (SRP) được định nghĩa tương đương với khái niệm nào đã học?",
+      options: [
+        "Loose coupling nhằm giảm thiểu sự phụ thuộc giữa các thành phần phần mềm khác nhau.",
+        "High cohesion để đảm bảo các phần tử trong module cùng thực hiện một nhiệm vụ.",
+        "Encapsulation nhằm bảo vệ tính toàn vẹn của dữ liệu nội bộ bên trong một đối tượng.",
+        "Abstraction giúp loại bỏ các chi tiết cài đặt không cần thiết ở mức độ thiết kế hệ thống."
+      ],
+      answer: [1],
+      explain: "Đáp án đúng: High cohesion để đảm bảo các phần tử trong module cùng thực hiện một nhiệm vụ."
+    },
+    {
+      type: "single",
+      q: "Tại sao thiết kế Ostrich (đà điểu) kế thừa Bird (có phương thức fly) lại vi phạm LSP?",
+      options: [
+        "Vì đà điểu có trọng lượng cơ thể lớn hơn nhiều so với các loài chim khác được mô hình hóa trong hệ thống.",
+        "Vì đà điểu không thể bay, nên không thể thực hiện hành vi fly() như kỳ vọng của lớp cha Bird.",
+        "Vì việc kế thừa trực tiếp làm cho lớp Ostrich phải chứa quá nhiều thuộc tính dữ liệu dư thừa từ lớp Bird.",
+        "Vì tên phương thức fly() không phản ánh đúng hành động chạy nhanh trên mặt đất của loài đà điểu."
+      ],
+      answer: [1],
+      explain: "Đáp án đúng: Vì đà điểu không thể bay, nên không thể thực hiện hành vi fly() như kỳ vọng của lớp cha Bird."
+    },
+    {
+      type: "single",
+      q: "Bài học rút ra từ LSP về mối quan hệ giữa \"thế giới thực\" và \"thiết kế phần mềm\" là gì?",
+      options: [
+        "Mọi mối quan hệ \"là một\" (is-a) trong thực tế đều có thể ánh xạ trực tiếp thành quan hệ kế thừa trong mã.",
+        "A là B trong thực tế không có nghĩa class A nên kế thừa class B; chỉ kế thừa khi A thay thế được B.",
+        "Thiết kế phần mềm phải luôn luôn ưu tiên mô phỏng chính xác tuyệt đối mọi đặc điểm của thế giới thực.",
+        "Các nhà thiết kế nên loại bỏ hoàn toàn quan hệ kế thừa và thay thế bằng quan hệ phụ thuộc tạm thời."
+      ],
+      answer: [1],
+      explain: "Đáp án đúng: A là B trong thực tế không có nghĩa class A nên kế thừa class B; chỉ kế thừa khi A thay thế được B."
+    },
+    {
+      type: "single",
+      q: "Một thiết kế vi phạm SOLID thường dẫn đến hiện tượng nào sau đây?",
+      options: [
+        "Mã nguồn trở nên cứng nhắc (rigid), dễ đổ vỡ (fragile) và khó tái sử dụng (immobile).",
+        "Mã nguồn chạy quá nhanh khiến cho hệ quản trị cơ sở dữ liệu không kịp phản hồi các yêu cầu truy vấn.",
+        "Tăng khả năng hiểu biết chung giữa khách hàng và nhà phát triển về các yêu cầu phi chức năng của hệ thống.",
+        "Giảm số lượng các kịch bản kiểm thử cần thiết phải thực hiện trong giai đoạn kiểm thử hệ thống và tích hợp."
+      ],
+      answer: [0],
+      explain: "Đáp án đúng: Mã nguồn trở nên cứng nhắc (rigid), dễ đổ vỡ (fragile) và khó tái sử dụng (immobile)."
     }
   ]
 };

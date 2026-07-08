@@ -328,6 +328,67 @@ window.QUIZ = {
       ],
       answer: [0],
       explain: "<b>God class</b>: lớp ôm quá nhiều data/chức năng của hệ thống — <b>cohesion kém</b> (ít lý do vì sao gộp chung); nó chỉ giảm coupling bằng cách gộp nhiều module thành một (biến dependency giữa module thành dependency trong module). Là <b>anti-pattern</b> — cách làm dở đã biết trước."
+    },
+    /* ===== Câu bổ sung từ bộ NotebookLM (không trùng câu web) ===== */
+    {
+      type: "single",
+      q: "Trong mô hình phân cấp các mức thiết kế, \"Nền tảng\" (Cấp độ 1) bao gồm những gì?",
+      options: [
+        "Các khái niệm chung và các nguyên lý cơ bản của lập trình hướng đối tượng.",
+        "Các mẫu thiết kế (Design Patterns) đã được kiểm chứng bởi nhóm Gang of Four.",
+        "Các kiến trúc và framework phức tạp như J2EE hoặc các hệ thống tài chính.",
+        "Các cấu trúc dữ liệu cụ thể và các phương pháp tiếp cận thuật toán tối ưu hóa."
+      ],
+      answer: [0],
+      explain: "Đáp án đúng: Các khái niệm chung và các nguyên lý cơ bản của lập trình hướng đối tượng."
+    },
+    {
+      type: "single",
+      q: "Các mẫu thiết kế hướng đối tượng (OOD Patterns) nằm ở cấp độ mấy trong mô hình?",
+      options: [
+        "Cấp độ 2 – tập trung vào các giải pháp thuật toán và cấu trúc dữ liệu cơ bản.",
+        "Cấp độ 4 – cung cấp các giải pháp chuẩn cho các vấn đề thiết kế phổ biến.",
+        "Cấp độ 1 – là những kiến thức cốt lõi về lớp, đối tượng và tính đóng gói.",
+        "Cấp độ 5 – là tầng thiết kế tổng thể về kiến trúc hệ thống và các framework."
+      ],
+      answer: [1],
+      explain: "Đáp án đúng: Cấp độ 4 – cung cấp các giải pháp chuẩn cho các vấn đề thiết kế phổ biến."
+    },
+    {
+      type: "single",
+      q: "Mục đích của khái niệm \"Information Hiding\" (ẩn giấu thông tin) là gì?",
+      options: [
+        "Che giấu các chi tiết cài đặt bên trong và chỉ cung cấp giao diện cần thiết.",
+        "Ngăn cản khách hàng nhìn thấy các lỗi (bugs) còn tồn tại trong sản phẩm phần mềm.",
+        "Xóa bỏ hoàn toàn các thuộc tính dữ liệu sau khi chương trình kết thúc thực thi.",
+        "Giấu đi danh tính của các lập trình viên đã tham gia xây dựng các mô-đun đó."
+      ],
+      answer: [0],
+      explain: "Đáp án đúng: Che giấu các chi tiết cài đặt bên trong và chỉ cung cấp giao diện cần thiết."
+    },
+    {
+      type: "single",
+      q: "Tại sao việc sử dụng kỹ thuật Reflection trong Java để thay đổi thuộc tính private lại bị cảnh báo?",
+      options: [
+        "Vì nó làm tăng kích thước tệp tin thực thi và làm chậm tốc độ biên dịch mã nguồn của dự án.",
+        "Vì nó yêu cầu lập trình viên phải định nghĩa lại toàn bộ cấu trúc của lớp Student trong repository.",
+        "Vì nó phá vỡ nguyên tắc đóng gói, gây rủi ro về bảo mật và mất tính nhất quán dữ liệu.",
+        "Vì nó chỉ có thể áp dụng được cho các kiểu dữ liệu nguyên thủy như String hoặc Integer."
+      ],
+      answer: [2],
+      explain: "Đáp án đúng: Vì nó phá vỡ nguyên tắc đóng gói, gây rủi ro về bảo mật và mất tính nhất quán dữ liệu."
+    },
+    {
+      type: "single",
+      q: "\"Communicational cohesion\" xảy ra khi nào?",
+      options: [
+        "Các phần tử được nhóm lại vì chúng cùng thao tác trên hoặc quan tâm đến cùng một dữ liệu.",
+        "Các phần tử trao đổi thông tin với nhau thông qua việc chia sẻ các biến trạng thái toàn cục.",
+        "Các phần tử thực hiện nhiệm vụ truyền tin giữa các hệ thống con thông qua các giao diện.",
+        "Các phần tử được thực thi liên tiếp trong một quy trình mà đầu ra của bước này là đầu vào bước kia."
+      ],
+      answer: [0],
+      explain: "Đáp án đúng: Các phần tử được nhóm lại vì chúng cùng thao tác trên hoặc quan tâm đến cùng một dữ liệu."
     }
   ]
 };

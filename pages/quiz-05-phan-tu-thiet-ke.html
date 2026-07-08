@@ -250,6 +250,43 @@ window.QUIZ = {
       ],
       answer: [0],
       explain: "<b>Subsystem</b> <em>cung cấp hành vi</em> và <em>đóng gói hoàn toàn</em> nội dung sau một interface; còn <b>Package</b> chỉ là cơ chế <em>nhóm</em> các phần tử (không đóng gói hành vi sau interface). Chi tiết subsystem &amp; gates ở chủ đề Thiết kế giao diện."
+    },
+    /* ===== Câu bổ sung từ bộ NotebookLM (không trùng câu web) ===== */
+    {
+      type: "single",
+      q: "Sự khác biệt cơ bản giữa lớp phân tích và các yếu tố thiết kế là gì?",
+      options: [
+        "Lớp phân tích chỉ mô tả cấu trúc dữ liệu, còn yếu tố thiết kế tập trung hoàn toàn vào giao diện người dùng.",
+        "Lớp phân tích xử lý yêu cầu chức năng (miền vấn đề), yếu tố thiết kế xử lý yêu cầu phi chức năng (miền giải pháp).",
+        "Lớp phân tích được viết bằng ngôn ngữ lập trình, còn yếu tố thiết kế chỉ được thể hiện qua các sơ đồ hình ảnh.",
+        "Yếu tố thiết kế luôn luôn có tỷ lệ ánh xạ một-một đối với tất cả các lớp đã được xác định trong giai đoạn phân tích."
+      ],
+      answer: [1],
+      explain: "Đáp án đúng: Lớp phân tích xử lý yêu cầu chức năng (miền vấn đề), yếu tố thiết kế xử lý yêu cầu phi chức năng (miền giải pháp)."
+    },
+    {
+      type: "single",
+      q: "Giải pháp nào được đề xuất khi các gói ở tầng thấp cần sử dụng chức năng của tầng cao?",
+      options: [
+        "Gộp tất cả các tầng kiến trúc vào một gói duy nhất để loại bỏ hoàn toàn các mối phụ thuộc.",
+        "Cho phép các lớp ở tầng thấp trực tiếp khởi tạo các đối tượng từ tầng cao để xử lý dữ liệu.",
+        "Phân chia lại chức năng hoặc thể hiện các phụ thuộc thông qua các giao diện ở tầng thấp hơn.",
+        "Sử dụng biến toàn cục để truyền dữ liệu từ tầng cao xuống tầng thấp mà không qua tham số."
+      ],
+      answer: [2],
+      explain: "Đáp án đúng: Phân chia lại chức năng hoặc thể hiện các phụ thuộc thông qua các giao diện ở tầng thấp hơn."
+    },
+    {
+      type: "single",
+      q: "Khi nào một lớp phân tích phức tạp nên được tinh chỉnh thành một hệ thống con (subsystem)?",
+      options: [
+        "Khi lớp đó chỉ chứa các thuộc tính đơn giản và không có bất kỳ hành vi nào liên quan đến logic.",
+        "Khi lớp đó cần được ánh xạ trực tiếp vào một bảng duy nhất trong cơ sở dữ liệu quan hệ.",
+        "Khi nó thể hiện các hành vi mà không thể là trách nhiệm của một lớp đơn lẻ hoạt động độc lập.",
+        "Khi tất cả các phương thức của lớp đó đều có phạm vi truy cập là \"riêng tư\" (private)."
+      ],
+      answer: [2],
+      explain: "Đáp án đúng: Khi nó thể hiện các hành vi mà không thể là trách nhiệm của một lớp đơn lẻ hoạt động độc lập."
     }
   ]
 };

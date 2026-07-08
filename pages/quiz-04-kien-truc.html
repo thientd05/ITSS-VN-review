@@ -541,6 +541,79 @@ window.QUIZ = {
       ],
       answer: [0],
       explain: "<b>VIPER</b> = <b>V</b>iew, <b>I</b>nteractor, <b>P</b>resenter, <b>E</b>ntity, <b>R</b>outing (Wireframe) — tách trách nhiệm rất mịn, thường dùng cho iOS. Các phương án khác bịa nghĩa cho các chữ cái."
+    },
+    /* ===== Câu bổ sung từ bộ NotebookLM (không trùng câu web) ===== */
+    {
+      type: "single",
+      q: "Theo tài liệu, sự khác biệt giữa mô tả \"hộp đen\" và \"hộp trắng\" của Use Case là gì?",
+      options: [
+        "Hộp đen mô tả hành động từ bên ngoài, hộp trắng mô tả chi tiết hoạt động bên trong hệ thống.",
+        "Hộp đen tập trung vào mã nguồn, hộp trắng tập trung vào việc vẽ sơ đồ các lớp thực thể bền vững.",
+        "Hộp đen dùng cho lập trình viên, hộp trắng dùng cho khách hàng để ký hợp đồng nghiệm thu phần mềm.",
+        "Hộp trắng mô tả các yêu cầu phi chức năng, hộp đen mô tả các yêu cầu chức năng chính của hệ thống."
+      ],
+      answer: [0],
+      explain: "Đáp án đúng: Hộp đen mô tả hành động từ bên ngoài, hộp trắng mô tả chi tiết hoạt động bên trong hệ thống."
+    },
+    {
+      type: "single",
+      q: "Đặc điểm nào sau đây mô tả đúng nhất về các \"lớp phân tích\" (Analysis Classes)?",
+      options: [
+        "Là các \"lớp sơ khai\" (proto-classes) đại diện cho các khối hành vi và hiếm khi giữ nguyên khi thiết kế.",
+        "Là các lớp đã được định nghĩa kiểu dữ liệu cụ thể và sẵn sàng để ánh xạ trực tiếp vào cơ sở dữ liệu.",
+        "Là các lớp thiết kế hoàn chỉnh đã tích hợp đầy đủ các cơ chế kiến trúc và tối ưu hiệu năng hoạt động.",
+        "Là các thành phần phần mềm có sẵn được tái sử dụng từ các thư viện chuẩn của ngôn ngữ lập trình."
+      ],
+      answer: [0],
+      explain: "Đáp án đúng: Là các \"lớp sơ khai\" (proto-classes) đại diện cho các khối hành vi và hiếm khi giữ nguyên khi thiết kế."
+    },
+    {
+      type: "single",
+      q: "Lợi ích chính của việc sử dụng thông điệp không đồng bộ (asynchronous messages) là gì?",
+      options: [
+        "Giảm bớt số lượng các lớp điều khiển cần thiết để thực hiện các chức năng nghiệp vụ của hệ thống.",
+        "Đảm bảo đối tượng gửi phải chờ cho đến khi đối tượng nhận phản hồi xong mới được tiếp tục làm việc.",
+        "Nâng cao khả năng phản hồi của hệ thống và giảm sự phụ thuộc thời gian (temporal coupling).",
+        "Loại bỏ hoàn toàn khả năng xảy ra xung đột dữ liệu khi nhiều đối tượng cùng truy cập một thực thể."
+      ],
+      answer: [2],
+      explain: "Đáp án đúng: Nâng cao khả năng phản hồi của hệ thống và giảm sự phụ thuộc thời gian (temporal coupling)."
+    },
+    {
+      type: "single",
+      q: "Trong biểu đồ tuần tự, đoạn kết hợp (combined fragment) mang nhãn \"Opt\" tương đương với cấu trúc nào?",
+      options: [
+        "Tương đương với vòng lặp for/while, cho phép thực thi một đoạn mã nhiều lần cho đến khi điều kiện sai.",
+        "Tương đương với cấu trúc switch-case, cho phép chọn một trong nhiều nhánh thực thi dựa trên giá trị.",
+        "Tương đương với câu điều kiện \"if\", thực thi đoạn mã nếu điều kiện đúng, rồi tiếp tục luồng bình thường.",
+        "Tương đương với lệnh \"break\", dừng ngay lập tức toàn bộ quá trình tương tác khi điều kiện được thỏa mãn."
+      ],
+      answer: [2],
+      explain: "Đáp án đúng: Tương đương với câu điều kiện \"if\", thực thi đoạn mã nếu điều kiện đúng, rồi tiếp tục luồng bình thường."
+    },
+    {
+      type: "single",
+      q: "Quan hệ phản chiếu (reflexive relationship) thực sự cần thiết khi nào?",
+      options: [
+        "Khi một đối tượng bất kỳ trong hệ thống cần phải gửi một thông điệp cho chính bản thân nó để xử lý.",
+        "Khi hai đối tượng khác nhau nhưng cùng thuộc một lớp cần phải giao tiếp với nhau trong Use Case.",
+        "Khi lớp biên cần giao tiếp trực tiếp với lớp thực thể mà không thông qua bất kỳ một lớp điều khiển nào.",
+        "Khi một lớp con kế thừa toàn bộ các đặc điểm hành vi và thuộc tính dữ liệu từ một lớp cha tổng quát."
+      ],
+      answer: [1],
+      explain: "Đáp án đúng: Khi hai đối tượng khác nhau nhưng cùng thuộc một lớp cần phải giao tiếp với nhau trong Use Case."
+    },
+    {
+      type: "single",
+      q: "Theo mô hình kiến trúc \"4+1 view\", sơ đồ lớp phân tích (VOPC) thuộc góc nhìn nào?",
+      options: [
+        "Góc nhìn tiến trình (Process view) để mô tả các luồng điều khiển đồng thời và hiệu năng xử lý.",
+        "Góc nhìn triển khai (Deployment view) để mô tả việc bố trí vật lý các tài nguyên tính toán của hệ thống.",
+        "Góc nhìn logic (Logical view) để nắm bắt các khái niệm và cấu trúc tĩnh của không gian vấn đề.",
+        "Góc nhìn ca sử dụng (Use-case view) đóng vai trò trung tâm để phơi bày các chức năng cho người dùng."
+      ],
+      answer: [2],
+      explain: "Đáp án đúng: Góc nhìn logic (Logical view) để nắm bắt các khái niệm và cấu trúc tĩnh của không gian vấn đề."
     }
   ]
 };

@@ -328,6 +328,55 @@ window.QUIZ = {
       ],
       answer: [0, 1, 2, 3],
       explain: "Checkpoints: có realization cho mỗi interface cung cấp; có dependency cho mỗi interface dùng; <b>không</b> phần tử nào public visibility (đóng gói hoàn toàn); mỗi operation interface được map 1:1 vào interaction diagram. Vì vậy \"mọi lớp bên trong đều public\" là SAI — vi phạm encapsulation."
+    },
+    /* ===== Câu bổ sung từ bộ NotebookLM (không trùng câu web) ===== */
+    {
+      type: "single",
+      q: "Công cụ thiết kế Wireframe tập trung chủ yếu vào khía cạnh nào của giao diện người dùng?",
+      options: [
+        "Tập trung vào bố cục và chức năng cơ bản của trang web hoặc ứng dụng, không đi sâu vào thẩm mỹ.",
+        "Mô phỏng chính xác màu sắc, hình ảnh và phong cách thiết kế đồ họa cuối cùng của sản phẩm để khách hàng duyệt.",
+        "Xây dựng các đoạn mã nguồn CSS và HTML chi tiết để lập trình viên có thể sử dụng trực tiếp trong giai đoạn triển khai.",
+        "Thiết lập các kết nối bền vững với cơ sở dữ liệu để kiểm tra tính đúng đắn của luồng dữ liệu ngay trên bản phác thảo."
+      ],
+      answer: [0],
+      explain: "Đáp án đúng: Tập trung vào bố cục và chức năng cơ bản của trang web hoặc ứng dụng, không đi sâu vào thẩm mỹ."
+    },
+    {
+      type: "single",
+      q: "Sự khác biệt chính giữa \"Sketch\" và \"Mockup\" trong quy trình thiết kế giao diện là gì?",
+      options: [
+        "Sketch sử dụng dữ liệu thật từ hệ thống, trong khi Mockup chỉ sử dụng các hình vẽ trừu tượng bằng tay trên giấy.",
+        "Sketch là mô hình hoạt động hoàn chỉnh, còn Mockup là bản phác thảo tự do không quan tâm đến chi tiết kỹ thuật.",
+        "Sketch là phác thảo tự do nhanh chóng, còn Mockup thể hiện đầy đủ màu sắc, logo và phong cách thiết kế.",
+        "Sketch dùng để kiểm tra tính khả dụng (usability), còn Mockup dùng để định hình cấu trúc xương cho giao diện người dùng."
+      ],
+      answer: [2],
+      explain: "Đáp án đúng: Sketch là phác thảo tự do nhanh chóng, còn Mockup thể hiện đầy đủ màu sắc, logo và phong cách thiết kế."
+    },
+    {
+      type: "single",
+      q: "\"Prototype\" đóng vai trò gì trong việc tối ưu hóa trải nghiệm người dùng (UX)?",
+      options: [
+        "Tích hợp tương tác, cho phép mô phỏng hành động người dùng để kiểm tra hành trình và tính khả dụng.",
+        "Cung cấp một bản in cứng (hardcopy) của tất cả các màn hình để đính kèm vào tài liệu hướng dẫn sử dụng chính thức.",
+        "Tự động sinh ra các kịch bản kiểm thử đơn vị cho tất cả các lớp biên (boundary classes) đã được xác định trước đó.",
+        "Đảm bảo rằng tất cả các thành phần giao diện đều tuân thủ nguyên tắc thiết kế phân tầng từ tầng chính sách đến tầng cơ chế."
+      ],
+      answer: [0],
+      explain: "Đáp án đúng: Tích hợp tương tác, cho phép mô phỏng hành động người dùng để kiểm tra hành trình và tính khả dụng."
+    },
+    {
+      type: "single",
+      q: "Trong quy ước mô hình hóa hệ thống con, lớp \"Subsystem Proxy\" đóng vai trò gì?",
+      options: [
+        "Hiện thực các giao diện như một đại diện trung gian và điều phối việc triển khai các thao tác của giao diện.",
+        "Lưu trữ toàn bộ các biến trạng thái của hệ thống con vào cơ sở dữ liệu bền vững để tránh mất mát dữ liệu khi lỗi.",
+        "Cung cấp các công cụ đồ họa để kiến trúc sư có thể vẽ sơ đồ trình tự cho các tương tác nội bộ của hệ thống con đó.",
+        "Ngăn chặn các hệ thống bên ngoài gửi thông điệp trực tiếp đến các lớp thực thể (entity) nằm sâu bên trong hệ thống con."
+      ],
+      answer: [0],
+      explain: "Đáp án đúng: Hiện thực các giao diện như một đại diện trung gian và điều phối việc triển khai các thao tác của giao diện."
     }
   ]
 };
