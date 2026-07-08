@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Trắc nghiệm 1 · Quy trình &amp; Mô hình phát triển PM — ITSS</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/quiz.css">
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a class="brand" href="../index.html"><span class="dot"></span> ITSS SW Dev <small>· Trắc nghiệm</small></a>
+  <div class="top-spacer"></div>
+  <a class="top-link" href="01-quy-trinh-mo-hinh.html">← Lý thuyết</a>
+  <a class="top-link" href="../index.html">Trang chủ</a>
+  <button id="themeBtn" class="icon-btn" onclick="toggleTheme()">☾</button>
+</div></div>
+
+<div class="quiz-layout">
+  <main class="quiz-main">
+    <div class="crumb"><a href="01-quy-trinh-mo-hinh.html">← Quay lại lý thuyết: Quy trình &amp; Mô hình phát triển PM</a></div>
+    <h1 class="page-title">Trắc nghiệm · Chủ đề 1</h1>
+    <p class="page-lead">Quy trình &amp; mô hình phát triển phần mềm: SLCP (ISO 12207), Software Implementation Process, OOAD, UML, và các mô hình Waterfall → Agile. Nộp từng câu để xem đáp án &amp; giải thích. Kết quả được lưu tự động — rời trang rồi quay lại vẫn còn.</p>
+    <div id="quizRoot"></div>
+  </main>
+
+  <aside class="qnav-wrap">
+    <h4>Bảng câu hỏi</h4>
+    <div class="qnav-stat" id="qnavStat"></div>
+    <div class="qnav-grid" id="qnavGrid"></div>
+    <div class="qnav-legend">
+      <span><i class="ok"></i> Đúng</span>
+      <span><i class="no"></i> Sai</span>
+      <span><i class="an"></i> Đang chọn</span>
+    </div>
+    <button class="btn-resetall" id="btnResetAll">↺ Làm lại toàn bộ</button>
+  </aside>
+</div>
+
+<script>
+window.QUIZ = {
+  id: "01-quy-trinh-mo-hinh",
+  title: "Quy trình & Mô hình phát triển phần mềm",
+  back: "01-quy-trinh-mo-hinh.html",
+  questions: [
+    /* ===== SLCP / ISO 12207 ===== */
+    {
+      type: "single",
+      q: "SLCP (Software Life Cycle Process) được định nghĩa trong chuẩn quốc tế nào?",
+      options: [
+        "ISO/IEC 12207",
+        "ISO 9001",
+        "ISO/IEC 25010",
+        "IEEE 830"
+      ],
+      answer: [0],
+      explain: "SLCP là chuẩn <b>ISO/IEC 12207:2008</b> — \"Systems and software engineering — Software life cycle processes\". Vòng đời bắt đầu từ một ý tưởng/nhu cầu và kết thúc khi phần mềm ngừng sử dụng (retirement). (ISO 9001 = quản lý chất lượng; ISO/IEC 25010 = mô hình chất lượng sản phẩm; IEEE 830 = đặc tả yêu cầu.)"
+    },
+    {
+      type: "single",
+      q: "Chuẩn ISO/IEC 12207 tổ chức các hoạt động theo phân cấp nào?",
+      options: [
+        "Process → Activity → Task",
+        "Phase → Milestone → Deliverable",
+        "Module → Function → Statement",
+        "Sprint → Story → Task"
+      ],
+      answer: [0],
+      explain: "SLCP phân cấp <b>Process → Activity → Task</b>: mỗi process gồm nhiều activity, mỗi activity gồm nhiều task."
+    },
+    {
+      type: "single",
+      q: "ISO/IEC 12207 chia các hoạt động thành bao nhiêu nhóm process (process group)?",
+      options: ["7 nhóm", "5 nhóm", "6 nhóm", "10 nhóm"],
+      answer: [0],
+      explain: "Có <b>7 nhóm process</b>: Agreement · Organizational Project-Enabling · Project · Technical · <b>Software Implementation</b> · Software Support · Software Reuse."
+    },
+    {
+      type: "multi",
+      q: "Những nhóm nào sau đây LÀ nhóm process của SLCP (ISO/IEC 12207)?",
+      options: [
+        "Agreement Processes",
+        "Technical Processes",
+        "Software Reuse Processes",
+        "Software Implementation Processes",
+        "Debugging Processes",
+        "Marketing Processes"
+      ],
+      answer: [0, 1, 2, 3],
+      explain: "4 nhóm đúng nằm trong 7 nhóm chuẩn. \"Debugging Processes\" và \"Marketing Processes\" <b>không</b> phải nhóm của SLCP. (7 nhóm: Agreement, Organizational Project-Enabling, Project, Technical, Software Implementation, Software Support, Software Reuse.)"
+    },
+    {
+      type: "single",
+      q: "Nhóm process nào là \"xương sống\" của môn học, chứa 6 process con?",
+      options: [
+        "Software Implementation Processes",
+        "Technical Processes",
+        "Project Processes",
+        "Software Support Processes"
+      ],
+      answer: [0],
+      explain: "<b>Software Implementation Processes</b> gồm 6 process con. Mục đích: \"to produce a specified system element implemented as a software product or service\"."
+    },
+    {
+      type: "single",
+      q: "Vai trò chính của SLCP đối với các bên liên quan là gì?",
+      options: [
+        "Là ngôn ngữ chung giữa acquirer & supplier để giao tiếp/đặt hàng phát triển phần mềm",
+        "Là ngôn ngữ lập trình chuẩn để viết mã",
+        "Là công cụ tự động sinh code từ yêu cầu",
+        "Là bộ khung kiểm thử tự động"
+      ],
+      answer: [0],
+      explain: "SLCP là <b>ngôn ngữ chung (common language)</b> giữa acquirer (bên mua) và supplier (bên cung cấp). WTO/TBT còn khuyến nghị dùng chuẩn ISO cho mua sắm chính phủ."
+    },
+    {
+      type: "multi",
+      q: "Theo learning point của bài, những yếu tố nào quyết định sự thành công của một dự án phần mềm?",
+      options: [
+        "Đáp ứng đúng yêu cầu chức năng (functional)",
+        "Giao đúng hẹn (delivery date)",
+        "Đạt chất lượng yêu cầu (reliability, usability, performance, maintainability)",
+        "Có bảo trì (maintenance) trong giai đoạn vận hành",
+        "Dùng nhiều dòng code nhất có thể",
+        "Tránh mọi hình thức tài liệu hóa"
+      ],
+      answer: [0, 1, 2, 3],
+      explain: "4 yếu tố thành công: đúng <b>chức năng</b>, đúng <b>hẹn giao</b>, đạt <b>chất lượng</b> (Reliability, Usability, Performance, Maintainability) và có <b>bảo trì</b>. Số dòng code không phải thước đo thành công."
+    },
+    {
+      type: "single",
+      q: "\"ISO\" trong ISO/IEC 12207 là viết tắt của?",
+      options: [
+        "International Organization for Standardization",
+        "International Software Organization",
+        "Internet Standards Office",
+        "Institute of Systems and Operations"
+      ],
+      answer: [0],
+      explain: "<b>ISO</b> = International Organization for Standardization. <b>IEC</b> = International Electrotechnical Commission. <b>JTC1</b> = Joint Technical Committee 1 (ủy ban kỹ thuật chung của ISO và IEC)."
+    },
+    {
+      type: "single",
+      q: "Software Implementation Process được thực hiện SAU những hoạt động nào?",
+      options: [
+        "System Requirements Analysis và System Architectural Design",
+        "Unit Testing và Integration",
+        "Deployment và Maintenance",
+        "Coding Convention Review"
+      ],
+      answer: [0],
+      explain: "Software Implementation được thực hiện <b>sau</b> System Requirements Analysis và System Architectural Design (mức hệ thống), rồi mới đi vào 6 process con ở mức phần mềm."
+    },
+
+    /* ===== 6 Software Implementation sub-processes ===== */
+    {
+      type: "single",
+      q: "Thứ tự đúng của 6 process con trong Software Implementation Process là?",
+      options: [
+        "Requirements Analysis → Architectural Design → Detailed Design → Construction → Integration → Qualification Testing",
+        "Architectural Design → Requirements Analysis → Construction → Detailed Design → Integration → Qualification Testing",
+        "Requirements Analysis → Detailed Design → Architectural Design → Integration → Construction → Qualification Testing",
+        "Construction → Requirements Analysis → Architectural Design → Detailed Design → Qualification Testing → Integration"
+      ],
+      answer: [0],
+      explain: "Thứ tự: <b>Requirements Analysis → Architectural Design → Detailed Design → Construction → Integration → Qualification Testing</b> (phân tích yêu cầu → thiết kế kiến trúc → thiết kế chi tiết → xây dựng mã → tích hợp → kiểm thử xác nhận)."
+    },
+    {
+      type: "single",
+      q: "Process con nào chi tiết hóa component thành \"software unit\" (đơn vị có thể code/compile/test được)?",
+      options: [
+        "Detailed Design (Thiết kế chi tiết)",
+        "Architectural Design (Thiết kế kiến trúc)",
+        "Construction (Xây dựng)",
+        "Integration (Tích hợp)"
+      ],
+      answer: [0],
+      explain: "<b>Detailed Design</b> refine component thành <b>software unit</b> (đủ nhỏ để code, compile, test) và thiết kế giao diện chi tiết. Architectural Design mới chỉ ra cấu trúc top-level."
+    },
+    {
+      type: "multi",
+      q: "Sản phẩm/hoạt động chính của process con Construction gồm những gì?",
+      options: [
+        "Tạo mã thực thi cho từng unit + database",
+        "Viết test procedure/test case và thực hiện unit test",
+        "Đánh giá code coverage và truy vết yêu cầu (traceability)",
+        "Thiết lập yêu cầu phi chức năng cho toàn hệ thống",
+        "Xác định cấu trúc top-level của phần mềm"
+      ],
+      answer: [0, 1, 2],
+      explain: "<b>Construction</b> = tạo mã thực thi phản ánh đúng thiết kế: code từng unit + DB, viết & chạy unit test, đánh giá code coverage và truy vết yêu cầu. Thiết lập yêu cầu là việc của Requirements Analysis; cấu trúc top-level là của Architectural Design."
+    },
+    {
+      type: "single",
+      q: "Mục đích (Purpose) của process con Qualification Testing là?",
+      options: [
+        "Xác nhận sản phẩm đã tích hợp đáp ứng các yêu cầu đã định (qualification requirements)",
+        "Chi tiết hóa thiết kế đủ để coding",
+        "Kết hợp các unit thành phần tích hợp",
+        "Thiết lập yêu cầu cho các phần tử phần mềm"
+      ],
+      answer: [0],
+      explain: "<b>Qualification Testing</b> xác nhận (confirm) sản phẩm tích hợp đáp ứng các <b>qualification requirements</b> đã định, bằng test cases/procedures + audit."
+    },
+
+    /* ===== OOAD ===== */
+    {
+      type: "multi",
+      q: "Mục đích của giai đoạn Analysis & Design (OOAD) là gì?",
+      options: [
+        "Chuyển yêu cầu (requirements) thành thiết kế của hệ thống sẽ xây",
+        "Tạo ra kiến trúc vững chắc (robust architecture)",
+        "Điều chỉnh thiết kế cho phù hợp môi trường cài đặt (performance)",
+        "Thu thập yêu cầu ban đầu từ khách hàng",
+        "Viết tài liệu marketing cho sản phẩm"
+      ],
+      answer: [0, 1, 2],
+      explain: "3 mục đích của Analysis & Design: chuyển <b>yêu cầu → thiết kế</b>, tạo <b>kiến trúc robust</b>, và tinh chỉnh thiết kế theo <b>môi trường cài đặt</b>. Thu thập yêu cầu thuộc pha Requirements trước đó."
+    },
+    {
+      type: "single",
+      q: "Cách tiếp cận của OOAD (từ Use Case khai triển ra) được mô tả đúng nhất là?",
+      options: [
+        "Không thuần Top-Down cũng không thuần Bottom-Up (đi từ Use Case ra cả subsystem lẫn class)",
+        "Thuần Top-Down: từ hệ thống tổng chia dần xuống",
+        "Thuần Bottom-Up: từ class ghép dần lên",
+        "Ngẫu nhiên, không theo hướng nào"
+      ],
+      answer: [0],
+      explain: "Từ <b>Use Cases</b> (mức trung gian) ta khai triển ra cả <b>subsystems</b> (đi lên) lẫn <b>analysis/design classes</b> (đi xuống) — nên không thuần Top-Down cũng không thuần Bottom-Up."
+    },
+    {
+      type: "multi",
+      q: "Đầu vào (input) của hoạt động Analysis & Design gồm những artifact nào?",
+      options: [
+        "Use-Case Model",
+        "Glossary",
+        "Supplementary Specification",
+        "Design Model",
+        "Source code đã hoàn thiện"
+      ],
+      answer: [0, 1, 2],
+      explain: "Input: <b>Use-Case Model + Glossary + Supplementary Specification</b>. Output là <b>Design Model</b>, Data Model, Architecture Document — nên Design Model là đầu ra, không phải đầu vào."
+    },
+    {
+      type: "single",
+      q: "Trong 10 bước OOAD, bước \"Use-Case Analysis\" (phân tích hành vi) do vai trò nào đảm nhận?",
+      options: [
+        "Designer",
+        "Architect",
+        "Tester",
+        "Project Manager"
+      ],
+      answer: [0],
+      explain: "<b>Use-Case Analysis</b> do <b>Designer</b> làm, theo từng use case. Architect phụ trách nhóm bước về kiến trúc (Architectural Analysis, Identify Design Elements/Mechanisms, Describe Run-time Architecture, Describe Distribution)."
+    },
+    {
+      type: "multi",
+      q: "Những bước nào trong 10 bước OOAD do ARCHITECT đảm nhận?",
+      options: [
+        "Architectural Analysis",
+        "Identify Design Elements",
+        "Identify Design Mechanisms",
+        "Describe Run-time Architecture",
+        "Class Design",
+        "Database Design"
+      ],
+      answer: [0, 1, 2, 3],
+      explain: "Architect: Architectural Analysis, Identify Design Elements, Identify Design Mechanisms, Describe Run-time Architecture, Describe Distribution. <b>Class Design</b> và <b>Database Design</b> do <b>Designer</b> làm (cùng Use-Case Analysis, Use-Case Design, Subsystem Design)."
+    },
+    {
+      type: "single",
+      q: "Bước \"Architectural Analysis\" được thực hiện khi nào và có thể bỏ qua khi nào?",
+      options: [
+        "Thực hiện sớm ở pha Elaboration; có thể bỏ nếu rủi ro kiến trúc thấp",
+        "Thực hiện cuối dự án; không bao giờ được bỏ",
+        "Chỉ thực hiện trong pha Transition",
+        "Thực hiện sau khi code xong; bỏ nếu team nhỏ"
+      ],
+      answer: [0],
+      explain: "<b>Architectural Analysis</b> định ra kiến trúc ứng viên, làm <b>sớm ở Elaboration</b>, và có thể <b>bỏ qua nếu rủi ro kiến trúc thấp</b>."
+    },
+
+    /* ===== UML ===== */
+    {
+      type: "single",
+      q: "Phát biểu nào đúng về \"model\" (mô hình)?",
+      options: [
+        "Mô hình là sự đơn giản hóa của hiện thực; hệ thống phi tầm thường cần một tập nhiều mô hình gần độc lập",
+        "Một mô hình đơn lẻ luôn đủ để mô tả mọi hệ thống",
+        "Mô hình là bản sao chính xác 100% của hiện thực",
+        "Mô hình chỉ dùng cho hệ thống nhỏ"
+      ],
+      answer: [0],
+      explain: "\"A model is a <b>simplification of reality</b>\". Không mô hình đơn lẻ nào là đủ — hệ thống phi tầm thường cần một <b>tập các mô hình gần độc lập</b>."
+    },
+    {
+      type: "multi",
+      q: "UML là ngôn ngữ dùng để làm gì (4V)?",
+      options: [
+        "Visualizing (trực quan hóa)",
+        "Specifying (đặc tả chính xác, rõ ràng, đầy đủ)",
+        "Constructing (kết nối tới ngôn ngữ lập trình/DB, forward & reverse engineering)",
+        "Documenting (tài liệu hóa các quyết định)",
+        "Compiling (biên dịch trực tiếp ra file thực thi)"
+      ],
+      answer: [0, 1, 2, 3],
+      explain: "UML phục vụ 4V: <b>Visualizing, Specifying, Constructing, Documenting</b>. UML không phải trình biên dịch — nó không tự \"compile\" ra file thực thi."
+    },
+    {
+      type: "single",
+      q: "Khả năng forward engineering & reverse engineering của UML gắn với mục đích nào?",
+      options: [
+        "Constructing",
+        "Visualizing",
+        "Specifying",
+        "Documenting"
+      ],
+      answer: [0],
+      explain: "<b>Constructing</b>: UML kết nối tới ngôn ngữ lập trình (Java, C++...) và RDBMS/OODBMS, cho phép <b>forward engineering</b> (mô hình → code) và <b>reverse engineering</b> (code → mô hình)."
+    },
+    {
+      type: "single",
+      q: "Class diagram thuộc view nào của UML?",
+      options: [
+        "Static view (nhóm Structural)",
+        "Interaction view (nhóm Dynamic)",
+        "State machine view (nhóm Dynamic)",
+        "Deployment view (nhóm Physical)"
+      ],
+      answer: [0],
+      explain: "<b>Class diagram</b> thuộc <b>Static view</b> trong nhóm <b>Structural</b>. Nhóm Structural còn có Design view (Component…) và Use case view."
+    },
+    {
+      type: "multi",
+      q: "Những sơ đồ nào thuộc nhóm DYNAMIC của UML?",
+      options: [
+        "State machine diagram",
+        "Activity diagram",
+        "Sequence diagram",
+        "Communication diagram",
+        "Class diagram",
+        "Deployment diagram"
+      ],
+      answer: [0, 1, 2, 3],
+      explain: "Nhóm <b>Dynamic</b>: State machine view (State machine diagram), Activity view (Activity diagram), Interaction view (Sequence / Communication diagram). Class diagram = Structural (static); Deployment diagram = Physical."
+    },
+    {
+      type: "single",
+      q: "Deployment diagram thuộc nhóm/major area nào?",
+      options: [
+        "Physical",
+        "Structural",
+        "Dynamic",
+        "Model Management"
+      ],
+      answer: [0],
+      explain: "<b>Deployment diagram</b> thuộc <b>Deployment view</b> trong nhóm <b>Physical</b>. Package diagram thuộc nhóm Model Management."
+    },
+    {
+      type: "single",
+      q: "Cách phân biệt Static view và Dynamic view (ẩn dụ bóng đá) là?",
+      options: [
+        "Static = đội hình đứng yên (vai trò & quan hệ); Dynamic = trận đấu đang diễn ra (tương tác & đổi trạng thái theo thời gian)",
+        "Static = trận đấu; Dynamic = đội hình đứng yên",
+        "Static và Dynamic là hai tên gọi của cùng một thứ",
+        "Static = sơ đồ động; Dynamic = sơ đồ tĩnh"
+      ],
+      answer: [0],
+      explain: "<b>Static view</b> = vai trò các bộ phận & quan hệ giữa chúng (đội hình đứng yên). <b>Dynamic view</b> = các thành phần tương tác/đổi trạng thái theo thời gian (trận đấu đang diễn ra)."
+    },
+    {
+      type: "multi",
+      q: "UML được tổng hợp từ phương pháp của những tác giả nào?",
+      options: [
+        "Grady Booch",
+        "James Rumbaugh (OMT)",
+        "Ivar Jacobson (OOSE — use case)",
+        "Edsger Dijkstra",
+        "Alan Turing"
+      ],
+      answer: [0, 1, 2],
+      explain: "UML tổng hợp từ <b>Booch</b>, <b>Rumbaugh (OMT)</b> và <b>Jacobson (OOSE — đóng góp use case)</b> → Unified Method 0.8 → UML 0.9/0.91 → 1.0/1.1 → 1.5 → 2.0."
+    },
+
+    /* ===== Development models ===== */
+    {
+      type: "single",
+      q: "Đặc trưng của mô hình Waterfall THUẦN (pure waterfall) là?",
+      options: [
+        "Tuyến tính, các pha nối tiếp, KHÔNG có phản hồi (no feedback) giữa các pha",
+        "Cho phép quay lui tự do giữa mọi pha bất kỳ",
+        "Mỗi vòng lặp cho ra một bản thực thi",
+        "Xoay quanh quản trị rủi ro theo vòng xoáy"
+      ],
+      answer: [0],
+      explain: "Waterfall thuần là <b>tuyến tính, không có feedback</b> giữa các pha. Bản Iterative Waterfall mới cho phép quay lui giữa các pha kề nhau."
+    },
+    {
+      type: "single",
+      q: "Iterative Waterfall khác Waterfall thuần ở điểm nào?",
+      options: [
+        "Cho phép quay lui (feedback) giữa các pha KỀ NHAU",
+        "Bỏ hoàn toàn pha thiết kế",
+        "Không cần kiểm thử",
+        "Chỉ có đúng một pha duy nhất"
+      ],
+      answer: [0],
+      explain: "<b>Iterative Waterfall</b> giống Waterfall nhưng cho phép <b>quay lui giữa các pha kề nhau</b> (có feedback), thay vì tuyến tính cứng nhắc."
+    },
+    {
+      type: "single",
+      q: "Đặc điểm nổi bật của Iterative Model là gì?",
+      options: [
+        "Mỗi vòng lặp (iteration) sinh ra một bản thực thi (executable release)",
+        "Không bao giờ tạo ra bản chạy được cho tới khi kết thúc dự án",
+        "Chỉ làm đúng một lần, không lặp",
+        "Không có pha đánh giá (evaluation)"
+      ],
+      answer: [0],
+      explain: "\"Each iteration results in an <b>executable release</b>.\" Mỗi vòng gồm Planning → Requirements → Analysis & Design → Implementation → Test → Deployment → Evaluation."
+    },
+    {
+      type: "multi",
+      q: "Chu trình lặp của Prototype Model gồm những bước nào?",
+      options: [
+        "Thu thập yêu cầu (Listen to Customer)",
+        "Thiết kế & dựng prototype (Build/Revise)",
+        "Khách hàng dùng thử (Customer Test-Drives)",
+        "Tinh chỉnh yêu cầu",
+        "Phân tích rủi ro theo 4 góc phần tư"
+      ],
+      answer: [0, 1, 2, 3],
+      explain: "Prototype xoay quanh 4 bước lặp: <b>thu thập yêu cầu → dựng/tinh chỉnh prototype → khách hàng test-drive → tinh chỉnh yêu cầu</b>. \"Phân tích rủi ro theo 4 góc phần tư\" là của Spiral."
+    },
+    {
+      type: "single",
+      q: "Điểm đặc trưng nhất giúp phân biệt Spiral Model với các mô hình khác là?",
+      options: [
+        "Kết hợp lặp với QUẢN TRỊ RỦI RO (risk analysis) theo các vòng xoáy",
+        "Hoàn toàn tuyến tính, không lặp",
+        "Không quan tâm tới khách hàng",
+        "Chỉ có một prototype duy nhất rồi dừng"
+      ],
+      answer: [0],
+      explain: "<b>Spiral</b> = lặp + <b>quản trị rủi ro</b>. Mỗi vòng xoáy đi qua 4 góc phần tư: Planning · <b>Risk analysis</b> · Engineering · Customer evaluation."
+    },
+    {
+      type: "multi",
+      q: "RUP (Rational Unified Process) gồm 4 pha nào?",
+      options: [
+        "Inception",
+        "Elaboration",
+        "Construction",
+        "Transition",
+        "Retirement",
+        "Negotiation"
+      ],
+      answer: [0, 1, 2, 3],
+      explain: "4 pha RUP: <b>Inception → Elaboration → Construction → Transition</b>, mỗi pha nhiều iteration; các discipline chạy song song với cường độ khác nhau theo pha."
+    },
+    {
+      type: "single",
+      q: "Thứ tự đúng 4 pha của RUP là?",
+      options: [
+        "Inception → Elaboration → Construction → Transition",
+        "Elaboration → Inception → Transition → Construction",
+        "Construction → Inception → Elaboration → Transition",
+        "Inception → Construction → Elaboration → Transition"
+      ],
+      answer: [0],
+      explain: "Thứ tự: <b>Inception</b> (khởi đầu) → <b>Elaboration</b> (chi tiết hóa kiến trúc) → <b>Construction</b> (xây dựng) → <b>Transition</b> (chuyển giao)."
+    },
+    {
+      type: "multi",
+      q: "Agile Manifesto coi trọng HƠN những giá trị nào (vế bên trái)?",
+      options: [
+        "Cá nhân & tương tác (Individuals and interactions)",
+        "Phần mềm chạy được (Working software)",
+        "Hợp tác với khách hàng (Customer collaboration)",
+        "Đáp ứng thay đổi (Responding to change)",
+        "Quy trình & công cụ (Processes and tools)",
+        "Bám theo kế hoạch (Following a plan)"
+      ],
+      answer: [0, 1, 2, 3],
+      explain: "4 giá trị Agile (vế trái, được coi trọng hơn): <b>Cá nhân & tương tác</b> > quy trình/công cụ; <b>Phần mềm chạy được</b> > tài liệu đầy đủ; <b>Hợp tác với khách hàng</b> > đàm phán hợp đồng; <b>Đáp ứng thay đổi</b> > bám theo kế hoạch. Các phương án còn lại là vế phải (ít được ưu tiên hơn)."
+    },
+    {
+      type: "single",
+      q: "Trong Agile Manifesto, \"Working software\" được coi trọng hơn điều gì?",
+      options: [
+        "Comprehensive documentation (tài liệu đầy đủ)",
+        "Individuals and interactions",
+        "Contract negotiation",
+        "Responding to change"
+      ],
+      answer: [0],
+      explain: "\"<b>Working software</b> over comprehensive documentation\" — phần mềm chạy được coi trọng hơn tài liệu đầy đủ."
+    },
+    {
+      type: "single",
+      q: "Theo nguyên lý Agile, cách giao tiếp hiệu quả nhất để truyền đạt thông tin trong nhóm phát triển là?",
+      options: [
+        "Đối thoại trực tiếp (face-to-face conversation)",
+        "Email chi tiết",
+        "Tài liệu đặc tả dày",
+        "Báo cáo trạng thái hàng tuần"
+      ],
+      answer: [0],
+      explain: "Nguyên lý Agile: phương pháp truyền đạt thông tin hiệu quả nhất là <b>đối thoại trực tiếp (face-to-face)</b>."
+    },
+    {
+      type: "single",
+      q: "Theo nguyên lý Agile, thước đo tiến độ CHÍNH của dự án là gì?",
+      options: [
+        "Working software (phần mềm chạy được)",
+        "Số trang tài liệu đã viết",
+        "Số dòng code",
+        "Số cuộc họp đã tổ chức"
+      ],
+      answer: [0],
+      explain: "\"<b>Working software</b> is the primary measure of progress\" — phần mềm chạy được là thước đo tiến độ chính; phát triển bền vững, giữ nhịp độ đều (constant pace)."
+    },
+    {
+      type: "single",
+      q: "Trong nguyên lý Agile, \"Simplicity\" được định nghĩa là?",
+      options: [
+        "Nghệ thuật tối đa hóa lượng công việc KHÔNG phải làm",
+        "Viết càng nhiều code càng tốt",
+        "Loại bỏ hoàn toàn khâu thiết kế",
+        "Chỉ dùng một lập trình viên cho cả dự án"
+      ],
+      answer: [0],
+      explain: "\"Simplicity — the art of <b>maximizing the amount of work not done</b>\" — nghệ thuật tối đa hóa lượng việc không phải làm."
+    },
+    {
+      type: "single",
+      q: "Theo Agile, kiến trúc, yêu cầu và thiết kế tốt nhất nảy sinh từ đâu?",
+      options: [
+        "Đội tự tổ chức (self-organizing teams)",
+        "Một kiến trúc sư trưởng ra lệnh từ trên xuống",
+        "Tài liệu thiết kế được duyệt trước khi bắt đầu",
+        "Công cụ sinh mã tự động"
+      ],
+      answer: [0],
+      explain: "Nguyên lý Agile: kiến trúc/yêu cầu/thiết kế tốt nhất nảy sinh từ các <b>đội tự tổ chức (self-organizing teams)</b>. Đội cũng định kỳ <b>reflect</b> để điều chỉnh cách làm."
+    },
+    {
+      type: "multi",
+      q: "Những phát biểu nào đúng theo các nguyên lý Agile?",
+      options: [
+        "Ưu tiên cao nhất là làm khách hàng hài lòng qua giao phần mềm giá trị sớm & liên tục",
+        "Chào đón thay đổi yêu cầu, kể cả muộn",
+        "Giao working software thường xuyên (ưu tiên chu kỳ ngắn hơn)",
+        "Business & developer làm việc cùng nhau hằng ngày",
+        "Cần đóng băng yêu cầu ngay từ đầu, không cho phép thay đổi",
+        "Ưu tiên tài liệu đầy đủ hơn phần mềm chạy được"
+      ],
+      answer: [0, 1, 2, 3],
+      explain: "4 phát biểu đầu đúng theo Agile. Trái lại, Agile <b>chào đón thay đổi</b> (không đóng băng yêu cầu) và coi trọng <b>phần mềm chạy được hơn tài liệu</b>."
+    }
+  ]
+};
+</script>
+<script src="../assets/app.js"></script>
+<script src="../assets/quiz.js"></script>
+</body>
+</html>

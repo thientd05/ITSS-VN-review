@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Trắc nghiệm 6 · Thiết kế giao diện — ITSS</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/quiz.css">
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a class="brand" href="../index.html"><span class="dot"></span> ITSS SW Dev <small>· Trắc nghiệm</small></a>
+  <div class="top-spacer"></div>
+  <a class="top-link" href="06-interface-design.html">← Lý thuyết</a>
+  <a class="top-link" href="../index.html">Trang chủ</a>
+  <button id="themeBtn" class="icon-btn" onclick="toggleTheme()">☾</button>
+</div></div>
+
+<div class="quiz-layout">
+  <main class="quiz-main">
+    <div class="crumb"><a href="06-interface-design.html">← Quay lại lý thuyết: Thiết kế giao diện</a></div>
+    <h1 class="page-title">Trắc nghiệm · Chủ đề 6</h1>
+    <p class="page-lead">Thiết kế giao diện: GUI design (chuẩn hóa màn hình, screen image, screen transition — 4 mẫu, đặc tả &amp; field attributes) và System/Device interface (Subsystem &amp; Interface, Package vs Subsystem, required/provided interface, gates, checkpoints). Nộp từng câu để xem đáp án &amp; giải thích. Kết quả được lưu tự động.</p>
+    <div id="quizRoot"></div>
+  </main>
+
+  <aside class="qnav-wrap">
+    <h4>Bảng câu hỏi</h4>
+    <div class="qnav-stat" id="qnavStat"></div>
+    <div class="qnav-grid" id="qnavGrid"></div>
+    <div class="qnav-legend">
+      <span><i class="ok"></i> Đúng</span>
+      <span><i class="no"></i> Sai</span>
+      <span><i class="an"></i> Đang chọn</span>
+    </div>
+    <button class="btn-resetall" id="btnResetAll">↺ Làm lại toàn bộ</button>
+  </aside>
+</div>
+
+<script>
+window.QUIZ = {
+  id: "06-interface-design",
+  title: "Thiết kế giao diện",
+  back: "06-interface-design.html",
+  questions: [
+    /* ===== 1. GUI Design overview ===== */
+    {
+      type: "single",
+      q: "Bốn bước của <b>GUI Design</b> theo đúng thứ tự là gì?",
+      options: [
+        "Chuẩn hóa cấu hình màn hình → tạo ảnh màn hình → tạo sơ đồ chuyển màn → tạo đặc tả màn hình",
+        "Tạo ảnh màn hình → chuẩn hóa → đặc tả → sơ đồ chuyển màn",
+        "Đặc tả màn hình → ảnh màn hình → chuẩn hóa → chuyển màn",
+        "Sơ đồ chuyển màn → đặc tả → ảnh màn hình → chuẩn hóa"
+      ],
+      answer: [0],
+      explain: "Thứ tự 4 bước: (1) <b>chuẩn hóa</b> cấu hình màn hình → (2) tạo <b>ảnh màn hình</b> → (3) tạo <b>sơ đồ chuyển màn</b> → (4) tạo <b>đặc tả màn hình</b>. Phải chuẩn hóa trước để mọi màn hình nhất quán."
+    },
+
+    /* ===== 1.1 Standardization ===== */
+    {
+      type: "multi",
+      q: "Nhóm <b>Screen (Window)</b> cần chuẩn hóa những gì?",
+      options: [
+        "Vị trí nút chuẩn (OK/Cancel/Register/Search) &amp; vị trí hiển thị message",
+        "Tiêu đề, menu, nhất quán ký tự chữ-số",
+        "Cách diễn đạt câu, mục chi tiết &amp; phối màu",
+        "Kích thước vật lý &amp; độ phân giải phần cứng",
+        "Trình tự di chuyển focus (tab sequence) của control"
+      ],
+      answer: [0, 1, 2],
+      explain: "Nhóm <b>Screen (Window)</b> chuẩn hóa: vị trí nút chuẩn, vị trí hiển thị message, tiêu đề &amp; menu, nhất quán ký tự chữ-số, cách diễn đạt câu &amp; mục chi tiết, phối màu. Kích thước/độ phân giải thuộc nhóm <b>Display</b>; tab sequence thuộc nhóm <b>Control</b>."
+    },
+    {
+      type: "single",
+      q: "Chuẩn hóa \"trình tự di chuyển <b>focus</b> (tab sequence)\" và \"xử lý kiểm tra nhập (input check)\" thuộc nhóm nào?",
+      options: [
+        "Control",
+        "Display",
+        "Menu",
+        "Help"
+      ],
+      answer: [0],
+      explain: "Nhóm <b>Control</b> chuẩn hóa style/size/màu/ký tự của control, xử lý <b>input check</b> và <b>tab sequence</b> (trình tự focus). Display lo phần cứng hiển thị; Menu lo common client area; Help lo tài liệu trợ giúp."
+    },
+    {
+      type: "single",
+      q: "Nhóm <b>Display</b> chuẩn hóa những gì?",
+      options: [
+        "Kích thước vật lý, độ phân giải, số màu hỗ trợ",
+        "Vị trí các nút OK/Cancel trên cửa sổ",
+        "Cách gán phím tắt (shortcut)",
+        "Cách hiển thị khi tiến trình busy tốn thời gian"
+      ],
+      answer: [0],
+      explain: "Nhóm <b>Display</b> chuẩn hóa <b>kích thước vật lý, độ phân giải, số màu hỗ trợ</b>. Vị trí nút là Screen; phím tắt là Direct keyboard input; hiển thị busy là Messages."
+    },
+
+    /* ===== 1.2 Screen images ===== */
+    {
+      type: "single",
+      q: "Ảnh màn hình (screen images) được tạo dựa trên cơ sở nào?",
+      options: [
+        "Use case &amp; <b>boundary class</b> tương tác với user → ánh xạ boundary class thành màn hình",
+        "Entity class lưu dữ liệu → ánh xạ trực tiếp thành màn hình",
+        "Control class điều phối → mỗi control là một màn hình",
+        "Sơ đồ triển khai phần cứng"
+      ],
+      answer: [0],
+      explain: "Ảnh màn hình dựa trên use case &amp; <b>boundary class</b> tương tác với user: ánh xạ boundary class thành màn hình, dựa mô tả input/output trong use-case spec/scenario. Entity/control không ánh xạ trực tiếp thành màn hình."
+    },
+
+    /* ===== 1.3 Screen transition (4 patterns) ===== */
+    {
+      type: "single",
+      q: "Mẫu chuyển màn \"<b>Transition to a dependent child screen</b>\" có đặc điểm gì?",
+      options: [
+        "Mở pop-up con; khi con hiện, màn <b>cha KHÔNG thao tác được</b>",
+        "Mở pop-up con; cha &amp; màn khác vẫn thao tác được",
+        "Chuyển sang màn độc lập thông thường",
+        "Mở màn phụ thuộc mới kèm dữ liệu"
+      ],
+      answer: [0],
+      explain: "<b>Dependent child screen</b>: mở pop-up con, và khi con hiện thì <b>màn cha KHÔNG thao tác được</b> (modal). Nếu cha vẫn thao tác được thì đó là <b>independent</b> child screen."
+    },
+    {
+      type: "single",
+      q: "Mẫu chuyển màn \"<b>Transition to an independent child screen</b>\" khác dependent ở điểm nào?",
+      options: [
+        "Cha &amp; các màn khác <b>VẪN thao tác được</b> khi màn con hiện",
+        "Màn con luôn khóa toàn bộ ứng dụng",
+        "Không truyền được dữ liệu nào",
+        "Không phải pop-up mà là chuyển toàn màn hình"
+      ],
+      answer: [0],
+      explain: "<b>Independent child screen</b>: mở pop-up con nhưng <b>cha &amp; màn khác vẫn thao tác được</b> (non-modal). Đây là khác biệt then chốt so với <b>dependent</b> (modal, khóa cha)."
+    },
+    {
+      type: "single",
+      q: "Mẫu chuyển màn nào mở một màn phụ thuộc mới <b>kèm dữ liệu</b> (selected data)?",
+      options: [
+        "Transition to a dependent screen",
+        "Simple screen transition",
+        "Transition to a dependent child screen",
+        "Transition to an independent child screen"
+      ],
+      answer: [0],
+      explain: "\"<b>Transition to a dependent screen</b>\" mở màn phụ thuộc mới <b>kèm dữ liệu</b> (selected data). \"Simple screen transition\" chỉ chuyển thông thường sang màn độc lập, không nhấn mạnh dữ liệu."
+    },
+    {
+      type: "single",
+      q: "\"<b>Simple screen transition</b>\" nghĩa là gì?",
+      options: [
+        "Chuyển thông thường sang một màn hình <b>độc lập</b>",
+        "Mở pop-up con modal khóa cha",
+        "Mở pop-up con non-modal",
+        "Mở màn phụ thuộc kèm dữ liệu được chọn"
+      ],
+      answer: [0],
+      explain: "<b>Simple screen transition</b> là chuyển thông thường sang màn hình <b>độc lập</b>. Ba mẫu còn lại liên quan tới child screen (modal/non-modal) hoặc màn phụ thuộc kèm dữ liệu."
+    },
+
+    /* ===== 1.4 Spec & field attributes ===== */
+    {
+      type: "multi",
+      q: "Đặc tả màn hình (screen spec) gồm những thành phần nào?",
+      options: [
+        "Screen image — ảnh màn hình sẽ hiển thị",
+        "List of functions — tên bộ phận, mô tả sự kiện, input check &amp; output",
+        "Field attributes — thuộc tính của mục input/output",
+        "Source code của màn hình",
+        "Bảng phân quyền cơ sở dữ liệu"
+      ],
+      answer: [0, 1, 2],
+      explain: "Đặc tả màn hình gồm: <b>Screen image</b>, <b>List of functions</b> (tên bộ phận, sự kiện, input check, output) và <b>Field attributes</b>. Source code và phân quyền DB không thuộc đặc tả màn hình."
+    },
+    {
+      type: "single",
+      q: "<b>Field attributes</b> của một mục input/output bao gồm gì?",
+      options: [
+        "Thuộc tính 1-byte ở đầu + mục biến đổi (số ký tự, kiểu Numeral/Character, màu, canh lề, \"error items blink\")",
+        "Chỉ tên biến trong mã nguồn",
+        "Địa chỉ ô nhớ khi chạy",
+        "Quyền truy cập cơ sở dữ liệu của field"
+      ],
+      answer: [0],
+      explain: "Field attributes quyết định thuộc tính mục input/output: mỗi field gồm thuộc tính <b>1-byte (1 ký tự)</b> ở đầu + các mục biến đổi như số ký tự, kiểu <b>Numeral/Character</b>, màu, canh lề, \"error items blink\"."
+    },
+
+    /* ===== 2.1 Subsystem & Interface ===== */
+    {
+      type: "single",
+      q: "Ba bước của <b>System/Device Interface Design</b> là gì?",
+      options: [
+        "Identify subsystem → Identify subsystem interfaces → Subsystem design",
+        "Subsystem design → Identify interfaces → Identify subsystem",
+        "Identify interfaces → Subsystem design → Identify subsystem",
+        "Standardize screen → Identify subsystem → Subsystem design"
+      ],
+      answer: [0],
+      explain: "Ba bước: (2.1) <b>Identify subsystem</b> → (2.2) <b>Identify subsystem interfaces</b> → (2.3) <b>Subsystem design</b>. Trình tự này đi từ nhận diện đơn vị, tới interface, rồi thiết kế bên trong."
+    },
+    {
+      type: "single",
+      q: "Định nghĩa <b>Subsystem</b> đúng là gì?",
+      options: [
+        "Phần tử <b>hiện thực (realize) một hoặc nhiều interface</b> định nghĩa hành vi của nó, đóng gói hoàn toàn hành vi",
+        "Cơ chế nhóm các phần tử, không đóng gói hành vi",
+        "Một lớp boundary trình bày dữ liệu cho user",
+        "Một actor bên ngoài hệ thống"
+      ],
+      answer: [0],
+      explain: "Subsystem là phần tử <b>hiện thực một/nhiều interface</b> định nghĩa hành vi của nó, <b>đóng gói hoàn toàn hành vi</b>, đại diện năng lực độc lập với interface rõ ràng (tái sử dụng được). \"Nhóm phần tử, không đóng gói hành vi\" là <b>package</b>."
+    },
+    {
+      type: "multi",
+      q: "So sánh <b>Subsystem</b> và <b>Package</b>, phát biểu nào ĐÚNG?",
+      options: [
+        "Subsystem cung cấp hành vi; Package KHÔNG cung cấp hành vi",
+        "Subsystem đóng gói hoàn toàn nội dung; Package thì không",
+        "Subsystem dễ thay thế (replaceable); Package có thể không dễ thay thế",
+        "Package cung cấp hành vi còn Subsystem thì không",
+        "Cả hai đều đóng gói hoàn toàn nội dung như nhau"
+      ],
+      answer: [0, 1, 2],
+      explain: "Subsystem: <b>cung cấp hành vi</b>, <b>đóng gói hoàn toàn</b>, <b>dễ thay thế</b>. Package: không cung cấp hành vi, không đóng gói hoàn toàn, có thể không dễ thay thế. \"Encapsulation là chìa khóa!\" — vì vậy hai phương án cuối sai."
+    },
+    {
+      type: "multi",
+      q: "Đâu là các <b>candidate subsystem</b> (ứng viên subsystem)?",
+      options: [
+        "Lớp cung cấp dịch vụ/tiện ích phức tạp",
+        "Boundary class (UI &amp; giao diện hệ thống ngoài)",
+        "Sản phẩm/hệ thống ngoài sẵn có (communication software, DB access, common utilities)",
+        "Mọi thuộc tính đơn lẻ của một lớp",
+        "Một biến cục bộ trong một hàm"
+      ],
+      answer: [0, 1, 2],
+      explain: "Candidate subsystem: lớp cung cấp dịch vụ/tiện ích phức tạp; boundary class (UI &amp; giao diện hệ thống ngoài); sản phẩm/hệ thống ngoài sẵn có. Thuộc tính đơn lẻ hay biến cục bộ quá nhỏ, không phải ứng viên subsystem."
+    },
+
+    /* ===== 2.2 Identify interfaces ===== */
+    {
+      type: "multi",
+      q: "Theo <b>Interface Guidelines</b>, một interface tốt cần gì?",
+      options: [
+        "Tên phản ánh vai trò, bắt đầu bằng \"I\" (vd <code>ICourseCatalogSystem</code>)",
+        "Description truyền tải trách nhiệm của interface",
+        "Operation có tên phản ánh kết quả, mô tả rõ tham số &amp; kết quả",
+        "Documentation đính kèm sequence/state diagram, test plan",
+        "Bắt buộc lộ toàn bộ chi tiết cài đặt bên trong"
+      ],
+      answer: [0, 1, 2, 3],
+      explain: "Interface guidelines: tên phản ánh vai trò (tiền tố \"I\"), description truyền tải trách nhiệm, operation phản ánh kết quả &amp; mô tả tham số, documentation kèm sequence/state diagram + test plan. Interface <b>che giấu</b> chi tiết cài đặt — không lộ ra."
+    },
+    {
+      type: "single",
+      q: "Trong modeling convention, phân biệt <b>Required</b> và <b>Provided</b> interface thế nào?",
+      options: [
+        "Required (ổ cắm ○–) là interface một phần tử <b>cần</b>; Provided (─○ bóng) là interface một subsystem <b>cung cấp</b>",
+        "Required là interface được cung cấp; Provided là interface được cần",
+        "Cả hai giống nhau, chỉ khác cách vẽ",
+        "Required chỉ dùng cho package, Provided chỉ cho class"
+      ],
+      answer: [0],
+      explain: "<b>Required</b> interface (ký hiệu ổ cắm ○–) là interface phần tử <b>cần dùng</b> (vd RegistrationController cần <code>ICourseCatalogSystem</code>); <b>Provided</b> interface (─○ bóng) là interface subsystem <b>cung cấp</b> (CourseCatalogSystem provided)."
+    },
+
+    /* ===== 2.3 Subsystem design ===== */
+    {
+      type: "multi",
+      q: "Đâu là các <b>Goals</b> của Subsystem Design?",
+      options: [
+        "Loose coupling",
+        "Portability / plug-and-play",
+        "Insulation from change (cách ly thay đổi)",
+        "Independent evolution (tiến hóa độc lập)",
+        "Tối đa hóa việc lộ chi tiết cài đặt ra ngoài"
+      ],
+      answer: [0, 1, 2, 3],
+      explain: "Goals của Subsystem Design: <b>loose coupling</b>, <b>portability/plug-and-play</b>, <b>insulation from change</b>, <b>independent evolution</b>. Strong suggestion là <b>KHÔNG lộ chi tiết</b> — chỉ interface; chỉ phụ thuộc interface khác. Chìa khóa: abstraction &amp; encapsulation."
+    },
+    {
+      type: "single",
+      q: "<b>Gate</b> trong sequence diagram là gì?",
+      options: [
+        "Một <b>điểm kết nối</b> trên biên của tương tác cho message đi vào/ra; tên message = tên gate",
+        "Một điều kiện guard trên transition",
+        "Một pseudo-state khởi tạo",
+        "Một actor điều khiển hệ thống"
+      ],
+      answer: [0],
+      explain: "<b>Gate</b> là một <b>điểm kết nối</b> trong tương tác cho message đi vào/ra khỏi tương tác — nằm trên biên của sequence diagram; tên message kết nối chính là tên gate. Nó không phải guard, pseudo-state hay actor."
+    },
+    {
+      type: "single",
+      q: "Phân biệt <b>Black-box view</b> và <b>White-box view</b> của subsystem là gì?",
+      options: [
+        "Black-box = subsystem interaction (nhìn từ ngoài qua interface); White-box = Internal structure (Subsystem Manager điều phối các Design Element bên trong)",
+        "Black-box = cấu trúc bên trong; White-box = nhìn từ ngoài",
+        "Cả hai đều chỉ nhìn từ ngoài",
+        "Cả hai đều chỉ nhìn cấu trúc bên trong"
+      ],
+      answer: [0],
+      explain: "<b>Black-box view</b> nhìn subsystem từ ngoài qua interaction/interface; <b>White-box view</b> nhìn <b>internal structure</b> — Subsystem Manager điều phối các Design Element bên trong. Hai phương án đảo/trùng đều sai."
+    },
+    {
+      type: "single",
+      q: "Về <b>Subsystem Dependencies</b>, kiểu phụ thuộc nào được ưu tiên (preferred)?",
+      options: [
+        "Phụ thuộc vào <b>subsystem qua interface</b> (flexible, preferred)",
+        "Phụ thuộc trực tiếp vào lớp bên trong subsystem khác",
+        "Phụ thuộc vào package (luôn là lựa chọn tốt nhất)",
+        "Phụ thuộc chéo vòng giữa các subsystem"
+      ],
+      answer: [0],
+      explain: "Ưu tiên phụ thuộc vào <b>subsystem qua interface</b> (flexible, preferred). Phụ thuộc vào <b>package</b> chỉ nên dùng <em>cẩn thận</em> (use with care). Phụ thuộc chéo vòng là vi phạm coupling."
+    },
+    {
+      type: "multi",
+      q: "Đâu là các <b>checkpoint</b> khi thiết kế subsystem?",
+      options: [
+        "Có realization association cho mỗi interface được cung cấp",
+        "Có dependency cho mỗi interface được dùng",
+        "Không phần tử nào trong subsystem có public visibility",
+        "Mỗi operation của interface được tài liệu hóa trong interaction diagram (1:1 mapping)",
+        "Mọi lớp bên trong đều phải public để dễ tái sử dụng"
+      ],
+      answer: [0, 1, 2, 3],
+      explain: "Checkpoints: có realization cho mỗi interface cung cấp; có dependency cho mỗi interface dùng; <b>không</b> phần tử nào public visibility (đóng gói hoàn toàn); mỗi operation interface được map 1:1 vào interaction diagram. Vì vậy \"mọi lớp bên trong đều public\" là SAI — vi phạm encapsulation."
+    }
+  ]
+};
+</script>
+<script src="../assets/app.js"></script>
+<script src="../assets/quiz.js"></script>
+</body>
+</html>

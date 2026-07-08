@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Trắc nghiệm 8 · Mô hình hóa dữ liệu — ITSS</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/quiz.css">
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a class="brand" href="../index.html"><span class="dot"></span> ITSS SW Dev <small>· Trắc nghiệm</small></a>
+  <div class="top-spacer"></div>
+  <a class="top-link" href="08-data-modeling.html">← Lý thuyết</a>
+  <a class="top-link" href="../index.html">Trang chủ</a>
+  <button id="themeBtn" class="icon-btn" onclick="toggleTheme()">☾</button>
+</div></div>
+
+<div class="quiz-layout">
+  <main class="quiz-main">
+    <div class="crumb"><a href="08-data-modeling.html">← Quay lại lý thuyết: Mô hình hóa dữ liệu</a></div>
+    <h1 class="page-title">Trắc nghiệm · Chủ đề 8</h1>
+    <p class="page-lead">Mô hình hóa dữ liệu: 3 mức data model (conceptual/logical/physical), ER diagram, hierarchical/network/relational + NoSQL, Object model ↔ Relational, dependency vs independency, ánh xạ class diagram → ER (FK, aggregation, inheritance normalized/de-normalized, m:n), và Normalization 1NF/2NF/3NF. Nộp từng câu để xem đáp án &amp; giải thích. Kết quả được lưu tự động.</p>
+    <div id="quizRoot"></div>
+  </main>
+
+  <aside class="qnav-wrap">
+    <h4>Bảng câu hỏi</h4>
+    <div class="qnav-stat" id="qnavStat"></div>
+    <div class="qnav-grid" id="qnavGrid"></div>
+    <div class="qnav-legend">
+      <span><i class="ok"></i> Đúng</span>
+      <span><i class="no"></i> Sai</span>
+      <span><i class="an"></i> Đang chọn</span>
+    </div>
+    <button class="btn-resetall" id="btnResetAll">↺ Làm lại toàn bộ</button>
+  </aside>
+</div>
+
+<script>
+window.QUIZ = {
+  id: "08-data-modeling",
+  title: "Mô hình hóa dữ liệu",
+  back: "08-data-modeling.html",
+  questions: [
+    /* ===== 1. Data models ===== */
+    {
+      type: "single",
+      q: "Luồng của <b>data modeling</b> là gì?",
+      options: [
+        "Real world → Data model → Database",
+        "Database → Data model → Real world",
+        "Data model → Real world → Database",
+        "Real world → Database → Data model"
+      ],
+      answer: [0],
+      explain: "Data modeling trừu tượng hóa &amp; tổ chức cấu trúc thông tin thế giới thực để đưa vào DB: <b>Real world → Data model → Database</b>."
+    },
+    {
+      type: "single",
+      q: "Mức <b>Conceptual</b> data model có đặc điểm gì và ví dụ là gì?",
+      options: [
+        "Biểu diễn tự nhiên, <b>độc lập DBMS</b> — ví dụ: E-R model (E-R diagram)",
+        "Phụ thuộc DBMS — ví dụ: Relational model",
+        "Khi được cài đặt (data manipulation) — ví dụ: Relational database",
+        "Phụ thuộc phần cứng lưu trữ vật lý"
+      ],
+      answer: [0],
+      explain: "<b>Conceptual</b>: biểu diễn tự nhiên, <b>độc lập DBMS</b> (không bị ràng buộc bởi DBMS) → ví dụ E-R model. <b>Logical</b> phụ thuộc DBMS (Relational/Network/Hierarchical model); <b>Physical</b> là khi logical được cài đặt (database thật)."
+    },
+    {
+      type: "single",
+      q: "Mức <b>Logical</b> data model khác Conceptual ở điểm nào?",
+      options: [
+        "Logical <b>phụ thuộc DBMS</b> (DBMS selection); Conceptual độc lập DBMS",
+        "Logical độc lập DBMS; Conceptual phụ thuộc DBMS",
+        "Cả hai đều là database đã cài đặt",
+        "Logical chỉ mô tả phần cứng"
+      ],
+      answer: [0],
+      explain: "<b>Logical</b> model <b>phụ thuộc DBMS</b> (gắn với việc chọn loại DBMS: Relational/Network/Hierarchical), trong khi <b>Conceptual</b> độc lập DBMS. Physical là mức cài đặt thực (data manipulation)."
+    },
+    {
+      type: "multi",
+      q: "Ba phần tử của một <b>E-R Diagram</b> là gì?",
+      options: [
+        "Entities (thực thể)",
+        "Relationships (quan hệ)",
+        "Attributes (thuộc tính)",
+        "Methods (phương thức)",
+        "States (trạng thái)"
+      ],
+      answer: [0, 1, 2],
+      explain: "E-R Diagram gồm 3 phần tử: <b>Entities</b>, <b>Relationships</b>, <b>Attributes</b>. Methods và states là khái niệm của mô hình hành vi/hướng đối tượng, không phải phần tử ER."
+    },
+    {
+      type: "single",
+      q: "Mô hình <b>Hierarchical</b> có đặc điểm gì về quan hệ parent–child?",
+      options: [
+        "Chia record theo cây; parent–child là <b>1:n</b>",
+        "Parent–child là m:n",
+        "Dữ liệu là bảng 2 chiều, không có cây",
+        "Một entity = một document schema-free"
+      ],
+      answer: [0],
+      explain: "<b>Hierarchical</b> (cây): parent–child là <b>1:n</b>. <b>Network</b> (CODASYL) cho phép parent–child <b>m:n</b>. <b>Relational</b> là bảng 2 chiều. Một entity = một document là NoSQL."
+    },
+    {
+      type: "single",
+      q: "Mô hình <b>Network</b> database (còn gọi là gì) khác Hierarchical thế nào?",
+      options: [
+        "Parent–child là <b>m:n</b> (không 1:n); còn gọi là <b>CODASYL</b> database",
+        "Parent–child là 1:1; còn gọi là NoSQL",
+        "Không có quan hệ parent–child",
+        "Dùng document schema-free"
+      ],
+      answer: [0],
+      explain: "<b>Network</b> model cho phép parent–child <b>m:n</b> (khác Hierarchical chỉ 1:n), còn gọi là <b>CODASYL</b> database."
+    },
+    {
+      type: "single",
+      q: "Trong mô hình <b>Relational</b>, cột được gạch chân biểu diễn gì?",
+      options: [
+        "Primary key",
+        "Foreign key",
+        "Derived attribute",
+        "Một record đơn lẻ"
+      ],
+      answer: [0],
+      explain: "Trong Relational, dữ liệu là bảng 2 chiều: row = record, column = item; cột <b>gạch chân</b> = <b>primary key</b>."
+    },
+    {
+      type: "multi",
+      q: "Phát biểu nào ĐÚNG về <b>NoSQL</b> (document database)?",
+      options: [
+        "Non-relational, <b>schema-free</b>, một entity = một document",
+        "Vẫn hỗ trợ index/query/CRUD/concurrency; tối ưu append/retrieve, scalability tốt",
+        "Relational: entity trải trên nhiều bảng; NoSQL: gộp về một document",
+        "Bắt buộc phải chuẩn hóa 3NF trước khi lưu",
+        "Không hỗ trợ truy vấn hay CRUD"
+      ],
+      answer: [0, 1, 2],
+      explain: "NoSQL là DB document <b>non-relational, schema-free</b>, một entity = một document, vẫn hỗ trợ index/query/CRUD/concurrency, tối ưu append/retrieve và scalability tốt. Nó <b>không</b> đòi hỏi chuẩn hóa 3NF và <b>có</b> hỗ trợ truy vấn/CRUD."
+    },
+    {
+      type: "multi",
+      q: "Trong <b>Three-layer schema</b>, một schema gồm những mức nào?",
+      options: [
+        "External schema (góc nhìn user, một phần)",
+        "Conceptual schema",
+        "Internal schema",
+        "Temporary schema",
+        "Physical device schema"
+      ],
+      answer: [0, 1, 2],
+      explain: "Three-layer schema gồm: <b>External schema</b> (góc nhìn user), <b>Conceptual schema</b>, <b>Internal schema</b>. \"Temporary\" và \"Physical device schema\" không thuộc mô hình này."
+    },
+
+    /* ===== 2. Object ↔ Relational ===== */
+    {
+      type: "multi",
+      q: "So sánh <b>RDBMS</b> và <b>Object-Oriented</b>, phát biểu nào ĐÚNG?",
+      options: [
+        "RDBMS tập trung vào <b>Dữ liệu</b>; OO tập trung vào <b>Hành vi</b>",
+        "RDBMS phù hợp quan hệ ad-hoc &amp; báo cáo; OO phù hợp hành vi phụ thuộc state",
+        "RDBMS <b>lộ</b> dữ liệu (expose column); OO <b>ẩn</b> dữ liệu (encapsulation)",
+        "RDBMS tập trung hành vi; OO tập trung dữ liệu",
+        "Cả hai hoàn toàn tương thích với nhau"
+      ],
+      answer: [0, 1, 2],
+      explain: "RDBMS: tập trung <b>dữ liệu</b>, hợp với quan hệ ad-hoc &amp; báo cáo, <b>lộ</b> giá trị cột. OO: tập trung <b>hành vi</b> (state), <b>ẩn</b> dữ liệu (encapsulation). Hai mô hình <b>không hoàn toàn tương thích</b> nên hai phương án cuối sai."
+    },
+    {
+      type: "single",
+      q: "Trong ánh xạ khái niệm, <b>Object Model</b> tương ứng với <b>Relational Data Model</b> thế nào?",
+      options: [
+        "Classes/Entities → Table; Relationships → Relationship (còn gọi là E-R model)",
+        "Classes → Relationship; Associations → Table",
+        "Attributes → Table; Entities → Column",
+        "Object model và relational model không ánh xạ được"
+      ],
+      answer: [0],
+      explain: "Ánh xạ: Object Model (Classes + Relationships) → Relational (<b>Entities → Table</b>, <b>Relations → Relationship</b>) — chính là <b>E-R model</b>. Dù RDBMS &amp; OO không hoàn toàn tương thích, ta vẫn ánh xạ được các khái niệm chính."
+    },
+
+    /* ===== 3. Entity, relationship types ===== */
+    {
+      type: "single",
+      q: "Khi map <b>Entity → Table</b> ở physical DB, Columns và Rows là gì?",
+      options: [
+        "Columns = attribute; Rows = giá trị cụ thể của attribute",
+        "Columns = giá trị; Rows = tên attribute",
+        "Columns = quan hệ; Rows = khóa chính",
+        "Columns = method; Rows = state"
+      ],
+      answer: [0],
+      explain: "Entity → Table: <b>Columns = attribute</b>, <b>Rows = giá trị cụ thể</b> của attribute (mỗi row một object)."
+    },
+    {
+      type: "single",
+      q: "Quan hệ <b>Many-to-many (m:n)</b> thường được xử lý thế nào ở mức thiết kế thông thường?",
+      options: [
+        "Tách thành <b>1:m + m:1</b> (qua một entity trung gian)",
+        "Giữ nguyên m:n, không cần tách",
+        "Chuyển thành 1:1",
+        "Bỏ đi vì không hợp lệ"
+      ],
+      answer: [0],
+      explain: "Thông thường quan hệ <b>m:n</b> được <b>tách thành 1:m + m:1</b> qua một entity trung gian, vì nhiều DBMS không biểu diễn trực tiếp m:n."
+    },
+    {
+      type: "single",
+      q: "Trong <b>Dependency relationship</b>, FK của entity con nằm ở đâu và vẽ thế nào?",
+      options: [
+        "<b>FK NẰM TRONG PK</b> của con; con chỉ tồn tại khi cha tồn tại; vẽ <b>đường liền</b>",
+        "FK KHÔNG nằm trong PK của con; vẽ đường nét đứt",
+        "Không có FK; vẽ hình thoi đặc",
+        "FK nằm trong PK của cha; vẽ tam giác rỗng"
+      ],
+      answer: [0],
+      explain: "<b>Dependency relationship</b>: entity con <b>chỉ tồn tại khi cha tồn tại</b>; FK tham chiếu PK cha và <b>FK nằm TRONG PK</b> của con; vẽ bằng <b>đường liền</b> (vd HoaDon → ChiTietHD → Sach)."
+    },
+    {
+      type: "single",
+      q: "Trong <b>Independency relationship</b>, đặc điểm FK và cách vẽ là gì?",
+      options: [
+        "<b>FK KHÔNG nằm trong PK</b> con; con tồn tại được dù cha không; vẽ <b>đường nét đứt</b>",
+        "FK nằm trong PK con; vẽ đường liền",
+        "Con chết cùng cha; vẽ hình thoi đặc",
+        "Không dùng FK, chỉ dùng khóa chính chung"
+      ],
+      answer: [0],
+      explain: "<b>Independency relationship</b>: entity con <b>tồn tại được</b> dù cha không tồn tại; FK tham chiếu PK cha nhưng <b>KHÔNG nằm trong PK</b> con; vẽ <b>đường nét đứt</b> (vd KhachHang → HoaDon)."
+    },
+
+    /* ===== 4. Class diagram → ER ===== */
+    {
+      type: "single",
+      q: "Khi ánh xạ class diagram → ER, lớp nào được map thành Entity/Table?",
+      options: [
+        "Lớp thiết kế <b>persistent</b> (mỗi row = một object, mỗi column = một persistent attribute)",
+        "Mọi boundary class",
+        "Chỉ các control class",
+        "Chỉ các lớp có state machine"
+      ],
+      answer: [0],
+      explain: "Chỉ lớp thiết kế <b>persistent</b> (cần lưu bền vững) được map thành Entity/Table: mỗi row là một object, mỗi column là một persistent attribute."
+    },
+    {
+      type: "single",
+      q: "Một <b>Association</b> giữa hai object persistent được ánh xạ sang ER thế nào?",
+      options: [
+        "<b>Foreign key</b> tới object liên kết (FK không nằm trong PK → independency)",
+        "Một bảng trung gian bắt buộc",
+        "Một cột gạch chân (primary key)",
+        "Không map được"
+      ],
+      answer: [0],
+      explain: "Association giữa hai object persistent → <b>Foreign key</b> tới object liên kết; FK không nằm trong PK nên tạo quan hệ <b>independency</b>."
+    },
+    {
+      type: "single",
+      q: "Khi map <b>Aggregation</b>/<b>Composition</b> sang ER, điều gì đúng?",
+      options: [
+        "Cả hai dùng FK; riêng <b>composition</b> thêm ràng buộc <b>cascading delete</b>",
+        "Aggregation dùng cascading delete; composition thì không",
+        "Cả hai đều tạo bảng trung gian m:n",
+        "Cả hai không thể map sang ER"
+      ],
+      answer: [0],
+      explain: "Aggregation cũng mô hình bằng <b>FK</b>; riêng <b>composition</b> (part chết cùng whole) thêm ràng buộc <b>cascading delete</b>. Có thể map sang dependency để đơn giản PK."
+    },
+    {
+      type: "single",
+      q: "Vì sao <b>Inheritance</b> phải xử lý đặc biệt khi map sang data model?",
+      options: [
+        "Data model <b>KHÔNG hỗ trợ trực tiếp</b> inheritance → phải chọn normalized hoặc de-normalized",
+        "Data model hỗ trợ inheritance sẵn nên map 1-1",
+        "Inheritance tự động thành bảng trung gian m:n",
+        "Inheritance bị bỏ hoàn toàn"
+      ],
+      answer: [0],
+      explain: "Data model <b>không hỗ trợ trực tiếp</b> inheritance, nên có 2 lựa chọn: bảng riêng cho mỗi lớp con (<b>normalized</b>) hoặc nhân bản mọi association &amp; attribute kế thừa (<b>de-normalized</b>)."
+    },
+    {
+      type: "single",
+      q: "Khác biệt giữa map inheritance <b>normalized</b> và <b>de-normalized</b> là gì?",
+      options: [
+        "Normalized: mỗi lớp con một bảng riêng, dùng lại PK; De-normalized: mỗi bảng con <b>lặp lại (replication)</b> mọi cột kế thừa",
+        "Normalized lặp lại mọi cột; de-normalized dùng bảng riêng",
+        "Cả hai đều tạo một bảng duy nhất",
+        "Cả hai đều dùng bảng trung gian"
+      ],
+      answer: [0],
+      explain: "<b>Normalized</b>: mỗi lớp con một bảng riêng, PK dùng lại (User + Student + Lecturer). <b>De-normalized</b>: mỗi bảng con <b>lặp lại (replication)</b> mọi cột của lớp cha (userName, email...) + cột riêng."
+    },
+    {
+      type: "single",
+      q: "Quan hệ <b>Many-to-many</b> giữa lớp A và B được map sang ER thế nào?",
+      options: [
+        "Thêm <b>entity trung gian \"C\"</b> chứa 2 FK trỏ tới PK của A &amp; B (+ attribute nếu cần)",
+        "Đặt FK của A vào bảng B",
+        "Gộp A và B thành một bảng",
+        "Dùng cascading delete"
+      ],
+      answer: [0],
+      explain: "m:n → thêm <b>entity trung gian \"C\"</b> chứa 2 FK trỏ tới 2 PK của A &amp; B (+ attribute nếu cần). Ví dụ Course Registration: quan hệ prerequisites giữa SubjectInfo → thêm entity <b>Prerequisite</b>."
+    },
+
+    /* ===== 5. Normalization ===== */
+    {
+      type: "single",
+      q: "Mục đích của <b>Normalization</b> là gì?",
+      options: [
+        "Loại bỏ <b>dư thừa (redundancy)</b>; cải thiện storage efficiency, data integrity, scalability",
+        "Tăng dư thừa để truy vấn nhanh hơn",
+        "Gộp mọi bảng thành một bảng lớn",
+        "Chuyển relational sang NoSQL"
+      ],
+      answer: [0],
+      explain: "Normalization là quá trình <b>loại bỏ dư thừa</b> trong thiết kế DB, cải thiện <b>storage efficiency, data integrity, scalability</b>. Thường tách bảng lớn thành nhiều bảng (phải join khi truy vấn)."
+    },
+    {
+      type: "single",
+      q: "Ai đề xuất 1NF/2NF/3NF, và mức nào được xem là \"đủ\" cho hầu hết ứng dụng?",
+      options: [
+        "Edgar F. Codd đề xuất; <b>3NF</b> đủ cho hầu hết ứng dụng",
+        "Edgar F. Codd; 1NF đủ cho hầu hết ứng dụng",
+        "Grady Booch; BCNF là mức tối thiểu bắt buộc",
+        "James Rumbaugh; 2NF đủ cho mọi ứng dụng"
+      ],
+      answer: [0],
+      explain: "<b>Edgar F. Codd</b> đề xuất 1NF, 2NF, 3NF. <b>3NF</b> được xem là đủ cho hầu hết ứng dụng; đa số bảng đạt 3NF cũng đạt BCNF (Boyce-Codd NF)."
+    },
+    {
+      type: "single",
+      q: "<b>Functional Dependency</b> X → Y nghĩa là gì?",
+      options: [
+        "Mỗi giá trị X ứng với <b>tối đa một</b> giá trị Y (\"biết X thì chỉ có một khả năng cho Y\")",
+        "Mỗi giá trị X ứng với nhiều giá trị Y khác nhau",
+        "X và Y hoàn toàn độc lập",
+        "Y luôn là khóa chính của bảng"
+      ],
+      answer: [0],
+      explain: "Functional Dependency <b>X → Y</b>: tập cột X <b>xác định hàm</b> cột Y — mỗi giá trị X ứng với <b>tối đa một</b> giá trị Y. Đây là nền tảng để phát hiện phụ thuộc bộ phận/bắc cầu khi chuẩn hóa."
+    },
+    {
+      type: "single",
+      q: "Điều kiện của <b>1NF</b> là gì?",
+      options: [
+        "Mọi giá trị đều <b>nguyên tử (atomic)</b>",
+        "Không có phụ thuộc bộ phận",
+        "Không có phụ thuộc bắc cầu",
+        "Mọi bảng phải join lại được"
+      ],
+      answer: [0],
+      explain: "<b>1NF</b>: mọi giá trị đều <b>nguyên tử (atomic)</b> → phù hợp quan hệ toán học. \"Không phụ thuộc bộ phận\" là 2NF; \"không phụ thuộc bắc cầu\" là 3NF."
+    },
+    {
+      type: "single",
+      q: "Điều kiện của <b>2NF</b> là gì?",
+      options: [
+        "Là 1NF + <b>không có phụ thuộc bộ phận (partial dependency)</b>: non-key không phụ thuộc một phần của PK",
+        "Là 1NF + không có phụ thuộc bắc cầu",
+        "Mọi giá trị nguyên tử",
+        "Là 3NF + đạt BCNF"
+      ],
+      answer: [0],
+      explain: "<b>2NF</b> = 1NF + <b>không có phụ thuộc bộ phận</b>: non-key attribute không được phụ thuộc vào <em>một phần</em> của PK (chỉ liên quan khi PK gồm nhiều cột). Loại bỏ phụ thuộc bắc cầu là 3NF."
+    },
+    {
+      type: "single",
+      q: "Điều kiện của <b>3NF</b> là gì?",
+      options: [
+        "Là 2NF + <b>không có phụ thuộc bắc cầu (transitive)</b>: non-key không phụ thuộc bắc cầu vào PK",
+        "Là 2NF + không có phụ thuộc bộ phận",
+        "Là 1NF + mọi giá trị atomic",
+        "Là BCNF + mọi cột là khóa"
+      ],
+      answer: [0],
+      explain: "<b>3NF</b> = 2NF + <b>không có phụ thuộc bắc cầu (transitive)</b>: non-key attribute không phụ thuộc bắc cầu vào PK (vd {Order}→{Customer}→{Address} là bắc cầu cần loại)."
+    },
+    {
+      type: "single",
+      q: "Trong ví dụ đơn hàng, phụ thuộc {Order}→{Address} (qua {Order}→{Customer}→{Address}) là loại nào và bị loại ở NF nào?",
+      options: [
+        "Phụ thuộc <b>bắc cầu (transitive)</b> — bị loại ở bước lên <b>3NF</b>",
+        "Phụ thuộc bộ phận — bị loại ở 2NF",
+        "Giá trị không atomic — bị loại ở 1NF",
+        "Không phải phụ thuộc, giữ nguyên"
+      ],
+      answer: [0],
+      explain: "{Order}→{Customer}→{Address} tạo phụ thuộc <b>bắc cầu</b> {Order}→{Address}. Bắc cầu bị loại khi chuẩn hóa lên <b>3NF</b> — tách thành {Order, Customer} và {Customer, Address}."
+    }
+  ]
+};
+</script>
+<script src="../assets/app.js"></script>
+<script src="../assets/quiz.js"></script>
+</body>
+</html>

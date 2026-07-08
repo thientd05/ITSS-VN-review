@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>12. Nguyên lý thiết kế SOLID — ITSS Ôn tập</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/quiz.css">
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a class="brand" href="../index.html"><span class="dot"></span> ITSS SW Dev <small>· Ôn tập</small></a>
+  <div class="top-spacer"></div>
+  <a class="top-link" href="../index.html">Trang chủ</a>
+  <button id="themeBtn" class="icon-btn" onclick="toggleTheme()">☾</button>
+</div></div>
+
+<div class="layout">
+<aside class="toc"><h4>Mục lục</h4><nav></nav></aside>
+<main class="content">
+  <div class="crumb">Ôn tập ITSS · Chủ đề 12</div>
+  <h1 class="page-title">Nguyên lý thiết kế SOLID</h1>
+  <p class="page-lead">5 nguyên lý thiết kế hướng đối tượng của Robert C. Martin — công cụ tham chiếu để quản lý dependency và chẩn đoán thiết kế.</p>
+  <div class="chips"><span class="chip">SRP</span><span class="chip">OCP</span><span class="chip">LSP</span><span class="chip">ISP</span><span class="chip">DIP</span></div>
+  <a class="quiz-cta" href="quiz-12-solid.html"><span class="ic">📝</span> Luyện trắc nghiệm chủ đề này <small>· 21 câu · lưu tiến độ tự động</small></a>
+
+  <section>
+    <h2><span class="num">0</span> Tổng quan</h2>
+    <div class="tw"><table>
+      <thead><tr><th>Chữ</th><th>Nguyên lý</th><th>Một câu</th></tr></thead>
+      <tbody>
+        <tr><td><strong>S</strong></td><td>Single Responsibility Principle</td><td>Một lớp chỉ có <em>một lý do để thay đổi</em>.</td></tr>
+        <tr><td><strong>O</strong></td><td>Open-Closed Principle</td><td>Mở cho <em>mở rộng</em>, đóng với <em>sửa đổi</em>.</td></tr>
+        <tr><td><strong>L</strong></td><td>Liskov Substitution Principle</td><td>Lớp con phải <em>thay thế được</em> lớp cha.</td></tr>
+        <tr><td><strong>I</strong></td><td>Interface Segregation Principle</td><td>Nhiều interface chuyên biệt hơn một interface tổng.</td></tr>
+        <tr><td><strong>D</strong></td><td>Dependency Inversion Principle</td><td>Phụ thuộc vào <em>abstraction</em>, không vào concretion.</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout note"><span class="tt">Vì sao cần</span>SOLID hữu ích làm <strong>tham chiếu</strong> khi thiết kế; quản lý dependency giúp <strong>maintainability</strong> dễ hơn; cung cấp phương tiện chẩn đoán vấn đề thiết kế. (Nằm ở tầng "OOD Principles" — trên General/OO Concepts, dưới OOD Patterns.)</div>
+  </section>
+
+  <section>
+    <h2><span class="num">1</span> SRP — Single Responsibility Principle</h2>
+    <div class="callout key"><span class="tt">Phát biểu</span>"Never be more than <strong>one reason</strong> for a class to change" — mỗi lớp chỉ có <strong>một loại trách nhiệm</strong>. Đơn giản nhất nhưng khó làm đúng nhất.</div>
+    <p><strong>Responsibility = một lý do để thay đổi.</strong> Mỗi module làm một việc &amp; làm tốt. Đo bằng Cohesion (&amp; Coupling). Vi phạm → thiết kế mong manh (fragile), vỡ theo cách bất ngờ khi thay đổi.</p>
+    <div class="callout example"><span class="tt">Ví dụ Modem</span>Interface Modem có <code>dial/hangup</code> (quản lý kết nối) + <code>send/recv</code> (truyền dữ liệu) → <strong>2 trách nhiệm</strong> → nên tách thành <code>Connection</code> &amp; <code>DataChannel</code>.</div>
+    <div class="callout example"><span class="tt">Ví dụ Student &amp; Comparable</span>Cho <code>Student implements Comparable</code> với <code>compareTo()</code>: mỗi khi cần sắp xếp khác đi, phải sửa compareTo &amp; recompile Student + Register + client — dù chúng không liên quan thứ tự sort. <strong>Nguyên nhân:</strong> gộp 2 trách nhiệm (business entity + ordering) → vi phạm SRP. <strong>Giải pháp:</strong> tách ra <code>StudentByName</code>, <code>StudentBySSN</code> implement <code>Comparator</code>, dùng <code>Collections.sort(list, comparator)</code>.</div>
+  </section>
+
+  <section>
+    <h2><span class="num">2</span> OCP — Open-Closed Principle</h2>
+    <div class="callout key"><span class="tt">Phát biểu (Bertrand Meyer, 1988)</span>"Software entities (class, module, function…) should be <strong>open for extension, but closed for modification</strong>." → Mở rộng hành vi mà <em>không sửa code đã chạy tốt</em>.</div>
+    <div class="two">
+      <div class="callout tip"><span class="tt">Open for extension</span>Hành vi module có thể mở rộng, ứng xử theo cách mới khi yêu cầu đổi → reusability &amp; maintainability.</div>
+      <div class="callout warn"><span class="tt">Closed for modification</span>Mã nguồn module hiện có là bất khả xâm phạm — không ai được sửa. Vi phạm → thay đổi lan truyền (cascading) sang module phụ thuộc.</div>
+    </div>
+    <div class="callout key"><span class="tt">Abstraction là chìa khóa</span>Client &amp; Supplier đều concrete → đổi Supplier thì Client cũng phải đổi. Giải pháp: Supplier concrete <strong>implement một Abstract Supplier / interface</strong>; Client phụ thuộc abstraction → đổi cài đặt Supplier không cần đổi Client. Abstract Supplier <em>closed for modification</em>, các concrete <em>open for extension</em>.</div>
+    <div class="callout example"><span class="tt">Vi phạm OCP</span><code>printEmpRoster()</code> dùng <code>if(empType==FACULTY)... else if(STAFF)...</code> → thêm Engineer phải sửa hàm. <strong>Sửa bằng Dynamic Polymorphism:</strong> Employee có <code>printInfo()</code>, các lớp con override; vòng lặp chỉ gọi <code>emps[i].printInfo()</code> → thêm Engineer không cần recompile printEmpRoster.</div>
+    <div class="callout note"><span class="tt">Polymorphism</span><strong>Dynamic:</strong> 3 phiên bản sort — <code>sort(list)</code> (cần Comparable), <code>sort(list, StringComparator)</code>, <code>sort(list, Comparator)</code> (mở rộng cho mọi kiểu). <strong>Static:</strong> Generics — <code>class LinkedList&lt;E&gt;</code> chứa object bất kỳ kiểu.</div>
+  </section>
+
+  <section>
+    <h2><span class="num">3</span> LSP — Liskov Substitution Principle</h2>
+    <div class="callout key"><span class="tt">Phát biểu</span>"Functions that use pointers/references to base classes must be able to use objects of derived classes <strong>without knowing it</strong>." → Lớp con phải <strong>thay thế được</strong> lớp cha. Mọi cài đặt của interface phải <em>tuân thủ đầy đủ</em> yêu cầu của interface đó.</div>
+    <div class="callout def"><span class="tt">2 quy tắc</span><strong>Demand no more:</strong> lớp con chấp nhận <em>mọi</em> đối số mà cha chấp nhận. <strong>Promise no less:</strong> mọi giả định đúng khi dùng cha phải đúng khi dùng con.</div>
+    <div class="two">
+      <div class="callout example"><span class="tt">Ostrich–Bird</span>Ostrich "is a" Bird nhưng <em>không bay được</em> → nếu Bird có <code>fly()</code>, Ostrich kế thừa Bird sẽ vi phạm LSP. Nên tách lớp riêng cho chim không bay.</div>
+      <div class="callout example"><span class="tt">Rectangle–Square</span><code>Square extends Rectangle</code>, override setWidth cũng set height (và ngược lại). Client dùng Rectangle (setWidth 10, setHeight 20, expect area 200) → với Square kết quả sai → vi phạm LSP.</div>
+    </div>
+    <div class="callout warn"><span class="tt">Vì sao quan trọng</span>Vi phạm LSP → class hierarchy trở thành "mớ hỗn độn": truyền instance con làm tham số gây hành vi lạ; unit test của lớp cha không pass cho con. <strong>LSP là mở rộng của OCP.</strong></div>
+    <div class="callout tip"><span class="tt">Implementation vs Interface inheritance</span>LSP áp dụng cho cả 2. <strong>Implementation inheritance:</strong> khi dùng List để <em>implement</em> Queue trong Java → dùng <strong>composition, KHÔNG inheritance</strong> (ý định là chỉ dùng cài đặt của List). Multi-layer hierarchy: cung cấp thêm mức trừu tượng cho lớp con; dùng composition thay inheritance (Java) hoặc private base class (C++).</div>
+  </section>
+
+  <section>
+    <h2><span class="num">4</span> ISP — Interface Segregation Principle</h2>
+    <div class="callout key"><span class="tt">Phát biểu</span>"Client should not be forced to depend upon interface that they do not use." → "Nhiều interface chuyên biệt cho client tốt hơn một interface đa dụng."</div>
+    <div class="two">
+      <div class="callout danger"><span class="tt">Bad design — Fat interface</span>Một Service "béo" gồm methods cho ClientA + ClientB + ClientC. Vấn đề: thay đổi do <em>một</em> client (A) khiến Service &amp; <em>các client khác</em> (B, C) phải recompile.</div>
+      <div class="callout tip"><span class="tt">Good design — Segregated interfaces</span>Tách ServiceA/ServiceB/ServiceC; ServiceImpl hiện thực cả ba. Đổi do ClientA chỉ ảnh hưởng ServiceA &amp; ServiceImpl; ClientB, ClientC không phải đổi/recompile.</div>
+    </div>
+    <div class="callout warn"><span class="tt">Vi phạm (fat interface)</span>Interface quá nhiều method → khó tái sử dụng; tăng phức tạp không cần thiết, giảm maintainability/robustness; coupling không cần giữa các client (một client làm interface đổi → mọi client recompile). → Interface cũng có <em>trách nhiệm riêng</em> để tái sử dụng.</div>
+  </section>
+
+  <section>
+    <h2><span class="num">5</span> DIP — Dependency Inversion Principle</h2>
+    <div class="callout key"><span class="tt">Phát biểu</span>"High-level modules should not depend upon low-level modules. Both should depend upon <strong>abstractions</strong>." · "Abstractions should not depend upon details. Details should depend upon abstraction." · "Depend upon Abstractions. Do not depend upon concretions."</div>
+    <p>Low-level module dễ thay đổi hơn; high-level module (business policy) ổn định hơn (là mục đích hệ thống). → High-level nên phụ thuộc <strong>abstraction của low-level</strong>, buộc low-level phải đổi theo. Vi phạm → thay đổi ở low-level ép high-level đổi.</p>
+    <div class="callout example"><span class="tt">Ví dụ mỏ hàn</span>Mỏ hàn cắm vào ổ điện qua <em>chuẩn phích cắm</em> (abstraction), không hàn cứng trực tiếp.</div>
+    <div class="callout note"><span class="tt">Ownership Inversion</span>Thay vì Policy Layer → gọi thẳng Mechanism Layer → Utility Layer (tầng trên phụ thuộc tầng dưới), ta đặt <code>&laquo;interface&raquo; PolicyService</code>, <code>&laquo;interface&raquo; MechanismService</code>: tầng dưới phụ thuộc interface do tầng <em>trên</em> sở hữu. → "Client (tầng trên) sở hữu interface, không phải tầng dưới."</div>
+    <div class="callout tip"><span class="tt">DIP &amp; OCP</span>Khái niệm high-level ổn định hơn cài đặt low-level; concrete đổi thường, abstract đổi ít. Abstraction là "hinge points" — nơi thiết kế có thể cung cấp cài đặt khác nhau. (Liên hệ: <code>new</code> là "glue" → dùng Dependency Injection.)</div>
+  </section>
+
+  <section>
+    <h2><span class="num">6</span> Case study &amp; thực hành</h2>
+    <div class="callout example"><span class="tt">Reminder program ("Nhắc nhở nghỉ giải lao")</span>Chương trình định kỳ kiểm tra thời gian; sau một khoảng, nhắc/bắt buộc người dùng nghỉ (nghe nhạc, tập thể dục tại chỗ…). <strong>Naive design:</strong> một method hiển thị message &amp; gợi ý bài tập + vòng lặp gọi method theo thời gian. → Dùng làm bài tập áp dụng &amp; kiểm tra SRP/OCP/LSP/ISP/DIP trong codebase.</div>
+    <div class="callout note"><span class="tt">Thực hành đề xuất</span>Rà codebase: có lớp nào không tuân SRP &amp; OCP? có vi phạm LSP, ISP, DIP? → tách trách nhiệm, dựa abstraction, tách interface.</div>
+  </section>
+
+  <div class="callout note"><span class="tt">Liên kết</span>SOLID xây trên <a href="11-coupling-cohesion.html">Coupling &amp; Cohesion</a> và dẫn tới <a href="13-design-patterns.html">Design Patterns</a> (nhiều pattern là hiện thân của OCP/DIP).</div>
+
+  <nav class="pager">
+    <a href="11-coupling-cohesion.html"><span class="dir">← Trước</span><span class="ttl">Coupling &amp; Cohesion</span></a>
+    <a class="next" href="13-design-patterns.html"><span class="dir">Sau →</span><span class="ttl">Design Patterns</span></a>
+  </nav>
+</main>
+</div>
+<script src="../assets/app.js"></script>
+</body>
+</html>

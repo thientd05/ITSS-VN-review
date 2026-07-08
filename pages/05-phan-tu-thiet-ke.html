@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>5. Xác định phần tử thiết kế — ITSS Ôn tập</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/quiz.css">
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a class="brand" href="../index.html"><span class="dot"></span> ITSS SW Dev <small>· Ôn tập</small></a>
+  <div class="top-spacer"></div>
+  <a class="top-link" href="../index.html">Trang chủ</a>
+  <button id="themeBtn" class="icon-btn" onclick="toggleTheme()">☾</button>
+</div></div>
+
+<div class="layout">
+<aside class="toc"><h4>Mục lục</h4><nav></nav></aside>
+<main class="content">
+  <div class="crumb">Ôn tập ITSS · Chủ đề 5</div>
+  <h1 class="page-title">Xác định phần tử thiết kế (Identify Design Elements)</h1>
+  <p class="page-lead">Ánh xạ Analysis Class → Design Element; nhóm lớp thành Package; quy tắc đóng gói, phụ thuộc &amp; coupling giữa các package.</p>
+  <div class="chips"><span class="chip">Analysis → Design</span><span class="chip">Package</span><span class="chip">Encapsulation</span><span class="chip">Package coupling</span></div>
+  <a class="quiz-cta" href="quiz-05-phan-tu-thiet-ke.html"><span class="ic">📝</span> Luyện trắc nghiệm chủ đề này <small>· 16 câu · lưu tiến độ tự động</small></a>
+
+  <section>
+    <h2><span class="num">1</span> Mục đích &amp; vị trí trong lifecycle</h2>
+    <div class="callout def"><span class="tt">Mục đích</span>Phân tích tương tác của analysis class → xác định các phần tử của <strong>Design Model</strong> (Design classes, Package, Subsystem). Thực hiện ở bước "Refine the Architecture" (do Architect).</div>
+    <p><strong>Đầu vào:</strong> Analysis Model, Software Architecture Document, Supplementary Specifications, Project Specific Guidelines → <strong>Đầu ra:</strong> Design Model (design elements).</p>
+  </section>
+
+  <section>
+    <h2><span class="num">2</span> Từ Analysis Class → Design Element</h2>
+    <div class="callout key"><span class="tt">Ánh xạ Many-to-Many</span>Analysis class (boundary/entity/control) ánh xạ tới design element theo quan hệ <strong>nhiều-nhiều</strong>, không phải 1-1.</div>
+    <div class="tw"><table>
+      <thead><tr><th>Analysis class</th><th>Có thể trở thành</th></tr></thead>
+      <tbody>
+        <tr><td>Lớp đơn giản, đại diện một abstraction logic đơn</td><td><strong>Ánh xạ trực tiếp</strong> → 1 design class</td></tr>
+        <tr><td rowspan="4">Lớp phức tạp hơn</td><td>Tách thành nhiều lớp</td></tr>
+        <tr><td>Trở thành một <strong>package</strong></td></tr>
+        <tr><td>Trở thành một <strong>subsystem</strong></td></tr>
+        <tr><td>Bất kỳ tổ hợp nào của trên</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <h2><span class="num">3</span> Package — nhóm các Design Class</h2>
+    <div class="two">
+      <div class="callout def"><span class="tt">Class</span>Mô tả tập object chia sẻ cùng responsibilities, relationships, operations, attributes, semantics.</div>
+      <div class="callout def"><span class="tt">Package</span>Cơ chế tổng quát để <strong>tổ chức các phần tử thành nhóm</strong>; là một model element có thể <em>chứa</em> các model element khác. Dùng để: tổ chức mô hình đang phát triển · làm đơn vị quản lý cấu hình (configuration management).</div>
+    </div>
+    <h3>Tiêu chí đóng gói (packaging criteria)</h3>
+    <ul>
+      <li>Configuration units (đơn vị cấu hình).</li>
+      <li>Phân bổ nguồn lực giữa các nhóm phát triển.</li>
+      <li>Phản ánh <strong>loại user</strong>.</li>
+      <li>Đại diện sản phẩm/dịch vụ sẵn có mà hệ thống dùng.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="num">4</span> Packaging Tips</h2>
+    <h3>4.1 Boundary Classes</h3>
+    <div class="two">
+      <div class="callout tip"><span class="tt">Nếu giao diện DỄ thay đổi nhiều</span>Đặt boundary class vào <strong>package riêng</strong> (cô lập thay đổi).</div>
+      <div class="callout note"><span class="tt">Nếu KHÓ thay đổi</span>Đóng gói boundary <strong>cùng các lớp liên quan chức năng</strong>.</div>
+    </div>
+    <h3>4.2 Functionally Related Classes — dấu hiệu "liên quan chức năng"</h3>
+    <ul>
+      <li>Thay đổi hành vi/cấu trúc lớp này bắt buộc đổi lớp kia.</li>
+      <li>Xóa lớp này ảnh hưởng lớp kia.</li>
+      <li>Hai object trao đổi <strong>nhiều message</strong> hoặc giao tiếp phức tạp.</li>
+      <li>Boundary liên quan chức năng tới một entity nếu nhiệm vụ của nó là <em>trình bày</em> entity đó.</li>
+      <li>Hai lớp tương tác với / bị ảnh hưởng bởi <strong>cùng một actor</strong>.</li>
+      <li>Có quan hệ với nhau; một lớp tạo instance của lớp kia.</li>
+    </ul>
+    <div class="callout warn"><span class="tt">KHÔNG đặt chung package khi</span>Hai lớp liên quan tới <strong>các actor khác nhau</strong>; hoặc một lớp <em>optional</em> và một lớp <em>mandatory</em>.</div>
+    <h3>4.3 Package Element Visibility</h3>
+    <div class="callout key"><span class="tt">Encapsulation</span><strong>Chỉ các lớp public</strong> mới được tham chiếu từ ngoài package sở hữu. Lớp private (kí hiệu <code>-</code>) bị ẩn. → Nguyên lý OO: Encapsulation.</div>
+  </section>
+
+  <section>
+    <h2><span class="num">5</span> Package Coupling — quy tắc phụ thuộc</h2>
+    <div class="callout danger"><span class="tt">3 vi phạm coupling (đánh dấu X)</span>
+    <ul style="margin:.2rem 0">
+      <li>Package <strong>không được cross-coupled</strong> (phụ thuộc vòng lẫn nhau).</li>
+      <li>Package ở tầng dưới <strong>không được phụ thuộc</strong> package ở tầng trên.</li>
+      <li>Nhìn chung, phụ thuộc <strong>không nên nhảy tầng (skip layers)</strong>.</li>
+    </ul></div>
+    <div class="callout example"><span class="tt">Ví dụ Registration Package</span>MainStudentForm ◇ RegisterForCoursesForm &laquo;boundary&raquo; → RegistrationController &laquo;control&raquo;. MainRegistrarForm ◇ CloseRegistrationForm &laquo;boundary&raquo; → CloseRegistrationController &laquo;control&raquo;. (Boundary phụ thuộc vào control cùng package.)</div>
+    <div class="callout note"><span class="tt">External System Interfaces Package</span>Chứa các &laquo;Interface&raquo; như <code>IBillingSystem</code>, <code>ICourseCatalogSystem</code> — cô lập hệ thống ngoài. University Artifacts Package chứa entity (Student, CourseOffering, Course, Professor, Schedule…) với generalization &amp; association.</div>
+  </section>
+
+  <section>
+    <h2><span class="num">6</span> Subsystem (giới thiệu)</h2>
+    <p>Ngoài package, một analysis class phức tạp có thể trở thành <strong>subsystem</strong> — đơn vị đóng gói hành vi sau một interface. Chi tiết ở chủ đề <a href="06-interface-design.html">Thiết kế giao diện</a> (Subsystem &amp; Interface, Package vs Subsystem, gates).</p>
+    <div class="callout tip"><span class="tt">Xem tiếp</span>Subsystem <em>cung cấp hành vi</em> &amp; <em>đóng gói hoàn toàn</em> nội dung; khác với package chỉ nhóm phần tử.</div>
+  </section>
+
+  <nav class="pager">
+    <a href="04-kien-truc.html"><span class="dir">← Trước</span><span class="ttl">Thiết kế kiến trúc &amp; Phân tích OO</span></a>
+    <a class="next" href="06-interface-design.html"><span class="dir">Sau →</span><span class="ttl">Thiết kế giao diện</span></a>
+  </nav>
+</main>
+</div>
+<script src="../assets/app.js"></script>
+</body>
+</html>

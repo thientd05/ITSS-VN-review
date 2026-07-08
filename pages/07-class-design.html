@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>7. Thiết kế lớp — ITSS Ôn tập</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/quiz.css">
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a class="brand" href="../index.html"><span class="dot"></span> ITSS SW Dev <small>· Ôn tập</small></a>
+  <div class="top-spacer"></div>
+  <a class="top-link" href="../index.html">Trang chủ</a>
+  <button id="themeBtn" class="icon-btn" onclick="toggleTheme()">☾</button>
+</div></div>
+
+<div class="layout">
+<aside class="toc"><h4>Mục lục</h4><nav></nav></aside>
+<main class="content">
+  <div class="crumb">Ôn tập ITSS · Chủ đề 7</div>
+  <h1 class="page-title">Thiết kế lớp (Class Design)</h1>
+  <p class="page-lead">6 bước: tạo design class → định nghĩa Operation/Method → quan hệ giữa lớp → State machine → Attribute → Class diagram. Kèm multiplicity, navigability, aggregation vs composition, dependency vs association.</p>
+  <div class="chips"><span class="chip">Operation · visibility · scope</span><span class="chip">Association/Aggregation/Composition</span><span class="chip">Multiplicity · Navigability</span><span class="chip">State Machine</span></div>
+  <a class="quiz-cta" href="quiz-07-class-design.html"><span class="ic">📝</span> Luyện trắc nghiệm chủ đề này <small>· 33 câu · lưu tiến độ tự động</small></a>
+
+  <section>
+    <h2><span class="num">1</span> Tạo Design Class ban đầu</h2>
+    <p>6 bước của Class Design: <strong>Create Initial Design Classes → Define Operations/Methods → Define Relationships → Define States → Define Attributes → Class Diagram</strong>. Analysis class → Design element theo ánh xạ many-to-many.</p>
+    <div class="callout key"><span class="tt">Bao nhiêu lớp là đủ?</span>
+      <div class="two" style="margin-top:.3rem">
+        <div><strong>Nhiều lớp đơn giản</strong><ul style="margin:.2rem 0"><li>Mỗi lớp đóng gói ít "trí tuệ" hệ thống</li><li>Tái sử dụng cao hơn</li><li>Dễ cài đặt hơn</li></ul></div>
+        <div><strong>Ít lớp phức tạp</strong><ul style="margin:.2rem 0"><li>Mỗi lớp gánh phần lớn "trí tuệ"</li><li>Ít tái sử dụng</li><li>Khó cài đặt hơn</li></ul></div>
+      </div>
+      <em>Một lớp nên có MỘT mục đích rõ ràng — "do one thing and do it well".</em>
+    </div>
+    <div class="two">
+      <div class="card"><h4>Boundary class</h4><p>UI: xét công cụ phát triển UI dùng gì, dựng được bao nhiêu bằng công cụ. External system interface: thường mô hình như <strong>subsystem</strong>.</p></div>
+      <div class="card"><h4>Entity class</h4><p>Object thường passive &amp; persistent; yêu cầu performance có thể buộc re-factoring (VD tách FatClass thành DataHelper/LazyDataHelper).</p></div>
+      <div class="card"><h4>Control class</h4><p>Có thực sự cần? Có nên tách? Quyết định theo: complexity, change probability, distribution &amp; performance, transaction management.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">2</span> Định nghĩa Operation &amp; Method</h2>
+    <div class="callout def"><span class="tt">Operation vs Method</span><strong>Operation</strong>: hành vi (từ message trong interaction diagram). <strong>Method</strong>: mô tả <em>cách cài đặt</em> operation (thuật toán đặc biệt, dùng object/operation nào, cách hiện thực attribute &amp; relationship).</div>
+    <h3>Đặt tên &amp; signature</h3>
+    <ul>
+      <li>Tên: chỉ rõ <strong>kết quả</strong>, theo góc nhìn client, nhất quán giữa các lớp.</li>
+      <li>Signature: <code>operationName([direction] parameter: class, ...): returnType</code>. Direction = <strong>in</strong> (mặc định) / out / inout.</li>
+      <li>Kèm mô tả ngắn, nêu ý nghĩa mọi tham số → <strong>program documentation</strong> (JavaDoc: <code>@param</code>, <code>@return</code>, <code>@throws</code>).</li>
+    </ul>
+    <div class="callout tip"><span class="tt">Guideline signature</span>Xét tham số: truyền by value/by reference, có bị đổi, optional, giá trị mặc định, khoảng hợp lệ. <strong>Càng ít tham số càng tốt</strong>. <strong>Truyền object thay vì "data bits"</strong>.</div>
+    <h3>Visibility &amp; Scope</h3>
+    <div class="two">
+      <div class="callout def"><span class="tt">Visibility (bao đóng)</span><code>+</code> Public · <code>#</code> Protected · <code>-</code> Private. Dùng để cưỡng chế encapsulation.</div>
+      <div class="callout def"><span class="tt">Scope</span><strong>Instance scope:</strong> 1 bản cho mỗi instance. <strong>Classifier scope:</strong> 1 bản cho toàn bộ instance (như <code>static</code>) — biểu diễn bằng <u>gạch chân</u> tên attribute/operation.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">3</span> Quan hệ giữa các lớp</h2>
+    <div class="tw"><table>
+      <thead><tr><th>Quan hệ</th><th>Ký hiệu</th><th>Ý nghĩa</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Association</strong></td><td>đường thẳng (có mũi tên navigability)</td><td>Quan hệ <em>cấu trúc (structural)</em>: object của lớp này nối object lớp kia. "use-a".</td></tr>
+        <tr><td><strong>Aggregation</strong></td><td>hình thoi rỗng ◇</td><td>Association đặc biệt whole-part; "has-a / is-a-part". Instance lớp này gồm instance lớp kia.</td></tr>
+        <tr><td><strong>Composition</strong></td><td>hình thoi đặc ◆</td><td>Aggregation mạnh: part <em>không chia sẻ</em>, <em>chết cùng</em> whole (share life-time).</td></tr>
+        <tr><td><strong>Generalization (Inheritance)</strong></td><td>mũi tên tam giác rỗng △</td><td>"is a kind of". Subclass kế thừa cấu trúc/hành vi của superclass.</td></tr>
+        <tr><td><strong>Dependency</strong></td><td>đường nét đứt có mũi tên ⇢</td><td>Quan hệ <em>phi cấu trúc</em>, tạm thời.</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout key"><span class="tt">Từ link → association</span>Mỗi <strong>link</strong> trong communication diagram → một <strong>association</strong> trong class diagram ("relationship for every link"). Instance của association là một link.</div>
+
+    <h3>3.1 Role &amp; Multiplicity</h3>
+    <p><strong>Role</strong> = "khuôn mặt" lớp đóng trong association (VD Instructor, Department Head, Prerequisites).</p>
+    <div class="callout def"><span class="tt">Multiplicity</span>Số instance của lớp này ứng với <strong>một</strong> instance của lớp kia. Trả lời 2 câu: association bắt buộc hay tùy chọn? Số instance tối thiểu &amp; tối đa liên kết được?</div>
+    <div class="tw"><table>
+      <thead><tr><th>Ký hiệu</th><th>Ý nghĩa</th></tr></thead>
+      <tbody>
+        <tr><td><em>(trống)</em></td><td>Unspecified</td></tr>
+        <tr><td><code>1</code></td><td>Exactly One</td></tr>
+        <tr><td><code>0..*</code> hoặc <code>*</code></td><td>Zero or More</td></tr>
+        <tr><td><code>1..*</code></td><td>One or More</td></tr>
+        <tr><td><code>0..1</code></td><td>Zero or One (optional)</td></tr>
+        <tr><td><code>2..4</code></td><td>Specified Range</td></tr>
+        <tr><td><code>2, 4..6</code></td><td>Multiple, Disjoint Ranges</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout example"><span class="tt">Cài đặt Java</span>Multiplicity "many" → dùng Collection: <code>private List&lt;InsuranceContract&gt; contracts;</code>. Chiều 1 → field đơn: <code>private InsuranceCompany refers_to;</code>.</div>
+
+    <h3>3.2 Association vs Aggregation vs Composition</h3>
+    <div class="callout tip"><span class="tt">Khi nào dùng gì</span>Hai object gắn chặt <em>whole-part</em> → <strong>Aggregation</strong>. Thường độc lập dù hay đi cùng → <strong>Association</strong>. <strong>Khi nghi ngờ, dùng Association.</strong></div>
+    <div class="two">
+      <div class="callout example"><span class="tt">Aggregation (Java)</span><pre style="margin:.3rem 0"><code>class Car {
+  private List&lt;Door&gt; doors;
+  Car(String name, List&lt;Door&gt; doors){
+    this.doors = doors; }
+  public List&lt;Door&gt; getDoors(){ return doors; }
+}</code></pre>Part (Door) truyền vào từ ngoài — có thể tồn tại độc lập.</div>
+      <div class="callout example"><span class="tt">Composition (Java)</span><pre style="margin:.3rem 0"><code>final class Car {
+  private final Engine engine; // composition
+  Car(Engine engine){ this.engine = engine; }
+  public void move(){ engine.work(); ... }
+}</code></pre>Engine tạo &amp; chết cùng Car — <code>final</code>, sở hữu chặt.</div>
+    </div>
+
+    <h3>3.3 Navigability</h3>
+    <p>Cho biết có thể "đi" từ lớp nguồn tới lớp đích qua association hay không (mũi tên).</p>
+    <div class="callout key"><span class="tt">Chọn chiều nào cần thật sự?</span>Khám phá interaction diagram. Ngay cả khi cả 2 chiều "có vẻ" cần, thường một chiều dùng ít / số instance nhỏ → chỉ giữ chiều đó. Chỉ giữ <strong>cả hai chiều</strong> khi số instance của <em>cả hai</em> lớp đều lớn &amp; cần đi cả hai chiều. Mục tiêu: quan hệ càng "nhẹ" càng tốt.</div>
+
+    <h3>3.4 Dependency vs Association</h3>
+    <div class="tw"><table>
+      <thead><tr><th></th><th>Association</th><th>Dependency</th></tr></thead>
+      <tbody>
+        <tr><td>Bản chất</td><td>Cấu trúc, lâu dài</td><td>Phi cấu trúc, tạm thời (limited duration, context-independent, summary)</td></tr>
+        <tr><td>Visibility làm cho "biết nhau"</td><td><strong>Field reference</strong></td><td>Local variable · Parameter · Global reference</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout note"><span class="tt">3 kiểu visibility của Dependency</span><strong>Local variable:</strong> op1() chứa biến cục bộ kiểu ClassB. <strong>Parameter:</strong> ClassB truyền vào op1(aParam: ClassB). <strong>Global:</strong> ClassUtility toàn cục. → Cân nhắc: quan hệ lâu dài = association (field); nhiều object dùng chung 1 instance = parameter/global; không dùng chung = local. Tạo/hủy đắt? → dùng field/parameter/global. "Strive for the lightest relationships possible."</div>
+
+    <h3>3.5 Generalization</h3>
+    <p>Quan hệ trong đó một lớp chia sẻ cấu trúc/hành vi cho ≥1 lớp; định nghĩa hệ thứ bậc trừu tượng; subclass kế thừa superclass; "is a kind of". Single inheritance / Multiple inheritance.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">4</span> Define States — State Machine</h2>
+    <div class="callout def"><span class="tt">State Machine</span>Đồ thị có hướng gồm <strong>state (node)</strong> nối bởi <strong>transition (cung)</strong>; mô tả lịch sử đời của một <em>reactive object</em>. Transition: <code>Event(args)[guard condition]/activity</code>.</div>
+    <div class="grid">
+      <div class="card"><h4>State</h4><p>Trạng thái của object. VD CourseInfo: Opened (numStudents ≥ 3) / Closed (&lt; 3).</p></div>
+      <div class="card"><h4>Event</h4><p>Từ operation trong interface. VD addLecturer, removeLecturer.</p></div>
+      <div class="card"><h4>Transition</h4><p>Sự chuyển state khi nhận event (có thể kèm guard).</p></div>
+      <div class="card"><h4>Activity (Action)</h4><p><strong>Entry</strong> (khi vào state) · <strong>Do</strong> (đang chạy) · <strong>Exit</strong> (khi ra state).</p></div>
+    </div>
+    <div class="callout note"><span class="tt">Pseudo-states</span><strong>Initial state</strong> (khi object được tạo, bắt buộc, chỉ 1). <strong>Choice</strong> (đánh giá động guard sau, chỉ segment đầu có trigger). <strong>Final state</strong> (kết thúc đời object, tùy chọn, có thể nhiều).</div>
+    <div class="callout key"><span class="tt">Object nào cần State Machine?</span>Object có vai trò được làm rõ bởi state transitions; use case phức tạp bị điều khiển bởi state. <strong>KHÔNG cần</strong> mô hình cho: object ánh xạ thẳng sang cài đặt; object không bị điều khiển bởi state; object chỉ có <strong>một state tính toán</strong>.</div>
+    <div class="callout note"><span class="tt">Ánh xạ về mô hình</span>Event → operation; method cập nhật thông tin đặc thù state; state thường biểu diễn bằng <strong>attribute</strong> (đầu vào cho bước Define Attributes).</div>
+  </section>
+
+  <section>
+    <h2><span class="num">5</span> Define Attributes</h2>
+    <div class="callout def"><span class="tt">Attribute</span><code>attributeName : Type = Default</code> (kèm visibility +/#/-). Type phải là kiểu dữ liệu <strong>sơ cấp (elementary)</strong> của ngôn ngữ cài đặt (built-in, user-defined type, hoặc user-defined class).</div>
+    <h3>Cách tìm attribute</h3>
+    <ul>
+      <li>Properties/characteristics của các lớp đã xác định; thông tin lớp cần giữ.</li>
+      <li>"Danh từ" không trở thành lớp: giá trị của nó là điều quan trọng · thông tin thuộc <em>sở hữu duy nhất</em> của object · không có hành vi.</li>
+      <li>Xem mô tả method, xem states, xem thông tin lớp phải tự duy trì.</li>
+    </ul>
+    <div class="callout def"><span class="tt">Derived Attribute (thuộc tính dẫn xuất)</span>Attribute mà giá trị được <strong>tính từ attribute khác</strong>. Dùng khi: không đủ thời gian tính lại mỗi lần cần, hoặc cần <em>đánh đổi</em> runtime performance với bộ nhớ.</div>
+  </section>
+
+  <section>
+    <h2><span class="num">6</span> Class Diagram &amp; Review</h2>
+    <p>Class diagram = static view. 3 cách dùng khi mô hình static: mô hình <strong>vocabulary</strong> của hệ thống · <strong>collaborations</strong> · <strong>logical database schema</strong>.</p>
+    <div class="callout key"><span class="tt">Review points</span>
+      <div class="two" style="margin-top:.3rem">
+        <div><strong>Classes:</strong> tên rõ; một abstraction; attribute/behavior gắn kết chức năng; có generalization; đáp ứng yêu cầu; nhất quán với state machine; mô tả đủ vòng đời instance; đủ hành vi.</div>
+        <div><strong>Operations:</strong> dễ hiểu; state đúng; đủ hành vi; tham số đúng; message được gán operation đầy đủ; spec cài đặt đúng; signature theo chuẩn.</div>
+      </div>
+      <strong>Attributes:</strong> một khái niệm, tên mô tả, đủ cho Use-Case Realization. <strong>Relationships:</strong> tên role mô tả, multiplicity đúng.
+    </div>
+  </section>
+
+  <nav class="pager">
+    <a href="06-interface-design.html"><span class="dir">← Trước</span><span class="ttl">Thiết kế giao diện</span></a>
+    <a class="next" href="08-data-modeling.html"><span class="dir">Sau →</span><span class="ttl">Mô hình hóa dữ liệu</span></a>
+  </nav>
+</main>
+</div>
+<script src="../assets/app.js"></script>
+</body>
+</html>

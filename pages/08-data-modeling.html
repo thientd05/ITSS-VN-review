@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>8. Mô hình hóa dữ liệu — ITSS Ôn tập</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/quiz.css">
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a class="brand" href="../index.html"><span class="dot"></span> ITSS SW Dev <small>· Ôn tập</small></a>
+  <div class="top-spacer"></div>
+  <a class="top-link" href="../index.html">Trang chủ</a>
+  <button id="themeBtn" class="icon-btn" onclick="toggleTheme()">☾</button>
+</div></div>
+
+<div class="layout">
+<aside class="toc"><h4>Mục lục</h4><nav></nav></aside>
+<main class="content">
+  <div class="crumb">Ôn tập ITSS · Chủ đề 8</div>
+  <h1 class="page-title">Mô hình hóa dữ liệu (Data Modeling)</h1>
+  <p class="page-lead">Ba mức data model, ER diagram, đối chiếu Object model ↔ Relational, ánh xạ class diagram → ER (FK, aggregation, inheritance, m:n), và chuẩn hóa 1NF/2NF/3NF.</p>
+  <div class="chips"><span class="chip">Conceptual/Logical/Physical</span><span class="chip">ER Diagram</span><span class="chip">Mapping class → ER</span><span class="chip">Normalization 1-2-3NF</span></div>
+  <a class="quiz-cta" href="quiz-08-data-modeling.html"><span class="ic">📝</span> Luyện trắc nghiệm chủ đề này <small>· 28 câu · lưu tiến độ tự động</small></a>
+
+  <section>
+    <h2><span class="num">1</span> Data Models</h2>
+    <div class="callout def"><span class="tt">Data modeling</span>Trừu tượng hóa &amp; tổ chức cấu trúc thông tin thế giới thực (object) để đưa vào database. Luồng: <em>Real world → Data model → Database</em>.</div>
+    <h3>3 mức data model</h3>
+    <div class="tw"><table>
+      <thead><tr><th>Mức</th><th>Đặc điểm</th><th>Ví dụ</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Conceptual</strong></td><td>Biểu diễn tự nhiên, <em>độc lập DBMS</em>, không ràng buộc bởi DBMS</td><td>E-R model (E-R diagram)</td></tr>
+        <tr><td><strong>Logical</strong></td><td><em>Phụ thuộc DBMS</em> (DBMS selection)</td><td>Relational / Network / Hierarchical model</td></tr>
+        <tr><td><strong>Physical</strong></td><td>Khi logical được cài đặt (data manipulation)</td><td>Relational / Network / Hierarchical database</td></tr>
+      </tbody>
+    </table></div>
+    <p><strong>E-R Diagram — 3 phần tử:</strong> Entities · Relationships · Attributes.</p>
+    <h3>3 kiểu logical data model</h3>
+    <div class="grid">
+      <div class="card"><h4>Hierarchical (cây)</h4><p>Chia record thành parent/child theo cây; parent–child là <strong>1:n</strong>.</p></div>
+      <div class="card"><h4>Network</h4><p>Parent–child <strong>m:n</strong> (không 1:n). Còn gọi <strong>CODASYL</strong> database.</p></div>
+      <div class="card"><h4>Relational</h4><p>Dữ liệu là bảng 2 chiều: row = record, column = item; cột gạch chân = <strong>primary key</strong>.</p></div>
+    </div>
+    <div class="callout note"><span class="tt">NoSQL (mở rộng)</span>Cơ sở dữ liệu document (non-relational), schema-free, vẫn hỗ trợ index/query/CRUD/concurrency; tối ưu append/retrieve, scalability tốt. Relational: entity trải trên nhiều bảng. NoSQL: một entity = một document.</div>
+    <div class="callout note"><span class="tt">Three-layer schema</span>Schema = mô tả khung của DB, gồm: <strong>External schema</strong> (góc nhìn user, một phần) · <strong>Conceptual schema</strong> · <strong>Internal schema</strong>. Aggregates (static 1-N, gộp document) vs Joins (dynamic M-N).</div>
+  </section>
+
+  <section>
+    <h2><span class="num">2</span> Object Model ↔ Relational Data Model</h2>
+    <div class="tw"><table>
+      <thead><tr><th></th><th>RDBMS</th><th>Object-Oriented</th></tr></thead>
+      <tbody>
+        <tr><td>Tập trung vào</td><td><strong>Dữ liệu</strong></td><td><strong>Hành vi</strong></td></tr>
+        <tr><td>Phù hợp</td><td>Quan hệ ad-hoc &amp; báo cáo</td><td>Hành vi phụ thuộc state (dữ liệu thứ yếu)</td></tr>
+        <tr><td>Dữ liệu</td><td>Lộ (expose column values)</td><td>Ẩn (encapsulation)</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout key"><span class="tt">Ánh xạ khái niệm</span><strong>Object Model:</strong> Classes (attributes) + Relationships (associations, generalization). <strong>Relational Data Model:</strong> Entities → Table · Relations → Relationship. → Còn gọi là <strong>E-R model</strong>. RDBMS và OO không hoàn toàn tương thích.</div>
+  </section>
+
+  <section>
+    <h2><span class="num">3</span> Entity, Relationship &amp; loại quan hệ</h2>
+    <p><strong>Entity → Table</strong> khi thiết kế physical DB: Columns = attribute, Rows = giá trị cụ thể của attribute.</p>
+    <p><strong>Multiplicity/Cardinality:</strong> One-to-one (1:1) · One-to-many (1:m) · Many-to-one (m:1) · Many-to-many (m:n). <em>Thông thường m:n được tách thành 1:m + m:1.</em></p>
+    <div class="two">
+      <div class="callout def"><span class="tt">Dependency relationship</span>Entity con <strong>chỉ tồn tại khi</strong> entity cha tồn tại. FK tham chiếu PK của cha &amp; <strong>FK NẰM TRONG PK</strong> của con. Vẽ bằng <strong>đường liền</strong>. VD: HoaDon → ChiTietHD → Sach.</div>
+      <div class="callout def"><span class="tt">Independency relationship</span>Entity con <strong>tồn tại được</strong> dù cha không tồn tại. FK tham chiếu PK cha nhưng <strong>FK KHÔNG nằm trong PK</strong> con. Vẽ bằng <strong>đường nét đứt</strong>. VD: KhachHang → HoaDon.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">4</span> Ánh xạ Class Diagram → E-R Diagram</h2>
+    <p>Map lớp thiết kế <strong>persistent</strong> → Entity; map quan hệ lớp → Relation.</p>
+    <div class="tw"><table>
+      <thead><tr><th>Từ class diagram</th><th>Sang E-R / relational</th></tr></thead>
+      <tbody>
+        <tr><td>Persistent design class</td><td>Entity/Table — mỗi row là một object, mỗi column là một persistent attribute</td></tr>
+        <tr><td><strong>Association</strong> giữa 2 object persistent</td><td><strong>Foreign key</strong> tới object liên kết (FK không nằm trong PK → <em>independency</em>)</td></tr>
+        <tr><td><strong>Aggregation</strong></td><td>Cũng mô hình bằng FK; <strong>composition</strong> → ràng buộc <em>cascading delete</em>. Có thể map sang <em>dependency</em> để đơn giản PK.</td></tr>
+        <tr><td><strong>Inheritance</strong></td><td>Data model KHÔNG hỗ trợ trực tiếp → 2 lựa chọn: bảng riêng (<em>normalized</em>) hoặc nhân bản mọi association &amp; attribute kế thừa (<em>de-normalized</em>).</td></tr>
+        <tr><td><strong>Many-to-many</strong></td><td>Thêm <strong>entity trung gian "C"</strong> chứa 2 FK trỏ tới 2 PK của A &amp; B (+ attribute nếu cần).</td></tr>
+      </tbody>
+    </table></div>
+    <div class="two">
+      <div class="callout example"><span class="tt">Normalized (inheritance)</span>User entity (userID PK...) + Student entity + Lecturer entity (lecturerID PK, eduBackground) — mỗi lớp con một bảng riêng, PK dùng lại.</div>
+      <div class="callout example"><span class="tt">De-normalized (inheritance)</span>Student entity &amp; Lecturer entity mỗi bảng <strong>lặp lại (replication)</strong> mọi cột của User (userName, email, phone, address) + cột riêng.</div>
+    </div>
+    <div class="callout example"><span class="tt">m:n trong Course Registration</span>SubjectInfo (0..*) — prerequisites — (0..3) SubjectInfo → thêm entity <strong>Prerequisite</strong> (prerequisiteID PK, subjectID, prerequisiteSubjectID, level, description).</div>
+  </section>
+
+  <section>
+    <h2><span class="num">5</span> Normalization (Chuẩn hóa)</h2>
+    <div class="callout def"><span class="tt">Normalization</span>Quá trình các bước nhằm <strong>loại bỏ dư thừa (redundancy)</strong> trong thiết kế DB. Mục đích: cải thiện <strong>storage efficiency, data integrity, scalability</strong>. Thường tách bảng lớn thành nhiều bảng (phải join lại khi truy vấn).</div>
+    <div class="callout note"><span class="tt">Lịch sử &amp; phạm vi</span>Edgar F. Codd đề xuất 1NF, 2NF, 3NF. 3NF được xem là <strong>đủ cho hầu hết ứng dụng</strong>; đa số bảng đạt 3NF cũng đạt BCNF (Boyce-Codd NF).</div>
+    <div class="callout def"><span class="tt">Functional Dependency (X → Y)</span>Trong một bảng, tập cột X <strong>xác định hàm</strong> cột Y nếu mỗi giá trị X ứng với <strong>tối đa một</strong> giá trị Y. "Biết X thì chỉ có một khả năng cho Y."</div>
+    <h3>Các normal form</h3>
+    <div class="tw"><table>
+      <thead><tr><th>NF</th><th>Điều kiện</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1NF</strong></td><td>Mọi giá trị đều <strong>nguyên tử (atomic)</strong> → phù hợp quan hệ toán học.</td></tr>
+        <tr><td><strong>2NF</strong></td><td>Là 1NF + <strong>không có phụ thuộc bộ phận (partial dependency)</strong>: non-key attribute không phụ thuộc một phần của PK.</td></tr>
+        <tr><td><strong>3NF</strong></td><td>Là 2NF + <strong>không có phụ thuộc bắc cầu (transitive)</strong>: non-key không phụ thuộc bắc cầu vào PK.</td></tr>
+      </tbody>
+    </table></div>
+    <h3>Ví dụ chuẩn hóa (đơn hàng online)</h3>
+    <p>Bảng R{<u>Order, Product</u>, Customer, Address, Quantity, UnitPrice}. FD: {Order}→{Customer}, {Customer}→{Address}, {Product}→{UnitPrice}, và bắc cầu {Order}→{Address}.</p>
+    <div class="callout example"><span class="tt">Diễn tiến 1NF → 3NF</span>
+      <p style="margin:.2rem 0"><strong>1NF:</strong> {<u>Order, Product</u>, Customer, Address, Quantity, UnitPrice}</p>
+      <p style="margin:.2rem 0"><strong>2NF</strong> (bỏ partial dep, chiếu tách): {<u>Order</u>, Customer, Address} · {<u>Product</u>, UnitPrice} · {<u>Order, Product</u>, Quantity}</p>
+      <p style="margin:.2rem 0"><strong>3NF</strong> (bỏ transitive {Order}→{Address}): {<u>Product</u>, UnitPrice} · {<u>Order, Product</u>, Quantity} · {<u>Order</u>, Customer} · {<u>Customer</u>, Address}</p>
+      <p style="margin:.2rem 0">Kết quả 4 bảng: Prices · Amounts · Purchase · Details.</p>
+    </div>
+    <div class="callout tip"><span class="tt">Áp dụng Course Registration</span>Từ E-R (CourseRegistration, Course, Schedule, Subject, Prerequisite, StudyHistory, Student, Lecturer) → chuẩn hóa 1NF → 2NF → 3NF, tách dần các attribute phụ thuộc sai key.</div>
+  </section>
+
+  <nav class="pager">
+    <a href="07-class-design.html"><span class="dir">← Trước</span><span class="ttl">Thiết kế lớp</span></a>
+    <a class="next" href="09-testing.html"><span class="dir">Sau →</span><span class="ttl">Kiểm thử</span></a>
+  </nav>
+</main>
+</div>
+<script src="../assets/app.js"></script>
+</body>
+</html>

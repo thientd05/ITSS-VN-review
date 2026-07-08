@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Trắc nghiệm 5 · Xác định phần tử thiết kế — ITSS</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/quiz.css">
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a class="brand" href="../index.html"><span class="dot"></span> ITSS SW Dev <small>· Trắc nghiệm</small></a>
+  <div class="top-spacer"></div>
+  <a class="top-link" href="05-phan-tu-thiet-ke.html">← Lý thuyết</a>
+  <a class="top-link" href="../index.html">Trang chủ</a>
+  <button id="themeBtn" class="icon-btn" onclick="toggleTheme()">☾</button>
+</div></div>
+
+<div class="quiz-layout">
+  <main class="quiz-main">
+    <div class="crumb"><a href="05-phan-tu-thiet-ke.html">← Quay lại lý thuyết: Xác định phần tử thiết kế</a></div>
+    <h1 class="page-title">Trắc nghiệm · Chủ đề 5</h1>
+    <p class="page-lead">Xác định phần tử thiết kế: ánh xạ Analysis Class → Design Element (many-to-many), Package (tiêu chí đóng gói, packaging tips, visibility/encapsulation), Package Coupling (3 vi phạm), và giới thiệu Subsystem. Nộp từng câu để xem đáp án &amp; giải thích. Kết quả được lưu tự động — rời trang rồi quay lại vẫn còn.</p>
+    <div id="quizRoot"></div>
+  </main>
+
+  <aside class="qnav-wrap">
+    <h4>Bảng câu hỏi</h4>
+    <div class="qnav-stat" id="qnavStat"></div>
+    <div class="qnav-grid" id="qnavGrid"></div>
+    <div class="qnav-legend">
+      <span><i class="ok"></i> Đúng</span>
+      <span><i class="no"></i> Sai</span>
+      <span><i class="an"></i> Đang chọn</span>
+    </div>
+    <button class="btn-resetall" id="btnResetAll">↺ Làm lại toàn bộ</button>
+  </aside>
+</div>
+
+<script>
+window.QUIZ = {
+  id: "05-phan-tu-thiet-ke",
+  title: "Xác định phần tử thiết kế",
+  back: "05-phan-tu-thiet-ke.html",
+  questions: [
+    /* ===== 1. Mục đích & lifecycle ===== */
+    {
+      type: "single",
+      q: "Mục đích của bước <b>Identify Design Elements</b> là gì?",
+      options: [
+        "Phân tích tương tác của analysis class → xác định các phần tử của <b>Design Model</b> (Design classes, Package, Subsystem)",
+        "Thu thập yêu cầu chức năng từ khách hàng",
+        "Viết mã nguồn cho các design class",
+        "Kiểm thử tích hợp các phần tử thiết kế"
+      ],
+      answer: [0],
+      explain: "Bước này phân tích tương tác của analysis class để xác định các phần tử của <b>Design Model</b>: Design classes, Package, Subsystem. Nó nằm trong \"Refine the Architecture\" do Architect thực hiện — không phải thu thập yêu cầu, viết mã hay kiểm thử."
+    },
+    {
+      type: "multi",
+      q: "Đâu là các <b>đầu vào</b> của bước Identify Design Elements?",
+      options: [
+        "Analysis Model",
+        "Software Architecture Document",
+        "Supplementary Specifications &amp; Project Specific Guidelines",
+        "Design Model đã hoàn chỉnh",
+        "Source code đã kiểm thử"
+      ],
+      answer: [0, 1, 2],
+      explain: "Đầu vào: Analysis Model, Software Architecture Document, Supplementary Specifications, Project Specific Guidelines. <b>Design Model</b> chính là <b>đầu ra</b> của bước này, còn source code thuộc pha sau."
+    },
+
+    /* ===== 2. Analysis → Design ===== */
+    {
+      type: "single",
+      q: "Quan hệ ánh xạ giữa <b>Analysis class</b> và <b>Design element</b> là gì?",
+      options: [
+        "<b>Nhiều-nhiều (many-to-many)</b>, không phải 1-1",
+        "Luôn 1-1: mỗi analysis class → đúng 1 design class",
+        "Một-nhiều: mỗi design element → nhiều analysis class",
+        "Không có quan hệ nào, chúng độc lập"
+      ],
+      answer: [0],
+      explain: "Analysis class (boundary/entity/control) ánh xạ tới design element theo quan hệ <b>nhiều-nhiều</b>: một analysis class có thể tách thành nhiều lớp/package/subsystem, và một design element có thể gộp từ nhiều analysis class."
+    },
+    {
+      type: "multi",
+      q: "Một analysis class <b>phức tạp</b> có thể trở thành những dạng design element nào?",
+      options: [
+        "Tách thành nhiều design class",
+        "Trở thành một <b>package</b>",
+        "Trở thành một <b>subsystem</b>",
+        "Bất kỳ tổ hợp nào của các dạng trên",
+        "Bắt buộc biến thành đúng một actor"
+      ],
+      answer: [0, 1, 2, 3],
+      explain: "Lớp phức tạp có thể: tách thành nhiều lớp, trở thành <b>package</b>, trở thành <b>subsystem</b>, hoặc <b>bất kỳ tổ hợp</b> nào của chúng. Biến thành actor không phải một lựa chọn (actor nằm ngoài hệ thống). Lớp đơn giản thì ánh xạ trực tiếp → 1 design class."
+    },
+    {
+      type: "single",
+      q: "Một lớp phân tích <b>đơn giản</b>, đại diện một abstraction logic đơn, thường ánh xạ thế nào?",
+      options: [
+        "<b>Ánh xạ trực tiếp</b> → 1 design class",
+        "Luôn phải tách thành một subsystem",
+        "Luôn phải gộp vào một package lớn",
+        "Bị loại bỏ khỏi Design Model"
+      ],
+      answer: [0],
+      explain: "Lớp đơn giản đại diện một abstraction logic đơn được <b>ánh xạ trực tiếp</b> thành 1 design class. Chỉ lớp phức tạp mới cần tách/gộp thành nhiều lớp, package hoặc subsystem."
+    },
+
+    /* ===== 3. Package ===== */
+    {
+      type: "single",
+      q: "<b>Package</b> là gì?",
+      options: [
+        "Cơ chế tổng quát để <b>tổ chức các phần tử thành nhóm</b>; là model element có thể chứa các model element khác",
+        "Một lớp đặc biệt có hành vi runtime",
+        "Một interface đóng gói hoàn toàn nội dung",
+        "Một actor nhóm nhiều người dùng"
+      ],
+      answer: [0],
+      explain: "Package là cơ chế tổng quát để <b>tổ chức các phần tử thành nhóm</b> — một model element <b>chứa</b> các model element khác. Nó khác subsystem (subsystem cung cấp hành vi &amp; đóng gói hoàn toàn sau interface)."
+    },
+    {
+      type: "multi",
+      q: "Package được dùng cho những mục đích nào?",
+      options: [
+        "Tổ chức mô hình đang phát triển",
+        "Làm đơn vị quản lý cấu hình (configuration management)",
+        "Cung cấp hành vi runtime cho actor",
+        "Thay thế hoàn toàn cho design class"
+      ],
+      answer: [0, 1],
+      explain: "Package dùng để <b>tổ chức mô hình</b> đang phát triển và làm <b>đơn vị quản lý cấu hình</b>. Nó không cung cấp hành vi runtime (đó là subsystem/class), cũng không thay thế design class."
+    },
+    {
+      type: "multi",
+      q: "Đâu là các <b>tiêu chí đóng gói (packaging criteria)</b> khi nhóm lớp vào package?",
+      options: [
+        "Configuration units (đơn vị cấu hình)",
+        "Phân bổ nguồn lực giữa các nhóm phát triển",
+        "Phản ánh <b>loại user</b>",
+        "Đại diện sản phẩm/dịch vụ sẵn có mà hệ thống dùng",
+        "Số dòng code của mỗi lớp phải bằng nhau"
+      ],
+      answer: [0, 1, 2, 3],
+      explain: "Bốn tiêu chí đóng gói: configuration units, phân bổ nguồn lực giữa các nhóm phát triển, phản ánh <b>loại user</b>, và đại diện <b>sản phẩm/dịch vụ sẵn có</b> hệ thống dùng. Cân bằng số dòng code không phải tiêu chí."
+    },
+
+    /* ===== 4. Packaging Tips ===== */
+    {
+      type: "single",
+      q: "Với <b>Boundary class</b> gắn giao diện <b>DỄ thay đổi nhiều</b>, nên đóng gói thế nào?",
+      options: [
+        "Đặt vào <b>package riêng</b> để cô lập thay đổi",
+        "Gộp cùng tất cả entity của hệ thống",
+        "Đặt cùng control để tối ưu tốc độ",
+        "Xóa boundary vì nó không ổn định"
+      ],
+      answer: [0],
+      explain: "Nếu giao diện <b>dễ thay đổi nhiều</b> → đặt boundary vào <b>package riêng</b> để cô lập thay đổi. Nếu giao diện <b>khó thay đổi</b>, mới đóng gói boundary <b>cùng các lớp liên quan chức năng</b>."
+    },
+    {
+      type: "multi",
+      q: "Đâu là dấu hiệu hai lớp \"<b>liên quan chức năng</b>\" (nên đóng gói chung)?",
+      options: [
+        "Thay đổi hành vi/cấu trúc lớp này bắt buộc đổi lớp kia; xóa lớp này ảnh hưởng lớp kia",
+        "Hai object trao đổi <b>nhiều message</b> hoặc giao tiếp phức tạp",
+        "Hai lớp tương tác với / bị ảnh hưởng bởi <b>cùng một actor</b>",
+        "Hai lớp liên quan tới các <b>actor khác nhau</b>",
+        "Một lớp optional còn lớp kia mandatory"
+      ],
+      answer: [0, 1, 2],
+      explain: "Dấu hiệu liên quan chức năng: đổi/xóa lớp này ảnh hưởng lớp kia, trao đổi nhiều message, cùng một actor, có quan hệ/tạo instance của nhau, boundary trình bày một entity. Ngược lại, <b>KHÔNG</b> đặt chung khi hai lớp thuộc <b>actor khác nhau</b> hoặc một optional / một mandatory."
+    },
+    {
+      type: "multi",
+      q: "Khi nào <b>KHÔNG</b> nên đặt hai lớp chung một package?",
+      options: [
+        "Hai lớp liên quan tới các <b>actor khác nhau</b>",
+        "Một lớp <b>optional</b> và một lớp <b>mandatory</b>",
+        "Hai lớp trao đổi rất nhiều message với nhau",
+        "Hai lớp bị ảnh hưởng bởi cùng một actor"
+      ],
+      answer: [0, 1],
+      explain: "KHÔNG đặt chung khi: hai lớp thuộc <b>actor khác nhau</b>, hoặc một <b>optional</b> + một <b>mandatory</b>. Ngược lại, trao đổi nhiều message hay cùng một actor là dấu hiệu <em>nên</em> đóng gói chung."
+    },
+    {
+      type: "single",
+      q: "Nguyên lý <b>Package Element Visibility</b> (encapsulation) phát biểu gì?",
+      options: [
+        "<b>Chỉ các lớp public</b> mới được tham chiếu từ ngoài package sở hữu; lớp private (<code>-</code>) bị ẩn",
+        "Mọi lớp trong package đều truy cập được từ bên ngoài",
+        "Chỉ lớp private mới được tham chiếu từ ngoài",
+        "Visibility không áp dụng cho package"
+      ],
+      answer: [0],
+      explain: "Theo nguyên lý <b>Encapsulation</b>: chỉ các lớp <b>public</b> mới được tham chiếu từ ngoài package sở hữu; lớp <b>private</b> (kí hiệu <code>-</code>) bị ẩn khỏi bên ngoài. Đây là cách package che giấu chi tiết bên trong."
+    },
+
+    /* ===== 5. Package Coupling ===== */
+    {
+      type: "multi",
+      q: "Đâu là ba <b>vi phạm coupling</b> giữa các package (bị đánh dấu X)?",
+      options: [
+        "Package <b>cross-coupled</b> (phụ thuộc vòng lẫn nhau)",
+        "Package tầng dưới <b>phụ thuộc</b> package tầng trên",
+        "Phụ thuộc <b>nhảy tầng (skip layers)</b>",
+        "Package tầng trên phụ thuộc package tầng ngay dưới",
+        "Package public chứa lớp public"
+      ],
+      answer: [0, 1, 2],
+      explain: "Ba vi phạm: (1) <b>cross-coupled</b> (phụ thuộc vòng), (2) package tầng dưới <b>phụ thuộc</b> tầng trên (ngược chiều), (3) phụ thuộc <b>nhảy tầng</b>. Ngược lại, tầng trên gọi tầng ngay dưới là hợp lệ, và package public chứa lớp public là bình thường."
+    },
+    {
+      type: "single",
+      q: "Trong ví dụ Registration Package, quan hệ phụ thuộc giữa boundary và control là gì?",
+      options: [
+        "<b>Boundary phụ thuộc vào control</b> cùng package (vd RegisterForCoursesForm → RegistrationController)",
+        "Control phụ thuộc vào boundary ở package khác",
+        "Entity phụ thuộc vào boundary",
+        "Boundary và control không được phụ thuộc nhau"
+      ],
+      answer: [0],
+      explain: "Trong Registration Package: RegisterForCoursesForm &laquo;boundary&raquo; → RegistrationController &laquo;control&raquo;, CloseRegistrationForm → CloseRegistrationController — tức <b>boundary phụ thuộc vào control</b> cùng package, đúng mẫu tương tác chuẩn."
+    },
+    {
+      type: "single",
+      q: "Package \"External System Interfaces\" chứa gì và nhằm mục đích gì?",
+      options: [
+        "Các &laquo;Interface&raquo; như <code>IBillingSystem</code>, <code>ICourseCatalogSystem</code> — <b>cô lập hệ thống ngoài</b>",
+        "Các entity chính như Student, Course, Professor",
+        "Các boundary form của người dùng",
+        "Các control class điều phối use case"
+      ],
+      answer: [0],
+      explain: "\"External System Interfaces\" chứa các &laquo;Interface&raquo; (<code>IBillingSystem</code>, <code>ICourseCatalogSystem</code>) nhằm <b>cô lập hệ thống ngoài</b>. Còn các entity (Student, CourseOffering, Course, Professor, Schedule) nằm trong \"University Artifacts Package\"."
+    },
+
+    /* ===== 6. Subsystem ===== */
+    {
+      type: "single",
+      q: "Điểm khác biệt cốt lõi giữa <b>Subsystem</b> và <b>Package</b> là gì?",
+      options: [
+        "Subsystem <b>cung cấp hành vi</b> &amp; <b>đóng gói hoàn toàn</b> nội dung sau một interface; package chỉ nhóm phần tử",
+        "Package cung cấp hành vi; subsystem chỉ nhóm phần tử",
+        "Cả hai giống hệt nhau, chỉ khác tên",
+        "Subsystem không thể chứa lớp nào"
+      ],
+      answer: [0],
+      explain: "<b>Subsystem</b> <em>cung cấp hành vi</em> và <em>đóng gói hoàn toàn</em> nội dung sau một interface; còn <b>Package</b> chỉ là cơ chế <em>nhóm</em> các phần tử (không đóng gói hành vi sau interface). Chi tiết subsystem &amp; gates ở chủ đề Thiết kế giao diện."
+    }
+  ]
+};
+</script>
+<script src="../assets/app.js"></script>
+<script src="../assets/quiz.js"></script>
+</body>
+</html>

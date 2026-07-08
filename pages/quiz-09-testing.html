@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Trắc nghiệm 9 · Kiểm thử — ITSS</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/quiz.css">
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a class="brand" href="../index.html"><span class="dot"></span> ITSS SW Dev <small>· Trắc nghiệm</small></a>
+  <div class="top-spacer"></div>
+  <a class="top-link" href="09-testing.html">← Lý thuyết</a>
+  <a class="top-link" href="../index.html">Trang chủ</a>
+  <button id="themeBtn" class="icon-btn" onclick="toggleTheme()">☾</button>
+</div></div>
+
+<div class="quiz-layout">
+  <main class="quiz-main">
+    <div class="crumb"><a href="09-testing.html">← Quay lại lý thuyết: Kiểm thử</a></div>
+    <h1 class="page-title">Trắc nghiệm · Chủ đề 9</h1>
+    <p class="page-lead">Kiểm thử: QA &amp; V-model, test levels, Black vs White box, Equivalence/Boundary/Decision Table/Use-case testing, C0/C1 coverage, loop testing, JUnit (setUp/tearDown, assert, @Test, Failure vs Error), Integration test (stub/driver, top-down/bottom-up/big-bang/sandwich, regression). Nộp từng câu để xem đáp án &amp; giải thích. Kết quả được lưu tự động.</p>
+    <div id="quizRoot"></div>
+  </main>
+
+  <aside class="qnav-wrap">
+    <h4>Bảng câu hỏi</h4>
+    <div class="qnav-stat" id="qnavStat"></div>
+    <div class="qnav-grid" id="qnavGrid"></div>
+    <div class="qnav-legend">
+      <span><i class="ok"></i> Đúng</span>
+      <span><i class="no"></i> Sai</span>
+      <span><i class="an"></i> Đang chọn</span>
+    </div>
+    <button class="btn-resetall" id="btnResetAll">↺ Làm lại toàn bộ</button>
+  </aside>
+</div>
+
+<script>
+window.QUIZ = {
+  id: "09-testing",
+  title: "Kiểm thử",
+  back: "09-testing.html",
+  questions: [
+    /* ===== 1. Overview & QA ===== */
+    {
+      type: "single",
+      q: "Một <b>software test</b> được định nghĩa thế nào?",
+      options: [
+        "Thực thi chương trình để xác định một <b>property</b> của nó có đúng hay không; pass nếu property holds, fail nếu không",
+        "Chứng minh toán học rằng chương trình không có lỗi",
+        "Đọc mã nguồn để tìm lỗi mà không chạy",
+        "Viết tài liệu mô tả yêu cầu hệ thống"
+      ],
+      answer: [0],
+      explain: "Software test = thực thi chương trình để xác định một <b>property</b> có đúng hay không: <b>pass</b> nếu property <em>holds</em>, <b>fail</b> nếu <em>không holds</em> trong lần chạy đó. Đọc mã không chạy là static analysis; chứng minh toán học là proofs of correctness."
+    },
+    {
+      type: "multi",
+      q: "Ngoài testing, <b>QA (Software Quality Assurance)</b> còn gồm những hoạt động nào?",
+      options: [
+        "Static analysis (đánh giá không chạy code)",
+        "Proofs of correctness &amp; code review",
+        "Software process",
+        "Chỉ có testing, không gì khác",
+        "Bán và tiếp thị sản phẩm"
+      ],
+      answer: [0, 1, 2],
+      explain: "QA = testing + static analysis, proofs of correctness, code review, software process... \"Không hoạt động đơn lẻ nào đảm bảo được chất lượng phần mềm\". Bán/tiếp thị không thuộc QA."
+    },
+    {
+      type: "single",
+      q: "Ở mức <b>Unit</b> test, chiến lược nào được dùng?",
+      options: [
+        "Cả Black box &amp; White box",
+        "Chỉ Top-down",
+        "Chỉ Bottom-up",
+        "Chỉ Acceptance testing"
+      ],
+      answer: [0],
+      explain: "Mức <b>Unit</b> (mỗi class/method làm đúng việc?) dùng <b>cả Black box &amp; White box</b>. Top-down/Bottom-up là chiến lược của mức <b>Integration</b>."
+    },
+    {
+      type: "single",
+      q: "Theo V-Model, mức test nào trả lời câu hỏi \"khớp nhu cầu người dùng?\"",
+      options: [
+        "Acceptance",
+        "Unit",
+        "Integration",
+        "System"
+      ],
+      answer: [0],
+      explain: "<b>Acceptance</b> test kiểm \"khớp nhu cầu người dùng?\". Unit: mỗi unit làm đúng việc? Integration: ghép lại có ra kết quả mong đợi? System: chạy đúng trong toàn hệ thống?"
+    },
+    {
+      type: "single",
+      q: "Phân biệt <b>Test case</b>, <b>Test suite</b>, <b>Test plan</b> nào ĐÚNG?",
+      options: [
+        "Test case = tập điều kiện/biến; Test suite = tập test case liên quan; Test plan = tài liệu mô tả approach/methodology/rủi ro/phạm vi",
+        "Test case = tài liệu tổng thể; Test suite = một biến; Test plan = một điều kiện",
+        "Test suite = một test case đơn; Test case = nhiều suite gộp lại",
+        "Cả ba là cùng một khái niệm"
+      ],
+      answer: [0],
+      explain: "<b>Test case</b> = tập điều kiện/biến để xác định SUT có thỏa yêu cầu. <b>Test suite</b> = tập test case liên quan. <b>Test plan</b> = tài liệu mô tả approach/methodology/rủi ro/phạm vi/công cụ (= Test Strategy What/Why/When + Test Logistics Who)."
+    },
+
+    /* ===== 2. Black vs White ===== */
+    {
+      type: "multi",
+      q: "Đặc điểm nào thuộc <b>Black-box testing</b>?",
+      options: [
+        "Chọn input mà <b>KHÔNG</b> biết cài đặt (dựa spec/hành vi)",
+        "Tập trung vào hành vi của SUT; cần \"soict\" (kết quả kỳ vọng)",
+        "Ý tưởng: SUT phải khớp spec (pre/postcondition)",
+        "Tập trung vào coverage (độ phủ statement/branch)",
+        "Cần biết chi tiết mã nguồn để chọn input"
+      ],
+      answer: [0, 1, 2],
+      explain: "Black-box: chọn input <b>không</b> biết cài đặt (dựa spec/hành vi), tập trung hành vi SUT với kết quả kỳ vọng (soict), ý tưởng SUT khớp spec. \"Coverage\" và \"cần biết mã nguồn\" là đặc điểm của <b>White-box</b>."
+    },
+    {
+      type: "single",
+      q: "Ý tưởng cốt lõi của <b>White-box testing</b> là gì?",
+      options: [
+        "Nếu test suite không chạy qua một statement → statement đó có thể lỗi (nhắm coverage)",
+        "Chọn input mà không biết cài đặt",
+        "Chỉ kiểm pre/postcondition từ spec",
+        "Chỉ kiểm giao diện người dùng"
+      ],
+      answer: [0],
+      explain: "White-box biết cài đặt và nhắm <b>coverage</b>: nếu test suite <b>không chạy qua một statement/branch</b> thì phần đó có thể chứa lỗi chưa được phát hiện. Chọn input không biết cài đặt là Black-box."
+    },
+    {
+      type: "single",
+      q: "Quy trình test chung (A→B→C→D) là gì?",
+      options: [
+        "Chọn input → định nghĩa expected outcome (soict) → chạy SUT → so sánh kết quả với soict",
+        "Chạy SUT → chọn input → so sánh → định nghĩa expected outcome",
+        "Định nghĩa expected outcome → so sánh → chọn input → chạy SUT",
+        "So sánh → chạy SUT → chọn input → định nghĩa outcome"
+      ],
+      answer: [0],
+      explain: "Quy trình chung: (A) chọn input → (B) định nghĩa <b>expected outcome/soict</b> → (C) chạy SUT → (D) so sánh kết quả với soict. Thực tế phối hợp cả black-box &amp; white-box."
+    },
+
+    /* ===== 3. Black-box techniques ===== */
+    {
+      type: "single",
+      q: "<b>Equivalence Partitioning</b> hoạt động thế nào?",
+      options: [
+        "Chia input thành các <b>lớp tương đương</b> (cùng kết quả) → mỗi lớp lấy 1 test case",
+        "Lấy test data ở biên của mỗi khoảng",
+        "Lập bảng tổ hợp mọi điều kiện",
+        "Đếm số statement được thực thi"
+      ],
+      answer: [0],
+      explain: "<b>Equivalence Partitioning</b>: chia không gian input thành các <b>lớp tương đương</b> — mọi input trong cùng lớp cho cùng kết quả → mỗi lớp chỉ cần 1 test case. Lấy biên là Boundary-value; bảng tổ hợp là Decision Table."
+    },
+    {
+      type: "single",
+      q: "Trong Examination Judgment Program (equivalence partitioning), lưu ý quan trọng nào thường bị bỏ sót?",
+      options: [
+        "Phải thêm test cho \"invalid value\" (vd Math=-15, Physics=120) — chỉ giá trị hợp lệ là chưa đủ",
+        "Chỉ cần test đúng một giá trị hợp lệ",
+        "Không cần test giá trị âm hay quá lớn",
+        "Chỉ cần test trường hợp Passed"
+      ],
+      answer: [0],
+      explain: "Ngoài các lớp hợp lệ (Passed nếu cả Math &amp; Physics ≥ 70, hoặc trung bình ≥ 80), phải thêm test cho <b>\"invalid value\"</b> (Math=-15, Physics=120...). Chỉ test giá trị hợp lệ là chưa đủ — có ~7 lớp tương đương ⇒ ≥7 test case."
+    },
+    {
+      type: "single",
+      q: "Vì sao <b>Boundary-value Analysis</b> quan trọng?",
+      options: [
+        "Nhiều defect nằm ở biên (vd lập trình viên viết <code>&gt; 70</code> thay vì <code>&gt;= 70</code>)",
+        "Vì giá trị ở giữa khoảng hay lỗi hơn giá trị biên",
+        "Vì nó phủ được mọi nhánh của code",
+        "Vì nó thay thế hoàn toàn được equivalence partitioning"
+      ],
+      answer: [0],
+      explain: "Boundary-value Analysis lấy test data ở <b>biên</b> vì nhiều defect nằm ở đó — ví dụ điển hình: lập trình viên viết <code>if(mathscore &gt; 70)</code> thay vì <code>&gt;= 70</code>. Với ngưỡng 70, kiểm cả 69/70 (và 79/80 cho trung bình)."
+    },
+    {
+      type: "single",
+      q: "Khi nào <b>Decision Table</b> là công cụ tốt?",
+      options: [
+        "Khi có <b>nhiều điều kiện kết hợp</b> — biểu diễn quan hệ điều kiện &amp; nội dung xử lý dưới dạng bảng",
+        "Khi chỉ có đúng một điều kiện duy nhất",
+        "Khi muốn đo độ phủ statement",
+        "Khi test vòng lặp"
+      ],
+      answer: [0],
+      explain: "<b>Decision Table</b> biểu diễn quan hệ giữa <b>điều kiện</b> &amp; <b>nội dung xử lý</b> dưới dạng bảng — đặc biệt tốt khi có <b>nhiều điều kiện kết hợp</b> (vd Under age 30 / Male / Married → Output Report 1–4)."
+    },
+    {
+      type: "single",
+      q: "<b>Testing for Use Case</b> tạo test case từ đâu?",
+      options: [
+        "Từ mọi <b>scenario</b>: basic flow + mỗi alternative flow + tổ hợp hợp lý + vòng lặp",
+        "Từ mọi statement trong code",
+        "Từ mọi nhánh branch trong code",
+        "Từ cấu trúc bảng cơ sở dữ liệu"
+      ],
+      answer: [0],
+      explain: "Use-case testing: từ use case xác định mọi <b>scenario</b> (vẽ luồng thay thế thành graph), tạo test cho <b>basic flow + mỗi alternative flow + tổ hợp hợp lý + vòng lặp</b>. Statement/branch là white-box."
+    },
+    {
+      type: "multi",
+      q: "Với use case \"Log in\" (PIN), các test case điển hình gồm gì?",
+      options: [
+        "\"Thành công\" — PIN đúng",
+        "\"Thất bại\" — PIN sai &amp; số lần sai &lt; 3",
+        "\"Khóa tài khoản\" — PIN sai &amp; số lần sai = 3",
+        "Chỉ cần một test case PIN đúng là đủ",
+        "Bỏ qua trường hợp số lần sai = 2, 4"
+      ],
+      answer: [0, 1, 2],
+      explain: "Test cases \"Log in\": <b>Thành công</b> (PIN đúng), <b>Thất bại</b> (PIN sai &amp; số lần &lt; 3), <b>Khóa tài khoản</b> (PIN sai &amp; số lần = 3). Nên kết hợp boundary (số lần sai = 2, 4) — nên hai phương án cuối sai."
+    },
+
+    /* ===== 4. White-box ===== */
+    {
+      type: "single",
+      q: "Độ phủ <b>C0 (statement coverage)</b> 100% nghĩa là gì?",
+      options: [
+        "Mọi câu lệnh (statement) đều được thực thi ít nhất một lần",
+        "Mọi nhánh (branch) đều được thực thi",
+        "Mọi đường đi (path) đều được thực thi",
+        "Mọi vòng lặp chạy đúng số lần tối đa"
+      ],
+      answer: [0],
+      explain: "<b>C0</b> = số statement đã chạy / tổng statement; 100% C0 nghĩa <b>mọi câu lệnh</b> được thực thi. Phủ mọi <b>nhánh</b> là C1 (mạnh hơn C0)."
+    },
+    {
+      type: "single",
+      q: "Quan hệ giữa <b>C1</b> và <b>C0</b> là gì?",
+      options: [
+        "C1 (branch) <b>mạnh hơn</b> C0 (statement): phủ mọi nhánh thì phủ mọi statement",
+        "C0 mạnh hơn C1",
+        "C0 và C1 tương đương",
+        "C1 chỉ đo vòng lặp, không liên quan C0"
+      ],
+      answer: [0],
+      explain: "<b>C1 mạnh hơn C0</b>: 100% C0 có thể chỉ cần 2 test nhưng chưa phủ hết nhánh; 100% C1 cần thêm test và bao hàm C0. Tuy vậy số test C1 vẫn có thể ít hơn số lớp tương đương của black-box."
+    },
+    {
+      type: "single",
+      q: "Giới hạn cốt lõi của <b>White-box testing</b> là gì?",
+      options: [
+        "KHÔNG phát hiện được <b>chức năng chưa được cài đặt</b> (không có code thì không có gì để phủ)",
+        "Không phát hiện được lỗi cú pháp",
+        "Không đo được độ phủ statement",
+        "Không dùng được cho unit test"
+      ],
+      answer: [0],
+      explain: "White-box ngăn statement/branch bị bỏ sót, nhưng <b>không phát hiện được chức năng chưa được cài đặt</b> — vì không có code thì không có gì để phủ. Đó là lý do phải kết hợp với black-box (dựa spec)."
+    },
+    {
+      type: "multi",
+      q: "Testing <b>vòng lặp (loop)</b> dùng 6 ca nào (dựa boundary-value)?",
+      options: [
+        "Skip vòng lặp (0 lần) &amp; chạy 1 lần",
+        "Chạy m lần điển hình (m &lt; n)",
+        "Chạy n-1, n, n+1 lần (n = số tối đa)",
+        "Chỉ chạy đúng n lần (số tối đa)",
+        "Chạy vô hạn lần"
+      ],
+      answer: [0, 1, 2],
+      explain: "6 ca test vòng lặp: <b>skip (0)</b>, <b>1 lần</b>, <b>m lần điển hình</b>, <b>n-1</b>, <b>n</b>, <b>n+1</b> (n = tối đa, m = điển hình, m&lt;n). Vd n=50: 0, 1, 20, 49, 50, 51(→invalid). Chỉ chạy đúng n hay vô hạn là không đủ/không hợp lệ."
+    },
+    {
+      type: "single",
+      q: "Khi test <b>nested loop</b> (vòng lặp lồng nhau), cách làm là gì?",
+      options: [
+        "Cố định vòng ngoài ở số điển hình, test vòng trong như loop đơn; rồi đổi vai",
+        "Test cả hai vòng cùng lúc ở mọi tổ hợp",
+        "Bỏ qua vòng trong, chỉ test vòng ngoài",
+        "Chỉ test khi cả hai vòng chạy tối đa"
+      ],
+      answer: [0],
+      explain: "Nested loop: <b>cố định vòng ngoài ở số điển hình</b>, test vòng trong như một loop đơn (6 ca); rồi <b>đổi vai</b> (cố định vòng trong, test vòng ngoài). Không cần test mọi tổ hợp."
+    },
+
+    /* ===== 5. Combine ===== */
+    {
+      type: "single",
+      q: "Quy trình test \"hiệu quả &amp; đầy đủ\" gồm hai bước nào?",
+      options: [
+        "(1) Test theo external spec (pass hết ⇒ mọi external spec đúng); (2) Thêm test theo internal spec đến coverage 100% (⇒ mọi chức năng đúng, không mã dư thừa)",
+        "(1) Chỉ test white-box; (2) bỏ qua external spec",
+        "(1) Chỉ test black-box; (2) không cần coverage",
+        "(1) Test ngẫu nhiên; (2) dừng khi hết thời gian"
+      ],
+      answer: [0],
+      explain: "Quy trình hiệu quả: (1) test theo <b>external spec</b> — pass hết ⇒ mọi external spec cài đúng; (2) thêm test theo <b>internal spec</b> (path/flow còn lại) đến coverage 100% ⇒ mọi chức năng cài đúng, <b>không có mã dư thừa</b>. Phải kết hợp cả hai."
+    },
+    {
+      type: "single",
+      q: "Ưu điểm riêng của <b>White-box</b> so với Black-box là gì?",
+      options: [
+        "Bắt được path/flow không xuất hiện trong spec đã viết (vd <code>if 0 =&lt; score =&lt; 100</code>)",
+        "Test bao trùm dựa external spec",
+        "Không cần biết mã nguồn",
+        "Phát hiện chức năng còn thiếu chưa cài đặt"
+      ],
+      answer: [0],
+      explain: "Nếu path/flow <b>không xuất hiện trong spec</b> đã viết, black-box có thể bỏ sót còn <b>white-box bắt được</b> (vd kiểm ràng buộc <code>0 =&lt; score =&lt; 100</code> ẩn trong code). \"Bao trùm dựa external spec\" là ưu của black-box; phát hiện chức năng thiếu là điểm white-box KHÔNG làm được."
+    },
+
+    /* ===== 6. JUnit ===== */
+    {
+      type: "single",
+      q: "Vai trò của <code>setUp()</code> / <code>tearDown()</code> trong JUnit là gì?",
+      options: [
+        "Tạo/giải phóng <b>test fixture</b> trước/sau <b>mỗi</b> test → mỗi test bắt đầu với đối tượng \"mới tinh\", độc lập thứ tự chạy",
+        "Chạy đúng một lần cho cả test suite",
+        "Kiểm tra kết quả (oracle) của test",
+        "Báo cáo Failure vs Error"
+      ],
+      answer: [0],
+      explain: "<code>setUp()</code>/<code>tearDown()</code> tạo/giải phóng <b>test fixture</b> trước/sau <b>mỗi</b> test → mỗi test bắt đầu với đối tượng mới, không phụ thuộc thứ tự chạy. Assert lo oracle; TestRunner lo báo cáo."
+    },
+    {
+      type: "single",
+      q: "Khác biệt giữa <code>assertEquals</code> và <code>assertSame</code> là gì?",
+      options: [
+        "<code>assertEquals</code> dùng <code>equals()</code>; <code>assertSame</code> dùng <code>==</code> (so sánh tham chiếu)",
+        "<code>assertEquals</code> dùng ==; <code>assertSame</code> dùng equals()",
+        "Cả hai dùng ==",
+        "Cả hai dùng equals()"
+      ],
+      answer: [0],
+      explain: "<code>assertEquals</code>/<code>assertNotEquals</code> so sánh bằng <b><code>equals()</code></b>; <code>assertSame</code>/<code>assertNotSame</code> so sánh tham chiếu bằng <b><code>==</code></b>. Tham số assert: <em>message, expected, actual</em> — nên kèm message."
+    },
+    {
+      type: "single",
+      q: "Phân biệt <b>Failure</b> và <b>Error</b> trong JUnit là gì?",
+      options: [
+        "Failure = test không pass (oracle sai); Error = sự cố ngoài dự kiến (vd null pointer)",
+        "Failure = null pointer; Error = oracle sai",
+        "Cả hai giống nhau",
+        "Failure = biên dịch lỗi; Error = test pass"
+      ],
+      answer: [0],
+      explain: "<b>Failure</b>: test không pass — assertion sai (oracle sai). <b>Error</b>: có sự cố ngoài dự kiến (vd NullPointerException). Green bar = pass, red bar = fail/error."
+    },
+    {
+      type: "single",
+      q: "Cách kiểm tra một method có ném exception mong đợi trong JUnit 4 là gì?",
+      options: [
+        "Dùng <code>@Test(expected = ...Exception.class)</code> thay cho try/catch",
+        "Dùng <code>setUp()</code> để bắt exception",
+        "Dùng <code>assertNull</code>",
+        "Không thể test exception trong JUnit"
+      ],
+      answer: [0],
+      explain: "JUnit 4 dùng <code>@Test(expected = ArrayIndexOutOfBoundsException.class)</code> — nếu method ném đúng exception đó thì test <b>pass</b>. Đây là cách gọn hơn try/catch thủ công."
+    },
+    {
+      type: "multi",
+      q: "Đâu là các <b>hint</b> viết test JUnit tốt?",
+      options: [
+        "Test một thứ mỗi method (nhiều test nhỏ &gt; 1 test lớn)",
+        "Tiết kiệm <code>assert</code> vì assert đầu fail sẽ dừng test",
+        "Test độc lập thứ tự chạy; đặt tên test mô tả (thường rất dài)",
+        "Gộp mọi kiểm tra vào một test method khổng lồ",
+        "Cho test phụ thuộc vào thứ tự chạy để tiết kiệm setup"
+      ],
+      answer: [0, 1, 2],
+      explain: "Hints: <b>test một thứ mỗi method</b> (10 test nhỏ &gt; 1 test lớn), <b>tiết kiệm assert</b> (assert đầu fail sẽ dừng), <b>test độc lập thứ tự</b>, đặt tên mô tả dài, dùng <code>@Test(expected)</code>, <code>@RunWith(Suite.class)</code>. Gộp khổng lồ và phụ thuộc thứ tự là phản mẫu."
+    },
+
+    /* ===== 7. Integration ===== */
+    {
+      type: "single",
+      q: "Phân biệt <b>Stub</b> và <b>Driver</b> trong integration test là gì?",
+      options: [
+        "Stub giả lập module <b>cấp thấp hơn</b>; Driver giả lập module <b>cấp cao hơn</b>",
+        "Stub giả lập cấp cao hơn; Driver giả lập cấp thấp hơn",
+        "Cả hai giả lập cùng một cấp",
+        "Stub là test thật; Driver là code sản phẩm"
+      ],
+      answer: [0],
+      explain: "<b>Stub</b> = chương trình giả lập chức năng của module <b>cấp thấp hơn</b> (dùng trong top-down). <b>Driver</b> = giả lập module <b>cấp cao hơn</b> (dùng trong bottom-up)."
+    },
+    {
+      type: "single",
+      q: "Cách tiếp cận <b>Top-down</b> integration có đặc điểm gì?",
+      options: [
+        "Phát hiện sớm defect do hiểu sai spec; tốt cho hệ thống mới; cần <b>stub</b>",
+        "Test module cấp thấp song song; cần driver",
+        "Ghép tất cả module cùng lúc; khó định vị lỗi",
+        "Cấp thấp bottom-up, cấp cao top-down"
+      ],
+      answer: [0],
+      explain: "<b>Top-down</b>: phát hiện sớm defect do hiểu sai spec, tốt cho hệ thống mới, cần <b>stub</b> (đơn giản, trả một giá trị). \"Test cấp thấp song song, cần driver\" là bottom-up; \"ghép tất cả\" là big-bang; \"cấp thấp bottom-up + cấp cao top-down\" là sandwich."
+    },
+    {
+      type: "single",
+      q: "Cách tiếp cận <b>Bottom-up</b> integration có đặc điểm gì?",
+      options: [
+        "Module cấp thấp độc lập → test song song; tốt khi sửa hệ thống có sẵn; cần <b>driver</b>",
+        "Phát hiện sớm defect do hiểu sai spec; cần stub",
+        "Ghép tất cả module cùng lúc",
+        "Chỉ dùng cho unit test một class"
+      ],
+      answer: [0],
+      explain: "<b>Bottom-up</b>: module cấp thấp độc lập → <b>test song song</b>, tốt khi sửa hệ thống có sẵn, cần <b>driver</b> (phức tạp hơn, có điều khiển). Top-down mới cần stub."
+    },
+    {
+      type: "single",
+      q: "Nhược điểm chính của <b>Big-bang</b> integration là gì?",
+      options: [
+        "<b>Khó định vị lỗi</b> (vì ghép tất cả module đã unit-test cùng lúc)",
+        "Cần rất nhiều stub và driver",
+        "Không thể test hệ thống nhỏ",
+        "Phát hiện lỗi quá sớm gây tốn kém"
+      ],
+      answer: [0],
+      explain: "<b>Big-bang</b> ghép tất cả module đã unit-test cùng lúc, giảm số thủ tục test ở chương trình nhỏ, nhưng nhược điểm lớn là <b>khó định vị lỗi</b> (khi hỏng, không rõ module nào)."
+    },
+    {
+      type: "single",
+      q: "Cách tiếp cận <b>Sandwich</b> integration là gì?",
+      options: [
+        "Module cấp thấp test <b>bottom-up</b>, cấp cao test <b>top-down</b>",
+        "Ghép tất cả cùng lúc rồi tách ra",
+        "Chỉ dùng stub cho mọi module",
+        "Chỉ test module ở giữa hệ thống"
+      ],
+      answer: [0],
+      explain: "<b>Sandwich</b> kết hợp: module <b>cấp thấp</b> test theo <b>bottom-up</b>, module <b>cấp cao</b> test theo <b>top-down</b> — gặp nhau ở giữa."
+    },
+    {
+      type: "single",
+      q: "<b>Regression Test</b> nhằm mục đích gì và nên chạy thế nào?",
+      options: [
+        "Test lại sau khi code đổi để chắc vẫn chạy đúng (chạy lại test cũ + kiểm side-effect); chạy <b>càng thường xuyên càng tốt</b>, ưu tiên tự động",
+        "Chỉ test một lần trước khi release",
+        "Chỉ test các tính năng mới, bỏ tính năng cũ",
+        "Test hiệu năng dưới tải cao"
+      ],
+      answer: [0],
+      explain: "\"Khi sửa một bug, bạn tạo ra vài bug mới\" → <b>Regression Test</b> chạy lại test case cũ &amp; kiểm side-effect sau mỗi lần đổi code, để chắc hệ thống vẫn đúng. Nên chạy <b>càng thường xuyên càng tốt</b> bằng công cụ tự động."
+    }
+  ]
+};
+</script>
+<script src="../assets/app.js"></script>
+<script src="../assets/quiz.js"></script>
+</body>
+</html>

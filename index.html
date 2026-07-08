@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ôn tập ITSS — Phát triển phần mềm theo chuẩn kỹ năng</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a class="brand" href="index.html"><span class="dot"></span> ITSS SW Dev <small>· Ôn tập</small></a>
+  <div class="top-spacer"></div>
+  <a class="top-link" href="#muc-luc">Mục lục</a>
+  <button id="themeBtn" class="icon-btn" onclick="toggleTheme()">☾</button>
+</div></div>
+
+<header class="hero">
+  <div class="crumb">Bộ tài liệu ôn tập · 13 chủ đề</div>
+  <h1>Phát triển phần mềm theo chuẩn kỹ năng ITSS</h1>
+  <p>Toàn bộ nội dung bài giảng được cô đọng thành 13 vùng kiến thức: từ quy trình phát triển, phân tích &amp; thiết kế hướng đối tượng, mô hình hóa dữ liệu, kiểm thử, lập trình hiệu quả cho tới lý thuyết thiết kế (Coupling/Cohesion, SOLID, Design Patterns).</p>
+  <div class="chips" style="margin-top:1rem">
+    <span class="chip">OOAD · UML</span><span class="chip">Use Case</span><span class="chip">Class &amp; Data Design</span>
+    <span class="chip">Testing · JUnit</span><span class="chip">SOLID · Patterns</span><span class="chip">Case study: Course Registration</span>
+  </div>
+</header>
+
+<div class="sec-label" id="muc-luc">I · Quy trình &amp; công cụ</div>
+<div class="cards-index">
+  <a class="pcard" href="pages/01-quy-trinh-mo-hinh.html">
+    <div class="no">1</div><h3>Quy trình &amp; Mô hình phát triển PM</h3>
+    <p>SLCP (ISO 12207), Software Implementation Process, OOAD, UML (4 view), Waterfall → Iterative → Spiral → RUP → Agile.</p>
+    <div class="src">00, 01-1</div>
+  </a>
+  <a class="pcard" href="pages/02-version-control.html">
+    <div class="no">2</div><h3>Version Control &amp; Git</h3>
+    <p>Vì sao cần VCS, 3 mô hình (Lock–Modify–Unlock / Copy–Modify–Merge / Distributed), từ vựng chuẩn, lệnh Git.</p>
+    <div class="src">01-2</div>
+  </a>
+</div>
+
+<div class="sec-label">II · Phân tích &amp; Thiết kế hướng đối tượng</div>
+<div class="cards-index">
+  <a class="pcard" href="pages/03-use-case.html">
+    <div class="no">3</div><h3>Mô hình hóa yêu cầu với Use Case</h3>
+    <p>Actor, use case, include/extend/generalization, use-case specification &amp; scenario, activity diagram, glossary, supplementary spec.</p>
+    <div class="src">02</div>
+  </a>
+  <a class="pcard" href="pages/04-kien-truc.html">
+    <div class="no">4</div><h3>Thiết kế kiến trúc &amp; Phân tích OO</h3>
+    <p>Analysis class (Boundary/Entity/Control), Interaction diagram (Sequence/Communication), Architectural patterns (MVC, 3-tier, MVP…).</p>
+    <div class="src">03-1, 03-2</div>
+  </a>
+  <a class="pcard" href="pages/05-phan-tu-thiet-ke.html">
+    <div class="no">5</div><h3>Xác định phần tử thiết kế</h3>
+    <p>Ánh xạ Analysis → Design, Package, quy tắc đóng gói, coupling &amp; visibility giữa package, subsystem (giới thiệu).</p>
+    <div class="src">04</div>
+  </a>
+  <a class="pcard" href="pages/06-interface-design.html">
+    <div class="no">6</div><h3>Thiết kế giao diện</h3>
+    <p>GUI (chuẩn hóa, screen image, transition diagram, spec) &amp; System/Device interface (Subsystem &amp; Interface, gates).</p>
+    <div class="src">05</div>
+  </a>
+  <a class="pcard" href="pages/07-class-design.html">
+    <div class="no">7</div><h3>Thiết kế lớp</h3>
+    <p>Operation/visibility/scope, quan hệ (association/aggregation/composition/dependency), multiplicity, navigability, state machine, attribute.</p>
+    <div class="src">06</div>
+  </a>
+  <a class="pcard" href="pages/08-data-modeling.html">
+    <div class="no">8</div><h3>Mô hình hóa dữ liệu</h3>
+    <p>3 mức data model, ER diagram, ánh xạ class → ER (FK, aggregation, inheritance, m:n), chuẩn hóa 1NF/2NF/3NF.</p>
+    <div class="src">07</div>
+  </a>
+</div>
+
+<div class="sec-label">III · Chất lượng: Kiểm thử &amp; Lập trình</div>
+<div class="cards-index">
+  <a class="pcard" href="pages/09-testing.html">
+    <div class="no">9</div><h3>Kiểm thử</h3>
+    <p>Test levels, Black-box (equivalence/boundary/decision table/use-case), White-box (C0/C1, loop), JUnit, Integration test.</p>
+    <div class="src">08</div>
+  </a>
+  <a class="pcard" href="pages/10-programming.html">
+    <div class="no">10</div><h3>Lập trình hiệu quả</h3>
+    <p>Coding style, code tuning, refactoring &amp; code smells (6 nhóm), debugging (defense-in-depth, fail-fast, scientific method).</p>
+    <div class="src">09</div>
+  </a>
+</div>
+
+<div class="sec-label">IV · Lý thuyết thiết kế</div>
+<div class="cards-index">
+  <a class="pcard" href="pages/11-coupling-cohesion.html">
+    <div class="no">11</div><h3>Coupling &amp; Cohesion</h3>
+    <p>Thang Coupling (7 mức) &amp; Cohesion (8 mức), Law of Demeter, God class. Mục tiêu: loose coupling, high cohesion.</p>
+    <div class="src">10</div>
+  </a>
+  <a class="pcard" href="pages/12-solid.html">
+    <div class="no">12</div><h3>Nguyên lý SOLID</h3>
+    <p>SRP, OCP, LSP, ISP, DIP — kèm ví dụ vi phạm &amp; cách khắc phục.</p>
+    <div class="src">11</div>
+  </a>
+  <a class="pcard" href="pages/13-design-patterns.html">
+    <div class="no">13</div><h3>Design Patterns</h3>
+    <p>GoF &amp; 3 nhóm; Singleton, Template Method, Factory Method, Abstract Factory (cấu trúc, khi nào dùng, ví dụ Java).</p>
+    <div class="src">12, 13</div>
+  </a>
+</div>
+
+<footer class="foot">
+  Bộ ôn tập môn "Phát triển phần mềm theo chuẩn kỹ năng ITSS" · biên soạn từ slide bài giảng.<br>
+  <span class="muted">Giai đoạn 2 (sắp tới): câu hỏi trắc nghiệm ôn tập cho từng chủ đề.</span>
+</footer>
+<script src="assets/app.js"></script>
+</body>
+</html>

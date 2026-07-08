@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>13. Design Patterns — ITSS Ôn tập</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/quiz.css">
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a class="brand" href="../index.html"><span class="dot"></span> ITSS SW Dev <small>· Ôn tập</small></a>
+  <div class="top-spacer"></div>
+  <a class="top-link" href="../index.html">Trang chủ</a>
+  <button id="themeBtn" class="icon-btn" onclick="toggleTheme()">☾</button>
+</div></div>
+
+<div class="layout">
+<aside class="toc"><h4>Mục lục</h4><nav></nav></aside>
+<main class="content">
+  <div class="crumb">Ôn tập ITSS · Chủ đề 13</div>
+  <h1 class="page-title">Mẫu thiết kế (Design Patterns)</h1>
+  <p class="page-lead">GoF &amp; 3 nhóm pattern; cách mô tả một pattern; chi tiết 4 mẫu trọng tâm của môn: Singleton, Template Method, Factory Method, Abstract Factory.</p>
+  <div class="chips"><span class="chip">GoF · 3 nhóm</span><span class="chip">Singleton</span><span class="chip">Template Method</span><span class="chip">Factory Method</span><span class="chip">Abstract Factory</span></div>
+  <a class="quiz-cta" href="quiz-13-design-patterns.html"><span class="ic">📝</span> Luyện trắc nghiệm chủ đề này <small>· 27 câu · lưu tiến độ tự động</small></a>
+
+  <section>
+    <h2><span class="num">1</span> Design Pattern là gì?</h2>
+    <div class="callout def"><span class="tt">Định nghĩa (Christopher Alexander)</span>"Mỗi pattern mô tả một <strong>vấn đề</strong> lặp đi lặp lại trong môi trường, rồi mô tả <strong>cốt lõi của giải pháp</strong> — để bạn có thể dùng lại giải pháp đó hàng triệu lần mà không bao giờ làm giống hệt nhau."</div>
+    <p><strong>Design pattern =</strong> giải pháp chuẩn cho vấn đề lập trình thường gặp · kỹ thuật làm code <em>linh hoạt</em> hơn (giảm coupling) · cách nói tắt để mô tả thiết kế (static structure &amp; dynamic behaviour).</p>
+    <div class="callout note"><span class="tt">GoF — Gang of Four</span>Gamma, Helm, Johnson, Vlissides (xuất bản 1994). Empiricist, không lý thuyết suông; quy tắc: <strong>không gì thành pattern trừ khi tìm được ≥3 ví dụ thực tế</strong>.</div>
+    <h3>3 nhóm pattern GoF</h3>
+    <div class="tw"><table>
+      <thead><tr><th>Nhóm</th><th>Trừu tượng hóa</th><th>Ví dụ</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Creational</strong></td><td>Quá trình <em>khởi tạo object</em></td><td>Factory Method, Abstract Factory, Singleton, Builder, Prototype</td></tr>
+        <tr><td><strong>Structural</strong></td><td>Cách <em>kết hợp</em> object/class</td><td>Adapter, Bridge, Composite, Decorator, Façade, Flyweight, Proxy</td></tr>
+        <tr><td><strong>Behavioral</strong></td><td>Cách <em>giao tiếp</em> giữa object</td><td>Command, Interpreter, Iterator, Mediator, Observer, State, Strategy, Chain of Responsibility, Visitor, Template Method</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout note"><span class="tt">Cách mô tả một pattern</span><strong>Elements chính:</strong> Pattern Name · Problem (context + điều kiện áp dụng) · Solution (mô tả trừu tượng, các element/quan hệ/trách nhiệm, như template, language-neutral) · Consequences (kết quả &amp; trade-off, ảnh hưởng flexibility/extensibility/portability). Mẫu đầy đủ GoF: Name &amp; classification, Also Known As, Motivation, Applicability, Structure, Participants, Collaboration, Consequences, Implementation, Sample Code, Known Uses, Related Patterns.</div>
+  </section>
+
+  <section>
+    <h2><span class="num">2</span> Singleton (Creational)</h2>
+    <div class="callout def"><span class="tt">Singleton</span>Đảm bảo một lớp có <strong>chính xác một instance</strong> &amp; cung cấp <strong>điểm truy cập toàn cục</strong> tới nó.</div>
+    <h3>Cách hiện thực</h3>
+    <ul>
+      <li>Constructor(s) để <code>private</code> — client không thể <code>new</code> từ ngoài.</li>
+      <li>Khai báo một instance <code>private static</code> của lớp.</li>
+      <li>Cung cấp method <code>public static getInstance()</code> trả về instance duy nhất (có thể cần <code>synchronized</code> để chạy đúng đa luồng).</li>
+    </ul>
+    <div class="two">
+      <div class="callout example"><span class="tt">Eager (khởi tạo sớm)</span><pre style="margin:.3rem 0"><code><span class="k">public class</span> Singleton {
+  <span class="k">private static final</span> Singleton
+     instance = <span class="k">new</span> Singleton();
+  <span class="k">private</span> Singleton(){}
+  <span class="k">public static</span> Singleton getInstance(){
+    <span class="k">return</span> instance;
+  }
+}</code></pre></div>
+      <div class="callout example"><span class="tt">Lazy (khởi tạo muộn)</span><pre style="margin:.3rem 0"><code><span class="k">public class</span> Singleton {
+  <span class="k">private static</span> Singleton _instance;
+  <span class="k">private</span> Singleton(){}
+  <span class="k">public static synchronized</span>
+      Singleton getInstance(){
+    <span class="k">if</span>(_instance == <span class="k">null</span>)
+      _instance = <span class="k">new</span> Singleton();
+    <span class="k">return</span> _instance;
+  }
+}</code></pre></div>
+    </div>
+    <div class="callout tip"><span class="tt">Khi nào dùng &amp; ưu điểm</span>Một RandomNumber generator, một Restaurant/ShoppingCart, một KeyboardReader. Dễ đảm bảo <strong>key invariant</strong>; kiểm soát thời điểm tạo instance (quan trọng với object lớn). <strong>Ưu:</strong> lấy trách nhiệm quản lý instance khỏi lập trình viên (không thể tạo thêm); tiết kiệm bộ nhớ; tránh bug do nhiều instance. Comparator là singleton tốt vì <em>không có state</em>.</div>
+    <div class="callout warn"><span class="tt">So với static method/class</span>Một cách tránh tạo object là dùng <strong>static method</strong> (VD Math, System). Nhưng: <em>Lacks flexibility</em> — static method không truyền làm tham số/return được; <em>Cannot be extended</em> — static class không kế thừa/override được; <em>Testability</em> kém (khó mock, các test ảnh hưởng nhau); không viết extension method được. → Vì thế thường ưu tiên Singleton hơn static.</div>
+  </section>
+
+  <section>
+    <h2><span class="num">3</span> Template Method (Behavioral)</h2>
+    <div class="callout def"><span class="tt">Intent</span>Định nghĩa <strong>khung xương của một thuật toán</strong> trong một operation, <strong>hoãn một số bước cho lớp con</strong>. Lớp con định nghĩa lại vài bước mà <em>không thay đổi cấu trúc thuật toán</em>. Nguyên tắc Hollywood: <em>"Don't call us, we'll call you!"</em></div>
+    <p><strong>Cấu trúc:</strong> <code>AbstractClass</code> có <code>templateMethod()</code> (gọi các <code>step1..stepN</code>), một số step là <em>abstract/primitive</em>; <code>ConcreteClass</code> hiện thực các primitive operation.</p>
+    <div class="callout key"><span class="tt">Ba chế độ của bước (steps)</span>
+      <ul style="margin:.2rem 0">
+        <li><strong>Buộc</strong> lớp con hiện thực bước → <code>abstract</code> / interface.</li>
+        <li><strong>Cho phép</strong> lớp con bổ sung bước (qua override) → <em>hook</em> non-abstract.</li>
+        <li><strong>Cho phép</strong> lớp con định nghĩa lại bước → <code>protected</code> (overridable algorithm method).</li>
+        <li>Bước <strong>không cho override</strong> → <code>final</code>. Bước <strong>không kế thừa</strong> → <code>private</code>.</li>
+      </ul>
+    </div>
+    <div class="callout example"><span class="tt">Beverage Machine</span>TeaMaker / CoffeeMaker / CoffeeVerkeerdMaker có nhiều bước trùng (getCup, boilWater, pourInCup) &amp; hành vi tùy chọn (addSugar/addLemon/addMilk) → gom vào <code>BeverageMachine.makeBeverage()</code> (template): boilWater() &amp; pourInCup() là non-overridable; <code>brew()</code> abstract; <code>addCondiments()</code> override; <code>addSugar()</code> hook readonly.</div>
+    <div class="callout tip"><span class="tt">Ưu điểm &amp; ví dụ Java</span>Tách <em>cái thay đổi</em> khỏi <em>cái không đổi</em>; phần code không đổi tái sử dụng dễ; lớp con chỉ lo khác biệt. Pattern này dùng <strong>mỗi khi extend một lớp trong Java</strong>: override <code>paint()</code> (hook) khi <code>class MyFrame extends JFrame</code> — thuật toán <code>update()</code> của JFrame gọi <code>paint()</code>. Applet lifecycle (init/start/stop/destroy/paint) cũng là Template Method. Ví dụ SocialNetwork: <code>post()</code> gọi <code>logIn()/sendData()/logOut()</code> abstract (Facebook, Twitter hiện thực khác nhau).</div>
+  </section>
+
+  <section>
+    <h2><span class="num">4</span> Factory Method (Creational)</h2>
+    <div class="callout example"><span class="tt">Vấn đề: PizzaStore</span><pre style="margin:.3rem 0"><code>Pizza orderPizza(String type){
+  Pizza pizza;
+  <span class="k">if</span>(type.equals(<span class="s">"cheese"</span>)) pizza = <span class="k">new</span> CheesePizza();
+  <span class="k">else if</span>(type.equals(<span class="s">"greek"</span>)) pizza = <span class="k">new</span> GreekPizza();
+  <span class="k">else if</span>(type.equals(<span class="s">"pepperoni"</span>)) pizza = <span class="k">new</span> PepperoniPizza();
+  pizza.prepare(); pizza.bake(); pizza.cut(); pizza.box();
+  <span class="k">return</span> pizza;
+}</code></pre>Trộn <em>creation</em> &amp; <em>preparation</em>: đổi cách tạo pizza → <strong>vi phạm SRP</strong>; thêm/bớt loại pizza → <strong>vi phạm OCP</strong>.</div>
+    <div class="callout key"><span class="tt">Ý tưởng</span>Tách <strong>quá trình tạo (creation)</strong> khỏi <strong>sử dụng (usage)</strong>: đóng gói code tạo object vào một lớp riêng (<code>SimplePizzaFactory.createPizza(type)</code>). Lớp đó vẫn phụ thuộc concrete class nhưng dependency đó <em>không còn ảnh hưởng</em> code preparation. (Simple Factory vẫn vi phạm OCP khi thêm loại → nâng lên Factory Method.)</div>
+    <div class="callout def"><span class="tt">Factory Method — Structure</span>Định nghĩa một interface để tạo object, nhưng để <strong>lớp con quyết định lớp nào được khởi tạo</strong>. <code>Creator</code> có <code>factoryMethod()</code> (abstract) &amp; <code>anOperation()</code> dùng nó; <code>ConcreteCreator</code> override <code>factoryMethod()</code> trả về <code>ConcreteProduct</code>.</div>
+    <div class="callout tip"><span class="tt">Khi nào dùng &amp; cách hiện thực</span><strong>Dùng khi:</strong> client không cần/không được biết cách tạo object; thông tin tạo phức tạp/cồng kềnh → đơn giản hóa interface, khu trú logic khởi tạo; lớp cần lớp con chỉ định object tạo ra; không biết trước kiểu object cần tạo. <strong>Hiện thực:</strong> factory không nên bị instantiate (constructor private); dùng static method để tạo; interface đơn giản (đừng đòi nhiều tham số, có thể overload); thiết kế để tái sử dụng.</div>
+    <div class="callout example"><span class="tt">Ví dụ Java (factory có sẵn)</span><strong>DateFormat:</strong> <code>getDateInstance()</code>, <code>getTimeInstance()</code>, <code>getDateInstance(FULL, Locale.FRANCE)</code> — không truyền hàng loạt option, subtype tạo ra không cần biết. <strong>Toolkit:</strong> <code>Toolkit.getDefaultToolkit()</code> rồi <code>tk.getImage("x.gif")</code> (không <code>new Image()</code>). <strong>ImageFactory.loadImage()</strong> gói code cồng kềnh. <strong>BorderFactory.createRaisedBevelBorder()</strong>, <strong>KeyStroke.getKeyStroke()</strong> — tránh constructor quá nhiều "option/flag".</div>
+  </section>
+
+  <section>
+    <h2><span class="num">5</span> Abstract Factory (Creational)</h2>
+    <div class="callout def"><span class="tt">Abstract Factory</span>Khi <strong>lớp factory cấp cao nhất &amp; method tạo của nó đều abstract</strong>. Factory Method là factory có thể được khởi tạo &amp; có method tạo overridable; Abstract Factory nâng lên mức "họ sản phẩm".</div>
+    <div class="callout key"><span class="tt">Khi nào dùng</span>Hệ thống nên <em>độc lập</em> với cách sản phẩm được tạo/kết hợp/biểu diễn; cấu hình được với <strong>một trong nhiều họ sản phẩm (families)</strong>; một họ object liên quan phải <em>dùng cùng nhau</em> &amp; cần cưỡng chế ràng buộc đó; muốn cung cấp thư viện sản phẩm chỉ lộ interface, không lộ cài đặt.</div>
+    <div class="callout example"><span class="tt">Ví dụ Widget</span><code>WidgetFactory (abstract)</code> với <code>CreateScrollBar()</code>, <code>CreateWindow()</code>; <code>MotifWidgetFactory</code> &amp; <code>PMWidgetFactory</code> tạo MotifWindow/PMWindow, MotifScrollBar/PMScrollBar. Client chỉ dùng interface trừu tượng.</div>
+    <div class="tw"><table>
+      <thead><tr><th>Ưu (Good)</th><th>Nhược (Bad)</th></tr></thead>
+      <tbody>
+        <tr><td>Cô lập concrete class (client thao tác qua interface trừu tượng)</td><td>Hỗ trợ <strong>kiểu sản phẩm MỚI</strong> khó</td></tr>
+        <tr><td>Đổi họ sản phẩm dễ (chỉ đổi ConcreteFactory)</td><td>Phải sửa lại Abstract Factory &amp; mọi lớp con</td></tr>
+        <tr><td>Cưỡng chế tính nhất quán giữa các sản phẩm</td><td>(Nhưng không quá tệ trong ngôn ngữ định kiểu động)</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <div class="callout note"><span class="tt">Liên kết</span>Design patterns nằm ở tầng cao nhất, xây trên <a href="11-coupling-cohesion.html">Coupling &amp; Cohesion</a> và <a href="12-solid.html">SOLID</a> (Factory Method/Abstract Factory hiện thân OCP+DIP; Template Method hiện thân OCP).</div>
+
+  <nav class="pager">
+    <a href="12-solid.html"><span class="dir">← Trước</span><span class="ttl">Nguyên lý SOLID</span></a>
+    <a class="next disabled" href="#"><span class="dir">Hết</span><span class="ttl">—</span></a>
+  </nav>
+</main>
+</div>
+<script src="../assets/app.js"></script>
+</body>
+</html>

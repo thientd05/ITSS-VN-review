@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>11. Coupling &amp; Cohesion — ITSS Ôn tập</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/quiz.css">
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a class="brand" href="../index.html"><span class="dot"></span> ITSS SW Dev <small>· Ôn tập</small></a>
+  <div class="top-spacer"></div>
+  <a class="top-link" href="../index.html">Trang chủ</a>
+  <button id="themeBtn" class="icon-btn" onclick="toggleTheme()">☾</button>
+</div></div>
+
+<div class="layout">
+<aside class="toc"><h4>Mục lục</h4><nav></nav></aside>
+<main class="content">
+  <div class="crumb">Ôn tập ITSS · Chủ đề 11</div>
+  <h1 class="page-title">Design Concepts: Coupling &amp; Cohesion</h1>
+  <p class="page-lead">Hai khái niệm thiết kế cốt lõi. Mục tiêu vàng: <em>"Loose coupling, high cohesion"</em>. Kèm thang đo đầy đủ của cả hai, Law of Demeter và God class.</p>
+  <div class="chips"><span class="chip">Module · Modular design</span><span class="chip">Coupling (7 mức)</span><span class="chip">Cohesion (8 mức)</span><span class="chip">Law of Demeter</span></div>
+  <a class="quiz-cta" href="quiz-11-coupling-cohesion.html"><span class="ic">📝</span> Luyện trắc nghiệm chủ đề này <small>· 23 câu · lưu tiến độ tự động</small></a>
+
+  <section>
+    <h2><span class="num">1</span> Nền tảng: Module &amp; Good Design</h2>
+    <div class="callout def"><span class="tt">Module &amp; Modular design</span><strong>Module</strong> = thuật ngữ chung cho class/type/đơn vị thiết kế. <strong>Modular design</strong> tập trung: module nào được định nghĩa, đặc tả ra sao, quan hệ thế nào — <em>không</em> tập trung cài đặt bên trong.</div>
+    <p><strong>Lý tưởng của phần mềm modular:</strong> Decomposable (chia nhỏ để giảm phức tạp &amp; teamwork) · Composable (ghép lại được) · Understandable (hiểu từng module độc lập) · Continuity (thay đổi nhỏ ở yêu cầu → ảnh hưởng ít module) · Isolation (lỗi được cô lập).</p>
+    <div class="callout key"><span class="tt">Good design = ?</span>Dễ phát triển/đọc/hiểu · dễ giao tiếp · dễ mở rộng (thêm feature) · dễ bảo trì. ⇒ Đạt được bằng <strong>"Loose coupling and high cohesion"</strong>.</div>
+    <div class="callout note"><span class="tt">2 vấn đề thiết kế tổng quát</span><strong>Cohesion:</strong> vì sao các sub-module (method) được đặt cùng module? (thường để tạo ADT). <strong>Coupling:</strong> mức phụ thuộc giữa các module? (giảm càng nhiều càng tốt). "k module càng coupling càng phải coi như <em>một</em> module lớn hơn."</div>
+    <p><strong>Key design concepts:</strong> General (Cohesion, Coupling, Information hiding = encapsulation + creation + binding time). OO-specific (behavior follow data; class vs interface inheritance; inheritance/composition/delegation).</p>
+  </section>
+
+  <section>
+    <h2><span class="num">2</span> Coupling (độ ghép nối)</h2>
+    <div class="callout def"><span class="tt">Coupling / Dependency</span>Mức độ mỗi module <strong>phụ thuộc</strong> vào các module khác. High coupling khiến sửa hệ thống khó (đổi 1 component ảnh hưởng mọi component nối với nó). Ideal: tách thiết kế thành phần <em>ít tương tác</em> nhau.</div>
+    <h3>Thang Coupling (từ TỆ → TỐT)</h3>
+    <div class="ladder">
+      <div class="rung" data-q="bad"><span class="lbl">Content</span><span class="meta">Component này tham chiếu/sửa <em>nội dung bên trong</em> component khác (sửa data, nhảy vào giữa routine). Cao nhất — tệ nhất.</span></div>
+      <div class="rung" data-q="bad"><span class="lbl">Common</span><span class="meta">Hai component <em>chia sẻ dữ liệu</em> (global data structure, common block). Thường là lựa chọn kém: thiếu trách nhiệm rõ ràng, khó bảo trì/tái sử dụng/kiểm soát truy cập.</span></div>
+      <div class="rung" data-q="mid"><span class="lbl">Control</span><span class="meta">Component truyền <em>control parameter</em> điều khiển component kia. Tốt/xấu tùy: xấu nếu phải biết cấu trúc/logic bên trong; tốt nếu tham số giúp factoring &amp; tái sử dụng.</span></div>
+      <div class="rung" data-q="mid"><span class="lbl">Stamp</span><span class="meta">Truyền <em>cả cấu trúc dữ liệu</em> cho component không dùng toàn bộ (phải biết cách thao tác cấu trúc → biết cài đặt). Đôi khi cần vì efficiency.</span></div>
+      <div class="rung" data-q="good"><span class="lbl">Data</span><span class="meta">Chỉ truyền <em>data đơn giản/cấu trúc mà mọi phần tử đều dùng</em>. Tốt — dễ viết contract &amp; sửa độc lập.</span></div>
+      <div class="rung" data-q="good"><span class="lbl">Uncoupled</span><span class="meta">Không phụ thuộc. Thấp nhất — tốt nhất.</span></div>
+    </div>
+    <div class="callout example"><span class="tt">Ví dụ Control coupling</span>Chấp nhận được: module q trả về flag báo "không hoàn thành task" → q đang truyền <em>data</em>. Không chấp nhận: q trả flag và <em>vì đó ghi một message cụ thể</em>. Hàm <code>updateCustomer(int whatKind, Customer c)</code> với whatKind = ADD/EDIT/DELETE (c dùng cho EDIT, không dùng cho ADD, chỉ id cho DELETE) → control coupling xấu.</div>
+  </section>
+
+  <section>
+    <h2><span class="num">3</span> Cohesion (độ gắn kết)</h2>
+    <div class="callout def"><span class="tt">Cohesion</span>Mức độ <strong>mọi phần tử của một component đều hướng về MỘT nhiệm vụ</strong>, và mọi phần tử phục vụ nhiệm vụ đó đều nằm gọn trong một component. "Internal glue"; <strong>High is good</strong>.</div>
+    <p>Lý do phổ biến đặt data + behavior chung = tạo <strong>ADT</strong>. Nguyên tắc <em>separation of concerns</em>: một module nên chỉ giải quyết một tập concern (VD: Item/DiscountItem có nên biết về giảm giá khi mua ≥20 món? ShoppingCart có nên biết bulk pricing? BinarySearch có nên biết kiểu object đang sort?).</p>
+    <h3>Thang Cohesion (từ TỐT → TỆ)</h3>
+    <div class="ladder">
+      <div class="rung" data-q="good"><span class="lbl">Functional</span><span class="meta">Mọi phần tử thiết yếu cho <em>một phép tính đơn</em>. Lý tưởng — cao nhất.</span></div>
+      <div class="rung" data-q="good"><span class="lbl">Informational</span><span class="meta">Module thực hiện nhiều action, mỗi action có <em>entry riêng, code riêng</em>, đều trên cùng dữ liệu. Khác logical: mỗi đoạn single entry/exit. ADT &amp; OO thúc đẩy.</span></div>
+      <div class="rung" data-q="good"><span class="lbl">Sequential</span><span class="meta">Output của phần này là input phần kia. Tự nhiên trong lập trình hàm. Tốt.</span></div>
+      <div class="rung" data-q="mid"><span class="lbl">Communicational</span><span class="meta">Chuỗi action theo trình tự, tất cả thao tác trên <em>cùng dữ liệu</em>.</span></div>
+      <div class="rung" data-q="mid"><span class="lbl">Procedural</span><span class="meta">Phần tử liên quan chỉ để <em>đảm bảo thứ tự thực thi</em>. Vẫn liên kết yếu, khó tái sử dụng.</span></div>
+      <div class="rung" data-q="bad"><span class="lbl">Temporal</span><span class="meta">Phần tử liên quan bởi <em>thời điểm (timing)</em> (VD routine khởi tạo hệ thống). Khó đổi, tăng nguy cơ regression, khó tái sử dụng.</span></div>
+      <div class="rung" data-q="bad"><span class="lbl">Logical</span><span class="meta">Phần tử liên quan <em>về mặt logic, không về chức năng</em>; client chọn một phần tử (VD đọc input từ tape/disk/network cùng module).</span></div>
+      <div class="rung" data-q="bad"><span class="lbl">Coincidental</span><span class="meta">Phần tử chỉ liên quan bởi <em>vị trí trong source code</em> (accidental). Tệ nhất.</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">4</span> Các kiểu phụ thuộc &amp; Law of Demeter</h2>
+    <p><strong>Các loại "mũi tên" (dependence):</strong> Aggregation ("is part of") · Composition ("is entirely made of", part sống-chết cùng whole) · Subtyping ("is-a", thay thế được) · Invokes ("executes"). Làm rõ loại phụ thuộc là điều then chốt.</p>
+    <div class="callout key"><span class="tt">Law of Demeter (Karl Lieberherr)</span>Một object nên biết <em>càng ít càng tốt</em> về cấu trúc bên trong của object khác mà nó tương tác — "chỉ nói chuyện với bạn thân trực tiếp". Liên quan chặt tới representation exposure &amp; (im)mutability.</div>
+    <div class="two">
+      <div class="callout danger"><span class="tt">Xấu (chuỗi coupling)</span><pre style="margin:.3rem 0"><code>general.getColonel().getMajor(m)
+ .getCaptain(cap).getSergeant(ser)
+ .getPrivate(name).digFoxHole();</code></pre></div>
+      <div class="callout tip"><span class="tt">Tốt hơn</span><pre style="margin:.3rem 0"><code>general.superviseFoxHole(
+   m, cap, ser, name);</code></pre></div>
+    </div>
+    <p><strong>Một object chỉ nên gửi message tới:</strong> chính nó (<code>this</code>) · instance variable của nó · tham số của method · object nó tạo · object trả về bởi lời gọi tới một method của <code>this</code> · object trong collection của các thứ trên. <em>Không nên</em>: object trả về bởi message gửi tới object khác. (Guideline, không phải luật cứng.)</p>
+    <div class="callout warn"><span class="tt">"Coupling is the path to the dark side"</span>Coupling → complexity → confusion → suffering. Một khi đã đi vào con đường coupling, nó sẽ chi phối bạn mãi.</div>
+    <div class="callout danger"><span class="tt">God class (anti-pattern)</span>Lớp "ôm" quá nhiều data/chức năng của hệ thống. Cohesion kém (ít suy nghĩ vì sao gộp chung); chỉ giảm coupling bằng cách <em>gộp nhiều module thành một</em> (biến dependency giữa module thành dependency trong module). Là ví dụ <strong>anti-pattern</strong> — cách làm dở đã biết trước.</div>
+  </section>
+
+  <div class="callout note"><span class="tt">Liên kết</span>Coupling &amp; cohesion là nền cho <a href="12-solid.html">Nguyên lý SOLID</a> (SRP = high cohesion; DIP/OCP giảm coupling) và <a href="13-design-patterns.html">Design Patterns</a>.</div>
+
+  <nav class="pager">
+    <a href="10-programming.html"><span class="dir">← Trước</span><span class="ttl">Lập trình hiệu quả</span></a>
+    <a class="next" href="12-solid.html"><span class="dir">Sau →</span><span class="ttl">Nguyên lý SOLID</span></a>
+  </nav>
+</main>
+</div>
+<script src="../assets/app.js"></script>
+</body>
+</html>

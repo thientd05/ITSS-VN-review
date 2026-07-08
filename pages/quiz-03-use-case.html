@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Trắc nghiệm 3 · Mô hình hóa yêu cầu với Use Case — ITSS</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/quiz.css">
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a class="brand" href="../index.html"><span class="dot"></span> ITSS SW Dev <small>· Trắc nghiệm</small></a>
+  <div class="top-spacer"></div>
+  <a class="top-link" href="03-use-case.html">← Lý thuyết</a>
+  <a class="top-link" href="../index.html">Trang chủ</a>
+  <button id="themeBtn" class="icon-btn" onclick="toggleTheme()">☾</button>
+</div></div>
+
+<div class="quiz-layout">
+  <main class="quiz-main">
+    <div class="crumb"><a href="03-use-case.html">← Quay lại lý thuyết: Mô hình hóa yêu cầu với Use Case</a></div>
+    <h1 class="page-title">Trắc nghiệm · Chủ đề 3</h1>
+    <p class="page-lead">Mô hình hóa yêu cầu với Use Case: actor &amp; use case, quan hệ include/extend/generalization, Use-Case Specification &amp; scenario, flow of events, activity diagram, Glossary &amp; Supplementary Specification (FURPS). Nộp từng câu để xem đáp án &amp; giải thích. Kết quả được lưu tự động — rời trang rồi quay lại vẫn còn.</p>
+    <div id="quizRoot"></div>
+  </main>
+
+  <aside class="qnav-wrap">
+    <h4>Bảng câu hỏi</h4>
+    <div class="qnav-stat" id="qnavStat"></div>
+    <div class="qnav-grid" id="qnavGrid"></div>
+    <div class="qnav-legend">
+      <span><i class="ok"></i> Đúng</span>
+      <span><i class="no"></i> Sai</span>
+      <span><i class="an"></i> Đang chọn</span>
+    </div>
+    <button class="btn-resetall" id="btnResetAll">↺ Làm lại toàn bộ</button>
+  </aside>
+</div>
+
+<script>
+window.QUIZ = {
+  id: "03-use-case",
+  title: "Mô hình hóa yêu cầu với Use Case",
+  back: "03-use-case.html",
+  questions: [
+    /* ===== 1. Requirements & artifacts ===== */
+    {
+      type: "multi",
+      q: "Đâu là những <b>mục đích chính</b> của việc mô hình hóa Requirements (yêu cầu)?",
+      options: [
+        "Thiết lập &amp; duy trì thỏa thuận với khách hàng/stakeholder về việc hệ thống làm gì",
+        "Giới hạn (delimit) phạm vi hệ thống",
+        "Làm cơ sở ước lượng chi phí &amp; thời gian",
+        "Quyết định ngôn ngữ lập trình và framework cụ thể để code",
+        "Tối ưu hóa hiệu năng thuật toán của hệ thống"
+      ],
+      answer: [0, 1, 2],
+      explain: "Requirements nhằm: thiết lập/duy trì <b>thỏa thuận</b> với khách hàng về hệ thống <em>làm gì</em>, giúp lập trình viên hiểu &amp; <b>delimit (giới hạn)</b> hệ thống, làm cơ sở lập kế hoạch vòng lặp và <b>ước lượng chi phí &amp; thời gian</b>, định nghĩa giao diện người dùng. Chọn ngôn ngữ/framework và tối ưu thuật toán thuộc pha thiết kế/hiện thực, không phải mục đích của giai đoạn yêu cầu."
+    },
+    {
+      type: "multi",
+      q: "Bộ artifact (sản phẩm) của Requirements gồm những thành phần nào?",
+      options: [
+        "Use-Case Model (Actors + Use Cases + Use-Case Specifications)",
+        "Glossary (từ điển thuật ngữ)",
+        "Supplementary Specification",
+        "Source code &amp; unit test",
+        "Deployment diagram của phần cứng"
+      ],
+      answer: [0, 1, 2],
+      explain: "Bộ artifact yêu cầu = <b>Use-Case Model</b> + <b>Glossary</b> + <b>Supplementary Specification</b>. Source code, unit test và deployment diagram là sản phẩm của các pha sau (implementation/deployment), không phải artifact của Requirements."
+    },
+    {
+      type: "single",
+      q: "Vì sao yêu cầu một hệ thống phi tầm thường cần <b>nhiều mô hình</b> (Logical, Implementation, Process, Deployment view...) chứ không chỉ một?",
+      options: [
+        "Vì không có mô hình đơn lẻ nào đủ để nắm bắt toàn bộ hệ thống",
+        "Vì chuẩn ISO bắt buộc phải có đúng 4 mô hình",
+        "Vì mỗi lập trình viên cần một mô hình riêng của mình",
+        "Vì Use-Case view không thể vẽ bằng UML"
+      ],
+      answer: [0],
+      explain: "<b>Không mô hình đơn lẻ nào đủ</b>: mỗi hệ thống phi tầm thường cần một tập các mô hình gần độc lập nhưng liên hệ nhau (các view xoay quanh Use-Case view). Đây không phải quy định cứng về số lượng của ISO, cũng không liên quan đến việc mỗi người một mô hình."
+    },
+
+    /* ===== 2. Use-Case Diagram overview ===== */
+    {
+      type: "single",
+      q: "Use-Case Diagram mô hình hóa khía cạnh nào của hệ thống?",
+      options: [
+        "Khía cạnh <b>động (dynamic)</b> — yêu cầu chức năng của phần mềm",
+        "Khía cạnh <b>tĩnh (static)</b> — cấu trúc lớp và dữ liệu",
+        "Cách triển khai phần cứng lên các node",
+        "Trình tự thời gian gọi hàm giữa các đối tượng"
+      ],
+      answer: [0],
+      explain: "Use-Case Diagram mô hình hóa khía cạnh <b>động</b>, mô tả <b>yêu cầu chức năng</b> của phần mềm dưới dạng use case, đồng thời mô hình hóa các chức năng (use case) và môi trường (actor). Cấu trúc lớp tĩnh là class diagram; triển khai phần cứng là deployment diagram; trình tự gọi hàm là sequence diagram."
+    },
+    {
+      type: "multi",
+      q: "Use-Case Model mang lại những lợi ích nào?",
+      options: [
+        "Communication — giao tiếp giữa các bên liên quan",
+        "Identification — xác định chức năng hệ thống",
+        "Verification — kiểm chứng",
+        "Optimization — tối ưu hóa hiệu năng runtime",
+        "Compilation — biên dịch mã nguồn tự động"
+      ],
+      answer: [0, 1, 2],
+      explain: "3 lợi ích của Use-Case Model: <b>Communication</b> (giao tiếp giữa các bên), <b>Identification</b> (xác định chức năng) và <b>Verification</b> (kiểm chứng). Tối ưu hiệu năng và biên dịch mã không phải mục tiêu của mô hình use case."
+    },
+    {
+      type: "single",
+      q: "Phát biểu nào <b>đúng</b> về Actor?",
+      options: [
+        "Actor là một <b>vai trò (role)</b> mà người/hệ thống đóng, và nằm <b>NGOÀI (external)</b> hệ thống",
+        "Actor luôn là một con người cụ thể, không thể là hệ thống khác hay thiết bị",
+        "Actor là một thành phần bên trong hệ thống chịu trách nhiệm xử lý",
+        "Mỗi actor chỉ được tương tác với đúng một use case"
+      ],
+      answer: [0],
+      explain: "Actor đại diện <b>bất cứ thứ gì tương tác</b> với phần mềm — là một <b>vai trò (role)</b> (có thể là người, máy, hệ thống khác, thiết bị, database) và luôn nằm <b>NGOÀI (external)</b> hệ thống. Vì vậy các phương án còn lại đều sai: actor không nhất thiết là người, không nằm trong hệ thống, và một actor có thể liên quan nhiều use case."
+    },
+    {
+      type: "single",
+      q: "Định nghĩa nào đúng nhất cho <b>Use Case</b>?",
+      options: [
+        "Một chuỗi sự kiện do phần mềm thực hiện, mang lại kết quả có giá trị <b>quan sát được</b> cho một actor cụ thể",
+        "Một lớp (class) trong sơ đồ thiết kế của hệ thống",
+        "Một bước đơn lẻ mà người dùng thực hiện trên giao diện",
+        "Một yêu cầu phi chức năng như thời gian phản hồi"
+      ],
+      answer: [0],
+      explain: "Use Case mô tả một <b>chuỗi sự kiện</b> do phần mềm thực hiện, mang lại <b>kết quả có giá trị quan sát được</b> cho một actor — mô hình hóa đối thoại giữa actor và hệ thống. Nó không phải là một class, không phải một bước đơn lẻ, cũng không phải yêu cầu phi chức năng (yêu cầu phi chức năng nằm ở Supplementary Specification)."
+    },
+    {
+      type: "single",
+      q: "Charlie là giáo sư toán nhưng đang theo học một lớp kinh tế. Trong Course Registration System, cách mô hình hóa nào là đúng?",
+      options: [
+        "Charlie đóng cả vai <b>Student</b> lẫn <b>Professor</b> — một người có thể đóng nhiều vai (actor)",
+        "Phải tạo một actor riêng tên \"Charlie\" cho đúng một người",
+        "Charlie chỉ được là Professor vì đó là nghề nghiệp thật",
+        "Student và Professor phải gộp thành một actor duy nhất"
+      ],
+      answer: [0],
+      explain: "Actor là một <b>vai trò</b>, không phải một con người cụ thể. Charlie có thể đóng vai <b>Student</b> (khi học kinh tế) và vai <b>Professor</b> (khi dạy toán). Một người → nhiều vai; một vai → nhiều người. Vì thế không tạo actor theo tên người, và không gộp/khóa cứng vai theo nghề nghiệp."
+    },
+
+    /* ===== 3. Finding actor & use case ===== */
+    {
+      type: "single",
+      q: "Khi tìm <b>Actor</b> và <b>Use Case</b> từ mô tả bài toán, nên chú ý từ loại nào?",
+      options: [
+        "Actor ← <b>danh từ</b> (chủ thể); Use Case ← <b>động từ</b> (chuỗi hành động)",
+        "Actor ← động từ; Use Case ← danh từ",
+        "Cả hai đều rút ra từ tính từ mô tả",
+        "Cả hai đều rút ra từ các con số trong mô tả"
+      ],
+      answer: [0],
+      explain: "Guideline: chú ý <b>danh từ</b> để rút ra <b>Actor</b> (chủ thể hành động), và chú ý <b>động từ</b> để rút ra <b>Use Case</b> (chuỗi hành động). Sau đó kiểm tra không thừa/thiếu so với mô tả."
+    },
+    {
+      type: "single",
+      q: "Quy ước đặt tên Use Case nào là <b>đúng</b>?",
+      options: [
+        "Bắt đầu bằng <b>động từ + danh từ</b> (verb-noun), nêu rõ kết quả giá trị, nhìn từ góc actor — vd \"Register for Courses\"",
+        "Chỉ dùng một danh từ ngắn gọn, vd \"Courses\"",
+        "Đặt theo tên lớp cài đặt, vd \"CourseController\"",
+        "Đặt theo số thứ tự, vd \"UC-01\", để ngắn gọn"
+      ],
+      answer: [0],
+      explain: "Tên use case phải duy nhất, trực giác, tự giải thích, nêu rõ kết quả giá trị, nhìn từ góc actor và bắt đầu bằng <b>động từ + danh từ</b> (verb-noun) như \"Register for Courses\". Đặt tên chỉ bằng danh từ, theo tên lớp cài đặt hay theo mã số đều vi phạm quy ước này."
+    },
+    {
+      type: "multi",
+      q: "Những câu hỏi nào giúp <b>tìm Actor</b> cho hệ thống?",
+      options: [
+        "Ai/cái gì <em>dùng</em> hệ thống?",
+        "Ai <em>nhận</em> hoặc <em>cung cấp</em> thông tin cho hệ thống?",
+        "Hệ thống khác nào dùng hệ thống này? Ai hỗ trợ/bảo trì nó?",
+        "Use case này gọi bao nhiêu hàm nội bộ?",
+        "Cấu trúc bảng cơ sở dữ liệu nên chuẩn hóa tới dạng nào?"
+      ],
+      answer: [0, 1, 2],
+      explain: "Câu hỏi tìm Actor xoay quanh <b>ai/cái gì tương tác từ bên ngoài</b>: ai dùng, ai nhận/cung cấp thông tin, hệ thống nào khác dùng nó, ai hỗ trợ/bảo trì. Số hàm nội bộ và chuẩn hóa CSDL là vấn đề thiết kế/dữ liệu, không dùng để tìm actor."
+    },
+
+    /* ===== 4. Relationships ===== */
+    {
+      type: "single",
+      q: "Cặp quan hệ nào có thể tồn tại giữa <b>Use Case ↔ Use Case</b>?",
+      options: [
+        "Generalization, &laquo;include&raquo;, &laquo;extend&raquo;",
+        "Association (communicates) và chỉ có vậy",
+        "Aggregation và Composition",
+        "Dependency và Realization"
+      ],
+      answer: [0],
+      explain: "Giữa Use Case ↔ Use Case dùng <b>Generalization, &laquo;include&raquo;, &laquo;extend&raquo;</b>. Association (communicates) là quan hệ Actor ↔ Use Case. Aggregation/Composition/Realization là quan hệ của class diagram, không dùng trong use-case diagram."
+    },
+    {
+      type: "single",
+      q: "Quan hệ giữa <b>Actor ↔ Use Case</b> được gọi là gì và vẽ ra sao?",
+      options: [
+        "Association (communicates) — vẽ bằng một <b>đường thẳng</b>",
+        "Include — vẽ bằng mũi tên đứt nét có stereotype",
+        "Generalization — vẽ bằng mũi tên tam giác rỗng",
+        "Dependency — vẽ bằng đường đứt nét có mũi tên"
+      ],
+      answer: [0],
+      explain: "Actor ↔ Use Case là <b>Communicates-Association</b> — kênh giao tiếp, vẽ bằng một <b>đường thẳng</b>. Đầu mũi tên là tùy chọn: có mũi tên = ai khởi tạo (initiator); không mũi tên = cả hai đầu đều có thể khởi tạo. Include/Generalization/Dependency là các quan hệ khác."
+    },
+    {
+      type: "single",
+      q: "Trong quan hệ communicates giữa actor và use case, một đầu <b>không có mũi tên</b> nghĩa là gì?",
+      options: [
+        "Cả hai đầu <b>đều có thể</b> khởi tạo (initiator) sự tương tác",
+        "Không đầu nào được phép khởi tạo",
+        "Quan hệ bị lỗi, thiếu thông tin",
+        "Đây là quan hệ include chứ không phải association"
+      ],
+      answer: [0],
+      explain: "Mũi tên trên đường communicates là <b>tùy chọn</b>: có mũi tên chỉ rõ ai là initiator; <b>không có mũi tên</b> nghĩa là cả hai đầu đều có thể khởi tạo tương tác. Đây không phải lỗi, cũng không đổi bản chất association."
+    },
+    {
+      type: "single",
+      q: "Phát biểu nào mô tả đúng quan hệ <b>&laquo;include&raquo;</b>?",
+      options: [
+        "Use case gốc <b>LUÔN</b> tích hợp hành vi của use case được include; use case được include không đứng một mình",
+        "Use case gốc <b>đôi khi</b> tích hợp hành vi tùy điều kiện; gốc vẫn chạy độc lập được",
+        "Use case con kế thừa và có thể ghi đè hành vi của use case cha",
+        "Hai use case giao tiếp trực tiếp qua một đường thẳng"
+      ],
+      answer: [0],
+      explain: "&laquo;include&raquo; = hành vi <b>bắt buộc, luôn luôn</b> được tích hợp tại một vị trí xác định trong gốc; use case được include <b>không đứng một mình</b> (vd Place order &laquo;include&raquo; Pay order). Phương án \"đôi khi/tùy điều kiện\" là &laquo;extend&raquo;; \"kế thừa/ghi đè\" là generalization."
+    },
+    {
+      type: "single",
+      q: "Phát biểu nào mô tả đúng quan hệ <b>&laquo;extend&raquo;</b>?",
+      options: [
+        "Gốc <b>đứng độc lập được</b>, chỉ bị mở rộng <b>trong điều kiện nhất định</b>, tại vị trí do use case mở rộng chỉ ra",
+        "Gốc luôn tích hợp hành vi được mở rộng ở mọi lần chạy",
+        "Use case mở rộng không thể tồn tại nếu thiếu use case gốc chạy trước",
+        "Đây là quan hệ giữa actor và use case"
+      ],
+      answer: [0],
+      explain: "&laquo;extend&raquo; = use case gốc <b>ngầm</b> tích hợp hành vi của use case mở rộng <b>đôi khi/tùy điều kiện</b>, tại vị trí (extension point) do use case mở rộng chỉ ra; gốc <b>đứng độc lập được</b> nếu không mở rộng (vd Place order ←&laquo;extend&raquo;← Place rush order). \"Luôn tích hợp\" mới là include."
+    },
+    {
+      type: "single",
+      q: "Cách phân biệt <b>nhanh</b> giữa include và extend là gì?",
+      options: [
+        "include = <em>luôn luôn</em> gọi (bắt buộc); extend = <em>đôi khi/tùy điều kiện</em>, gốc vẫn chạy được",
+        "include = tùy điều kiện; extend = luôn luôn gọi",
+        "include dùng cho actor; extend dùng cho use case",
+        "Hai quan hệ này giống hệt nhau, chỉ khác tên gọi"
+      ],
+      answer: [0],
+      explain: "Mẹo nhớ: <b>include = luôn luôn</b> (hành vi bắt buộc, tách ra để tái sử dụng); <b>extend = đôi khi/tùy điều kiện</b> (gốc vẫn chạy được nếu không mở rộng). Hai phương án đầu bị đảo ngược/nhầm; cả hai đều là quan hệ giữa use case."
+    },
+    {
+      type: "single",
+      q: "Trong Course Registration System, use case <b>\"Validate user\"</b> có thể được hiện thực bởi \"Check password\" hoặc \"Retinal scan\". Đây là quan hệ gì?",
+      options: [
+        "Generalization giữa use case (con kế thừa &amp; có thể thay thế cha)",
+        "&laquo;include&raquo; — luôn gọi cả hai",
+        "&laquo;extend&raquo; — mở rộng tùy điều kiện",
+        "Association communicates"
+      ],
+      answer: [0],
+      explain: "\"Check password\" / \"Retinal scan\" là các use case con <b>kế thừa</b> hành vi &amp; ý nghĩa của use case cha \"Validate user\", có thể thêm/ghi đè và <b>thay thế cha ở bất cứ đâu</b> → đó là <b>Generalization</b> giữa use case. Không phải include (không gọi cả hai) hay extend (không tùy điều kiện)."
+    },
+    {
+      type: "single",
+      q: "Về việc dùng quan hệ giữa các use case, lời khuyên nào là đúng?",
+      options: [
+        "<b>Không nên dùng quá nhiều</b> quan hệ giữa use case vì làm sơ đồ rối; và use-case diagram <b>không</b> thể hiện thứ tự",
+        "Nên nối càng nhiều quan hệ càng tốt để sơ đồ chi tiết",
+        "Use-case diagram phải thể hiện rõ thứ tự thực hiện các use case",
+        "Chỉ được dùng đúng một loại quan hệ trong toàn sơ đồ"
+      ],
+      answer: [0],
+      explain: "Nên hạn chế: <b>không dùng quá nhiều</b> quan hệ giữa use case vì làm sơ đồ rối — chỉ dùng khi cần thiết. Ngoài ra, use-case diagram <b>không</b> thể hiện thứ tự thực hiện các use case (thứ tự được xâu qua pre/postcondition)."
+    },
+
+    /* ===== 5. Use-Case Specification & Scenario ===== */
+    {
+      type: "single",
+      q: "Quan hệ giữa <b>Use-Case Specification</b> và <b>Use-Case Diagram</b> là gì?",
+      options: [
+        "Diagram cho cái nhìn tổng thể; Specification mô tả <b>chi tiết</b> từng use case và là <b>hợp đồng</b> giữa khách hàng &amp; developer",
+        "Specification chỉ là bản vẽ đẹp hơn của diagram, nội dung như nhau",
+        "Diagram thay thế hoàn toàn Specification nên không cần Specification",
+        "Specification chỉ dùng ở pha kiểm thử, không dùng ở pha yêu cầu"
+      ],
+      answer: [0],
+      explain: "Use-Case <b>Diagram</b> cho cái nhìn tổng thể, còn Use-Case <b>Specification</b> mô tả chi tiết từng use case và đóng vai trò <b>hợp đồng</b> giữa khách hàng &amp; developer, được dùng ở <b>mọi pha</b> phát triển. Vì thế nó không thể bị diagram thay thế và không chỉ dùng khi test."
+    },
+    {
+      type: "single",
+      q: "<b>Scenario</b> (kịch bản) của một use case là gì?",
+      options: [
+        "Một <b>instance (thể hiện)</b> của use case — một đường đi cụ thể qua flow of events",
+        "Toàn bộ tập hợp mọi luồng có thể của use case",
+        "Một use case khác được include vào",
+        "Sơ đồ activity của use case"
+      ],
+      answer: [0],
+      explain: "Một <b>scenario</b> là một <b>instance</b> của use case — <b>một đường đi cụ thể</b> qua flow of events (vd \"đăng nhập thành công ngay lần đầu\" là một scenario khác với \"nhập sai PIN 2 lần rồi đúng\"). Nó là một đường đi, không phải toàn bộ tập luồng."
+    },
+    {
+      type: "single",
+      q: "Flow of Events của một use case gồm những gì?",
+      options: [
+        "Một <b>luồng chính (basic/normal flow)</b> và nhiều <b>luồng thay thế (alternative flows)</b>",
+        "Chỉ đúng một luồng duy nhất, không có ngoại lệ",
+        "Danh sách các lớp và thuộc tính của use case",
+        "Bảng các actor và quyền của họ"
+      ],
+      answer: [0],
+      explain: "Flow of Events gồm <b>một basic/normal flow</b> (luồng chính) và nhiều <b>alternative flows</b> (luồng thay thế), trong đó alternative có các loại: regular variants, odd cases, exceptional flows. Nó mô tả hành vi chứ không phải liệt kê lớp/thuộc tính hay bảng quyền."
+    },
+    {
+      type: "multi",
+      q: "Các <b>alternative flow</b> (luồng thay thế) gồm những loại nào?",
+      options: [
+        "Regular variants — biến thể thông thường",
+        "Odd cases — trường hợp lạ",
+        "Exceptional flows — xử lý lỗi",
+        "Basic flow — luồng thành công chính",
+        "Precondition flow — luồng điều kiện đầu vào"
+      ],
+      answer: [0, 1, 2],
+      explain: "Luồng thay thế gồm 3 loại: <b>regular variants</b> (biến thể thông thường), <b>odd cases</b> (trường hợp lạ) và <b>exceptional flows</b> (xử lý lỗi). Basic flow là luồng chính (không phải alternative); \"precondition flow\" không tồn tại."
+    },
+    {
+      type: "single",
+      q: "Trong ví dụ UC \"Log in\" (ATM): khách nhập sai PIN. Đây thuộc loại luồng nào, và điều gì xảy ra khi sai 3 lần liên tiếp?",
+      options: [
+        "<b>Exceptional flow</b> — sai <b>3 lần liên tiếp</b> thì hệ thống hủy giao dịch &amp; giữ thẻ",
+        "Regular variant — hệ thống khởi động lại use case",
+        "Odd case — khách xóa PIN rồi nhập lại",
+        "Basic flow — kết thúc thành công bình thường"
+      ],
+      answer: [0],
+      explain: "Nhập sai PIN là xử lý lỗi → <b>exceptional flow</b>; nếu sai <b>3 lần liên tiếp</b>, hệ thống hủy giao dịch &amp; giữ thẻ. \"Khách hủy giao dịch → restart\" là regular variant; \"xóa PIN trước commit rồi nhập lại\" là odd case; kết thúc hợp lệ là basic flow."
+    },
+    {
+      type: "single",
+      q: "Trong Use-Case Specification, quan hệ <b>&laquo;include&raquo;</b> được đặc tả trong flow như thế nào?",
+      options: [
+        "<b>Gọi tường minh (call)</b> use case được include tại một bước (inclusion point) trong basic flow — vd \"Software calls the use case Pay receipt\"",
+        "Chèn (insert) hành vi vào extension point nếu điều kiện mở rộng đúng",
+        "Dùng placeholder trong use case cha",
+        "Không cần ghi gì, hệ thống tự hiểu"
+      ],
+      answer: [0],
+      explain: "&laquo;include&raquo; được đặc tả bằng <b>lời gọi tường minh (call)</b> use case được include tại một inclusion point trong basic flow của gốc. \"Chèn (insert) tại extension point nếu điều kiện đúng\" là cách đặc tả &laquo;extend&raquo;; \"placeholder\" là của generalization."
+    },
+    {
+      type: "single",
+      q: "Cách đặc tả <b>&laquo;extend&raquo;</b> trong flow of events là gì?",
+      options: [
+        "<b>Chèn (insert)</b> hành vi của use case mở rộng vào <b>extension point</b> nếu <b>điều kiện mở rộng</b> đúng, rồi resume ở bước tiếp theo",
+        "Gọi tường minh use case tại một bước cố định trong basic flow",
+        "Dùng placeholder trong use case cha để con thay thế",
+        "Ghi vào precondition của use case gốc"
+      ],
+      answer: [0],
+      explain: "&laquo;extend&raquo; được đặc tả bằng cách <b>chèn (insert)</b> hành vi vào <b>extension point</b> khi <b>điều kiện mở rộng</b> đúng, ví dụ: \"A1. In step 2, if customer chooses rush order, insert use case Place rush order, then resume at step 3\". Gọi tường minh là include; placeholder là generalization."
+    },
+    {
+      type: "single",
+      q: "Khi một hành vi <b>lặp lại phức tạp</b> xuất hiện trong use case, nên xử lý thế nào?",
+      options: [
+        "Bắt bằng một <b>subflow</b> (vd \"S1: Obtain Course Information\") và gọi từ basic flow",
+        "Sao chép nguyên đoạn mô tả ở mỗi chỗ lặp",
+        "Tách hẳn thành một actor mới",
+        "Bỏ qua vì use case không mô tả vòng lặp"
+      ],
+      answer: [0],
+      explain: "Hành vi lặp đơn giản viết thẳng trong basic flow; lặp <b>phức tạp</b> nên bắt bằng một <b>subflow</b> (vd \"S1: Obtain Course Information\") rồi gọi từ basic flow — tránh lặp mô tả. Không tạo actor mới và không bỏ qua."
+    },
+    {
+      type: "multi",
+      q: "Phát biểu nào <b>đúng</b> về Precondition và Postcondition?",
+      options: [
+        "Precondition = trạng thái phải có <b>TRƯỚC</b> khi use case bắt đầu",
+        "Postcondition = trạng thái hệ thống <b>khi use case kết thúc</b>",
+        "Cả hai phải dễ kiểm chứng và <b>không</b> tham chiếu use case khác cần chạy trước/sau",
+        "Cả hai là <b>bắt buộc</b>, mọi use case đều phải có",
+        "Precondition phải liệt kê các use case cần hoàn thành trước đó"
+      ],
+      answer: [0, 1, 2],
+      explain: "Precondition = trạng thái <b>trước</b> khi UC bắt đầu; Postcondition = trạng thái <b>khi UC kết thúc</b>; cả hai phải là phát biểu đơn giản, <b>dễ kiểm chứng</b>, <b>không</b> tham chiếu use case khác, và đều <b>tùy chọn (optional)</b> — không bắt buộc. Vì vậy hai phương án cuối sai."
+    },
+    {
+      type: "single",
+      q: "Các use case <b>không</b> tương tác trực tiếp với nhau. Vậy làm sao \"xâu chuỗi\" thứ tự thực hiện chúng?",
+      options: [
+        "Dùng việc <b>postcondition của UC này trùng precondition của UC khác</b> để nối thứ tự",
+        "Dùng quan hệ &laquo;include&raquo; để ép thứ tự chạy",
+        "Vẽ mũi tên thứ tự trực tiếp trên use-case diagram",
+        "Ghi số thứ tự 1, 2, 3 lên từng use case"
+      ],
+      answer: [0],
+      explain: "Use case không tương tác trực tiếp; nhưng <b>postcondition của UC này có thể trùng precondition của UC khác</b> → dùng để xâu chuỗi thứ tự một cách gián tiếp. Use-case diagram không thể hiện thứ tự bằng mũi tên hay số, và include là để tái sử dụng hành vi chứ không phải để sắp thứ tự."
+    },
+
+    /* ===== 6. Activity Diagram ===== */
+    {
+      type: "single",
+      q: "Activity Diagram trong Use-Case Model về bản chất là gì?",
+      options: [
+        "Một <b>lưu đồ (flow chart)</b> thể hiện dòng điều khiển giữa các activity/action trong một use case",
+        "Một sơ đồ lớp thể hiện quan hệ giữa các entity",
+        "Một sơ đồ triển khai phần cứng",
+        "Một bảng liệt kê actor và quyền"
+      ],
+      answer: [0],
+      explain: "Activity Diagram về bản chất là một <b>flow chart (lưu đồ)</b> thể hiện dòng điều khiển giữa các activity/action trong một use case — công cụ trực quan hóa hành vi, đặc biệt tốt để nhận diện luồng thay thế."
+    },
+    {
+      type: "single",
+      q: "Trong Activity Diagram, <b>Synchronization bar</b> dùng để làm gì?",
+      options: [
+        "<b>Fork</b> (tách luồng song song) và <b>Join</b> (gộp các luồng song song lại)",
+        "Rẽ nhánh theo điều kiện (decision) với guard condition",
+        "Đánh dấu điểm bắt đầu và kết thúc",
+        "Phân chia trách nhiệm giữa các tổ chức (swimlane)"
+      ],
+      answer: [0],
+      explain: "<b>Synchronization bar</b> biểu diễn <b>Fork</b> (tách luồng song song) / <b>Join</b> (gộp luồng). Rẽ nhánh theo điều kiện là <b>Decision + Guard condition</b>; điểm đầu/cuối là Initial &amp; Final node; phân chia trách nhiệm là Partition/swimlane."
+    },
+    {
+      type: "single",
+      q: "Trong Activity Diagram, một <b>Partition (swimlane)</b> biểu diễn điều gì?",
+      options: [
+        "Một <b>trách nhiệm</b> của một phần trong tổ chức (vd Sales / Fulfillment)",
+        "Một điều kiện bảo vệ (guard) trên một transition",
+        "Một điểm đồng bộ hóa các luồng song song",
+        "Một use case được include"
+      ],
+      answer: [0],
+      explain: "<b>Partition (swimlane)</b> biểu diễn một <b>trách nhiệm</b> của một phần trong tổ chức (vd Sales, Fulfillment), có thể được hiện thực bởi một đơn vị tổ chức hoặc một tập lớp. Guard, synchronization và include là các khái niệm khác."
+    },
+    {
+      type: "multi",
+      q: "Đâu là <b>ưu điểm</b> và đâu là <b>nhược điểm</b> của Activity Diagram? (Chọn các phát biểu ĐÚNG)",
+      options: [
+        "Ưu: công cụ tốt để nhận diện luồng thay thế, nhất là với người tư duy trực quan",
+        "Ưu: truyền đạt gọn luồng của use case",
+        "Nhược: tốn công giữ đồng bộ giữa sơ đồ &amp; use-case specification",
+        "Ưu: tự động sinh mã nguồn từ sơ đồ",
+        "Nhược: không thể hiện được rẽ nhánh điều kiện"
+      ],
+      answer: [0, 1, 2],
+      explain: "Ưu điểm: nhận diện luồng thay thế tốt (đặc biệt với người tư duy trực quan) và truyền đạt gọn luồng use case. Nhược điểm: <b>tốn công giữ đồng bộ</b> giữa sơ đồ và specification. Activity diagram không tự sinh mã, và nó <em>có</em> thể hiện rẽ nhánh (Decision/Guard) nên hai phương án cuối sai."
+    },
+
+    /* ===== 7. Glossary & Supplementary Specification ===== */
+    {
+      type: "single",
+      q: "Phát biểu nào đúng về <b>Glossary</b>?",
+      options: [
+        "Định nghĩa các thuật ngữ quan trọng dùng chung; <b>chỉ có MỘT Glossary</b> cho cả hệ thống",
+        "Mỗi use case có một Glossary riêng của nó",
+        "Chứa các yêu cầu phi chức năng theo FURPS",
+        "Là sơ đồ mô tả luồng điều khiển của hệ thống"
+      ],
+      answer: [0],
+      explain: "Glossary định nghĩa các <b>thuật ngữ quan trọng</b> dùng chung cho mọi mô hình, giúp domain expert &amp; developer giao tiếp nhất quán, và <b>chỉ có MỘT</b> Glossary cho cả hệ thống. Yêu cầu phi chức năng theo FURPS nằm ở Supplementary Specification."
+    },
+    {
+      type: "single",
+      q: "<b>Supplementary Specification</b> chứa loại yêu cầu nào, và theo mô hình gì?",
+      options: [
+        "Yêu cầu <b>phi chức năng</b> (không gắn với một use case cụ thể) — theo mô hình <b>FURPS</b>",
+        "Chỉ yêu cầu chức năng gắn với đúng một use case",
+        "Danh sách thuật ngữ và định nghĩa của hệ thống",
+        "Sơ đồ lớp và quan hệ giữa các entity"
+      ],
+      answer: [0],
+      explain: "Supplementary Specification chứa các yêu cầu <b>phi chức năng</b> (và cả chức năng) <b>không</b> gắn với một use case cụ thể, tổ chức theo mô hình <b>FURPS</b>. Danh sách thuật ngữ là Glossary; sơ đồ lớp là class diagram."
+    },
+    {
+      type: "single",
+      q: "Trong mô hình <b>FURPS</b>, các chữ cái lần lượt là gì?",
+      options: [
+        "Functionality, Usability, Reliability, Performance, Supportability",
+        "Functionality, Usability, Reusability, Portability, Scalability",
+        "Flexibility, Usability, Reliability, Portability, Security",
+        "Functionality, Understandability, Robustness, Performance, Security"
+      ],
+      answer: [0],
+      explain: "<b>FURPS</b> = <b>F</b>unctionality, <b>U</b>sability, <b>R</b>eliability, <b>P</b>erformance, <b>S</b>upportability — khung phân loại yêu cầu (đặc biệt phi chức năng). Các phương án khác trộn lẫn thuật ngữ chất lượng khác không đúng với FURPS."
+    },
+    {
+      type: "single",
+      q: "Yêu cầu \"MTBF\" (mean time between failures) hoặc \"số lỗi trên 1000 dòng code\" thuộc mục nào của FURPS?",
+      options: [
+        "Reliability (độ tin cậy)",
+        "Usability (khả dụng)",
+        "Performance (hiệu năng)",
+        "Supportability (khả năng hỗ trợ)"
+      ],
+      answer: [0],
+      explain: "MTBF và số lỗi/1000 dòng code là các chỉ số về <b>độ tin cậy</b> → thuộc <b>Reliability</b>. Usability là mức độ dễ dùng/đào tạo; Performance là thời gian phản hồi/hiệu năng; Supportability là khả năng hỗ trợ &amp; bảo trì."
+    },
+    {
+      type: "single",
+      q: "Yêu cầu \"thời gian phản hồi cụ thể của giao dịch, tham chiếu use case theo tên\" thuộc mục nào của FURPS?",
+      options: [
+        "Performance (hiệu năng)",
+        "Functionality (chức năng)",
+        "Reliability (độ tin cậy)",
+        "Usability (khả dụng)"
+      ],
+      answer: [0],
+      explain: "Đặc tính về thời gian phản hồi/hiệu năng, thường tham chiếu use case theo tên, thuộc mục <b>Performance</b>. Functionality là yêu cầu chức năng chung cho nhiều use case; Reliability là độ tin cậy; Usability là mức độ dễ dùng."
+    },
+
+    /* ===== 8. Checkpoints ===== */
+    {
+      type: "multi",
+      q: "Theo checkpoints tự rà soát, một Use-Case Model tốt cần thỏa những tiêu chí nào?",
+      options: [
+        "Mỗi actor liên quan tối thiểu một use case, và mỗi use case liên quan tối thiểu một actor",
+        "Tên actor &amp; use case trực giác, duy nhất, rõ ràng (cả user &amp; customer đều hiểu)",
+        "Đã phủ hết yêu cầu chức năng, không có hành vi thừa",
+        "Mọi use case phải được cài đặt bằng cùng một design pattern",
+        "Số lượng use case phải đúng bằng số actor"
+      ],
+      answer: [0, 1, 2],
+      explain: "Checkpoints yêu cầu: mỗi actor liên quan ≥1 use case và ngược lại; tên trực giác/duy nhất/rõ ràng để mọi bên hiểu; model đã phủ hết yêu cầu chức năng, không thừa hành vi, chia package hợp lý. Việc dùng chung design pattern hay cân bằng số actor = số use case không phải tiêu chí của use-case model."
+    }
+  ]
+};
+</script>
+<script src="../assets/app.js"></script>
+<script src="../assets/quiz.js"></script>
+</body>
+</html>

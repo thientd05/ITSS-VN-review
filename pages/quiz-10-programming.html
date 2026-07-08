@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Trắc nghiệm 10 · Lập trình hiệu quả — ITSS</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/quiz.css">
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a class="brand" href="../index.html"><span class="dot"></span> ITSS SW Dev <small>· Trắc nghiệm</small></a>
+  <div class="top-spacer"></div>
+  <a class="top-link" href="10-programming.html">← Lý thuyết</a>
+  <a class="top-link" href="../index.html">Trang chủ</a>
+  <button id="themeBtn" class="icon-btn" onclick="toggleTheme()">☾</button>
+</div></div>
+
+<div class="quiz-layout">
+  <main class="quiz-main">
+    <div class="crumb"><a href="10-programming.html">← Quay lại lý thuyết: Lập trình hiệu quả</a></div>
+    <h1 class="page-title">Trắc nghiệm · Chủ đề 10</h1>
+    <p class="page-lead">Lập trình hiệu quả: coding style, code tuning (myths, khi nào tune, techniques), refactoring (định nghĩa, KISS/DRY/boy-scout, process), code smells (6 nhóm), refactoring theo cấp độ, debugging (defense-in-depth, fail-fast, scientific method, binary search, Heisenbugs, Checkstyle/FindBugs). Nộp từng câu để xem đáp án &amp; giải thích. Kết quả được lưu tự động.</p>
+    <div id="quizRoot"></div>
+  </main>
+
+  <aside class="qnav-wrap">
+    <h4>Bảng câu hỏi</h4>
+    <div class="qnav-stat" id="qnavStat"></div>
+    <div class="qnav-grid" id="qnavGrid"></div>
+    <div class="qnav-legend">
+      <span><i class="ok"></i> Đúng</span>
+      <span><i class="no"></i> Sai</span>
+      <span><i class="an"></i> Đang chọn</span>
+    </div>
+    <button class="btn-resetall" id="btnResetAll">↺ Làm lại toàn bộ</button>
+  </aside>
+</div>
+
+<script>
+window.QUIZ = {
+  id: "10-programming",
+  title: "Lập trình hiệu quả",
+  back: "10-programming.html",
+  questions: [
+    /* ===== 1. Correct code ===== */
+    {
+      type: "single",
+      q: "Phân biệt <b>Test</b> và <b>Debug</b> đúng là gì?",
+      options: [
+        "Test: <b>tiết lộ sự tồn tại</b> của vấn đề (+tăng độ tin cậy); Debug: <b>xác định vị trí + nguyên nhân</b>",
+        "Test: xác định nguyên nhân; Debug: tiết lộ sự tồn tại vấn đề",
+        "Cả hai giống nhau",
+        "Test: sửa lỗi; Debug: viết tài liệu"
+      ],
+      answer: [0],
+      explain: "<b>Test</b> tiết lộ <em>sự tồn tại</em> của vấn đề (và tăng độ tin cậy); <b>Debug</b> tìm ra <em>vì sao</em> — xác định <b>vị trí + nguyên nhân</b>. Chúng khác nhau về mục tiêu."
+    },
+    {
+      type: "single",
+      q: "Câu nói của Martin Fowler nhấn mạnh điều gì về code tốt?",
+      options: [
+        "\"Good programmers write code that <b>humans</b> can understand\" — code dễ hiểu cho con người",
+        "Code chạy nhanh nhất là code tốt nhất",
+        "Code ngắn nhất là code tốt nhất",
+        "Chỉ máy tính cần hiểu được code"
+      ],
+      answer: [0],
+      explain: "Martin Fowler: \"Any fool can write code that a computer can understand. <b>Good programmers write code that humans can understand</b>\" — ưu tiên tính dễ đọc cho con người, không phải ngắn/nhanh."
+    },
+
+    /* ===== 2. Programming style ===== */
+    {
+      type: "multi",
+      q: "Đâu là các nguyên tắc <b>Programming Style</b> (coding convention)?",
+      options: [
+        "Dùng <b>hằng số</b> cho mọi giá trị hằng; khai báo hằng trước biến ở đầu thủ tục",
+        "Đặt tên biến <b>mô tả</b>; comment chỗ mơ hồ nhưng không lạm dụng",
+        "Dùng ngoặc cho biểu thức toán học dù không bắt buộc để rõ ý",
+        "Kèm <b>header</b> đầu file (tác giả, ngày, project, mô tả)",
+        "Dùng magic number trực tiếp thay vì hằng số cho gọn"
+      ],
+      answer: [0, 1, 2, 3],
+      explain: "Coding convention: dùng <b>hằng số</b> (khai báo đầu thủ tục), tên biến <b>mô tả</b>, comment vừa phải, dùng ngoặc cho rõ ý, kèm <b>header</b> đầu file. Dùng magic number trực tiếp là phản mẫu (nên thay bằng constant)."
+    },
+    {
+      type: "single",
+      q: "Công cụ nào giúp tuân thủ coding standard (Java Coding Conventions)?",
+      options: [
+        "Checkstyle",
+        "FindBugs",
+        "JUnit",
+        "Astah"
+      ],
+      answer: [0],
+      explain: "<b>Checkstyle</b> giúp tuân thủ coding standard/convention. FindBugs làm static analysis tìm bug; JUnit là test; Astah là công cụ vẽ UML."
+    },
+
+    /* ===== 3. Code tuning ===== */
+    {
+      type: "single",
+      q: "Quy tắc <b>80/20</b> trong code tuning nói gì?",
+      options: [
+        "<b>20% method</b> tiêu tốn <b>80% thời gian chạy</b>",
+        "80% method tiêu tốn 20% thời gian chạy",
+        "80% code phải được tối ưu ngay khi viết",
+        "20% bug gây 80% crash"
+      ],
+      answer: [0],
+      explain: "Quy tắc 80/20: <b>20% method tiêu tốn 80% thời gian chạy</b>. Vì vậy nên đo để tìm đúng 20% \"nóng\" đó rồi mới tune, thay vì tối ưu bừa khắp nơi."
+    },
+    {
+      type: "multi",
+      q: "Đâu là các <b>myth (điều SAI)</b> về code tuning?",
+      options: [
+        "\"Giảm số dòng code high-level thì code máy nhanh/nhỏ hơn\"",
+        "\"Chương trình nhanh cũng quan trọng như chương trình đúng\"",
+        "\"Một số phép toán chắc chắn nhanh hơn cái khác\" (không cần đo)",
+        "\"Nên tối ưu ngay khi viết (as you go)\"",
+        "\"Nên đo (measure) trước khi tối ưu\""
+      ],
+      answer: [0, 1, 2, 3],
+      explain: "Bốn myth đều SAI: ít dòng ≠ code máy nhanh hơn; \"nhanh\" KHÔNG quan trọng bằng \"đúng\"; không phép toán nào chắc chắn nhanh hơn (phải <b>luôn đo</b>); tối ưu \"as you go\" là sai. Riêng \"nên đo trước khi tối ưu\" là <b>đúng</b> — không phải myth."
+    },
+    {
+      type: "single",
+      q: "Thứ tự ưu tiên đúng khi cân nhắc tối ưu là gì?",
+      options: [
+        "(1) Make it right → (2) modular &amp; dễ sửa → (3) khi hoàn chỉnh &amp; đúng mới kiểm performance",
+        "(1) Tối ưu performance → (2) làm cho đúng → (3) modular hóa",
+        "(1) Đo performance → (2) tối ưu → (3) mới làm cho đúng",
+        "(1) Viết nhanh nhất có thể → (2) bỏ qua tính đúng"
+      ],
+      answer: [0],
+      explain: "Nguyên tắc: <b>(1) Make it right</b> trước → (2) code modular &amp; dễ sửa → (3) chỉ khi hoàn chỉnh &amp; đúng mới kiểm performance. \"Đúng\" luôn ưu tiên trước \"nhanh\"."
+    },
+    {
+      type: "single",
+      q: "Trong optimize theo vòng lặp, nếu một lần tối ưu KHÔNG cải thiện performance thì làm gì?",
+      options: [
+        "<b>Revert</b> (hoàn tác) thay đổi đó",
+        "Giữ lại vì có thể hữu ích sau này",
+        "Tối ưu thêm nữa cho tới khi cải thiện",
+        "Bỏ đo và chuyển sang module khác"
+      ],
+      answer: [0],
+      explain: "Measurement cần chính xác &amp; lặp lại được. Optimize theo vòng lặp: đo cải thiện sau mỗi lần tối ưu; nếu <b>không cải thiện → revert</b> (hoàn tác) để giữ code sạch."
+    },
+    {
+      type: "multi",
+      q: "Đâu là các <b>kỹ thuật tuning</b> hợp lệ?",
+      options: [
+        "Dừng test khi đã biết câu trả lời (short-circuit)",
+        "Unswitching loops (đưa <code>if</code> ra ngoài vòng lặp)",
+        "Lazy evaluation (tính khi cần) &amp; giữ tham chiếu bộ nhớ tuần tự",
+        "Sắp test theo tần suất (order tests by frequency)",
+        "Thêm nhiều vòng lặp lồng nhau để chia nhỏ công việc"
+      ],
+      answer: [0, 1, 2, 3],
+      explain: "Kỹ thuật tuning: short-circuit, sắp test theo tần suất, unswitching loops, giảm việc trong vòng lặp (cache), khởi tạo compile-time, lazy evaluation, tham chiếu bộ nhớ tuần tự. Thêm vòng lặp lồng nhau thường làm chậm, không phải kỹ thuật tuning."
+    },
+
+    /* ===== 4. Refactoring ===== */
+    {
+      type: "single",
+      q: "Định nghĩa <b>Refactoring</b> (Martin Fowler) là gì?",
+      options: [
+        "Cải thiện thiết kế &amp; chất lượng mã nguồn hiện có <b>mà không thay đổi hành vi bên ngoài</b>",
+        "Thêm chức năng mới vào hệ thống",
+        "Tối ưu performance bằng cách sửa thuật toán",
+        "Viết lại toàn bộ hệ thống từ đầu"
+      ],
+      answer: [0],
+      explain: "Refactoring = cải thiện thiết kế &amp; chất lượng mã nguồn hiện có <b>mà không thay đổi hành vi bên ngoài</b> — quy trình từng bước biến bad code thành good code dựa trên refactoring patterns. Nó KHÔNG thêm chức năng hay đổi hành vi."
+    },
+    {
+      type: "single",
+      q: "Điều gì <b>bảo đảm</b> refactoring không làm đổi hành vi?",
+      options: [
+        "<b>Unit test</b> — nếu chưa có test thì viết test trước khi refactor",
+        "Comment đầy đủ trong code",
+        "Backup code cũ vào Git",
+        "Chạy static analysis một lần"
+      ],
+      answer: [0],
+      explain: "<b>Unit test</b> bảo đảm refactoring không đổi hành vi bên ngoài; nếu chưa có test thì <b>viết test trước</b>. Backup/comment/static analysis hữu ích nhưng không kiểm chứng hành vi như test."
+    },
+    {
+      type: "multi",
+      q: "Đâu là các <b>Main Principle</b> của refactoring?",
+      options: [
+        "KISS (keep it simple)",
+        "DRY (avoid duplication)",
+        "Boy scout rule (để code sạch hơn lúc bạn tới)",
+        "Self-documenting &amp; giảm tổng lượng code",
+        "WET (write everything twice) — lặp lại cho chắc"
+      ],
+      answer: [0, 1, 2, 3],
+      explain: "Main Principles: <b>KISS</b>, <b>DRY</b>, self-documenting, giảm tổng lượng code, decoupling, mức trừu tượng phù hợp, <b>Boy scout rule</b>. \"WET / write everything twice\" trái ngược DRY — là phản mẫu."
+    },
+    {
+      type: "single",
+      q: "Trong Typical Process của refactoring, nên refactor với nhịp độ nào?",
+      options: [
+        "Refactor <b>từng cái một</b>, giữ nhỏ; chạy test sau mỗi bước, pass thì tiếp / không thì revert",
+        "Refactor thật nhiều thứ cùng lúc rồi test một lần cuối",
+        "Refactor xong toàn bộ rồi mới viết test",
+        "Không cần test, chỉ cần đọc lại code"
+      ],
+      answer: [0],
+      explain: "Typical Process: backup → chuẩn bị test → refactor <b>từng cái một</b>, giữ nhỏ → chạy test (pass thì tiếp, fail thì revert) → check-in. Refactor nhiều thứ cùng lúc làm khó định vị khi test fail."
+    },
+
+    /* ===== 5. Code smells ===== */
+    {
+      type: "single",
+      q: "<b>Code smell</b> là gì?",
+      options: [
+        "Các cấu trúc trong code <b>gợi ý</b> khả năng cần refactoring",
+        "Lỗi biên dịch trong code",
+        "Lỗi runtime gây crash",
+        "Chuẩn đặt tên biến"
+      ],
+      answer: [0],
+      explain: "<b>Code smell</b> là các cấu trúc trong code <b>gợi ý</b> (không chắc chắn) khả năng cần refactoring — không phải lỗi biên dịch hay runtime."
+    },
+    {
+      type: "single",
+      q: "\"Long method\", \"Large class\", \"Long parameter list\", \"Primitive obsession\" thuộc nhóm smell nào?",
+      options: [
+        "Bloaters (phình to)",
+        "Couplers",
+        "Dispensables",
+        "OO Abusers"
+      ],
+      answer: [0],
+      explain: "Đây là các smell nhóm <b>Bloaters</b> (phình to): Long method, Large class, Primitive obsession, Long parameter list, Data clumps, Combinatorial explosion..."
+    },
+    {
+      type: "single",
+      q: "\"Switch statement\" (nên thay bằng polymorphism) và \"Temporary field\" thuộc nhóm smell nào?",
+      options: [
+        "OO Abusers",
+        "Bloaters",
+        "Change Preventers",
+        "Obfuscators"
+      ],
+      answer: [0],
+      explain: "<b>OO Abusers</b>: Switch statement (→ polymorphism), Temporary field, Class depends on subclass (phá Liskov), Inappropriate static field — lạm dụng/dùng sai tính năng OO."
+    },
+    {
+      type: "single",
+      q: "\"Duplicated code\" (phá DRY), \"Dead code\", \"Lazy class\", \"Speculative generality\" thuộc nhóm nào?",
+      options: [
+        "Dispensables (thừa)",
+        "Couplers",
+        "Bloaters",
+        "Change Preventers"
+      ],
+      answer: [0],
+      explain: "<b>Dispensables</b> (thừa): Lazy class, Data class, Duplicated code (phá DRY), Dead code, Speculative generality (YAGNI) — những thứ có thể loại bỏ."
+    },
+    {
+      type: "single",
+      q: "\"Divergent change\" (phá SRP) và \"Shotgun surgery\" thuộc nhóm smell nào?",
+      options: [
+        "Change Preventers",
+        "Couplers",
+        "Dispensables",
+        "Obfuscators"
+      ],
+      answer: [0],
+      explain: "<b>Change Preventers</b>: Divergent change (phá SRP), Shotgun surgery, Conditional complexity (deep nesting), Poorly written tests — làm cho việc thay đổi trở nên khó khăn."
+    },
+    {
+      type: "single",
+      q: "\"Feature envy\", \"Message chains\", \"Middle man\", \"Law of Demeter violation\" thuộc nhóm nào?",
+      options: [
+        "Couplers",
+        "Bloaters",
+        "OO Abusers",
+        "Dispensables"
+      ],
+      answer: [0],
+      explain: "<b>Couplers</b>: Feature envy, Inappropriate intimacy, Law of Demeter, Message chains, Middle man, Tramp data... — các smell gây coupling quá mức giữa các lớp."
+    },
+    {
+      type: "single",
+      q: "Comment tốt (theo nhóm Obfuscators) nên nói gì?",
+      options: [
+        "Nói <b>WHY</b> (vì sao) chứ không phải WHAT/HOW",
+        "Nói WHAT (làm gì) từng dòng một",
+        "Nói HOW (cách làm) chi tiết mọi bước",
+        "Không cần comment gì cả"
+      ],
+      answer: [0],
+      explain: "Trong nhóm <b>Obfuscators</b>, Comments là smell khi lạm dụng: comment tốt nên nói <b>WHY</b> (lý do), còn WHAT/HOW nên để code tự diễn đạt (self-documenting)."
+    },
+    {
+      type: "single",
+      q: "\"Replace magic number bằng constant\", \"rename biến\", \"convert type codes → enum\" là refactoring ở cấp độ nào?",
+      options: [
+        "Data-level",
+        "Method-level",
+        "Class-level",
+        "System-level"
+      ],
+      answer: [0],
+      explain: "Đây là refactoring <b>Data-level</b>: replace magic number bằng constant, rename biến, convert set of type codes → enum. Extract/inline method là method-level; pull up/push down là class-level."
+    },
+    {
+      type: "single",
+      q: "\"Replace error codes bằng exception\", \"dependency injection\", \"apply architecture patterns\" là refactoring cấp nào?",
+      options: [
+        "System-level",
+        "Data-level",
+        "Statement-level",
+        "Method-level"
+      ],
+      answer: [0],
+      explain: "Đây là refactoring <b>System-level</b>: replace error codes bằng exception, dependency injection, apply architecture patterns — ảnh hưởng toàn hệ thống."
+    },
+
+    /* ===== 6. Debugging ===== */
+    {
+      type: "single",
+      q: "Tầng 1 của <b>Defense in depth</b> — \"Make errors impossible\" — nghĩa là gì?",
+      options: [
+        "Làm lỗi <b>không thể xảy ra by design</b> (ngôn ngữ/protocol/quy ước, vd Java chặn memory overwrite, BigInteger không tràn)",
+        "Sửa mọi lỗi sau khi đã xảy ra",
+        "Che giấu lỗi để chương trình không fail",
+        "Chỉ dùng assertion để bắt lỗi"
+      ],
+      answer: [0],
+      explain: "Tầng 1 \"Make errors impossible\": làm lỗi <b>không thể xảy ra by design</b> — nhờ ngôn ngữ (Java chặn memory overwrite, BigInteger không tràn), protocol/library (TCP/IP), hoặc quy ước tự đặt (immutable, cấm đệ quy)."
+    },
+    {
+      type: "single",
+      q: "Tầng 3 \"Make errors immediately visible\" gắn với nguyên tắc nào?",
+      options: [
+        "<b>Fail-fast</b>: assertions bắt lỗi sớm, unit test cô lập module, regression test",
+        "Robust giả tạo: không bao giờ để chương trình fail",
+        "Optimize as you go",
+        "Big-bang integration"
+      ],
+      answer: [0],
+      explain: "Tầng 3 dùng <b>Fail-fast</b>: assertion bắt lỗi sớm, unit test cô lập module, regression test. Khi lỗi được khoanh vào một method nhỏ thì đọc code là tìm ra. Đây là ngược với \"robust giả tạo\"."
+    },
+    {
+      type: "single",
+      q: "Triết lý <b>Fail-fast</b> khuyên gì?",
+      options: [
+        "Đừng che giấu lỗi bằng cách không fail; biến lỗi thành failure ngay để phát hiện sớm (dễ sửa)",
+        "Bắt mọi exception và tiếp tục chạy im lặng",
+        "Trì hoãn phát hiện lỗi tới production",
+        "Không dùng assertion vì làm chậm code"
+      ],
+      answer: [0],
+      explain: "<b>Fail-fast</b>: đừng làm code \"robust\" giả tạo bằng cách không fail — assertion giúp kiểm invariant &amp; biến lỗi thành failure <b>ngay</b>. Lỗi phát hiện càng sớm càng dễ sửa (giảm khoảng cách defect ↔ detection). Ariane 5 crash vì exception overflow không xử lý."
+    },
+    {
+      type: "single",
+      q: "Thứ tự đúng của quy trình <b>Debugging 4 bước</b> là gì?",
+      options: [
+        "Clarify symptom → Find &amp; understand cause → Fix → Re-run all tests",
+        "Fix → Clarify symptom → Re-run tests → Find cause",
+        "Find cause → Fix → Clarify symptom → Re-run tests",
+        "Re-run tests → Fix → Find cause → Clarify symptom"
+      ],
+      answer: [0],
+      explain: "4 bước: (1) <b>Clarify symptom</b> (tái hiện failure, đơn giản hóa input) → (2) <b>Find &amp; understand cause</b> (study → hypothesize → experiment) → (3) <b>Fix</b> → (4) <b>Re-run all tests</b> (thêm vào regression suite). Không sang bước sau khi chưa hiểu nguyên nhân."
+    },
+    {
+      type: "multi",
+      q: "Đâu là các kỹ thuật debug theo <b>scientific method</b>?",
+      options: [
+        "Formulate hypothesis → design experiment → perform → adjust",
+        "<b>Binary search</b> trên code lỗi (kiểm kết quả trung gian ở nửa đường)",
+        "Reducing input size (divide-and-conquer)",
+        "Đoán bừa và sửa nhiều chỗ cùng lúc cho nhanh",
+        "Localizing: bỏ dần/thêm dần từng phần tới khi failure đổi trạng thái"
+      ],
+      answer: [0, 1, 2, 4],
+      explain: "Debug khoa học: formulate hypothesis → experiment → adjust; <b>binary search</b> (về defect trong O(log n)); <b>reducing input size</b>; <b>localizing</b> (bỏ/thêm dần từng phần). Đoán bừa &amp; sửa nhiều chỗ cùng lúc là phản mẫu (khó biết cái gì sửa được lỗi)."
+    },
+    {
+      type: "single",
+      q: "<b>Heisenbug</b> là loại bug thế nào?",
+      options: [
+        "Failure ngẫu nhiên, khó tái hiện (do input liên tục/timing/concurrency); dùng debugger/assertion thì bug \"biến mất\"",
+        "Bug luôn tái hiện được ở mọi lần chạy",
+        "Bug chỉ xuất hiện khi biên dịch",
+        "Bug do sai chính tả tên biến"
+      ],
+      answer: [0],
+      explain: "<b>Heisenbug</b>: chương trình tuần tự deterministic thì failure lặp lại được, nhưng khi có input liên tục/timing/concurrency → failure <b>ngẫu nhiên, khó tái hiện</b>; dùng debugger/assertion thì bug biến mất. Mẹo: rebuild, giải thích cho bạn bè, minimize input, dùng Logging Events (circular buffer)."
+    },
+    {
+      type: "single",
+      q: "Công cụ <b>FindBugs</b> (Eclipse plug-in) làm gì?",
+      options: [
+        "Static analysis tìm bug &amp; performance issue (&gt;200 rule: Correctness, Bad practice, Performance, Dodgy), input là file .class",
+        "Kiểm tra tuân thủ coding standard",
+        "Chạy unit test và báo cáo Failure/Error",
+        "Vẽ sơ đồ UML từ mã nguồn"
+      ],
+      answer: [0],
+      explain: "<b>FindBugs</b> làm <b>static analysis</b> tìm bug &amp; performance issue (&gt;200 rule: Correctness, Bad practice, Performance, Dodgy), input là file <code>.class</code>, dùng \"bug patterns\". Checkstyle mới lo coding standard; JUnit lo test."
+    }
+  ]
+};
+</script>
+<script src="../assets/app.js"></script>
+<script src="../assets/quiz.js"></script>
+</body>
+</html>

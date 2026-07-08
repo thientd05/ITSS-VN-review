@@ -1,0 +1,103 @@
+/* ===== ITSS Ôn tập — quiz engine styles ===== */
+
+/* CTA nút mở trang trắc nghiệm ở đầu trang lý thuyết */
+.quiz-cta{display:inline-flex;align-items:center;gap:.55rem;margin:.2rem 0 1.4rem;
+  background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#fff;font-weight:700;
+  border:none;border-radius:12px;padding:.7rem 1.15rem;box-shadow:var(--shadow);font-size:.98rem}
+.quiz-cta:hover{text-decoration:none;transform:translateY(-2px);transition:.15s;filter:brightness(1.05)}
+.quiz-cta .ic{font-size:1.15rem;line-height:1}
+.quiz-cta small{font-weight:600;opacity:.85;font-size:.8rem}
+
+/* ---- layout trang trắc nghiệm: nội dung trái + navigator phải ---- */
+.quiz-layout{max-width:1180px;margin:0 auto;padding:0 1.1rem;display:grid;
+  grid-template-columns:minmax(0,1fr) 250px;gap:2.2rem;align-items:start}
+.quiz-main{min-width:0;padding:1.2rem 0 4rem}
+
+.qnav-wrap{position:sticky;top:64px;align-self:start;padding:1.4rem 0 2rem;
+  max-height:calc(100vh - 76px);overflow:auto}
+.qnav-wrap h4{margin:.1rem 0 .3rem;text-transform:uppercase;letter-spacing:.08em;
+  font-size:.72rem;color:var(--ink-soft)}
+.qnav-stat{font-size:.82rem;color:var(--ink-soft);margin:0 0 .7rem}
+.qnav-stat b{color:var(--ink)}
+.qnav-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:.38rem;margin-bottom:1rem}
+.qnav-cell{aspect-ratio:1;display:grid;place-items:center;cursor:pointer;font-size:.86rem;
+  font-weight:700;border:1px solid var(--line-strong);border-radius:8px;background:var(--bg-card);
+  color:var(--ink-soft);user-select:none}
+.qnav-cell:hover{border-color:var(--primary)}
+.qnav-cell.answered{border-color:var(--accent-2);color:var(--accent-2)} /* đã chọn, chưa nộp */
+.qnav-cell.correct{background:var(--ok);border-color:var(--ok);color:#fff}
+.qnav-cell.wrong{background:var(--danger);border-color:var(--danger);color:#fff}
+.qnav-cell.current{outline:2px solid var(--primary);outline-offset:1px}
+.qnav-legend{font-size:.76rem;color:var(--ink-soft);line-height:1.9}
+.qnav-legend span{display:inline-flex;align-items:center;gap:.35rem;margin-right:.2rem}
+.qnav-legend i{width:12px;height:12px;border-radius:3px;display:inline-block;border:1px solid var(--line-strong)}
+.qnav-legend i.ok{background:var(--ok);border-color:var(--ok)}
+.qnav-legend i.no{background:var(--danger);border-color:var(--danger)}
+.qnav-legend i.an{background:var(--bg-card);border-color:var(--accent-2)}
+
+.btn-resetall{width:100%;margin-top:1rem;cursor:pointer;border:1px solid var(--line-strong);
+  background:var(--bg-card);color:var(--danger);font-weight:700;border-radius:10px;padding:.55rem;font-size:.88rem}
+.btn-resetall:hover{border-color:var(--danger);background:color-mix(in srgb,var(--danger) 8%,var(--bg-card))}
+
+@media(max-width:900px){
+  .quiz-layout{grid-template-columns:1fr}
+  .qnav-wrap{position:static;max-height:none;order:-1;border:1px solid var(--line-strong);
+    border-radius:12px;padding:1rem;background:var(--bg-card);margin-bottom:1rem}
+  .qnav-grid{grid-template-columns:repeat(8,1fr)}
+}
+
+/* ---- thẻ câu hỏi ---- */
+.qcard{background:var(--bg-card);border:1px solid var(--line-strong);border-radius:14px;
+  padding:1.1rem 1.2rem;margin:1.1rem 0;box-shadow:var(--shadow);scroll-margin-top:76px}
+.qcard.done-ok{border-left:5px solid var(--ok)}
+.qcard.done-no{border-left:5px solid var(--danger)}
+.q-head{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:.5rem}
+.q-num{font-size:.82rem;font-weight:800;color:#fff;background:var(--primary);border-radius:7px;
+  padding:.12rem .5rem;flex:none}
+.q-badge{font-size:.72rem;font-weight:700;padding:.12rem .5rem;border-radius:999px;
+  border:1px solid var(--line-strong);color:var(--ink-soft)}
+.q-badge.single{background:color-mix(in srgb,var(--accent-2) 12%,transparent);
+  color:var(--accent-2);border-color:transparent}
+.q-badge.multi{background:color-mix(in srgb,var(--violet) 14%,transparent);
+  color:var(--violet);border-color:transparent}
+.q-text{font-weight:600;margin:.2rem 0 .7rem;line-height:1.6}
+.q-text code{white-space:normal}
+
+/* ---- các lựa chọn ---- */
+.opts{display:flex;flex-direction:column;gap:.4rem;margin:.2rem 0 .3rem}
+.opt{display:flex;align-items:flex-start;gap:.6rem;padding:.55rem .7rem;border:1px solid var(--line-strong);
+  border-radius:10px;cursor:pointer;background:var(--bg);line-height:1.5}
+.opt:hover{border-color:var(--primary)}
+.opt input{margin-top:.28rem;flex:none;width:16px;height:16px;accent-color:var(--primary);cursor:pointer}
+.opt .otext{flex:1}
+.opt .omark{flex:none;font-weight:800;font-size:.95rem;opacity:0;transition:.1s}
+/* trạng thái sau khi nộp */
+.qcard.submitted .opt{cursor:default}
+.qcard.submitted .opt input{pointer-events:none}
+.opt.pick-correct{background:color-mix(in srgb,var(--ok) 15%,var(--bg-card));border-color:var(--ok)}
+.opt.pick-correct .omark{opacity:1;color:var(--ok)}
+.opt.pick-wrong{background:color-mix(in srgb,var(--danger) 14%,var(--bg-card));border-color:var(--danger)}
+.opt.pick-wrong .omark{opacity:1;color:var(--danger)}
+.opt.missed{border-color:var(--ok);border-style:dashed;background:color-mix(in srgb,var(--ok) 6%,var(--bg-card))}
+.opt.missed .omark{opacity:1;color:var(--ok)}
+
+/* ---- hàng nút ---- */
+.q-actions{display:flex;align-items:center;gap:.6rem;margin-top:.7rem;flex-wrap:wrap}
+.btn-submit{cursor:pointer;border:none;border-radius:9px;padding:.5rem 1.1rem;font-weight:700;font-size:.9rem;
+  background:var(--primary);color:#fff}
+.btn-submit:hover{filter:brightness(1.07)}
+.btn-submit:disabled{opacity:.45;cursor:not-allowed;filter:none}
+.btn-redo{cursor:pointer;border:1px solid var(--line-strong);background:var(--bg-card);color:var(--ink-soft);
+  border-radius:9px;padding:.5rem .9rem;font-weight:600;font-size:.88rem}
+.btn-redo:hover{border-color:var(--primary);color:var(--ink)}
+.q-verdict{font-weight:700;font-size:.9rem;margin-left:auto}
+.q-verdict.ok{color:var(--ok)}
+.q-verdict.no{color:var(--danger)}
+
+/* ---- giải thích ---- */
+.q-explain{margin-top:.75rem;border-left:4px solid var(--accent-2);border-radius:8px;
+  background:color-mix(in srgb,var(--accent-2) 6%,var(--bg-card));padding:.7rem .9rem;font-size:.93rem;line-height:1.6}
+.q-explain .tt{display:block;font-size:.74rem;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--accent-2);font-weight:700;margin-bottom:.2rem}
+.q-explain[hidden]{display:none}
+.q-explain code{white-space:normal}

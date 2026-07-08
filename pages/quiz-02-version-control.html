@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Trắc nghiệm 2 · Version Control &amp; Git — ITSS</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/quiz.css">
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a class="brand" href="../index.html"><span class="dot"></span> ITSS SW Dev <small>· Trắc nghiệm</small></a>
+  <div class="top-spacer"></div>
+  <a class="top-link" href="02-version-control.html">← Lý thuyết</a>
+  <a class="top-link" href="../index.html">Trang chủ</a>
+  <button id="themeBtn" class="icon-btn" onclick="toggleTheme()">☾</button>
+</div></div>
+
+<div class="quiz-layout">
+  <main class="quiz-main">
+    <div class="crumb"><a href="02-version-control.html">← Quay lại lý thuyết: Version Control &amp; Git</a></div>
+    <h1 class="page-title">Trắc nghiệm · Chủ đề 2</h1>
+    <p class="page-lead">Quản lý phiên bản &amp; Git: lý do dùng VCS, ba mô hình quản lý, tập trung vs phân tán, từ vựng chuẩn và lệnh Git cơ bản. Nộp từng câu để xem đáp án &amp; giải thích. Kết quả được lưu tự động — rời trang rồi quay lại vẫn còn.</p>
+    <div id="quizRoot"></div>
+  </main>
+
+  <aside class="qnav-wrap">
+    <h4>Bảng câu hỏi</h4>
+    <div class="qnav-stat" id="qnavStat"></div>
+    <div class="qnav-grid" id="qnavGrid"></div>
+    <div class="qnav-legend">
+      <span><i class="ok"></i> Đúng</span>
+      <span><i class="no"></i> Sai</span>
+      <span><i class="an"></i> Đang chọn</span>
+    </div>
+    <button class="btn-resetall" id="btnResetAll">↺ Làm lại toàn bộ</button>
+  </aside>
+</div>
+
+<script>
+window.QUIZ = {
+  id: "02-version-control",
+  title: "Version Control & Git",
+  back: "02-version-control.html",
+  questions: [
+    {
+      type: "multi",
+      q: "Theo bài giảng, một hệ <b>Version Control System (VCS)</b> giúp làm được những việc nào sau đây?",
+      options: [
+        "Giữ nhiều phiên bản (cũ &amp; mới) của mọi thứ, không chỉ mã nguồn",
+        "Yêu cầu comment (ghi chú) cho mỗi thay đổi",
+        "Cho check-in / check-out để biết ai đang làm file nào",
+        "Hiển thị khác biệt (diff) giữa các phiên bản",
+        "Tự động sinh mã nguồn từ đặc tả yêu cầu"
+      ],
+      answer: [0, 1, 2, 3],
+      explain: "VCS: lưu <b>nhiều phiên bản</b> của mọi tài liệu (không chỉ code), bắt buộc <b>comment</b> mỗi thay đổi, hỗ trợ <b>check-in/check-out</b> để biết ai đang sửa file nào, và cho xem <b>khác biệt</b> giữa các phiên bản. Việc sinh mã từ đặc tả yêu cầu là chức năng của công cụ CASE/generator, không thuộc VCS."
+    },
+    {
+      type: "single",
+      q: "Công cụ như <code>diff</code>, <code>rcsdiff</code>, <code>jDiff</code> phù hợp nhất cho việc nào?",
+      options: [
+        "Tìm số ít khác biệt trong một vài file",
+        "Quản lý toàn bộ lịch sử phiên bản của cả dự án lớn",
+        "Khóa file để chỉ một người sửa tại một thời điểm",
+        "Đồng bộ repo giữa nhiều máy phân tán"
+      ],
+      answer: [0],
+      explain: "Các công cụ diff chỉ giúp tìm <b>số ít</b> khác biệt trong <b>ít</b> file — chúng là công cụ so sánh, <b>không phải</b> giải pháp quản lý phiên bản hoàn chỉnh. jDiff (plugin của jEdit) tô màu, cuộn đồng bộ, sửa trực tiếp nhưng vẫn chỉ là công cụ diff."
+    },
+    {
+      type: "single",
+      q: "Trong mô hình <b>Lock-Modify-Unlock</b>, điều gì xảy ra khi một người đang giữ khóa (lock) một file?",
+      options: [
+        "Người khác phải chờ, không được sửa file đó cho tới khi khóa được mở",
+        "Người khác vẫn sửa được và merge sau khi commit",
+        "Mỗi người có một bản sao local đầy đủ của repo",
+        "Hệ thống tự động trộn các thay đổi trùng nhau"
+      ],
+      answer: [0],
+      explain: "Lock-Modify-Unlock cho phép <b>chỉ một người</b> sửa file tại một thời điểm: check-out kèm <b>khóa</b> → sửa → commit &amp; mở khóa. Người khác phải <b>chờ</b>. Việc sửa song song rồi merge là đặc trưng của Copy-Modify-Merge; bản sao local đầy đủ là đặc trưng của mô hình phân tán."
+    },
+    {
+      type: "single",
+      q: "Nhược điểm chính của mô hình <b>Lock-Modify-Unlock</b> là gì?",
+      options: [
+        "Tuần tự hóa công việc — người khác phải đợi dù họ sửa vùng khác của file",
+        "Thường xuyên sinh conflict khó giải quyết",
+        "Không giữ được lịch sử thay đổi",
+        "Không hoạt động được khi offline"
+      ],
+      answer: [0],
+      explain: "Khóa buộc công việc phải <b>tuần tự</b>: ngay cả khi hai người sửa các vùng hoàn toàn khác nhau của cùng file, người sau vẫn phải đợi → chậm, dễ tắc nghẽn. Ngược lại, chính Copy-Modify-Merge mới là mô hình dễ sinh conflict (nhưng đa số merge tự động được)."
+    },
+    {
+      type: "single",
+      q: "Trong mô hình <b>Copy-Modify-Merge</b>, khi hai người cùng sửa một file thì điều gì xảy ra khi commit?",
+      options: [
+        "Ai commit trước thì xong; người sau gặp conflict, phải update + merge cục bộ rồi mới commit",
+        "Người sau bị từ chối hoàn toàn, phải sửa lại từ đầu",
+        "Cả hai bị khóa cho tới khi quản trị viên can thiệp",
+        "Hệ thống chọn ngẫu nhiên một bản để giữ lại"
+      ],
+      answer: [0],
+      explain: "Copy-Modify-Merge: nhiều người check-out (không khóa) &amp; sửa bản sao cục bộ đồng thời. <b>Ai commit trước thì xong</b>; người commit sau gặp <b>conflict</b> → phải <b>update + merge</b> cục bộ rồi commit bản đã trộn. Đa số merge được thực hiện tự động."
+    },
+    {
+      type: "single",
+      q: "Mô hình quản lý phiên bản nào được nêu là <b>phổ biến</b>, dùng bởi SVN, Git…?",
+      options: [
+        "Copy-Modify-Merge",
+        "Lock-Modify-Unlock",
+        "Read-Only Replication",
+        "Single-Writer-Lock"
+      ],
+      answer: [0],
+      explain: "Copy-Modify-Merge cho phép song song hóa và đa số merge tự động → là mô hình <b>phổ biến</b> (SVN, Git…). Lock-Modify-Unlock tuần tự hóa công việc nên ít dùng hơn."
+    },
+    {
+      type: "single",
+      q: "Đặc trưng cốt lõi của <b>Distributed Version Control</b> (phân tán) là gì?",
+      options: [
+        "Mỗi người clone toàn bộ repo về máy, có local repository riêng",
+        "Chỉ có một repository duy nhất trên server, mọi thao tác đều lên server",
+        "Mỗi file chỉ một người được sửa tại một thời điểm",
+        "Không cho phép làm việc khi có nhiều nhánh song song"
+      ],
+      answer: [0],
+      explain: "Trong hệ phân tán, mỗi người <b>clone toàn bộ repo</b> về máy và có <b>local repository</b> đầy đủ: làm việc &amp; commit cục bộ, sau đó push lên remote; nếu remote đã đổi thì pull (fetch + merge) giải quyết conflict cục bộ rồi push lại. 'Chỉ một repository trên server' là đặc trưng của mô hình <b>tập trung</b> (centralized)."
+    },
+    {
+      type: "single",
+      q: "Trong hệ phân tán, khi bạn muốn đưa các commit cục bộ lên remote nhưng remote đã thay đổi, quy trình đúng là:",
+      options: [
+        "pull (fetch + merge) để giải quyết conflict cục bộ, rồi push lại",
+        "push đè trực tiếp lên remote để ghi đè thay đổi của người khác",
+        "khóa remote lại rồi push",
+        "xóa local repo và clone lại từ đầu"
+      ],
+      answer: [0],
+      explain: "Nếu remote đã đổi, bạn phải <b>pull (fetch + merge)</b> để trộn và giải quyết conflict ở local trước, sau đó mới <b>push</b>. Push đè trực tiếp sẽ mất thay đổi của người khác nên không được phép trong luồng chuẩn."
+    },
+    {
+      type: "multi",
+      q: "So sánh <b>Centralized</b> và <b>Distributed</b>, những phát biểu nào ĐÚNG?",
+      options: [
+        "Centralized chỉ có một repository (trên server); Distributed có một remote + nhiều local",
+        "Distributed làm việc offline tốt vì repo đầy đủ ở local",
+        "Centralized commit/update trực tiếp lên server; Distributed commit cục bộ rồi push/pull",
+        "SVN, TFS, SourceSafe là ví dụ Distributed; Git, Mercurial là ví dụ Centralized",
+        "Git và Mercurial là ví dụ của Distributed"
+      ],
+      answer: [0, 1, 2, 4],
+      explain: "Centralized: <b>một repo</b> trên server, commit/update trực tiếp, offline hạn chế (ví dụ SVN, TFS, SourceSafe). Distributed: một remote + <b>nhiều local</b>, commit cục bộ rồi push/pull, offline tốt (ví dụ <b>Git, Mercurial</b>). Phương án ghép ngược ví dụ (SVN=Distributed, Git=Centralized) là SAI."
+    },
+    {
+      type: "single",
+      q: "Theo bảng từ vựng, <b>Repository</b> được định nghĩa là gì?",
+      options: [
+        "Nơi (server) lưu file &amp; giữ change log (lịch sử thay đổi)",
+        "Một trạng thái cụ thể của tài liệu sau nhiều thay đổi",
+        "Bản làm việc (working copy) trên máy cá nhân",
+        "Tập thay đổi trên nhiều file sẽ commit cùng lúc"
+      ],
+      answer: [0],
+      explain: "<b>Repository</b> = nơi lưu file và giữ <b>change log</b> (lịch sử thay đổi). 'Trạng thái cụ thể sau nhiều thay đổi' là <b>Revision/Version</b>; 'tập thay đổi nhiều file commit cùng lúc' là <b>Change Set/Change List</b>."
+    },
+    {
+      type: "single",
+      q: "Thuật ngữ nào chỉ <b>một trạng thái cụ thể</b> của tài liệu sau nhiều lần thay đổi?",
+      options: [
+        "Revision / Version",
+        "Change Set",
+        "Branch",
+        "Label / Tag"
+      ],
+      answer: [0],
+      explain: "<b>Revision / Version</b> = một trạng thái cụ thể của tài liệu sau nhiều thay đổi. Change Set là tập thay đổi nhiều file; Branch là tách luồng làm việc; Label/Tag là đặt tên cho một nhóm file ở phiên bản nhất định."
+    },
+    {
+      type: "single",
+      q: "Hành động lấy bản làm việc (working copy) từ remote về local (có thể kèm khóa) gọi là gì?",
+      options: [
+        "Check-Out / Clone",
+        "Commit / Check-In",
+        "Merge",
+        "Revert"
+      ],
+      answer: [0],
+      explain: "<b>Check-Out / Clone</b> = lấy working copy từ remote về local (có thể kèm khóa). Commit/Check-In là gửi thay đổi <b>lên</b> repo; Merge là trộn thay đổi; Revert là hủy thay đổi cục bộ để về trạng thái repo."
+    },
+    {
+      type: "single",
+      q: "<b>Commit / Check-In</b> nghĩa là gì?",
+      options: [
+        "Gửi thay đổi từ working copy lên repo, tạo phiên bản mới (có thể phát sinh conflict)",
+        "Tải phiên bản mới nhất từ repo về máy",
+        "Đặt tên cho một nhóm file tại một phiên bản (ví dụ một release)",
+        "Hủy thay đổi cục bộ để phục hồi trạng thái từ repo"
+      ],
+      answer: [0],
+      explain: "<b>Commit / Check-In</b> = gửi thay đổi từ working copy <b>lên</b> repo → tạo phiên bản mới (có thể sinh conflict). Tải phiên bản mới nhất về là Update/Pull; đặt tên nhóm file là Label/Tag; hủy thay đổi cục bộ là Revert."
+    },
+    {
+      type: "multi",
+      q: "Những thuật ngữ nào cùng chỉ hành động <b>tải phiên bản mới nhất về + trộn file xung đột</b>?",
+      options: [
+        "Update",
+        "Get Latest",
+        "Fetch / Pull",
+        "Commit",
+        "Revert"
+      ],
+      answer: [0, 1, 2],
+      explain: "Bảng từ vựng gộp <b>Update / Get Latest / Fetch / Pull</b> cùng nghĩa: tải phiên bản mới nhất về và trộn file xung đột. <b>Commit</b> là gửi thay đổi lên (ngược chiều), còn <b>Revert</b> là hủy thay đổi cục bộ — cả hai không phải hành động tải về."
+    },
+    {
+      type: "single",
+      q: "<b>Conflict</b> (xung đột) xảy ra khi nào?",
+      options: [
+        "Nhiều người sửa cùng một file đồng thời",
+        "Một người đặt tag cho phiên bản release",
+        "Tạo một nhánh mới từ nhánh chính",
+        "Khởi tạo repo local lần đầu"
+      ],
+      answer: [0],
+      explain: "<b>Conflict</b> = nhiều người sửa <b>cùng một file</b> đồng thời; giải quyết tự động hoặc thủ công (qua merge). Đặt tag, tạo branch hay init repo không tạo conflict."
+    },
+    {
+      type: "single",
+      q: "Sự khác nhau giữa <b>Merge</b> và <b>Revert</b> là gì?",
+      options: [
+        "Merge trộn thay đổi cục bộ với thay đổi trên repo; Revert hủy thay đổi cục bộ để phục hồi trạng thái từ repo",
+        "Merge hủy thay đổi cục bộ; Revert trộn thay đổi",
+        "Cả hai đều tạo phiên bản mới trên repo",
+        "Merge đặt tên phiên bản; Revert tách nhánh"
+      ],
+      answer: [0],
+      explain: "<b>Merge</b> = trộn thay đổi cục bộ với thay đổi trên repo (phần lớn tự động). <b>Revert / Undo Changes</b> = <b>hủy</b> thay đổi cục bộ, phục hồi trạng thái từ repo. Đây là hai hành động trái ngược về mục đích."
+    },
+    {
+      type: "single",
+      q: "Việc đặt tên cho một nhóm file ở một phiên bản nhất định (ví dụ đánh dấu một release) gọi là gì?",
+      options: [
+        "Label / Tag",
+        "Branch",
+        "Change Set",
+        "Revision"
+      ],
+      answer: [0],
+      explain: "<b>Label / Tag</b> = đặt tên cho một nhóm file tại phiên bản nhất định (ví dụ một release). <b>Branch</b> là tách repo thành nhiều luồng song song — khác mục đích với việc gán nhãn một mốc phiên bản."
+    },
+    {
+      type: "single",
+      q: "<b>Branch / Branching</b> nghĩa là gì?",
+      options: [
+        "Tách repo thành nhiều luồng làm việc song song",
+        "Đặt tên cho một release cụ thể",
+        "Trộn hai phiên bản thành một",
+        "Hủy toàn bộ thay đổi cục bộ"
+      ],
+      answer: [0],
+      explain: "<b>Branch / Branching</b> = tách repo thành nhiều <b>luồng làm việc song song</b>. Đặt tên release là Label/Tag; trộn là Merge; hủy thay đổi là Revert."
+    },
+    {
+      type: "single",
+      q: "Sự khác nhau giữa <b>Change</b> và <b>Change Set / Change List</b> là gì?",
+      options: [
+        "Change là một sửa đổi trên một file; Change Set là tập thay đổi trên nhiều file sẽ commit cùng lúc",
+        "Change là tập nhiều file; Change Set là sửa đổi một file",
+        "Cả hai đều là lịch sử toàn bộ repo",
+        "Change là nhánh; Change Set là tag"
+      ],
+      answer: [0],
+      explain: "<b>Change</b> = một sửa đổi trên file cục bộ đang được quản lý. <b>Change Set / Change List</b> = <b>tập thay đổi trên nhiều file</b> sẽ commit cùng lúc (một đơn vị commit)."
+    },
+    {
+      type: "multi",
+      q: "Theo bài giảng, Git có những đặc điểm nào?",
+      options: [
+        "Là hệ phân tán (distributed), làm việc với repo local &amp; remote",
+        "Có Git bash (giao diện dòng lệnh - CLI)",
+        "Miễn phí và mã nguồn mở",
+        "Bắt buộc luôn phải online với server để commit"
+      ],
+      answer: [0, 1, 2],
+      explain: "Git là hệ <b>phân tán</b>, làm việc với repo local &amp; remote, có <b>Git bash</b> (CLI), <b>miễn phí &amp; mã nguồn mở</b>. Vì có local repo đầy đủ, Git <b>commit cục bộ được khi offline</b> — nên phát biểu 'bắt buộc online để commit' là SAI."
+    },
+    {
+      type: "single",
+      q: "Lệnh nào <b>tạo một repo Git local</b> tại thư mục hiện tại?",
+      options: [
+        "<code>git init</code>",
+        "<code>git clone [remote-url]</code>",
+        "<code>git remote add [name] [url]</code>",
+        "<code>git status</code>"
+      ],
+      answer: [0],
+      explain: "<code>git init</code> tạo repo local ở thư mục hiện tại. <code>git clone</code> nhân bản một repo remote về local; <code>git remote add</code> gán tên ngắn cho một remote; <code>git status</code> xem thay đổi cục bộ."
+    },
+    {
+      type: "single",
+      q: "Lệnh <code>git clone [remote-url]</code> làm gì?",
+      options: [
+        "Nhân bản (copy đầy đủ) một repo remote về máy local",
+        "Chỉ tạo thư mục rỗng có metadata Git",
+        "Đẩy thay đổi cục bộ lên remote",
+        "Gộp nhánh hiện tại vào nhánh chính"
+      ],
+      answer: [0],
+      explain: "<code>git clone [remote-url]</code> <b>nhân bản</b> toàn bộ repo remote (kèm lịch sử) về local. Tạo thư mục rỗng có metadata là <code>git init</code>; đẩy thay đổi lên là <code>git push</code>."
+    },
+    {
+      type: "single",
+      q: "Trong vòng làm việc hằng ngày với Git, lệnh nào dùng để <b>chọn (stage) file cho commit</b>?",
+      options: [
+        "<code>git add [file]</code> (<code>git add .</code> để thêm tất cả)",
+        "<code>git commit -m \"message\"</code>",
+        "<code>git push</code>",
+        "<code>git status</code>"
+      ],
+      answer: [0],
+      explain: "<code>git add [file]</code> chọn (stage) file cho commit; <code>git add .</code> thêm tất cả. <code>git commit</code> mới thực sự ghi vào repo local, <code>git push</code> đẩy lên remote, <code>git status</code> chỉ xem trạng thái."
+    },
+    {
+      type: "single",
+      q: "Lệnh <code>git pull</code> tương đương với thao tác nào?",
+      options: [
+        "fetch + merge — tải thay đổi mới nhất từ remote rồi trộn vào local",
+        "Chỉ tải xuống nhưng không trộn (fetch thuần)",
+        "Đẩy commit cục bộ lên remote",
+        "Ghi commit vào repo local"
+      ],
+      answer: [0],
+      explain: "<code>git pull</code> = <b>fetch + merge</b>: tải thay đổi mới nhất từ remote rồi trộn vào local. 'Chỉ tải xuống không trộn' là <code>git fetch</code>; đẩy lên là <code>git push</code>; ghi commit local là <code>git commit</code>."
+    },
+    {
+      type: "single",
+      q: "Trong luồng làm việc đầy đủ, thứ tự các lệnh Git nào là ĐÚNG sau khi đã chỉnh sửa file?",
+      options: [
+        "<code>git status</code> → <code>git add .</code> → <code>git commit -m \"...\"</code> → <code>git push</code>",
+        "<code>git push</code> → <code>git commit</code> → <code>git add .</code> → <code>git status</code>",
+        "<code>git commit</code> → <code>git add .</code> → <code>git push</code> → <code>git status</code>",
+        "<code>git add .</code> → <code>git push</code> → <code>git commit</code> → <code>git status</code>"
+      ],
+      answer: [0],
+      explain: "Luồng chuẩn sau khi sửa file: xem thay đổi (<code>git status</code>) → stage (<code>git add .</code>) → ghi commit local (<code>git commit -m</code>) → đẩy lên remote (<code>git push</code>). Phải add trước khi commit, và commit trước khi push."
+    },
+    {
+      type: "single",
+      q: "Nơi host dự án nào được nêu là <b>#1</b>, miễn phí cho open-source (có bản trả phí cho private)?",
+      options: [
+        "GitHub",
+        "SourceForge",
+        "Google Code",
+        "CodePlex"
+      ],
+      answer: [0],
+      explain: "<b>GitHub</b> được nêu là #1, free cho open-source, có bản trả phí cho private. Google Code dùng SVN, CodePlex dùng TFS, Bitbucket dùng Mercurial (có private) — nhưng nơi được xếp #1 là GitHub."
+    }
+  ]
+};
+</script>
+<script src="../assets/app.js"></script>
+<script src="../assets/quiz.js"></script>
+</body>
+</html>

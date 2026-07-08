@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>4. Thiết kế kiến trúc &amp; Phân tích OO — ITSS Ôn tập</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/quiz.css">
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a class="brand" href="../index.html"><span class="dot"></span> ITSS SW Dev <small>· Ôn tập</small></a>
+  <div class="top-spacer"></div>
+  <a class="top-link" href="../index.html">Trang chủ</a>
+  <button id="themeBtn" class="icon-btn" onclick="toggleTheme()">☾</button>
+</div></div>
+
+<div class="layout">
+<aside class="toc"><h4>Mục lục</h4><nav></nav></aside>
+<main class="content">
+  <div class="crumb">Ôn tập ITSS · Chủ đề 4</div>
+  <h1 class="page-title">Thiết kế kiến trúc &amp; Phân tích hướng đối tượng</h1>
+  <p class="page-lead">Từ use case → Analysis Model: ba loại analysis class (Boundary/Entity/Control), phân phối hành vi use case bằng Interaction Diagram (Sequence/Communication), và các mẫu kiến trúc (MVC, 3-tier, MVP, MVVM…).</p>
+  <div class="chips"><span class="chip">Boundary · Entity · Control</span><span class="chip">Sequence vs Communication</span><span class="chip">Use-Case Realization</span><span class="chip">MVC · 3-tier</span></div>
+  <a class="quiz-cta" href="quiz-04-kien-truc.html"><span class="ic">📝</span> Luyện trắc nghiệm chủ đề này <small>· 40 câu · lưu tiến độ tự động</small></a>
+
+  <section>
+    <h2><span class="num">1</span> Tổng quan Architectural Design</h2>
+    <div class="callout def"><span class="tt">Mục đích</span>"Đưa ra thiết kế có thể cài đặt và kiểm chứng được với yêu cầu". Kiến trúc được thiết kế <strong>từ yêu cầu phần mềm</strong>.</div>
+    <p><strong>Đầu vào:</strong> Use-Case Model, Glossary, Supplementary Specifications, Software Architecture Document, Project Specific Guidelines. <strong>Đầu ra:</strong> Analysis Classes, Analysis Model, Use-Case Realization.</p>
+    <p><strong>3 nội dung top-level:</strong> cấu trúc phần mềm &amp; component · giao diện ngoài &amp; giữa component · thiết kế database.</p>
+    <div class="callout note"><span class="tt">Chuỗi tinh chỉnh</span>Use Cases → <strong>Analysis Classes</strong> → Design Elements → Source Code → Executable. Analysis classes là "bước đầu tiên hướng tới bản thực thi".</div>
+    <p><strong>Nhắc lại lớp (Class):</strong> một trừu tượng mô tả nhóm object có chung Properties (attribute), Behavior (operation), Relationships, Semantics.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">2</span> Ba loại Analysis Class</h2>
+    <p>Toàn bộ hành vi của một use case phải được <strong>phân phối</strong> cho các analysis class. Dùng <strong>stereotype</strong> làm kim chỉ nam.</p>
+    <div class="tw"><table>
+      <thead><tr><th>Loại</th><th>Vai trò</th><th>Đặc điểm</th><th>Ký hiệu</th></tr></thead>
+      <tbody>
+        <tr><td><strong>&laquo;boundary&raquo;</strong></td><td>Trung gian giữa giao diện &amp; thứ bên ngoài hệ thống</td><td>Phụ thuộc môi trường (environment dependent)</td><td>Vòng tròn có gạch ⊢○</td></tr>
+        <tr><td><strong>&laquo;entity&raquo;</strong></td><td>Lưu &amp; quản lý thông tin trong hệ thống (key abstraction)</td><td>Độc lập môi trường (environment independent)</td><td>Vòng tròn có gạch dưới</td></tr>
+        <tr><td><strong>&laquo;control&raquo;</strong></td><td>Điều phối hành vi của use case</td><td>Phụ thuộc use case, độc lập môi trường</td><td>Vòng tròn có mũi tên</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>2.1 Boundary Classes</h3>
+    <p>3 kiểu: <strong>User interface</strong>, <strong>System interface</strong>, <strong>Device interface</strong>. Quy tắc: <strong>một boundary class cho mỗi cặp actor/use-case</strong>. Mô hình hóa tương tác giữa hệ thống &amp; môi trường.</p>
+    <div class="callout tip"><span class="tt">Guideline</span><strong>UI class:</strong> tập trung <em>thông tin nào</em> trình bày cho user, KHÔNG tập trung chi tiết UI. <strong>System/Device interface:</strong> tập trung <em>giao thức nào</em> cần định nghĩa, KHÔNG tập trung cách cài đặt. → "Tập trung vào <strong>trách nhiệm</strong>, không phải chi tiết!"</div>
+
+    <h3>2.2 Entity Classes</h3>
+    <p>Là <strong>key abstraction</strong> của hệ thống. Đầu vào: flow of events của use case, Business-Domain Model, Glossary.</p>
+    <div class="callout tip"><span class="tt">Cách tìm (filtering nouns)</span>Gạch chân <strong>cụm danh từ</strong> trong flow of events → loại: ứng viên trùng lặp · mơ hồ · là actor (ngoài phạm vi) · cấu trúc cài đặt · attribute (để sau) · operation.</div>
+
+    <h3>2.3 Control Classes</h3>
+    <p>Cung cấp hành vi <strong>điều phối</strong>; mô hình hành vi điều khiển đặc thù cho ≥1 use case. Phụ thuộc use case, độc lập môi trường.</p>
+    <div class="callout key"><span class="tt">Guideline</span>Thường <strong>1 control class cho mỗi use case</strong>. Use case đơn giản (chỉ thao tác dữ liệu lưu trữ) có thể bỏ control, chỉ dùng entity + boundary. Use case phức tạp cần ≥1 control (VD: transaction manager, resource coordinator, error handler).</div>
+    <div class="callout example"><span class="tt">Mẫu tương tác chuẩn</span>Actor ↔ <strong>boundary</strong> ↔ <strong>control</strong> ↔ <strong>entity</strong>. Boundary giao tiếp actor; control điều phối; entity giữ &amp; quản lý thông tin.</div>
+  </section>
+
+  <section>
+    <h2><span class="num">3</span> Phân phối hành vi use case → lớp</h2>
+    <p>Với mỗi flow of events của use case: (1) xác định analysis classes · (2) phân bổ trách nhiệm cho lớp · (3) mô hình tương tác bằng <strong>Interaction Diagram</strong>. Kết quả là một <strong>Use-Case Realization</strong> (gồm Sequence, Communication, Class diagrams).</p>
+    <div class="tw"><table>
+      <thead><tr><th>Loại hành vi</th><th>Giao cho lớp</th></tr></thead>
+      <tbody>
+        <tr><td>Giao tiếp với actor</td><td>Boundary class</td></tr>
+        <tr><td>Dữ liệu đóng gói trong abstraction</td><td>Entity class</td></tr>
+        <tr><td>Đặc thù cho use case / một luồng quan trọng</td><td>Control class</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout tip"><span class="tt">Ai giữ trách nhiệm cần dữ liệu?</span>Nếu <strong>một</strong> lớp có dữ liệu → đặt trách nhiệm ở đó. Nếu <strong>nhiều</strong> lớp có: đặt ở một lớp + thêm quan hệ; hoặc tạo lớp mới; hoặc đặt ở control class + thêm quan hệ tới các lớp cần thiết.</div>
+  </section>
+
+  <section>
+    <h2><span class="num">4</span> Interaction Diagrams</h2>
+    <p>Thuật ngữ chung cho các sơ đồ nhấn mạnh <strong>tương tác giữa object</strong>: Sequence Diagram, Communication Diagram (+ biến thể Timing, Interaction Overview).</p>
+    <div class="two">
+      <div class="callout def"><span class="tt">Sequence Diagram</span>Nhấn mạnh <strong>thứ tự thời gian</strong> của message. Thể hiện: object tham gia · trình tự message trao đổi. Thành phần: object lifeline, message, execution occurrence, reflexive message, đánh số phân cấp, interaction occurrence (ref).</div>
+      <div class="callout def"><span class="tt">Communication Diagram</span>Nhấn mạnh <strong>tổ chức (structural)</strong> của các object tham gia. Thể hiện: object · <strong>link</strong> giữa object · message trao đổi (có đánh số).</div>
+    </div>
+    <h3>Sequence vs Communication</h3>
+    <div class="callout note"><span class="tt">Tương đương ngữ nghĩa</span>Hai loại <strong>tương đương về ngữ nghĩa</strong> — chuyển đổi qua lại không mất thông tin; cùng mô hình khía cạnh động &amp; một use-case scenario.</div>
+    <div class="tw"><table>
+      <thead><tr><th>Sequence diagram</th><th>Communication diagram</th></tr></thead>
+      <tbody>
+        <tr><td>Thể hiện <strong>trình tự message tường minh</strong></td><td>Thể hiện <strong>quan hệ</strong> bên cạnh tương tác</td></tr>
+        <tr><td>Thể hiện execution occurrence</td><td>Tốt để trực quan hóa mẫu giao tiếp</td></tr>
+        <tr><td>Tốt cho luồng tổng thể</td><td>Tốt để thấy mọi ảnh hưởng lên một object</td></tr>
+        <tr><td>Tốt cho real-time &amp; kịch bản phức tạp</td><td>Dễ dùng khi brainstorm</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout note"><span class="tt">Biến thể</span><strong>Timing diagram:</strong> ràng buộc thời gian của message. <strong>Interaction Overview:</strong> cái nhìn cấp cao ghép các tập tương tác thành chuỗi logic. Một Interaction diagram có thể không đủ → cần nhiều sơ đồ cho basic + các alternate flow.</div>
+  </section>
+
+  <section>
+    <h2><span class="num">5</span> Analysis Class Diagram</h2>
+    <p>Từ Interaction diagram → rút ra <strong>trách nhiệm (responsibility)</strong> &amp; <strong>quan hệ</strong> cho lớp.</p>
+    <ul>
+      <li><strong>Describe Responsibilities:</strong> mỗi message <code>PerformResponsibility</code> gửi tới :Supplier → thêm trách nhiệm vào lớp Supplier.</li>
+      <li><strong>Finding Relationships:</strong> <em>mỗi link trong communication diagram → một association trong class diagram</em> ("relationship for every link").</li>
+      <li><strong>Unify Analysis Classes:</strong> hợp nhất các lớp trùng vai trò để có class diagram gọn.</li>
+    </ul>
+    <div class="callout key"><span class="tt">Review points — Analysis Classes</span>Lớp hợp lý? Tên phản ánh vai trò? Đại diện <strong>một</strong> abstraction rõ ràng? Trách nhiệm gắn kết chức năng (functionally coupled)? Có đủ hành vi cần thiết? Đáp ứng yêu cầu đặc thù? · <strong>Message design:</strong> đã xử lý hết main/sub-flow (kể cả exception)? tìm đủ object? hành vi phân bổ đúng object &amp; rõ ràng?</div>
+  </section>
+
+  <section>
+    <h2><span class="num">6</span> Architectural Patterns</h2>
+    <div class="callout def"><span class="tt">Architectural pattern</span>Giải pháp tổng quát, tái sử dụng cho một vấn đề thường gặp trong kiến trúc phần mềm ở một ngữ cảnh (VD: performance, high availability). Nhiều pattern đã được cài trong framework: 3-layer/3-tier (DotNetNuke), MVC (Laravel, ASP.NET MVC), Microservices (Spring Boot, vert.x).</p></div>
+    <h3>6.1 MVC (Model-View-Controller)</h3>
+    <div class="two">
+      <div class="card"><h4>Classic (active) MVC</h4><p>Model ↔ View ↔ Controller vòng tròn: Controller <em>writes</em> Model, Model <em>fills</em> View, Model <em>notifies</em> View (observer), View <em>updates</em>. Vấn đề? View phụ thuộc trực tiếp Model.</p></div>
+      <div class="card"><h4>Passive MVC</h4><p>Request → Routing → Controller → tương tác Model (data) → Controller gọi View → render. View không tự lắng nghe Model.</p></div>
+    </div>
+    <h3>6.2 MVC vs 3-tier Architecture</h3>
+    <div class="tw"><table>
+      <thead><tr><th>3-tier</th><th>MVC</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Presentation Layer</strong> (.aspx, code-behind)</td><td>View</td></tr>
+        <tr><td><strong>Business Logic Layer</strong></td><td>Controller (+ logic)</td></tr>
+        <tr><td><strong>Data Access Layer</strong> → Database</td><td>Model</td></tr>
+        <tr><td>Xếp <strong>tầng tuyến tính</strong>: tầng trên chỉ gọi tầng ngay dưới</td><td>Tam giác: 3 phần tương tác lẫn nhau</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout note"><span class="tt">Front-end vs Back-end</span>Front-end = UI &amp; API, metadata, caching (phía user). Back-end = lưu trữ lớn, xử lý dữ liệu, phân tích chạy lâu. Hai bên có thể dùng <strong>các mẫu kiến trúc khác nhau</strong>.</div>
+    <h3>6.3 Các mẫu khác</h3>
+    <div class="grid">
+      <div class="card"><h4>MVVM</h4><p>View ↔ <strong>ViewModel</strong> ↔ Model. Data binding &amp; commands giữa View–ViewModel; ViewModel cập nhật Model. Tách Presentation Logic khỏi Business Logic.</p></div>
+      <div class="card"><h4>MVP (Android)</h4><p>View (Activity/Fragment) ↔ <strong>Presenter</strong> ↔ Model (Interactor → REST/DB). Presenter làm trung gian.</p></div>
+      <div class="card"><h4>Flux (React)</h4><p>Luồng <strong>một chiều</strong>: Action → Dispatcher → Store → View → (Action…). Action Creators tạo action.</p></div>
+      <div class="card"><h4>VIPER (iOS)</h4><p><strong>V</strong>iew · <strong>I</strong>nteractor · <strong>P</strong>resenter · <strong>E</strong>ntity · <strong>R</strong>outing (Wireframe). Tách trách nhiệm rất mịn.</p></div>
+    </div>
+  </section>
+
+  <nav class="pager">
+    <a href="03-use-case.html"><span class="dir">← Trước</span><span class="ttl">Mô hình hóa yêu cầu với Use Case</span></a>
+    <a class="next" href="05-phan-tu-thiet-ke.html"><span class="dir">Sau →</span><span class="ttl">Xác định phần tử thiết kế</span></a>
+  </nav>
+</main>
+</div>
+<script src="../assets/app.js"></script>
+</body>
+</html>

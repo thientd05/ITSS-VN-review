@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>3. Mô hình hóa yêu cầu với Use Case — ITSS Ôn tập</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/quiz.css">
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a class="brand" href="../index.html"><span class="dot"></span> ITSS SW Dev <small>· Ôn tập</small></a>
+  <div class="top-spacer"></div>
+  <a class="top-link" href="../index.html">Trang chủ</a>
+  <button id="themeBtn" class="icon-btn" onclick="toggleTheme()">☾</button>
+</div></div>
+
+<div class="layout">
+<aside class="toc"><h4>Mục lục</h4><nav></nav></aside>
+<main class="content">
+  <div class="crumb">Ôn tập ITSS · Chủ đề 3</div>
+  <h1 class="page-title">Mô hình hóa yêu cầu với Use Case</h1>
+  <p class="page-lead">Từ yêu cầu → Use-Case Model: actor, use case, quan hệ (include/extend/generalization), đặc tả use case &amp; kịch bản, activity diagram, glossary và supplementary specification.</p>
+  <div class="chips"><span class="chip">Actor · Use Case</span><span class="chip">include / extend / generalization</span><span class="chip">Scenario · Flow of Events</span><span class="chip">Glossary · Supplementary Spec</span></div>
+  <a class="quiz-cta" href="quiz-03-use-case.html"><span class="ic">📝</span> Luyện trắc nghiệm chủ đề này <small>· 39 câu · lưu tiến độ tự động</small></a>
+
+  <section>
+    <h2><span class="num">1</span> Requirements &amp; các sản phẩm</h2>
+    <div class="callout key"><span class="tt">Mục đích của Requirements</span>
+    <ul style="margin:.2rem 0">
+      <li>Thiết lập &amp; duy trì <strong>thỏa thuận</strong> với khách hàng/stakeholder về việc hệ thống <em>làm gì</em>.</li>
+      <li>Giúp lập trình viên hiểu rõ yêu cầu hơn; <strong>giới hạn (delimit)</strong> hệ thống.</li>
+      <li>Cơ sở để lập kế hoạch nội dung kỹ thuật của các vòng lặp.</li>
+      <li>Cơ sở <strong>ước lượng chi phí &amp; thời gian</strong>; định nghĩa giao diện người dùng.</li>
+    </ul></div>
+    <p><strong>Bộ artifact yêu cầu:</strong> Use-Case Model (Actors + Use Cases + Use-Case Specifications) · <strong>Glossary</strong> · <strong>Supplementary Specification</strong>.</p>
+    <div class="callout note"><span class="tt">Không mô hình đơn lẻ nào đủ</span>Mỗi hệ thống phi tầm thường cần một tập mô hình gần độc lập nhưng liên hệ nhau (Logical, Implementation, Process, Deployment view — quanh Use-Case view).</div>
+    <p><strong>Nhắc lại — 5 nhóm nội dung mô tả yêu cầu:</strong> điều kiện môi trường hệ thống · yêu cầu chức năng &amp; giao diện · định nghĩa dữ liệu/DB · yêu cầu phi chức năng (reliability, usability, time efficiency) · qualification requirements.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">2</span> Use-Case Diagram — tổng quan</h2>
+    <p>Sơ đồ mô hình hóa khía cạnh <strong>động</strong>, mô tả yêu cầu <em>chức năng</em> của phần mềm dưới dạng use case; đồng thời là mô hình các <strong>chức năng (use case)</strong> và <strong>môi trường (actor)</strong>.</p>
+    <div class="callout tip"><span class="tt">Lợi ích của Use-Case Model</span><strong>Communication</strong> (giao tiếp giữa các bên) · <strong>Identification</strong> (xác định chức năng) · <strong>Verification</strong> (kiểm chứng).</div>
+    <h3>Khái niệm chính</h3>
+    <div class="two">
+      <div class="callout def"><span class="tt">Actor</span>Đại diện <strong>bất cứ thứ gì tương tác</strong> với phần mềm. Là một <strong>vai trò</strong> (role) mà người dùng đóng — có thể là người, máy, hệ thống khác, thiết bị, hay database. <strong>Actor nằm NGOÀI hệ thống (EXTERNAL).</strong></div>
+      <div class="callout def"><span class="tt">Use Case</span>Mô tả một <strong>chuỗi sự kiện</strong> do phần mềm thực hiện, mang lại <strong>kết quả có giá trị quan sát được</strong> cho một actor cụ thể. Mô hình hóa đối thoại giữa actor và hệ thống.</div>
+    </div>
+    <div class="callout example"><span class="tt">Actor là vai trò</span>Charlie (giáo sư toán, đang học kinh tế) và Jodie đều đóng vai <strong>Student</strong>; Charlie còn đóng vai <strong>Professor</strong>. Một người → nhiều vai; một vai → nhiều người.</div>
+  </section>
+
+  <section>
+    <h2><span class="num">3</span> Tìm Actor &amp; Use Case</h2>
+    <div class="two">
+      <div class="card"><h4>Guideline tìm Actor</h4><p>Chú ý <strong>danh từ</strong> trong mô tả bài toán → rút ra chủ thể hành động. Kiểm tra không thừa/thiếu so với mô tả. Tên actor phải <strong>thể hiện rõ vai trò &amp; trách nhiệm</strong>.</p></div>
+      <div class="card"><h4>Guideline tìm Use Case</h4><p>Chú ý <strong>động từ</strong> → rút ra chuỗi hành động thành use case. Kiểm tra nhất quán với actor liên quan &amp; không thừa/thiếu; khảo sát để mọi người hiểu chung tên/mô tả.</p></div>
+    </div>
+    <div class="two">
+      <div class="callout note"><span class="tt">Câu hỏi tìm Actor</span>Ai/cái gì <em>dùng</em> hệ thống? <em>nhận</em> thông tin? <em>cung cấp</em> thông tin? Hệ thống được dùng ở đâu trong công ty? Ai <em>hỗ trợ/bảo trì</em>? Hệ thống khác nào dùng nó?</div>
+      <div class="callout note"><span class="tt">Câu hỏi tìm Use Case</span>Mục tiêu của mỗi actor là gì? Vì sao actor muốn dùng hệ thống? Actor có tạo/lưu/sửa/xóa/đọc dữ liệu không? Cần được thông báo về sự kiện nào?</div>
+    </div>
+    <div class="callout key"><span class="tt">Đặt tên Use Case</span>Duy nhất, trực giác, tự giải thích; nêu rõ kết quả giá trị; nhìn từ góc actor; bắt đầu bằng <strong>động từ</strong> + danh từ (verb-noun), ví dụ "Register for Courses".</div>
+  </section>
+
+  <section>
+    <h2><span class="num">4</span> Quan hệ (Relationships)</h2>
+    <div class="callout warn"><span class="tt">Lưu ý</span><strong>Không nên dùng quá nhiều</strong> quan hệ giữa các use case — làm sơ đồ rối. Chỉ dùng khi cần thiết. Trong use-case diagram, <em>không</em> thể hiện thứ tự các use case.</div>
+    <p>3 nhóm quan hệ:</p>
+    <div class="tw"><table>
+      <thead><tr><th>Giữa</th><th>Loại quan hệ</th></tr></thead>
+      <tbody>
+        <tr><td>Actor ↔ Actor</td><td>Generalization, Association</td></tr>
+        <tr><td>Actor ↔ Use Case</td><td>Association (communicates)</td></tr>
+        <tr><td>Use Case ↔ Use Case</td><td>Generalization, <strong>&laquo;include&raquo;</strong>, <strong>&laquo;extend&raquo;</strong></td></tr>
+      </tbody>
+    </table></div>
+    <h3>4.1 Giữa Actor</h3>
+    <ul>
+      <li><strong>Generalization:</strong> actor con kế thừa đặc điểm &amp; hành vi của cha (VD: Commercial Customer → Customer).</li>
+      <li><strong>Association:</strong> phân biệt vai — VD tách "Student" và "Registrar" thay vì gộp.</li>
+    </ul>
+    <h3>4.2 Actor ↔ Use Case (Communicates-Association)</h3>
+    <p>Kênh giao tiếp giữa actor và use case, vẽ bằng một <strong>đường thẳng</strong>. Đầu mũi tên <em>tùy chọn</em>: có mũi tên = ai khởi tạo (initiator); không mũi tên = cả hai đầu <strong>đều có thể</strong> khởi tạo.</p>
+    <h3>4.3 Giữa Use Case</h3>
+    <div class="grid">
+      <div class="card"><h4>Generalization</h4><p>Use case con <strong>kế thừa</strong> hành vi &amp; ý nghĩa của cha; có thể thêm/ghi đè; có thể thay thế cha ở bất cứ đâu (cả cha &amp; con đều có thể có instance cụ thể). VD: Validate user ← Check password / Retinal scan.</p></div>
+      <div class="card"><h4>&laquo;include&raquo; — luôn dùng</h4><p>Use case gốc <strong>luôn</strong> tích hợp hành vi của use case được include tại một vị trí xác định trong gốc. Use case được include <strong>không đứng một mình</strong>, chỉ chạy như một phần của gốc. VD: Place order &laquo;include&raquo; Pay order.</p></div>
+      <div class="card"><h4>&laquo;extend&raquo; — đôi khi dùng</h4><p>Use case gốc <strong>ngầm</strong> tích hợp hành vi của use case mở rộng tại vị trí do use case mở rộng chỉ ra. Gốc <strong>đứng độc lập được</strong>, nhưng trong điều kiện nhất định bị mở rộng. VD: Place order ←&laquo;extend&raquo;← Place rush order.</p></div>
+    </div>
+    <div class="callout key"><span class="tt">Phân biệt nhanh include vs extend</span><strong>include</strong> = <em>luôn luôn</em> gọi (hành vi bắt buộc, tách ra để tái sử dụng). <strong>extend</strong> = <em>đôi khi/tùy điều kiện</em>, gốc vẫn chạy được nếu không mở rộng.</div>
+  </section>
+
+  <section>
+    <h2><span class="num">5</span> Use-Case Specification &amp; Scenario</h2>
+    <p>Use-Case Diagram cho cái nhìn tổng thể; <strong>Use-Case Specification</strong> mô tả chi tiết từng use case. Nó là <strong>hợp đồng</strong> giữa khách hàng &amp; developer, dùng ở mọi pha phát triển.</p>
+    <h4>Nội dung một Use-Case Specification</h4>
+    <p class="muted">Code · Name · Brief description · <strong>Flow of Events</strong> · Relationships · Activity diagrams · Use-Case diagrams · Special requirements · <strong>Pre-conditions</strong> · <strong>Post-conditions</strong> · Other diagrams.</p>
+    <div class="callout def"><span class="tt">Scenario</span>Một <strong>scenario</strong> là một <em>instance (thể hiện)</em> của use case — một đường đi cụ thể qua flow of events.</div>
+    <h3>Flow of Events</h3>
+    <p>Gồm <strong>một luồng chính (basic/normal flow)</strong> và nhiều <strong>luồng thay thế (alternative flows)</strong>:</p>
+    <ul>
+      <li><strong>Regular variants</strong> — biến thể thông thường.</li>
+      <li><strong>Odd cases</strong> — trường hợp lạ.</li>
+      <li><strong>Exceptional flows</strong> — xử lý lỗi.</li>
+    </ul>
+    <div class="callout example"><span class="tt">Ví dụ: UC "Log in" (ATM)</span>
+      <p style="margin:.3rem 0"><strong>Basic:</strong> hệ thống nhắc PIN → khách nhập PIN → commit → hệ thống kiểm tra hợp lệ → nếu hợp lệ, ghi nhận và kết thúc.</p>
+      <p style="margin:.3rem 0"><strong>Regular variant:</strong> khách hủy giao dịch bất cứ lúc nào → restart UC, không thay đổi tài khoản.</p>
+      <p style="margin:.3rem 0"><strong>Odd case:</strong> khách xóa PIN trước khi commit rồi nhập lại.</p>
+      <p style="margin:.3rem 0"><strong>Exceptional:</strong> nhập PIN sai — nếu sai <strong>3 lần liên tiếp</strong>, hệ thống hủy giao dịch &amp; giữ thẻ.</p>
+    </div>
+    <p>Bảng flow of events ghi rõ <em>Doer</em> (Customer/software) và <em>Action</em>, tách riêng Success flow &amp; Alternative flow (đánh số 4a, 6a…).</p>
+
+    <h3>Cách viết spec cho include / extend / generalization</h3>
+    <div class="tw"><table>
+      <thead><tr><th>Loại</th><th>Cách đặc tả trong flow</th></tr></thead>
+      <tbody>
+        <tr><td><strong>&laquo;include&raquo;</strong></td><td><strong>Gọi tường minh (call)</strong> use case được include tại một bước (inclusion point) trong basic flow của gốc. VD: bước 4 "Software calls the use case Pay receipt".</td></tr>
+        <tr><td><strong>&laquo;extend&raquo;</strong></td><td><strong>Chèn (insert)</strong> hành vi của use case mở rộng vào gốc tại <strong>extension point</strong> nếu <strong>điều kiện mở rộng</strong> đúng. VD: "A1. In step 2, if customer chooses rush order, insert use case Place rush order, then resume at step 3".</td></tr>
+        <tr><td><strong>Generalization</strong></td><td>Dùng <strong>placeholder</strong> trong use case cha.</td></tr>
+      </tbody>
+    </table></div>
+    <h3>Hành vi lặp lại → Subflow</h3>
+    <p>Hành vi lặp đơn giản → viết trong basic flow. Lặp phức tạp → bắt bằng <strong>subflow</strong> (VD "S1: Obtain Course Information"), gọi từ basic flow.</p>
+    <h3>Pre-conditions &amp; Post-conditions</h3>
+    <div class="two">
+      <div class="callout def"><span class="tt">Precondition</span>Trạng thái hệ thống <strong>phải có TRƯỚC</strong> khi use case bắt đầu. Là phát biểu đơn giản, <em>không</em> tham chiếu use case khác cần chạy trước; phải dễ kiểm chứng. <em>Tùy chọn</em>.</div>
+      <div class="callout def"><span class="tt">Postcondition</span>Trạng thái hệ thống <strong>khi use case kết thúc</strong>. Không tham chiếu use case tiếp theo; dễ kiểm chứng. <em>Tùy chọn</em>.</div>
+    </div>
+    <div class="callout key"><span class="tt">Chuỗi use case</span>Các use case <strong>không</strong> tương tác trực tiếp với nhau; nhưng <em>postcondition của UC này có thể trùng precondition của UC khác</em> → dùng để "xâu chuỗi" thứ tự.</div>
+  </section>
+
+  <section>
+    <h2><span class="num">6</span> Activity Diagram (trong Use-Case Model)</h2>
+    <p>Về bản chất là <strong>lưu đồ (flow chart)</strong> thể hiện dòng điều khiển giữa các activity/action trong một use case — công cụ trực quan hóa hành vi, tốt để nhận diện luồng thay thế.</p>
+    <p><strong>Ký hiệu:</strong> Activity/Action · Decision (rẽ nhánh) + Guard condition · <strong>Synchronization bar</strong> — Fork (tách luồng song song) / Join (gộp) · Transition · Initial &amp; Final node.</p>
+    <div class="two">
+      <div class="callout tip"><span class="tt">Ưu</span>Công cụ tốt để nhận diện luồng thay thế, đặc biệt với người tư duy trực quan; truyền đạt gọn luồng use case.</div>
+      <div class="callout warn"><span class="tt">Nhược</span>Tốn công giữ đồng bộ giữa sơ đồ &amp; use-case specification.</div>
+    </div>
+    <p><strong>Partition (swimlane):</strong> mỗi partition biểu diễn một <em>trách nhiệm</em> của một phần trong tổ chức (VD Sales / Fulfillment), có thể được hiện thực bởi một đơn vị tổ chức hoặc một tập lớp.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">7</span> Glossary &amp; Supplementary Specification</h2>
+    <div class="two">
+      <div class="callout def"><span class="tt">Glossary (từ điển thuật ngữ)</span>Định nghĩa các <strong>thuật ngữ quan trọng</strong> dùng chung cho mọi mô hình. <strong>Chỉ có MỘT Glossary</strong> cho cả hệ thống. Giúp domain expert &amp; developer giao tiếp nhất quán. Gồm: Introduction + các Terms (định nghĩa rõ, không mập mờ).</div>
+      <div class="callout def"><span class="tt">Supplementary Specification</span>Chứa yêu cầu <strong>phi chức năng</strong> (và cả chức năng) <em>không</em> gắn với một use case cụ thể — theo mô hình <strong>FURPS</strong>: <strong>F</strong>unctionality, <strong>U</strong>sability, <strong>R</strong>eliability, <strong>P</strong>erformance, <strong>S</strong>upportability.</div>
+    </div>
+    <div class="tw"><table>
+      <thead><tr><th>Mục (FURPS)</th><th>Nội dung</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Functionality</strong></td><td>Yêu cầu chức năng chung cho nhiều use case.</td></tr>
+        <tr><td><strong>Usability</strong></td><td>Dễ dùng, yêu cầu đào tạo, mức độ dễ sử dụng bởi actor.</td></tr>
+        <tr><td><strong>Reliability</strong></td><td>Độ tin cậy: MTBF, số lỗi/1000 dòng code…</td></tr>
+        <tr><td><strong>Performance</strong></td><td>Đặc tính hiệu năng: thời gian phản hồi cụ thể, tham chiếu use case theo tên.</td></tr>
+        <tr><td><strong>Supportability</strong></td><td>Yêu cầu tăng khả năng hỗ trợ/bảo trì.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <h2><span class="num">8</span> Checkpoints (tự rà soát)</h2>
+    <div class="grid">
+      <div class="card"><h4>Actors</h4><p>Đã xác định hết? Mỗi actor liên quan ≥1 use case? Có thực sự là vai không (nên gộp/tách)? Hai actor có đóng cùng vai với một use case? Tên trực giác, cả user &amp; customer đều hiểu?</p></div>
+      <div class="card"><h4>Use Cases</h4><p>Mỗi UC liên quan ≥1 actor? Độc lập với nhau? Có UC hành vi rất giống nhau? Tên duy nhất, rõ ràng, không lẫn lộn?</p></div>
+      <div class="card"><h4>Use-Case Model</h4><p>Dễ hiểu? Thấy rõ chức năng &amp; quan hệ? Đã phủ hết yêu cầu chức năng? Có hành vi thừa? Chia package hợp lý?</p></div>
+      <div class="card"><h4>Specification &amp; Glossary</h4><p>Rõ ai muốn dùng UC &amp; mục đích? Rõ luồng bắt đầu/kết thúc? Tương tác actor rõ? UC có quá phức tạp? Thuật ngữ định nghĩa rõ &amp; dùng nhất quán?</p></div>
+    </div>
+  </section>
+
+  <nav class="pager">
+    <a href="02-version-control.html"><span class="dir">← Trước</span><span class="ttl">Version Control &amp; Git</span></a>
+    <a class="next" href="04-kien-truc.html"><span class="dir">Sau →</span><span class="ttl">Thiết kế kiến trúc &amp; Phân tích OO</span></a>
+  </nav>
+</main>
+</div>
+<script src="../assets/app.js"></script>
+</body>
+</html>

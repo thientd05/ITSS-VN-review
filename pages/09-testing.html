@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>9. Kiểm thử — ITSS Ôn tập</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/quiz.css">
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a class="brand" href="../index.html"><span class="dot"></span> ITSS SW Dev <small>· Ôn tập</small></a>
+  <div class="top-spacer"></div>
+  <a class="top-link" href="../index.html">Trang chủ</a>
+  <button id="themeBtn" class="icon-btn" onclick="toggleTheme()">☾</button>
+</div></div>
+
+<div class="layout">
+<aside class="toc"><h4>Mục lục</h4><nav></nav></aside>
+<main class="content">
+  <div class="crumb">Ôn tập ITSS · Chủ đề 9</div>
+  <h1 class="page-title">Kiểm thử (Testing)</h1>
+  <p class="page-lead">Tổng quan testing &amp; QA, các mức test, kỹ thuật Black-box (equivalence/boundary/decision table/use-case) và White-box (C0/C1, loop), JUnit, và Integration test.</p>
+  <div class="chips"><span class="chip">V-Model · Test levels</span><span class="chip">Black vs White box</span><span class="chip">C0 / C1 coverage</span><span class="chip">JUnit</span><span class="chip">Integration</span></div>
+  <a class="quiz-cta" href="quiz-09-testing.html"><span class="ic">📝</span> Luyện trắc nghiệm chủ đề này <small>· 32 câu · lưu tiến độ tự động</small></a>
+
+  <section>
+    <h2><span class="num">1</span> Tổng quan Testing &amp; QA</h2>
+    <div class="callout def"><span class="tt">Software test</span>Thực thi chương trình để xác định một <strong>tính chất (property)</strong> của nó có <em>đúng hay không</em>. Test <strong>pass</strong> nếu property <em>holds</em>, <strong>fail</strong> nếu <em>không holds</em> trong lần chạy đó.</div>
+    <p><strong>QA (Software Quality Assurance)</strong> = testing + nhiều hoạt động khác: static analysis (đánh giá không chạy code), proofs of correctness, code review, software process… <em>"Không hoạt động đơn lẻ nào đảm bảo được chất lượng phần mềm."</em></p>
+    <h3>V-Model &amp; các mức test</h3>
+    <div class="tw"><table>
+      <thead><tr><th>Mức</th><th>Câu hỏi</th><th>Chiến lược</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Unit</strong></td><td>Mỗi unit (class, method) làm đúng việc của nó?</td><td>Black box &amp; White box</td></tr>
+        <tr><td><strong>Integration</strong></td><td>Ghép các phần lại có ra kết quả mong đợi?</td><td>Bottom-up, Top-down</td></tr>
+        <tr><td><strong>System</strong></td><td>Chạy đúng trong toàn hệ thống?</td><td>—</td></tr>
+        <tr><td><strong>Acceptance</strong></td><td>Khớp nhu cầu người dùng?</td><td>—</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout note"><span class="tt">Từ vựng</span><strong>Test case:</strong> tập điều kiện/biến để xác định SUT có thỏa yêu cầu. <strong>Test suite:</strong> tập test case liên quan. <strong>Test plan:</strong> tài liệu mô tả approach, methodology, rủi ro, phạm vi, công cụ. Test Plan = Test Strategy (What/Why/When) + Test Logistics (Who).</div>
+  </section>
+
+  <section>
+    <h2><span class="num">2</span> Black box vs White box</h2>
+    <div class="tw"><table>
+      <thead><tr><th></th><th>Black box</th><th>White box</th></tr></thead>
+      <tbody>
+        <tr><td>Chọn input</td><td><strong>Không</strong> biết cài đặt (dựa spec/hành vi)</td><td><strong>Có</strong> biết cài đặt</td></tr>
+        <tr><td>Tập trung</td><td>Hành vi của SUT; cần "soict" (kết quả kỳ vọng)</td><td><strong>Coverage</strong> (độ phủ)</td></tr>
+        <tr><td>Ý tưởng</td><td>SUT/Implementation phải khớp spec (pre/postcondition)</td><td>Nếu test suite không chạy qua một statement → statement đó có thể lỗi</td></tr>
+      </tbody>
+    </table></div>
+    <p>Quy trình chung (A→B→C→D): chọn input → định nghĩa <strong>expected outcome (soict)</strong> → chạy SUT → so sánh kết quả với soict. "It's not black-and-white, but…" — thực tế phối hợp cả hai.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">3</span> Kỹ thuật Black-box</h2>
+    <h3>3.1 Equivalence Partitioning (phân vùng tương đương)</h3>
+    <p>Chia không gian input thành các <strong>lớp tương đương</strong>; mọi input trong cùng lớp cho <em>cùng kết quả</em> → mỗi lớp lấy 1 test case.</p>
+    <div class="callout example"><span class="tt">Examination Judgment Program</span>Passed nếu: cả Math &amp; Physics ≥ 70; <strong>hoặc</strong> trung bình Math &amp; Physics ≥ 80. Ngược lại Failed. → 7 lớp tương đương ⇒ ≥7 test case. <strong>Quan trọng:</strong> phải thêm test cho <em>"invalid value"</em> (VD Math=-15, Physics=120…) — chỉ hợp lệ là chưa đủ.</div>
+    <h3>3.2 Boundary-value Analysis (phân tích giá trị biên)</h3>
+    <p>Lấy test data ở <strong>biên</strong> → nhiều defect nằm ở đó (VD lập trình viên viết <code>if(mathscore &gt; 70)</code> thay vì <code>&gt;= 70</code>).</p>
+    <div class="callout example"><span class="tt">Biên của điểm Math (ngưỡng 70)</span>Invalid value | <strong>-1  0</strong> … failed … <strong>69  70</strong> passed … <strong>100  101</strong> | Invalid value. (Kiểm cả 69/70 &amp; 79/80 cho trung bình.)</div>
+    <h3>3.3 Decision Table (bảng quyết định)</h3>
+    <p>Biểu diễn quan hệ giữa <strong>điều kiện</strong> &amp; <strong>nội dung xử lý</strong> dưới dạng bảng — công cụ tốt khi <em>nhiều điều kiện kết hợp</em>.</p>
+    <div class="callout example"><span class="tt">Ví dụ: report từ file nhân viên</span>Điều kiện: Under age 30 (Y/N) · Male (Y/N) · Married (Y/N) → chọn Output Report 1–4 (đánh dấu X theo tổ hợp). Với Examination Judgment: Condition1 Math≥70, Condition2 Physics≥70, Condition3 avg≥80 → các cột TC cho "Passed"/"Failed".</div>
+    <h3>3.4 Testing for Use Case</h3>
+    <p>Từ use case → test cases: xác định mọi <strong>scenario</strong>; luồng thay thế vẽ thành graph theo từng action; tạo test cho basic flow + mỗi alternative flow + tổ hợp hợp lý + vòng lặp vô hạn.</p>
+    <div class="callout example"><span class="tt">Test cases "Log in"</span>"Thành công" (PIN đúng) · "Thất bại" (PIN sai &amp; số lần sai &lt; 3) · "Khóa tài khoản" (PIN sai &amp; số lần sai = 3). Kết hợp boundary: số lần sai = 2, 4.</div>
+  </section>
+
+  <section>
+    <h2><span class="num">4</span> Kỹ thuật White-box</h2>
+    <p>Test case phải phủ mọi cấu trúc xử lý trong code.</p>
+    <div class="tw"><table>
+      <thead><tr><th>Độ phủ</th><th>Công thức</th><th>Ý nghĩa 100%</th></tr></thead>
+      <tbody>
+        <tr><td><strong>C0 (statement)</strong></td><td>số statement đã chạy / tổng statement</td><td>Mọi câu lệnh được thực thi</td></tr>
+        <tr><td><strong>C1 (branch)</strong></td><td>số nhánh đã đi / tổng nhánh</td><td>Mọi nhánh được thực thi</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout warn"><span class="tt">Giới hạn White-box</span>Ngăn statement/branch bị bỏ sót, nhưng <strong>KHÔNG phát hiện được chức năng chưa được cài đặt</strong> (vì không có code thì không có gì để phủ).</div>
+    <div class="callout example"><span class="tt">Control flow test</span>100% C0 có thể chỉ cần 2 test (TC1int, TC2int) nhưng <em>chưa phủ hết nhánh</em>. 100% C1 cần thêm test (TC3int…). C1 mạnh hơn C0 nhưng số test vẫn có thể ít hơn số lớp tương đương của black-box (vì black-box còn xét invalid/functional). → Kết hợp cả hai.</div>
+    <h3>Testing vòng lặp (loop)</h3>
+    <p>Thay C0/C1, dùng 6 ca (dựa boundary-value): <strong>Skip vòng lặp · chạy 1 lần · m lần điển hình · n-1 · n · n+1</strong> (n = số tối đa, m = số điển hình, m&lt;n).</p>
+    <div class="callout example"><span class="tt">n=50</span>số SV = 0, 1, 20 (điển hình), 49, 50, 51(→invalid). <strong>Nested loop:</strong> cố định vòng ngoài ở số điển hình, test vòng trong như loop đơn; rồi đổi vai.</div>
+    <div class="callout note"><span class="tt">Data/message path test (integration)</span>Dùng sequence chart để white-box test tích hợp: chạy mọi message path/flow → 100% message path coverage.</div>
+  </section>
+
+  <section>
+    <h2><span class="num">5</span> Kết hợp Black/White &amp; quy trình test hiệu quả</h2>
+    <div class="two">
+      <div class="callout tip"><span class="tt">Ưu Black box</span>Test bao trùm dựa <strong>external spec</strong>; nền tảng &amp; mạnh để tạo phần mềm chất lượng cao.</div>
+      <div class="callout tip"><span class="tt">Ưu White box</span>Nếu path/flow không xuất hiện trong spec đã viết → black-box có thể bỏ sót; white-box bắt được (VD <code>if 0 =&lt; score =&lt; 100</code>).</div>
+    </div>
+    <div class="callout key"><span class="tt">Quy trình test hiệu quả &amp; đầy đủ</span>(1) Test theo external spec — nếu pass hết ⇒ mọi external spec cài đúng. (2) Thêm test theo internal spec (path/flow còn lại) — nếu pass với coverage 100% ⇒ mọi chức năng cài đúng, <em>không có mã dư thừa</em>.</div>
+  </section>
+
+  <section>
+    <h2><span class="num">6</span> JUnit</h2>
+    <p>Công cụ cho <strong>test-driven development</strong> (junit.org), tích hợp nhiều IDE (Eclipse, BlueJ…). Họ xUnit có bản cho nhiều ngôn ngữ.</p>
+    <div class="callout key"><span class="tt">Viết TestCase (kiểu cổ điển)</span>Kế thừa <code>junit.framework.TestCase</code>; tên lớp dạng <code>TestMyClass</code>/<code>MyClassTest</code>; method test dạng <code>testXxx()</code> — theo <strong>programming by contract</strong>: set up <em>precondition</em> → thực thi chức năng → kiểm <em>postcondition</em>.</div>
+    <div class="tw"><table>
+      <thead><tr><th>Cơ chế</th><th>Vai trò</th></tr></thead>
+      <tbody>
+        <tr><td><code>setUp()</code> / <code>tearDown()</code></td><td>Tạo/giải phóng <strong>test fixture</strong> trước/sau mỗi test → mỗi test bắt đầu với đối tượng "mới tinh", không phụ thuộc thứ tự chạy.</td></tr>
+        <tr><td>Assert methods</td><td><code>assertTrue/assertFalse</code>, <code>assertNull/assertNotNull</code>, <code>assertEquals</code> (dùng equals), <code>assertSame/assertNotSame</code> (dùng ==). Tham số: <em>message, expected, actual</em>; nên kèm message.</td></tr>
+        <tr><td>TestRunner</td><td>Chạy test &amp; báo cáo TestResult (Failure vs Error).</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout example"><span class="tt">Kiểu JUnit 4 (annotation)</span>
+<pre style="margin:.3rem 0"><code><span class="k">import</span> org.junit.*;
+<span class="k">import static</span> org.junit.Assert.*;
+<span class="k">public class</span> RandomHelloTest {
+  <span class="t">@Test</span>
+  <span class="k">public void</span> test_NoException(){
+    RandomHello.getGreeting();
+    assertTrue(<span class="k">true</span>);          <span class="c">// chạy &amp; return, không ném exception</span>
+  }
+  <span class="t">@Test</span>(expected = ArrayIndexOutOfBoundsException.class)
+  <span class="k">public void</span> testBadIndex(){
+    <span class="k">new</span> ArrayIntList().get(4);  <span class="c">// mong đợi exception → pass</span>
+  }
+}</code></pre></div>
+    <div class="callout tip"><span class="tt">Failure vs Error &amp; hints</span><strong>Failure:</strong> test không pass (oracle sai). <strong>Error:</strong> có sự cố ngoài dự kiến (VD null pointer). Green bar = pass, red bar = fail/error. Hints: <em>test một thứ mỗi method</em> (10 test nhỏ &gt; 1 test lớn); tiết kiệm <code>assert</code> (assert đầu fail sẽ dừng); test độc lập thứ tự; dùng <code>@Test(expected=...)</code> thay try/catch; đặt tên test mô tả (thường rất dài); <code>@RunWith(Suite.class)</code> gom test suite.</div>
+    <div class="callout note"><span class="tt">RandomHello — kiểm tính ngẫu nhiên</span>Test getGreeting: (1) chạy không ném exception; (2) trả về một trong các greeting đã định nghĩa; (3) chạy 100 lần, nếu có greeting <em>không bao giờ</em> xuất hiện → khó là ngẫu nhiên; (4) dùng thống kê chi-squared để bắt "sleazy developer" chỉ luân phiên 2 greeting.</div>
+  </section>
+
+  <section>
+    <h2><span class="num">7</span> Integration Test</h2>
+    <p>Kiểm giao diện <strong>giữa các module</strong> cùng input/output.</p>
+    <div class="callout def"><span class="tt">Stub / Driver</span>Chương trình <strong>giả lập</strong> chức năng của module cấp thấp hơn (<em>stub</em>) hoặc cấp cao hơn (<em>driver</em>).</div>
+    <div class="tw"><table>
+      <thead><tr><th>Cách tiếp cận</th><th>Đặc điểm</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Top-down</strong></td><td>Phát hiện sớm defect do hiểu sai spec; tốt cho hệ thống mới; cần <strong>stub</strong> (đơn giản, trả một giá trị).</td></tr>
+        <tr><td><strong>Bottom-up</strong></td><td>Module cấp thấp độc lập → test song song; tốt khi sửa hệ thống có sẵn; cần <strong>driver</strong> (phức tạp hơn, có điều khiển).</td></tr>
+        <tr><td><strong>Big-bang</strong></td><td>Ghép tất cả module đã unit-test cùng lúc; giảm số thủ tục test ở chương trình nhỏ; nhưng <em>khó định vị lỗi</em>.</td></tr>
+        <tr><td><strong>Sandwich</strong></td><td>Module cấp thấp test bottom-up, cấp cao test top-down.</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout key"><span class="tt">Regression Test</span>"Khi sửa một bug, bạn tạo ra vài bug mới." → Test lại sau khi code đổi để chắc vẫn chạy đúng: chạy lại test case cũ; kiểm side-effect. Chạy <strong>càng thường xuyên càng tốt</strong>, dùng công cụ regression tự động.</div>
+  </section>
+
+  <nav class="pager">
+    <a href="08-data-modeling.html"><span class="dir">← Trước</span><span class="ttl">Mô hình hóa dữ liệu</span></a>
+    <a class="next" href="10-programming.html"><span class="dir">Sau →</span><span class="ttl">Lập trình hiệu quả</span></a>
+  </nav>
+</main>
+</div>
+<script src="../assets/app.js"></script>
+</body>
+</html>

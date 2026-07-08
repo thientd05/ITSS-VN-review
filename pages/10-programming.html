@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>10. Lập trình hiệu quả — ITSS Ôn tập</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/quiz.css">
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a class="brand" href="../index.html"><span class="dot"></span> ITSS SW Dev <small>· Ôn tập</small></a>
+  <div class="top-spacer"></div>
+  <a class="top-link" href="../index.html">Trang chủ</a>
+  <button id="themeBtn" class="icon-btn" onclick="toggleTheme()">☾</button>
+</div></div>
+
+<div class="layout">
+<aside class="toc"><h4>Mục lục</h4><nav></nav></aside>
+<main class="content">
+  <div class="crumb">Ôn tập ITSS · Chủ đề 10</div>
+  <h1 class="page-title">Lập trình hiệu quả (Effective Programming)</h1>
+  <p class="page-lead">Phong cách lập trình, tối ưu code (myths &amp; techniques), refactoring &amp; code smells (6 nhóm), và debugging (defense-in-depth, fail-fast, phương pháp khoa học).</p>
+  <div class="chips"><span class="chip">Coding style</span><span class="chip">Code tuning</span><span class="chip">Refactoring · Code Smells</span><span class="chip">Debugging</span></div>
+  <a class="quiz-cta" href="quiz-10-programming.html"><span class="ic">📝</span> Luyện trắc nghiệm chủ đề này <small>· 29 câu · lưu tiến độ tự động</small></a>
+
+  <section>
+    <h2><span class="num">1</span> Bốn cách để code "đúng"</h2>
+    <div class="grid">
+      <div class="card"><h4>Verification / QA</h4><p>Vạch trần vấn đề &amp; tăng độ tin cậy; kết hợp reasoning + test.</p></div>
+      <div class="card"><h4>Debugging</h4><p>Tìm ra <em>vì sao</em> chương trình không hoạt động đúng ý.</p></div>
+      <div class="card"><h4>Defensive programming</h4><p>Lập trình với tinh thần validation &amp; debugging sẵn trong đầu.</p></div>
+      <div class="card"><h4>Test ≠ Debug</h4><p>Test: <em>tiết lộ sự tồn tại</em> vấn đề (+tăng độ tin cậy). Debug: <em>xác định vị trí + nguyên nhân</em>.</p></div>
+    </div>
+    <div class="callout note"><span class="tt">Trích dẫn</span>"Any fool can write code that a computer can understand. Good programmers write code that humans can understand." — Martin Fowler.</div>
+  </section>
+
+  <section>
+    <h2><span class="num">2</span> Programming Style (coding convention)</h2>
+    <ul>
+      <li>Dùng <strong>hằng số</strong> cho mọi giá trị hằng (VD thuế); khai báo hằng trước biến ở đầu thủ tục.</li>
+      <li>Dùng biến khi có thể; đặt tên <strong>mô tả</strong> (có/không prefix, VD <code>btnDone</code>).</li>
+      <li>Comment code (nhất là chỗ mơ hồ/dễ hiểu nhầm) nhưng <em>không lạm dụng</em>.</li>
+      <li>Dùng ngoặc cho biểu thức toán học dù không bắt buộc: <code>(3*2) + (4*2)</code> → rõ ý.</li>
+      <li>Viết code hiệu quả; form input/output thân thiện; kèm <strong>header</strong> đầu file (tên tác giả, ngày, project, lớp, mô tả…).</li>
+    </ul>
+    <div class="callout tip"><span class="tt">Công cụ</span>Java Coding Conventions; công cụ <strong>Checkstyle</strong> giúp tuân chuẩn.</div>
+  </section>
+
+  <section>
+    <h2><span class="num">3</span> Code Tuning / Optimization</h2>
+    <div class="callout def"><span class="tt">Code tuning</span>Sửa code <em>đúng</em> để chạy <em>hiệu quả hơn</em>. KHÔNG phải cách rẻ/hiệu quả nhất để cải thiện performance. Quy tắc 80/20: <strong>20% method tiêu tốn 80% thời gian chạy</strong>.</div>
+    <h3>Myths (đều SAI!)</h3>
+    <ul>
+      <li>"Giảm số dòng code high-level thì code máy nhanh/nhỏ hơn" — <strong>sai</strong>.</li>
+      <li>"Chương trình nhanh cũng quan trọng như chương trình đúng" — <strong>sai</strong>.</li>
+      <li>"Một số phép toán chắc chắn nhanh/nhỏ hơn cái khác" — <strong>sai</strong> → phải <em>luôn đo</em>!</li>
+      <li>"Nên tối ưu ngay khi viết (as you go)" — <strong>sai</strong> (khó tìm bottleneck khi chưa chạy xong; tối ưu sớm làm xao nhãng mục tiêu khác).</li>
+    </ul>
+    <div class="callout key"><span class="tt">Khi nào tune</span>Dùng thiết kế chất lượng cao trước: (1) <strong>Make it right</strong> · (2) modular &amp; dễ sửa · (3) khi hoàn chỉnh &amp; đúng mới kiểm performance. Cân nhắc compiler optimization; <strong>Measure</strong>; viết code sạch dễ hiểu &amp; sửa.</div>
+    <p><strong>Measurement</strong> cần: chính xác, lặp lại được. <strong>Optimize theo vòng lặp:</strong> đo cải thiện sau mỗi lần tối ưu; nếu không cải thiện → <em>revert</em>.</p>
+    <h3>Kỹ thuật tuning</h3>
+    <ul>
+      <li>Dừng test khi đã biết câu trả lời (short-circuit).</li>
+      <li>Sắp test theo tần suất (order tests by frequency).</li>
+      <li>Unswitching loops (đưa <code>if</code> ra ngoài vòng lặp).</li>
+      <li>Giảm việc bên trong vòng lặp (cache <code>rates-&gt;discounts-&gt;factors-&gt;net</code>).</li>
+      <li>Khởi tạo ở compile-time (hằng số).</li>
+      <li>Lazy evaluation (tính khi cần).</li>
+      <li>Khi duyệt dữ liệu, giữ tham chiếu bộ nhớ <strong>tuần tự (sequential)</strong>.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="num">4</span> Refactoring</h2>
+    <div class="callout def"><span class="tt">Refactoring — Martin Fowler</span>"Cải thiện thiết kế &amp; chất lượng của mã nguồn hiện có <strong>mà không thay đổi hành vi bên ngoài</strong>." Là quy trình từng bước biến bad code thành good code, dựa trên <em>refactoring patterns</em>.</div>
+    <div class="callout key"><span class="tt">Khi nào refactor?</span><strong>Bad smells</strong> báo hiệu cần refactor: để thêm chức năng dễ hơn · khi fix bug · khi review code người khác · khi có technical debt · khi làm TDD. <strong>Unit test bảo đảm refactoring không đổi hành vi</strong> — nếu chưa có test thì viết test trước.</div>
+    <h3>Nguyên tắc &amp; quy trình</h3>
+    <div class="two">
+      <div class="callout tip"><span class="tt">Main Principles</span>KISS (keep it simple) · DRY (avoid duplication) · self-documenting · giảm tổng lượng code · tách concern (decoupling) · mức trừu tượng phù hợp · <strong>Boy scout rule</strong> (để code sạch hơn lúc bạn tới).</div>
+      <div class="callout tip"><span class="tt">Typical Process</span>(1) Lưu/backup code hiện tại · (2) Chuẩn bị test bảo đảm hành vi · (3) refactor <strong>từng cái một</strong>, giữ nhỏ · (4) chạy test, pass thì tiếp/không thì revert · (5) check-in.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">5</span> Code Smells — 6 nhóm</h2>
+    <div class="callout def"><span class="tt">Code smell</span>Các cấu trúc trong code <em>gợi ý</em> khả năng cần refactoring.</div>
+    <div class="tw"><table>
+      <thead><tr><th>Nhóm</th><th>Các smell tiêu biểu</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Bloaters</strong> (phình to)</td><td>Long method · Large class · Primitive obsession · Long parameter list · Data clumps · Combinatorial explosion · Oddball solution · Class doesn't do much · Required setup/teardown code</td></tr>
+        <tr><td><strong>Obfuscators</strong> (che khuất)</td><td>Regions · Comments (nên nói <em>WHY</em> chứ không WHAT/HOW) · Poor names · Vertical separation · Inconsistency (POLA) · Obscured intent</td></tr>
+        <tr><td><strong>OO Abusers</strong></td><td>Switch statement (→ polymorphism) · Temporary field · Class depends on subclass (circular, phá Liskov) · Inappropriate static field</td></tr>
+        <tr><td><strong>Change Preventers</strong></td><td>Divergent change (phá SRP) · Shotgun surgery · Conditional complexity (deep nesting) · Poorly written tests</td></tr>
+        <tr><td><strong>Dispensables</strong> (thừa)</td><td>Lazy class · Data class · Duplicated code (phá DRY) · Dead code · Speculative generality (YAGNI)</td></tr>
+        <tr><td><strong>Couplers</strong></td><td>Feature envy · Inappropriate intimacy · Law of Demeter (LoD) · Indecent exposure · Message chains · Middle man · Tramp data · Artificial coupling · Hidden temporal coupling · Hidden dependencies</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout note"><span class="tt">Refactoring theo cấp độ</span><strong>Data-level:</strong> replace magic number bằng constant, rename biến, convert set of type codes → enum. <strong>Statement-level:</strong> decompose boolean, dùng break/return, replace conditional bằng polymorphism, null-object pattern. <strong>Method-level:</strong> extract/inline method, rename, add/remove parameter. <strong>Class-level:</strong> pull up/push down, extract subclass, replace inheritance ↔ delegation. <strong>Class Interface:</strong> extract interface, encapsulate exposed field, remove middle man. <strong>System-level:</strong> replace error codes bằng exception, dependency injection, apply architecture patterns.</div>
+  </section>
+
+  <section>
+    <h2><span class="num">6</span> Debugging</h2>
+    <p>Thuật ngữ: Error → Bug → Fault → Defect → Failure. "Bug" đầu tiên thực sự là một con bướm đêm kẹt trong relay (Grace Hopper).</p>
+    <h3>6.1 Defense in depth (phòng thủ nhiều tầng)</h3>
+    <div class="tw"><table>
+      <thead><tr><th>Tầng</th><th>Ý tưởng</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1. Make errors impossible</strong></td><td>Trong ngôn ngữ (Java chặn memory overwrite; BigInteger không tràn), protocol/library (TCP/IP không đảo thứ tự), quy ước tự đặt (cấm đệ quy, immutable data). "Impossible by design".</td></tr>
+        <tr><td><strong>2. Don't introduce defects (Correctness)</strong></td><td>Làm đúng ngay từ đầu; nghĩ trước khi code; <strong>Simplicity</strong> là chìa khóa (modularity, ADT interface rõ, defensive programming, viết spec cho mọi module).</td></tr>
+        <tr><td><strong>3. Make errors immediately visible</strong></td><td><strong>Fail-fast</strong>: assertions bắt lỗi sớm; unit test cô lập module; regression test. Khi lỗi được khoanh vào một method nhỏ → đọc code là tìm ra.</td></tr>
+        <tr><td><strong>4. Debugging (last resort)</strong></td><td>Cần khi failure (hậu quả) xa cause (defect). Dùng phương pháp khoa học.</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout key"><span class="tt">Fail-fast — Đừng che giấu lỗi</span>Đừng làm code "robust" giả tạo bằng cách <em>không</em> fail. Assertion giúp document &amp; kiểm invariant: biến lỗi thành failure ngay. Lỗi phát hiện càng sớm càng dễ sửa (giảm khoảng cách defect ↔ detection). Câu hỏi trong production: có nên giữ assertion? — <em>tùy ngữ cảnh</em> (Ariane 5 crash vì exception overflow không xử lý). Trích: Hoare — "thiết kế đơn giản để hiển nhiên không có lỗi vs phức tạp đến mức không có lỗi hiển nhiên"; Kernighan — "debug khó gấp đôi viết code, nên đừng viết code khôn ranh hết mức".</div>
+    <h3>6.2 Quy trình Debugging (4 bước)</h3>
+    <ol>
+      <li><strong>Clarify symptom:</strong> tìm test nhỏ, lặp lại được, tái hiện failure (đơn giản hóa input).</li>
+      <li><strong>Find &amp; understand cause:</strong> thu hẹp vị trí; study data → hypothesize → experiment → repeat. Không sang bước sau khi chưa hiểu nguyên nhân.</li>
+      <li><strong>Fix:</strong> typo hay lỗi thiết kế? có xuất hiện ở chỗ khác?</li>
+      <li><strong>Re-run all tests</strong> (thêm test vào regression suite).</li>
+    </ol>
+    <div class="callout tip"><span class="tt">Kỹ thuật &amp; scientific method</span>Debug là quá trình khoa học có hệ thống: formulate hypothesis → design experiment → perform → adjust. <strong>Binary search</strong> trên code lỗi (kiểm kết quả trung gian ở nửa đường → về defect trong O(log n)). <strong>Reducing input size</strong> (divide-and-conquer, "very very happy" → "aab"…). <strong>Localizing:</strong> bỏ dần từng phần tới khi hết failure / thêm dần tới khi failure xuất hiện.</div>
+    <div class="callout warn"><span class="tt">Heisenbugs &amp; hard bugs</span>Heisenbug: chương trình tuần tự deterministic thì failure lặp lại được, nhưng thực tế có input liên tục/timing/concurrency → failure ngẫu nhiên, khó tái hiện (dùng debugger/assertion thì bug biến mất!). Mẹo: rebuild từ đầu; giải thích cho bạn bè; minimize input; add checks; dùng <strong>Logging Events</strong> (circular buffer) để tái dựng quá khứ. Where is the bug? — tìm lỗi ngớ ngẩn trước (đảo thứ tự tham số <code>Collections.copy(src,dest)</code>, <code>@Override</code> bắt typo, <code>a==b</code> vs <code>a.equals(b)</code>, recompile everything).</div>
+    <div class="callout note"><span class="tt">Công cụ (Eclipse plug-in)</span><strong>Checkstyle</strong> (tuân coding standard) · <strong>FindBugs</strong> (static analysis tìm bug &amp; performance issue, &gt;200 rule: Correctness, Bad practice, Performance, Dodgy; input là file .class, dùng "bug patterns").</div>
+  </section>
+
+  <nav class="pager">
+    <a href="09-testing.html"><span class="dir">← Trước</span><span class="ttl">Kiểm thử</span></a>
+    <a class="next" href="11-coupling-cohesion.html"><span class="dir">Sau →</span><span class="ttl">Coupling &amp; Cohesion</span></a>
+  </nav>
+</main>
+</div>
+<script src="../assets/app.js"></script>
+</body>
+</html>

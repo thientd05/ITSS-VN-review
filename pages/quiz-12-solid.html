@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Trắc nghiệm 12 · Nguyên lý SOLID — ITSS</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/quiz.css">
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a class="brand" href="../index.html"><span class="dot"></span> ITSS SW Dev <small>· Trắc nghiệm</small></a>
+  <div class="top-spacer"></div>
+  <a class="top-link" href="12-solid.html">← Lý thuyết</a>
+  <a class="top-link" href="../index.html">Trang chủ</a>
+  <button id="themeBtn" class="icon-btn" onclick="toggleTheme()">☾</button>
+</div></div>
+
+<div class="quiz-layout">
+  <main class="quiz-main">
+    <div class="crumb"><a href="12-solid.html">← Quay lại lý thuyết: Nguyên lý SOLID</a></div>
+    <h1 class="page-title">Trắc nghiệm · Chủ đề 12</h1>
+    <p class="page-lead">Nguyên lý SOLID (Robert C. Martin): SRP, OCP (abstraction, dynamic/static polymorphism), LSP (demand no more/promise no less, Rectangle-Square), ISP (fat interface), DIP (depend on abstraction, ownership inversion). Nộp từng câu để xem đáp án &amp; giải thích. Kết quả được lưu tự động.</p>
+    <div id="quizRoot"></div>
+  </main>
+
+  <aside class="qnav-wrap">
+    <h4>Bảng câu hỏi</h4>
+    <div class="qnav-stat" id="qnavStat"></div>
+    <div class="qnav-grid" id="qnavGrid"></div>
+    <div class="qnav-legend">
+      <span><i class="ok"></i> Đúng</span>
+      <span><i class="no"></i> Sai</span>
+      <span><i class="an"></i> Đang chọn</span>
+    </div>
+    <button class="btn-resetall" id="btnResetAll">↺ Làm lại toàn bộ</button>
+  </aside>
+</div>
+
+<script>
+window.QUIZ = {
+  id: "12-solid",
+  title: "Nguyên lý SOLID",
+  back: "12-solid.html",
+  questions: [
+    /* ===== 0. Overview ===== */
+    {
+      type: "single",
+      q: "<b>SOLID</b> là viết tắt của 5 nguyên lý nào (theo thứ tự)?",
+      options: [
+        "Single Responsibility · Open-Closed · Liskov Substitution · Interface Segregation · Dependency Inversion",
+        "Simple · Object · Logical · Independent · Data",
+        "Separation · Overloading · Late-binding · Inheritance · Delegation",
+        "Single Responsibility · Overloading · Liskov · Injection · Decoupling"
+      ],
+      answer: [0],
+      explain: "SOLID = <b>S</b>ingle Responsibility, <b>O</b>pen-Closed, <b>L</b>iskov Substitution, <b>I</b>nterface Segregation, <b>D</b>ependency Inversion — 5 nguyên lý OOD của Robert C. Martin."
+    },
+    {
+      type: "multi",
+      q: "Vì sao SOLID hữu ích?",
+      options: [
+        "Làm <b>tham chiếu</b> khi thiết kế",
+        "Quản lý dependency giúp <b>maintainability</b> dễ hơn",
+        "Cung cấp phương tiện <b>chẩn đoán</b> vấn đề thiết kế",
+        "Đảm bảo chương trình chạy nhanh hơn về runtime",
+        "Thay thế hoàn toàn cho việc kiểm thử"
+      ],
+      answer: [0, 1, 2],
+      explain: "SOLID hữu ích làm <b>tham chiếu</b> khi thiết kế, quản lý dependency → dễ <b>maintainability</b>, và <b>chẩn đoán</b> vấn đề thiết kế. Nó không nhắm tối ưu runtime hay thay thế kiểm thử."
+    },
+
+    /* ===== 1. SRP ===== */
+    {
+      type: "single",
+      q: "<b>SRP (Single Responsibility Principle)</b> phát biểu gì?",
+      options: [
+        "Một lớp chỉ nên có <b>một lý do để thay đổi</b> (một loại trách nhiệm)",
+        "Một lớp nên mở cho mở rộng, đóng với sửa đổi",
+        "Lớp con phải thay thế được lớp cha",
+        "Phụ thuộc vào abstraction, không vào concretion"
+      ],
+      answer: [0],
+      explain: "<b>SRP</b>: \"Never be more than <b>one reason</b> for a class to change\" — mỗi lớp chỉ một loại trách nhiệm. Responsibility = một lý do để thay đổi. Đo bằng Cohesion (&amp; Coupling)."
+    },
+    {
+      type: "single",
+      q: "Interface Modem có <code>dial/hangup</code> + <code>send/recv</code> vi phạm SRP thế nào và sửa ra sao?",
+      options: [
+        "Gộp <b>2 trách nhiệm</b> (quản lý kết nối + truyền dữ liệu) → tách thành <code>Connection</code> &amp; <code>DataChannel</code>",
+        "Chỉ có 1 trách nhiệm, không vi phạm gì",
+        "Vi phạm OCP, sửa bằng polymorphism",
+        "Vi phạm LSP, sửa bằng composition"
+      ],
+      answer: [0],
+      explain: "Modem gộp <b>2 trách nhiệm</b>: <code>dial/hangup</code> (quản lý kết nối) và <code>send/recv</code> (truyền dữ liệu) → vi phạm SRP. Sửa: tách thành <code>Connection</code> &amp; <code>DataChannel</code>."
+    },
+    {
+      type: "single",
+      q: "Cho <code>Student implements Comparable</code> với <code>compareTo()</code>. Vì sao vi phạm SRP và giải pháp là gì?",
+      options: [
+        "Gộp business entity + ordering → mỗi lần đổi cách sort phải sửa &amp; recompile Student; giải pháp: tách <code>Comparator</code> (StudentByName, StudentBySSN)",
+        "Không vi phạm gì, Comparable là đúng chuẩn",
+        "Vi phạm ISP, tách interface Comparable nhỏ hơn",
+        "Vi phạm DIP, đảo ngược phụ thuộc"
+      ],
+      answer: [0],
+      explain: "<code>Student implements Comparable</code> gộp 2 trách nhiệm: <b>business entity</b> + <b>ordering</b>. Mỗi khi cần sort khác đi phải sửa <code>compareTo</code> &amp; recompile Student + client dù chúng không liên quan thứ tự sort → vi phạm SRP. Giải pháp: tách <code>StudentByName</code>, <code>StudentBySSN</code> implement <b>Comparator</b>, dùng <code>Collections.sort(list, comparator)</code>."
+    },
+
+    /* ===== 2. OCP ===== */
+    {
+      type: "single",
+      q: "<b>OCP (Open-Closed Principle)</b> — Bertrand Meyer — phát biểu gì?",
+      options: [
+        "Software entity nên <b>mở cho mở rộng (extension)</b>, nhưng <b>đóng với sửa đổi (modification)</b>",
+        "Mọi lớp phải public hết để mở rộng",
+        "Lớp con thay thế được lớp cha",
+        "Một lớp chỉ có một lý do thay đổi"
+      ],
+      answer: [0],
+      explain: "<b>OCP</b> (Bertrand Meyer, 1988): software entity nên <b>open for extension</b> (mở rộng hành vi khi yêu cầu đổi) nhưng <b>closed for modification</b> (không sửa code đã chạy tốt) → tránh thay đổi lan truyền (cascading)."
+    },
+    {
+      type: "single",
+      q: "Theo OCP, đâu là \"chìa khóa\" để vừa mở rộng vừa không sửa code cũ?",
+      options: [
+        "<b>Abstraction</b>: Client phụ thuộc abstraction (interface); các Supplier concrete implement nó",
+        "Copy-paste code Supplier vào Client",
+        "Dùng nhiều biến global chia sẻ",
+        "Đặt tất cả logic trong một hàm lớn"
+      ],
+      answer: [0],
+      explain: "<b>Abstraction là chìa khóa</b> của OCP: nếu Client &amp; Supplier đều concrete thì đổi Supplier buộc đổi Client. Cho Supplier concrete <b>implement một Abstract Supplier/interface</b>, Client phụ thuộc abstraction → đổi cài đặt Supplier không cần đổi Client. Abstract closed for modification, concrete open for extension."
+    },
+    {
+      type: "single",
+      q: "<code>printEmpRoster()</code> dùng <code>if(empType==FACULTY)... else if(STAFF)...</code>. Sửa theo OCP thế nào?",
+      options: [
+        "Dùng <b>Dynamic Polymorphism</b>: Employee có <code>printInfo()</code>, lớp con override, vòng lặp chỉ gọi <code>emps[i].printInfo()</code>",
+        "Thêm nhiều nhánh <code>else if</code> hơn cho từng loại",
+        "Chuyển sang dùng biến global cho empType",
+        "Gộp mọi loại Employee vào một lớp duy nhất"
+      ],
+      answer: [0],
+      explain: "Chuỗi <code>if/else if</code> theo empType vi phạm OCP (thêm Engineer phải sửa hàm). Sửa bằng <b>Dynamic Polymorphism</b>: Employee có <code>printInfo()</code>, các lớp con override, vòng lặp chỉ gọi <code>emps[i].printInfo()</code> → thêm loại mới không cần recompile <code>printEmpRoster</code>."
+    },
+    {
+      type: "single",
+      q: "Phân biệt <b>Dynamic</b> và <b>Static polymorphism</b> (ví dụ trong bài) là gì?",
+      options: [
+        "Dynamic: override/Comparator (vd 3 phiên bản sort); Static: <b>Generics</b> (vd <code>class LinkedList&lt;E&gt;</code>)",
+        "Dynamic: Generics; Static: override method",
+        "Cả hai đều là Generics",
+        "Cả hai đều là method overriding"
+      ],
+      answer: [0],
+      explain: "<b>Dynamic polymorphism</b>: qua override/Comparator (vd 3 phiên bản <code>sort(list)</code>, <code>sort(list, StringComparator)</code>, <code>sort(list, Comparator)</code>). <b>Static polymorphism</b>: qua <b>Generics</b> (<code>class LinkedList&lt;E&gt;</code> chứa object bất kỳ kiểu)."
+    },
+
+    /* ===== 3. LSP ===== */
+    {
+      type: "single",
+      q: "<b>LSP (Liskov Substitution Principle)</b> phát biểu gì?",
+      options: [
+        "Hàm dùng tham chiếu tới base class phải dùng được object của derived class <b>mà không cần biết</b> — lớp con thay thế được lớp cha",
+        "Một lớp chỉ có một trách nhiệm",
+        "Nhiều interface chuyên biệt hơn một interface tổng",
+        "Phụ thuộc vào abstraction"
+      ],
+      answer: [0],
+      explain: "<b>LSP</b>: hàm dùng pointer/reference tới base class phải dùng được object của derived class <b>mà không biết</b> → lớp con phải <b>thay thế được</b> lớp cha. Mọi cài đặt interface phải tuân thủ đầy đủ yêu cầu của interface."
+    },
+    {
+      type: "multi",
+      q: "Hai quy tắc của LSP là gì?",
+      options: [
+        "<b>Demand no more</b>: lớp con chấp nhận mọi đối số mà cha chấp nhận",
+        "<b>Promise no less</b>: mọi giả định đúng khi dùng cha phải đúng khi dùng con",
+        "Demand more: lớp con được yêu cầu thêm điều kiện chặt hơn cha",
+        "Promise more: lớp con được hứa ít hơn cha"
+      ],
+      answer: [0, 1],
+      explain: "Hai quy tắc LSP: <b>Demand no more</b> (con chấp nhận mọi đối số cha chấp nhận — không đòi hỏi thêm) và <b>Promise no less</b> (mọi giả định đúng với cha phải đúng với con — không hứa ít hơn). \"Demand more\"/\"Promise less\" chính là vi phạm."
+    },
+    {
+      type: "single",
+      q: "Vì sao <code>Square extends Rectangle</code> vi phạm LSP?",
+      options: [
+        "Square override setWidth cũng set height → Client dùng Rectangle (setWidth 10, setHeight 20, expect area 200) cho kết quả sai với Square",
+        "Square không kế thừa được Rectangle về mặt cú pháp",
+        "Rectangle thiếu method compareTo",
+        "Square có nhiều trách nhiệm hơn Rectangle"
+      ],
+      answer: [0],
+      explain: "<code>Square extends Rectangle</code> override <code>setWidth</code> để set luôn height (và ngược lại). Client viết theo Rectangle (setWidth=10, setHeight=20, expect area=200) → với Square kết quả sai (không giữ giả định của cha) → <b>vi phạm LSP</b>. Tương tự Ostrich–Bird (đà điểu không bay được)."
+    },
+    {
+      type: "single",
+      q: "Về quan hệ giữa LSP và OCP, phát biểu nào đúng?",
+      options: [
+        "<b>LSP là mở rộng của OCP</b>",
+        "LSP và OCP mâu thuẫn nhau",
+        "OCP là mở rộng của LSP",
+        "Hai nguyên lý không liên quan"
+      ],
+      answer: [0],
+      explain: "<b>LSP là mở rộng của OCP</b>: để mở rộng qua đa hình (OCP) mà không sửa code cũ, lớp con phải thay thế được lớp cha (LSP). Vi phạm LSP làm class hierarchy thành \"mớ hỗn độn\"."
+    },
+    {
+      type: "single",
+      q: "Khi muốn dùng cài đặt của <code>List</code> để implement <code>Queue</code> trong Java, nên dùng gì (theo bài)?",
+      options: [
+        "<b>Composition, KHÔNG inheritance</b> — vì ý định chỉ là dùng cài đặt của List",
+        "Implementation inheritance (extends List)",
+        "Interface inheritance từ Queue và List cùng lúc",
+        "Sao chép code của List vào Queue"
+      ],
+      answer: [0],
+      explain: "Khi dùng List để <em>implement</em> Queue (chỉ muốn dùng cài đặt), nên dùng <b>composition, không inheritance</b> — tránh vi phạm LSP (Queue không thật sự \"is-a\" List). Multi-layer hierarchy: dùng composition thay inheritance (Java) hoặc private base class (C++)."
+    },
+
+    /* ===== 4. ISP ===== */
+    {
+      type: "single",
+      q: "<b>ISP (Interface Segregation Principle)</b> phát biểu gì?",
+      options: [
+        "Client <b>không nên bị buộc phụ thuộc</b> vào interface mà nó không dùng — nhiều interface chuyên biệt tốt hơn một interface đa dụng",
+        "Một lớp chỉ có một trách nhiệm",
+        "Lớp con thay thế được lớp cha",
+        "High-level không phụ thuộc low-level"
+      ],
+      answer: [0],
+      explain: "<b>ISP</b>: \"Client should not be forced to depend upon interface that they do not use\" → nhiều interface <b>chuyên biệt</b> cho client tốt hơn một interface đa dụng (fat interface)."
+    },
+    {
+      type: "single",
+      q: "Vấn đề của một <b>fat interface</b> (Service gồm method cho ClientA + B + C) là gì?",
+      options: [
+        "Thay đổi do <b>một</b> client (A) khiến Service &amp; <b>các client khác</b> (B, C) phải recompile → coupling không cần thiết",
+        "Chạy chậm hơn về runtime",
+        "Không thể biên dịch được",
+        "Vi phạm SRP nhưng không ảnh hưởng client khác"
+      ],
+      answer: [0],
+      explain: "Fat interface tạo <b>coupling không cần thiết</b> giữa các client: thay đổi do ClientA khiến Service &amp; các client B, C phải recompile. Sửa: tách ServiceA/B/C (ServiceImpl hiện thực cả ba) → đổi do ClientA chỉ ảnh hưởng ServiceA &amp; ServiceImpl."
+    },
+
+    /* ===== 5. DIP ===== */
+    {
+      type: "single",
+      q: "<b>DIP (Dependency Inversion Principle)</b> phát biểu gì?",
+      options: [
+        "High-level module KHÔNG phụ thuộc low-level module; <b>cả hai phụ thuộc abstraction</b>; abstraction không phụ thuộc detail",
+        "Low-level module phụ thuộc high-level module trực tiếp",
+        "Mọi module phải là concrete để rõ ràng",
+        "Một interface cho mỗi client"
+      ],
+      answer: [0],
+      explain: "<b>DIP</b>: \"High-level modules should not depend upon low-level modules. Both should depend upon <b>abstractions</b>\" và \"Details should depend upon abstraction\". Tóm: \"Depend upon Abstractions, not concretions\"."
+    },
+    {
+      type: "single",
+      q: "Vì sao high-level module nên phụ thuộc abstraction của low-level (DIP)?",
+      options: [
+        "Low-level dễ thay đổi hơn; high-level (business policy) ổn định hơn → không để thay đổi low-level ép high-level đổi",
+        "High-level dễ thay đổi hơn low-level",
+        "Vì abstraction chạy nhanh hơn concretion",
+        "Vì low-level là mục đích của hệ thống"
+      ],
+      answer: [0],
+      explain: "Low-level module <b>dễ thay đổi</b> hơn; high-level module (business policy) <b>ổn định</b> hơn (là mục đích hệ thống). Nếu high-level phụ thuộc thẳng low-level thì đổi low-level sẽ ép high-level đổi → DIP đảo ngược: high-level phụ thuộc <b>abstraction của low-level</b>. Ví dụ mỏ hàn cắm qua chuẩn phích cắm, không hàn cứng."
+    },
+    {
+      type: "single",
+      q: "<b>Ownership Inversion</b> trong DIP nghĩa là gì?",
+      options: [
+        "Tầng <b>trên (client)</b> sở hữu interface; tầng dưới phụ thuộc interface do tầng trên định nghĩa",
+        "Tầng dưới sở hữu interface, tầng trên phụ thuộc",
+        "Không tầng nào sở hữu interface",
+        "Interface thuộc về một tầng thứ ba độc lập"
+      ],
+      answer: [0],
+      explain: "<b>Ownership Inversion</b>: thay vì Policy → Mechanism → Utility (tầng trên phụ thuộc tầng dưới), ta đặt <code>&laquo;interface&raquo; PolicyService</code>/<code>MechanismService</code> để <b>tầng trên (client) sở hữu interface</b>, tầng dưới phụ thuộc interface do tầng trên định nghĩa. \"Client sở hữu interface, không phải tầng dưới\"."
+    },
+    {
+      type: "single",
+      q: "Câu \"<code>new</code> là glue → dùng Dependency Injection\" liên hệ DIP thế nào?",
+      options: [
+        "Gọi <code>new</code> trực tiếp trên concrete tạo coupling cứng; DI cung cấp cài đặt qua abstraction (hinge points)",
+        "<code>new</code> luôn nên dùng trực tiếp trong mọi lớp",
+        "Dependency Injection vi phạm DIP",
+        "DI chỉ dùng cho low-level module"
+      ],
+      answer: [0],
+      explain: "Gọi <code>new</code> trên concrete gắn cứng (\"glue\") high-level với low-level → vi phạm DIP. Dùng <b>Dependency Injection</b> để cung cấp cài đặt qua abstraction — abstraction là \"hinge points\" nơi thiết kế có thể thay cài đặt khác nhau."
+    },
+
+    /* ===== 6. Case study ===== */
+    {
+      type: "single",
+      q: "Case study <b>Reminder program</b> (\"Nhắc nghỉ giải lao\") dùng để làm gì?",
+      options: [
+        "Bài tập áp dụng &amp; kiểm tra SRP/OCP/LSP/ISP/DIP trong codebase",
+        "Minh họa thuật toán sắp xếp nhanh",
+        "Chứng minh mô hình Waterfall",
+        "Thiết kế cơ sở dữ liệu quan hệ"
+      ],
+      answer: [0],
+      explain: "<b>Reminder program</b> (định kỳ nhắc/bắt người dùng nghỉ giải lao) — naive design gộp hiển thị message + gợi ý bài tập + vòng lặp theo thời gian — được dùng làm <b>bài tập áp dụng &amp; kiểm tra SRP/OCP/LSP/ISP/DIP</b>, rà codebase tách trách nhiệm/dựa abstraction/tách interface."
+    }
+  ]
+};
+</script>
+<script src="../assets/app.js"></script>
+<script src="../assets/quiz.js"></script>
+</body>
+</html>

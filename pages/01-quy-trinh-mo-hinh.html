@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>1. Quy trình & Mô hình phát triển phần mềm — ITSS Ôn tập</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/quiz.css">
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a class="brand" href="../index.html"><span class="dot"></span> ITSS SW Dev <small>· Ôn tập</small></a>
+  <div class="top-spacer"></div>
+  <a class="top-link" href="../index.html">Trang chủ</a>
+  <button id="themeBtn" class="icon-btn" onclick="toggleTheme()">☾</button>
+</div></div>
+
+<div class="layout">
+<aside class="toc"><h4>Mục lục</h4><nav></nav></aside>
+<main class="content">
+  <div class="crumb">Ôn tập ITSS · Chủ đề 1</div>
+  <h1 class="page-title">Quy trình &amp; Mô hình phát triển phần mềm</h1>
+  <p class="page-lead">Bức tranh tổng thể: chuẩn vòng đời phần mềm (ISO 12207), quy trình cài đặt, tư duy phân tích–thiết kế hướng đối tượng &amp; UML, và các mô hình phát triển (Waterfall → Agile).</p>
+  <div class="chips"><span class="chip">SLCP · ISO/IEC 12207</span><span class="chip">OOAD</span><span class="chip">UML</span><span class="chip">Waterfall/Iterative/Spiral/RUP</span><span class="chip">Agile</span></div>
+  <a class="quiz-cta" href="quiz-01-quy-trinh-mo-hinh.html"><span class="ic">📝</span> Luyện trắc nghiệm chủ đề này <small>· 42 câu · lưu tiến độ tự động</small></a>
+
+  <section>
+    <h2><span class="num">1</span> Software Life Cycle Process (SLCP)</h2>
+    <div class="callout def"><span class="tt">Định nghĩa</span>
+    <strong>SLCP</strong> là chuẩn quốc tế <em>ISO/IEC 12207:2008</em> — "Systems and software engineering — Software life cycle processes". Vòng đời bắt đầu từ một ý tưởng/nhu cầu và kết thúc khi phần mềm ngừng sử dụng (retirement).</div>
+    <p>Chuẩn tổ chức các hoạt động thành <strong>7 nhóm process</strong>, mỗi process gồm nhiều <em>activity</em>, mỗi activity gồm nhiều <em>task</em> (phân cấp process → activity → task).</p>
+    <div class="tw"><table>
+      <thead><tr><th>#</th><th>Nhóm process</th><th>Số process</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Agreement Processes</td><td>2</td></tr>
+        <tr><td>2</td><td>Organizational Project-Enabling Processes</td><td>5</td></tr>
+        <tr><td>3</td><td>Project Processes</td><td>7</td></tr>
+        <tr><td>4</td><td>Technical Processes</td><td>11</td></tr>
+        <tr><td>5</td><td><strong>Software Implementation Processes</strong></td><td><strong>6</strong></td></tr>
+        <tr><td>6</td><td>Software Support Processes</td><td>8</td></tr>
+        <tr><td>7</td><td>Software Reuse Processes</td><td>3</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout key"><span class="tt">Ghi nhớ</span>SLCP là <strong>ngôn ngữ chung</strong> giữa các bên liên quan (acquirer &amp; supplier) để giao tiếp/đặt hàng phát triển phần mềm. Mục đích nhóm <strong>Implementation</strong>: "to produce a specified system element implemented as a software product or service".</div>
+    <div class="callout note"><span class="tt">ISO viết tắt</span>ISO = International Organization for Standardization · IEC = International Electrotechnical Commission · JTC1 = Joint Technical Committee. WTO/TBT khuyến nghị dùng chuẩn ISO cho mua sắm chính phủ.</div>
+    <h3>Yếu tố quyết định thành công dự án (learning point)</h3>
+    <ul>
+      <li>Phần mềm đáp ứng đúng <strong>yêu cầu chức năng (functional)</strong>.</li>
+      <li>Giao đúng hẹn (<strong>delivery date</strong>).</li>
+      <li>Đạt <strong>chất lượng</strong> yêu cầu: Reliability, Usability, Performance, Maintainability.</li>
+      <li>Có <strong>bảo trì (maintenance)</strong> trong giai đoạn vận hành.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="num">2</span> Software Implementation Process (6 process con)</h2>
+    <p>Được thực hiện <em>sau</em> System Requirements Analysis và System Architectural Design. Đây chính là "xương sống" của môn học — mỗi bước có một <strong>Purpose</strong> cần nhớ.</p>
+    <div class="tw"><table>
+      <thead><tr><th>Process</th><th>Purpose (mục đích)</th><th>Sản phẩm chính</th></tr></thead>
+      <tbody>
+        <tr><td><strong>2.1 Requirements Analysis</strong></td><td>Thiết lập yêu cầu cho các phần tử phần mềm của hệ thống</td><td>Điều kiện môi trường, yêu cầu chức năng &amp; giao diện, định nghĩa dữ liệu/DB, yêu cầu phi chức năng, qualification requirements</td></tr>
+        <tr><td><strong>2.2 Architectural Design</strong></td><td>Đưa ra thiết kế có thể cài đặt được và kiểm chứng được với yêu cầu</td><td>Cấu trúc top-level của phần mềm &amp; các component, thiết kế giao diện top-level, thiết kế DB top-level</td></tr>
+        <tr><td><strong>2.3 Detailed Design</strong></td><td>Chi tiết hóa đủ để coding &amp; testing</td><td>Refine component → <strong>software unit</strong> (code/compile/test được); giao diện chi tiết</td></tr>
+        <tr><td><strong>2.4 Construction</strong></td><td>Tạo mã thực thi phản ánh đúng thiết kế</td><td>Từng unit + DB, test procedure/test case, unit test; đánh giá code coverage &amp; truy vết yêu cầu</td></tr>
+        <tr><td><strong>2.5 Integration</strong></td><td>Kết hợp các unit &amp; component thành phần tích hợp</td><td>Integration plan, tích hợp unit/component, integration test</td></tr>
+        <tr><td><strong>2.6 Qualification Testing</strong></td><td>Xác nhận sản phẩm tích hợp đáp ứng yêu cầu đã định</td><td>Test cases/procedures theo qualification requirements + audit</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <h2><span class="num">3</span> Object-Oriented Analysis &amp; Design (OOAD)</h2>
+    <div class="callout key"><span class="tt">Mục đích của Analysis &amp; Design</span>
+    <ul style="margin:.2rem 0"><li>Chuyển <strong>yêu cầu</strong> thành <strong>thiết kế</strong> của hệ thống-sẽ-xây.</li><li>Tạo ra <strong>kiến trúc vững chắc (robust)</strong>.</li><li>Điều chỉnh thiết kế cho phù hợp môi trường cài đặt (performance).</li></ul></div>
+    <p><strong>Đầu vào → đầu ra:</strong> Use-Case Model + Glossary + Supplementary Specification → (Analysis &amp; Design) → <strong>Design Model</strong>, Data Model, Architecture Document.</p>
+    <div class="callout note"><span class="tt">Không phải Top-Down cũng không phải Bottom-Up</span>Từ Use Cases (mức trung gian) ta khai triển ra cả subsystems (đi lên) lẫn analysis/design classes (đi xuống).</div>
+    <h3>10 bước OOAD (nắm ai làm — Architect vs Designer)</h3>
+    <div class="tw"><table>
+      <thead><tr><th>Hoạt động</th><th>Bước</th><th>Ghi chú</th><th>Người làm</th></tr></thead>
+      <tbody>
+        <tr><td>Định kiến trúc ứng viên</td><td>1. Architectural Analysis</td><td>Sớm ở Elaboration; bỏ nếu rủi ro kiến trúc thấp</td><td>Architect</td></tr>
+        <tr><td>Phân tích hành vi</td><td>2. Use-Case Analysis</td><td>Theo từng use case</td><td>Designer</td></tr>
+        <tr><td rowspan="4">Tinh chỉnh kiến trúc</td><td>3. Identify Design Elements</td><td>Coupling &amp; cohesion, reusability</td><td rowspan="4">Architect</td></tr>
+        <tr><td>4. Identify Design Mechanisms</td><td>Design patterns</td></tr>
+        <tr><td>5. Describe Run-time Architecture</td><td>Process View (nếu đa luồng)</td></tr>
+        <tr><td>6. Describe Distribution</td><td>Physical Architecture</td></tr>
+        <tr><td rowspan="3">Thiết kế component</td><td>7. Use-Case Design</td><td>Theo từng use case</td><td rowspan="3">Designer</td></tr>
+        <tr><td>8. Subsystem Design</td><td></td></tr>
+        <tr><td>9. Class Design</td><td></td></tr>
+        <tr><td>Thiết kế DB</td><td>10. Database Design</td><td></td><td>Designer</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <h2><span class="num">4</span> UML &amp; mô hình hóa</h2>
+    <div class="callout def"><span class="tt">Model</span>Một <strong>mô hình là sự đơn giản hóa của hiện thực</strong>. Không mô hình đơn lẻ nào là đủ — hệ thống phi tầm thường cần một tập các mô hình gần độc lập.</div>
+    <p><strong>Vì sao mô hình hóa (4 mục đích):</strong> giúp <em>visualize</em> hệ thống như ta muốn · <em>specify</em> cấu trúc/hành vi · làm <em>template</em> hướng dẫn xây dựng · <em>document</em> các quyết định. Hệ thống càng phức tạp, mô hình càng quan trọng (máy bay giấy vs máy bay chiến đấu).</p>
+    <h3>UML là ngôn ngữ để 4V</h3>
+    <div class="grid">
+      <div class="card"><h4>Visualizing</h4><p>Mô hình tường minh giúp giao tiếp; tránh hiểu nhầm khi mọi người "nói cùng ngôn ngữ".</p></div>
+      <div class="card"><h4>Specifying</h4><p>Xây mô hình chính xác, rõ ràng, đầy đủ (precise, unambiguous, complete).</p></div>
+      <div class="card"><h4>Constructing</h4><p>Kết nối tới ngôn ngữ lập trình (Java, C++...), RDBMS/OODBMS; cho phép forward &amp; reverse engineering.</p></div>
+      <div class="card"><h4>Documenting</h4><p>Tài liệu kiến trúc, yêu cầu, test, kế hoạch, release.</p></div>
+    </div>
+    <div class="callout note"><span class="tt">Lịch sử</span>UML tổng hợp từ Booch, Rumbaugh (OMT), Jacobson (OOSE — use case) → Unified Method 0.8 → UML 0.9/0.91 → 1.0/1.1 → 1.5 → 2.0.</div>
+    <h3>4 View của UML &amp; các loại sơ đồ</h3>
+    <div class="tw"><table>
+      <thead><tr><th>Major area</th><th>View</th><th>Diagram</th></tr></thead>
+      <tbody>
+        <tr><td rowspan="3"><strong>Structural</strong></td><td>Static view</td><td>Class diagram</td></tr>
+        <tr><td>Design view</td><td>Internal structure, Collaboration, Component diagram</td></tr>
+        <tr><td>Use case view</td><td>Use case diagram</td></tr>
+        <tr><td rowspan="3"><strong>Dynamic</strong></td><td>State machine view</td><td>State machine diagram</td></tr>
+        <tr><td>Activity view</td><td>Activity diagram</td></tr>
+        <tr><td>Interaction view</td><td>Sequence / Communication diagram</td></tr>
+        <tr><td><strong>Physical</strong></td><td>Deployment view</td><td>Deployment diagram</td></tr>
+        <tr><td><strong>Model Mgmt</strong></td><td>Model management / Profile</td><td>Package diagram</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout key"><span class="tt">Static vs Dynamic</span><strong>Static view</strong> = vai trò các bộ phận &amp; quan hệ giữa chúng (đội hình bóng đá đứng yên). <strong>Dynamic view</strong> = các thành phần tương tác/đổi trạng thái theo thời gian (trận đấu đang diễn ra).</div>
+  </section>
+
+  <section>
+    <h2><span class="num">5</span> Các mô hình phát triển phần mềm</h2>
+    <h3>Waterfall (thác nước)</h3>
+    <p>Tuyến tính, các pha nối tiếp: Requirement Analysis &amp; Definition → System &amp; software design → Implementation &amp; unit testing → Integration &amp; system testing → Installation → Operation &amp; maintenance.</p>
+    <div class="two">
+      <div class="callout warn"><span class="tt">Waterfall thuần</span>Tuyến tính, <strong>không có phản hồi</strong> (no feedback) giữa các pha.</div>
+      <div class="callout tip"><span class="tt">Iterative Waterfall</span>Giống Waterfall nhưng cho phép <strong>quay lui</strong> giữa các pha kề nhau (có feedback).</div>
+    </div>
+    <h3>Iterative Model</h3>
+    <p>Mỗi vòng lặp sinh ra một <strong>bản thực thi (executable)</strong>. Vòng gồm: Initial Planning → Planning → Requirements → Analysis &amp; Design → Implementation → Test → Deployment → Evaluation (quanh Management/Environment). "Each iteration results in an executable release."</p>
+    <h3>Prototype Model</h3>
+    <p>Chu trình 4 bước lặp: (1) thu thập yêu cầu · (2) thiết kế &amp; dựng prototype · (3) khách hàng dùng thử (test-drive) · (4) tinh chỉnh yêu cầu. Xoay quanh "Listen to Customer → Build/Revise → Customer Test-Drives".</p>
+    <h3>Spiral Model</h3>
+    <p>Kết hợp lặp + <strong>quản trị rủi ro</strong>. Mỗi vòng xoáy đi qua 4 góc phần tư: Planning · Risk analysis · Engineering · Customer evaluation (Customer communication → ... → Construction &amp; release).</p>
+    <h3>RUP — Rational Unified Process</h3>
+    <p>4 pha: <strong>Inception → Elaboration → Construction → Transition</strong>, mỗi pha nhiều iteration; các discipline (Business Modeling, Requirements, Analysis &amp; Design, Implementation, Test, Deployment…) chạy song song với cường độ khác nhau theo pha.</p>
+
+    <h3>Agile</h3>
+    <div class="callout def"><span class="tt">Agility</span>"Khả năng vừa <strong>tạo ra</strong> vừa <strong>đáp ứng thay đổi</strong> để có lợi trong môi trường kinh doanh biến động" (Jim Highsmith). Mục tiêu: phát triển <strong>nhanh</strong> &amp; <strong>đáp ứng thay đổi</strong>. Làm theo sprint lặp (Plan→Design→Build→Test→Review→Launch).</div>
+    <h4>Agile Manifesto — 4 giá trị</h4>
+    <div class="tw"><table>
+      <thead><tr><th>Coi trọng hơn ✓</th><th>Hơn là</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Cá nhân &amp; tương tác</strong> (Individuals and interactions)</td><td>quy trình &amp; công cụ</td></tr>
+        <tr><td><strong>Phần mềm chạy được</strong> (Working software)</td><td>tài liệu đầy đủ</td></tr>
+        <tr><td><strong>Hợp tác với khách hàng</strong> (Customer collaboration)</td><td>đàm phán hợp đồng</td></tr>
+        <tr><td><strong>Đáp ứng thay đổi</strong> (Responding to change)</td><td>bám theo kế hoạch</td></tr>
+      </tbody>
+    </table></div>
+    <h4>Các nguyên lý Agile (chọn lọc)</h4>
+    <ul>
+      <li>Ưu tiên cao nhất: làm khách hàng hài lòng qua việc <strong>giao phần mềm giá trị sớm &amp; liên tục</strong>.</li>
+      <li>Chào đón <strong>thay đổi yêu cầu</strong>, kể cả muộn.</li>
+      <li>Giao working software <strong>thường xuyên</strong> (vài tuần đến vài tháng, ưu tiên ngắn hơn).</li>
+      <li>Business &amp; developer làm việc cùng nhau hằng ngày; xây quanh <strong>cá nhân có động lực</strong> và <strong>tin tưởng</strong> họ.</li>
+      <li>Giao tiếp hiệu quả nhất = <strong>đối thoại trực tiếp (face-to-face)</strong>.</li>
+      <li><strong>Working software</strong> là thước đo tiến độ chính; phát triển bền vững, giữ nhịp độ đều đặn (constant pace).</li>
+      <li>Chú trọng <strong>kỹ thuật tốt &amp; thiết kế tốt</strong>; <strong>Simplicity</strong> — nghệ thuật tối đa hóa lượng việc <em>không</em> làm.</li>
+      <li>Kiến trúc/yêu cầu/thiết kế tốt nhất nảy sinh từ <strong>đội tự tổ chức (self-organizing)</strong>.</li>
+      <li>Định kỳ đội <strong>phản tỉnh (reflect)</strong> và điều chỉnh cách làm.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="num">6</span> Công cụ trong môn học</h2>
+    <div class="grid">
+      <div class="card"><h4>Thiết kế</h4><p>Astah (free cho SV)</p></div>
+      <div class="card"><h4>Ngôn ngữ / IDE</h4><p>Java · Eclipse</p></div>
+      <div class="card"><h4>Version control</h4><p>Git / GitHub</p></div>
+      <div class="card"><h4>Test / Kiến trúc</h4><p>JUnit · 3-tier / MVC</p></div>
+    </div>
+  </section>
+
+  <nav class="pager">
+    <a class="disabled" href="#"><span class="dir">← Trước</span><span class="ttl">—</span></a>
+    <a class="next" href="02-version-control.html"><span class="dir">Sau →</span><span class="ttl">Version Control &amp; Git</span></a>
+  </nav>
+</main>
+</div>
+<script src="../assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Trắc nghiệm 13 · Design Patterns — ITSS</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/quiz.css">
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a class="brand" href="../index.html"><span class="dot"></span> ITSS SW Dev <small>· Trắc nghiệm</small></a>
+  <div class="top-spacer"></div>
+  <a class="top-link" href="13-design-patterns.html">← Lý thuyết</a>
+  <a class="top-link" href="../index.html">Trang chủ</a>
+  <button id="themeBtn" class="icon-btn" onclick="toggleTheme()">☾</button>
+</div></div>
+
+<div class="quiz-layout">
+  <main class="quiz-main">
+    <div class="crumb"><a href="13-design-patterns.html">← Quay lại lý thuyết: Design Patterns</a></div>
+    <h1 class="page-title">Trắc nghiệm · Chủ đề 13</h1>
+    <p class="page-lead">Design Patterns: GoF &amp; 3 nhóm (Creational/Structural/Behavioral), cách mô tả một pattern, và 4 mẫu trọng tâm — Singleton (eager/lazy, vs static), Template Method (hook/final/private, JFrame/Applet), Factory Method (PizzaStore, DateFormat/Toolkit), Abstract Factory. Nộp từng câu để xem đáp án &amp; giải thích. Kết quả được lưu tự động.</p>
+    <div id="quizRoot"></div>
+  </main>
+
+  <aside class="qnav-wrap">
+    <h4>Bảng câu hỏi</h4>
+    <div class="qnav-stat" id="qnavStat"></div>
+    <div class="qnav-grid" id="qnavGrid"></div>
+    <div class="qnav-legend">
+      <span><i class="ok"></i> Đúng</span>
+      <span><i class="no"></i> Sai</span>
+      <span><i class="an"></i> Đang chọn</span>
+    </div>
+    <button class="btn-resetall" id="btnResetAll">↺ Làm lại toàn bộ</button>
+  </aside>
+</div>
+
+<script>
+window.QUIZ = {
+  id: "13-design-patterns",
+  title: "Design Patterns",
+  back: "13-design-patterns.html",
+  questions: [
+    /* ===== 1. Pattern là gì ===== */
+    {
+      type: "multi",
+      q: "Một <b>Design Pattern</b> được hiểu là gì?",
+      options: [
+        "Giải pháp chuẩn cho vấn đề lập trình thường gặp",
+        "Kỹ thuật làm code linh hoạt hơn (giảm coupling)",
+        "Cách nói tắt để mô tả thiết kế (static structure &amp; dynamic behaviour)",
+        "Một đoạn mã cụ thể copy-paste được ngay lập tức",
+        "Một thư viện biên dịch sẵn"
+      ],
+      answer: [0, 1, 2],
+      explain: "Design pattern = giải pháp chuẩn cho vấn đề thường gặp, kỹ thuật làm code <b>linh hoạt</b> (giảm coupling), và cách nói tắt mô tả thiết kế. Nó là <b>cốt lõi giải pháp</b> — không phải đoạn code copy-paste sẵn hay thư viện biên dịch."
+    },
+    {
+      type: "single",
+      q: "<b>GoF (Gang of Four)</b> là ai và có quy tắc gì đáng nhớ?",
+      options: [
+        "Gamma, Helm, Johnson, Vlissides (1994); quy tắc: không gì thành pattern trừ khi tìm được <b>≥3 ví dụ thực tế</b>",
+        "Robert C. Martin; quy tắc SOLID",
+        "Christopher Alexander; quy tắc kiến trúc nhà",
+        "Martin Fowler; quy tắc refactoring"
+      ],
+      answer: [0],
+      explain: "<b>GoF</b> = Gamma, Helm, Johnson, Vlissides (xuất bản 1994) — empiricist, quy tắc \"không gì thành pattern trừ khi tìm được <b>≥3 ví dụ thực tế</b>\". Christopher Alexander là người đưa ra định nghĩa pattern gốc (kiến trúc); Robert C. Martin gắn với SOLID."
+    },
+    {
+      type: "single",
+      q: "Nhóm <b>Creational</b> pattern trừu tượng hóa điều gì?",
+      options: [
+        "Quá trình <b>khởi tạo object</b> (vd Factory Method, Abstract Factory, Singleton, Builder, Prototype)",
+        "Cách kết hợp object/class",
+        "Cách giao tiếp giữa các object",
+        "Cách triển khai phần cứng"
+      ],
+      answer: [0],
+      explain: "<b>Creational</b>: trừu tượng hóa quá trình <b>khởi tạo object</b> — Factory Method, Abstract Factory, Singleton, Builder, Prototype. \"Kết hợp\" là Structural; \"giao tiếp\" là Behavioral."
+    },
+    {
+      type: "single",
+      q: "Nhóm <b>Structural</b> pattern trừu tượng hóa điều gì?",
+      options: [
+        "Cách <b>kết hợp</b> object/class (vd Adapter, Bridge, Composite, Decorator, Façade, Flyweight, Proxy)",
+        "Quá trình khởi tạo object",
+        "Cách giao tiếp giữa object",
+        "Cách chuẩn hóa cơ sở dữ liệu"
+      ],
+      answer: [0],
+      explain: "<b>Structural</b>: cách <b>kết hợp</b> object/class — Adapter, Bridge, Composite, Decorator, Façade, Flyweight, Proxy. Khởi tạo là Creational; giao tiếp là Behavioral."
+    },
+    {
+      type: "multi",
+      q: "Pattern nào thuộc nhóm <b>Behavioral</b>?",
+      options: [
+        "Template Method",
+        "Observer",
+        "Strategy &amp; Command",
+        "Singleton",
+        "Adapter"
+      ],
+      answer: [0, 1, 2],
+      explain: "<b>Behavioral</b> (cách giao tiếp giữa object): Command, Interpreter, Iterator, Mediator, Observer, State, Strategy, Chain of Responsibility, Visitor, <b>Template Method</b>. Singleton là Creational; Adapter là Structural."
+    },
+    {
+      type: "single",
+      q: "Nhóm nào chứa <b>Factory Method, Abstract Factory, Singleton</b>?",
+      options: [
+        "Creational",
+        "Structural",
+        "Behavioral",
+        "Architectural"
+      ],
+      answer: [0],
+      explain: "Factory Method, Abstract Factory, Singleton (cùng Builder, Prototype) đều thuộc nhóm <b>Creational</b> — trừu tượng hóa quá trình khởi tạo object."
+    },
+    {
+      type: "multi",
+      q: "Bốn <b>element chính</b> khi mô tả một pattern (dạng cô đọng) là gì?",
+      options: [
+        "Pattern Name",
+        "Problem (context + điều kiện áp dụng)",
+        "Solution (mô tả trừu tượng, element/quan hệ/trách nhiệm)",
+        "Consequences (kết quả &amp; trade-off)",
+        "Source Code hoàn chỉnh bắt buộc"
+      ],
+      answer: [0, 1, 2, 3],
+      explain: "4 element chính: <b>Pattern Name</b>, <b>Problem</b> (context + điều kiện áp dụng), <b>Solution</b> (mô tả trừu tượng, language-neutral), <b>Consequences</b> (kết quả &amp; trade-off). Mẫu GoF đầy đủ có thêm Sample Code, Known Uses... nhưng source code hoàn chỉnh không bắt buộc trong mô tả cô đọng."
+    },
+
+    /* ===== 2. Singleton ===== */
+    {
+      type: "single",
+      q: "<b>Singleton</b> đảm bảo điều gì?",
+      options: [
+        "Một lớp có <b>chính xác một instance</b> &amp; cung cấp <b>điểm truy cập toàn cục</b> tới nó",
+        "Một lớp có thể tạo vô số instance",
+        "Một lớp không thể được khởi tạo",
+        "Nhiều lớp chia sẻ chung một interface"
+      ],
+      answer: [0],
+      explain: "<b>Singleton</b>: đảm bảo một lớp có <b>chính xác một instance</b> và cung cấp một <b>điểm truy cập toàn cục</b> tới instance đó."
+    },
+    {
+      type: "multi",
+      q: "Cách hiện thực Singleton gồm những yếu tố nào?",
+      options: [
+        "Constructor để <b>private</b> — client không thể <code>new</code> từ ngoài",
+        "Khai báo một instance <b>private static</b> của lớp",
+        "Cung cấp <b>public static getInstance()</b> trả về instance duy nhất",
+        "Constructor để public để dễ tạo",
+        "Khai báo instance là public để truy cập trực tiếp"
+      ],
+      answer: [0, 1, 2],
+      explain: "Singleton: constructor <b>private</b> (chặn new từ ngoài), một instance <b>private static</b>, và method <b>public static getInstance()</b> (có thể cần <code>synchronized</code> cho đa luồng). Constructor/instance public sẽ phá vỡ tính duy nhất."
+    },
+    {
+      type: "single",
+      q: "Khác biệt giữa Singleton <b>Eager</b> và <b>Lazy</b> là gì?",
+      options: [
+        "Eager: khởi tạo instance <b>ngay khi load lớp</b> (<code>static final ... = new</code>); Lazy: khởi tạo <b>khi getInstance() được gọi lần đầu</b> (if null then new)",
+        "Eager: khởi tạo muộn; Lazy: khởi tạo sớm",
+        "Cả hai đều khởi tạo lúc load lớp",
+        "Cả hai đều khởi tạo khi gọi getInstance()"
+      ],
+      answer: [0],
+      explain: "<b>Eager</b>: khởi tạo instance <b>ngay khi load lớp</b> (<code>private static final Singleton instance = new Singleton()</code>). <b>Lazy</b>: chỉ khởi tạo <b>khi getInstance() gọi lần đầu</b> (<code>if(_instance==null) _instance=new...</code>), thường cần <code>synchronized</code>."
+    },
+    {
+      type: "multi",
+      q: "Ưu điểm của Singleton là gì?",
+      options: [
+        "Lấy trách nhiệm quản lý instance khỏi lập trình viên (không thể tạo thêm)",
+        "Tiết kiệm bộ nhớ &amp; tránh bug do nhiều instance",
+        "Dễ đảm bảo key invariant, kiểm soát thời điểm tạo (object lớn)",
+        "Cho phép tạo vô số bản sao để tăng hiệu năng",
+        "Loại bỏ hoàn toàn nhu cầu về abstraction"
+      ],
+      answer: [0, 1, 2],
+      explain: "Ưu điểm Singleton: lấy trách nhiệm quản lý instance khỏi lập trình viên, tiết kiệm bộ nhớ, tránh bug do nhiều instance, dễ đảm bảo key invariant, kiểm soát thời điểm tạo. Comparator là singleton tốt vì <b>không có state</b>. Tạo vô số bản sao trái ngược mục đích Singleton."
+    },
+    {
+      type: "multi",
+      q: "So với <b>static method/class</b>, vì sao thường ưu tiên Singleton?",
+      options: [
+        "Static <b>lacks flexibility</b>: không truyền làm tham số/return được",
+        "Static class <b>cannot be extended</b>: không kế thừa/override được",
+        "Static kém về <b>testability</b> (khó mock, test ảnh hưởng nhau)",
+        "Static method luôn nhanh hơn nên luôn tốt hơn",
+        "Static class hỗ trợ đa hình tốt hơn Singleton"
+      ],
+      answer: [0, 1, 2],
+      explain: "Static method/class (vd Math, System) tránh tạo object nhưng: <b>lacks flexibility</b> (không truyền/return được), <b>cannot be extended</b> (không kế thừa/override), <b>testability</b> kém (khó mock). Vì vậy thường ưu tiên Singleton — hai phương án cuối sai."
+    },
+
+    /* ===== 3. Template Method ===== */
+    {
+      type: "single",
+      q: "<b>Intent</b> của Template Method là gì?",
+      options: [
+        "Định nghĩa <b>khung xương của thuật toán</b> trong một operation, hoãn một số bước cho lớp con (không đổi cấu trúc thuật toán)",
+        "Đảm bảo một lớp chỉ có một instance",
+        "Tạo họ object liên quan mà không chỉ rõ concrete class",
+        "Cho phép nhiều object cùng lắng nghe một thay đổi"
+      ],
+      answer: [0],
+      explain: "<b>Template Method</b>: định nghĩa <b>khung xương của thuật toán</b> trong một operation, <b>hoãn một số bước cho lớp con</b> — lớp con định nghĩa lại vài bước mà không thay đổi cấu trúc thuật toán. Nguyên tắc Hollywood: \"Don't call us, we'll call you!\"."
+    },
+    {
+      type: "single",
+      q: "Nguyên tắc Hollywood \"<b>Don't call us, we'll call you</b>\" gắn với pattern nào?",
+      options: [
+        "Template Method",
+        "Singleton",
+        "Abstract Factory",
+        "Factory Method"
+      ],
+      answer: [0],
+      explain: "Nguyên tắc Hollywood \"Don't call us, we'll call you!\" gắn với <b>Template Method</b>: lớp cha (template) gọi các bước do lớp con hiện thực, không phải lớp con gọi lên."
+    },
+    {
+      type: "single",
+      q: "Trong Template Method, để <b>BUỘC</b> lớp con hiện thực một bước, ta khai báo bước đó thế nào?",
+      options: [
+        "<b>abstract</b> / interface",
+        "hook non-abstract",
+        "final",
+        "private"
+      ],
+      answer: [0],
+      explain: "Để <b>buộc</b> lớp con hiện thực bước → <b>abstract</b>/interface. <b>Hook</b> (non-abstract) cho phép bổ sung tùy chọn; <b>protected</b> cho phép định nghĩa lại; <b>final</b> chặn override; <b>private</b> không cho kế thừa."
+    },
+    {
+      type: "single",
+      q: "Một bước <b>không cho lớp con override</b> nên khai báo là gì?",
+      options: [
+        "final",
+        "abstract",
+        "hook",
+        "protected"
+      ],
+      answer: [0],
+      explain: "Bước <b>không cho override</b> → khai báo <b>final</b>. Bước <b>không kế thừa</b> → <b>private</b>. Còn <b>abstract</b> buộc hiện thực; <b>hook</b> cho phép bổ sung; <b>protected</b> cho phép định nghĩa lại."
+    },
+    {
+      type: "single",
+      q: "Một <b>hook</b> trong Template Method là gì?",
+      options: [
+        "Bước <b>non-abstract</b> mà lớp con <b>có thể</b> (tùy chọn) override để bổ sung hành vi",
+        "Bước bắt buộc lớp con phải hiện thực",
+        "Bước bị khóa không cho override (final)",
+        "Bước private không kế thừa được"
+      ],
+      answer: [0],
+      explain: "<b>Hook</b> là bước <b>non-abstract</b> (thường có cài đặt mặc định rỗng/đơn giản) mà lớp con <b>có thể</b> override để bổ sung — không bắt buộc. Vd <code>addSugar()</code> hook trong Beverage Machine."
+    },
+    {
+      type: "single",
+      q: "Vì sao override <code>paint()</code> khi <code>class MyFrame extends JFrame</code> là ví dụ của Template Method?",
+      options: [
+        "Thuật toán <code>update()</code> của JFrame gọi <code>paint()</code> (hook) — ta chỉ định nghĩa lại bước paint",
+        "Vì JFrame là một Singleton",
+        "Vì paint() tạo ra một họ object",
+        "Vì JFrame đảm bảo chỉ một instance"
+      ],
+      answer: [0],
+      explain: "Khi <code>extends JFrame</code> và override <code>paint()</code>: thuật toán <code>update()</code> của JFrame (khung) gọi <code>paint()</code> (hook) — ta chỉ định nghĩa lại một bước mà không đổi cấu trúc → đúng Template Method. Applet lifecycle (init/start/stop/destroy/paint) cũng vậy."
+    },
+
+    /* ===== 4. Factory Method ===== */
+    {
+      type: "single",
+      q: "Trong ví dụ PizzaStore, <code>orderPizza()</code> dùng chuỗi <code>if(type...)new XxxPizza()</code> vi phạm nguyên lý nào?",
+      options: [
+        "Trộn creation &amp; preparation → đổi cách tạo vi phạm <b>SRP</b>; thêm/bớt loại pizza vi phạm <b>OCP</b>",
+        "Vi phạm LSP và ISP",
+        "Vi phạm DIP nhưng không vi phạm SRP/OCP",
+        "Không vi phạm nguyên lý nào"
+      ],
+      answer: [0],
+      explain: "<code>orderPizza()</code> trộn <b>creation</b> (chọn loại pizza) &amp; <b>preparation</b> (prepare/bake/cut/box): đổi cách tạo pizza → vi phạm <b>SRP</b>; thêm/bớt loại pizza phải sửa hàm → vi phạm <b>OCP</b>."
+    },
+    {
+      type: "single",
+      q: "Ý tưởng cốt lõi để sửa PizzaStore (bước đầu — Simple Factory) là gì?",
+      options: [
+        "Tách <b>creation</b> khỏi <b>usage</b>: đóng gói code tạo object vào lớp riêng (<code>SimplePizzaFactory.createPizza(type)</code>)",
+        "Gộp creation &amp; preparation vào một hàm lớn hơn",
+        "Dùng biến global lưu loại pizza",
+        "Biến orderPizza thành static method"
+      ],
+      answer: [0],
+      explain: "Tách <b>creation khỏi usage</b>: đóng gói code tạo object vào lớp riêng <code>SimplePizzaFactory.createPizza(type)</code> — dependency vào concrete class không còn ảnh hưởng code preparation. (Simple Factory vẫn vi phạm OCP khi thêm loại → nâng lên Factory Method.)"
+    },
+    {
+      type: "single",
+      q: "<b>Factory Method</b> (đúng nghĩa GoF) được định nghĩa thế nào?",
+      options: [
+        "Định nghĩa interface để tạo object, nhưng để <b>lớp con quyết định lớp nào được khởi tạo</b>",
+        "Đảm bảo một lớp chỉ có một instance",
+        "Định nghĩa khung thuật toán, hoãn bước cho lớp con",
+        "Tạo cả một họ sản phẩm liên quan cùng lúc"
+      ],
+      answer: [0],
+      explain: "<b>Factory Method</b>: định nghĩa một interface để tạo object, nhưng để <b>lớp con quyết định lớp nào được khởi tạo</b>. <code>Creator</code> có <code>factoryMethod()</code> abstract; <code>ConcreteCreator</code> override trả về <code>ConcreteProduct</code>. (Khung thuật toán là Template Method; họ sản phẩm là Abstract Factory.)"
+    },
+    {
+      type: "multi",
+      q: "Khi nào nên dùng <b>Factory Method</b>?",
+      options: [
+        "Client không cần/không được biết cách tạo object",
+        "Thông tin tạo phức tạp/cồng kềnh → đơn giản hóa interface, khu trú logic khởi tạo",
+        "Lớp cần lớp con chỉ định object tạo ra / không biết trước kiểu object cần tạo",
+        "Khi muốn đảm bảo chỉ có một instance duy nhất",
+        "Khi muốn định nghĩa khung xương thuật toán"
+      ],
+      answer: [0, 1, 2],
+      explain: "Dùng Factory Method khi: client không cần biết cách tạo, thông tin tạo phức tạp (khu trú logic khởi tạo), lớp con chỉ định object tạo ra, không biết trước kiểu object. \"Một instance duy nhất\" là Singleton; \"khung xương thuật toán\" là Template Method."
+    },
+    {
+      type: "multi",
+      q: "Đâu là các ví dụ factory <b>có sẵn trong Java</b>?",
+      options: [
+        "<code>DateFormat.getDateInstance(...)</code>",
+        "<code>Toolkit.getDefaultToolkit()</code> rồi <code>tk.getImage(...)</code>",
+        "<code>BorderFactory.createRaisedBevelBorder()</code> &amp; <code>KeyStroke.getKeyStroke()</code>",
+        "<code>new ArrayList()</code> trực tiếp",
+        "<code>System.out.println()</code>"
+      ],
+      answer: [0, 1, 2],
+      explain: "Factory có sẵn trong Java: <b>DateFormat</b> (getDateInstance/getTimeInstance), <b>Toolkit</b> (getDefaultToolkit + getImage), <b>BorderFactory</b>, <b>KeyStroke.getKeyStroke()</b> — tránh constructor quá nhiều option/flag. <code>new ArrayList()</code> là gọi constructor trực tiếp; <code>System.out.println()</code> không phải factory."
+    },
+
+    /* ===== 5. Abstract Factory ===== */
+    {
+      type: "single",
+      q: "Khác biệt giữa <b>Abstract Factory</b> và <b>Factory Method</b> là gì?",
+      options: [
+        "Abstract Factory: lớp factory cấp cao nhất &amp; method tạo của nó <b>đều abstract</b>, nâng lên mức \"họ sản phẩm\"; Factory Method: factory có thể được khởi tạo &amp; method tạo overridable",
+        "Abstract Factory tạo đúng một object; Factory Method tạo cả họ",
+        "Chúng hoàn toàn giống nhau",
+        "Abstract Factory là Behavioral; Factory Method là Structural"
+      ],
+      answer: [0],
+      explain: "<b>Abstract Factory</b>: lớp factory cấp cao nhất &amp; method tạo <b>đều abstract</b>, nâng lên mức \"<b>họ sản phẩm</b> (families)\". <b>Factory Method</b>: factory có thể được khởi tạo, method tạo overridable. Cả hai đều thuộc Creational."
+    },
+    {
+      type: "multi",
+      q: "Khi nào nên dùng <b>Abstract Factory</b>?",
+      options: [
+        "Hệ thống nên độc lập với cách sản phẩm được tạo/kết hợp/biểu diễn",
+        "Cấu hình được với <b>một trong nhiều họ sản phẩm (families)</b>",
+        "Một họ object liên quan phải dùng cùng nhau &amp; cần cưỡng chế ràng buộc đó",
+        "Chỉ cần tạo đúng một object đơn lẻ, không liên quan gì khác",
+        "Muốn đảm bảo lớp chỉ có một instance"
+      ],
+      answer: [0, 1, 2],
+      explain: "Dùng Abstract Factory khi: hệ thống độc lập cách sản phẩm tạo/kết hợp/biểu diễn; cấu hình được với <b>một trong nhiều họ sản phẩm</b>; một họ object phải dùng cùng nhau (cưỡng chế nhất quán); muốn lộ interface không lộ cài đặt. \"Một object đơn lẻ\" / \"một instance\" không phải use case của nó."
+    },
+    {
+      type: "single",
+      q: "Ưu điểm chính của Abstract Factory là gì?",
+      options: [
+        "Cô lập concrete class (client thao tác qua interface trừu tượng), đổi họ sản phẩm dễ, cưỡng chế tính nhất quán",
+        "Hỗ trợ thêm <b>kiểu sản phẩm mới</b> rất dễ dàng",
+        "Không cần sửa gì khi thêm sản phẩm mới",
+        "Chạy nhanh hơn mọi pattern khác"
+      ],
+      answer: [0],
+      explain: "Ưu điểm Abstract Factory: <b>cô lập concrete class</b> (client dùng interface trừu tượng), <b>đổi họ sản phẩm dễ</b> (chỉ đổi ConcreteFactory), <b>cưỡng chế tính nhất quán</b> giữa sản phẩm. Nhược điểm: hỗ trợ <b>kiểu sản phẩm mới KHÓ</b> (phải sửa Abstract Factory &amp; mọi lớp con)."
+    },
+    {
+      type: "single",
+      q: "Nhược điểm chính của Abstract Factory là gì?",
+      options: [
+        "Hỗ trợ <b>kiểu sản phẩm MỚI khó</b> — phải sửa lại Abstract Factory &amp; mọi lớp con",
+        "Không cô lập được concrete class",
+        "Không cưỡng chế được tính nhất quán",
+        "Đổi họ sản phẩm rất khó"
+      ],
+      answer: [0],
+      explain: "Nhược điểm lớn: thêm <b>kiểu sản phẩm mới</b> (vd thêm CreateButton() vào WidgetFactory) buộc phải sửa <b>Abstract Factory &amp; mọi ConcreteFactory con</b>. (Đỡ tệ hơn trong ngôn ngữ định kiểu động.) Cô lập concrete, cưỡng chế nhất quán, đổi họ dễ đều là <b>ưu điểm</b>."
+    }
+  ]
+};
+</script>
+<script src="../assets/app.js"></script>
+<script src="../assets/quiz.js"></script>
+</body>
+</html>

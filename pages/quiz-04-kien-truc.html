@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Trắc nghiệm 4 · Thiết kế kiến trúc &amp; Phân tích OO — ITSS</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/quiz.css">
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a class="brand" href="../index.html"><span class="dot"></span> ITSS SW Dev <small>· Trắc nghiệm</small></a>
+  <div class="top-spacer"></div>
+  <a class="top-link" href="04-kien-truc.html">← Lý thuyết</a>
+  <a class="top-link" href="../index.html">Trang chủ</a>
+  <button id="themeBtn" class="icon-btn" onclick="toggleTheme()">☾</button>
+</div></div>
+
+<div class="quiz-layout">
+  <main class="quiz-main">
+    <div class="crumb"><a href="04-kien-truc.html">← Quay lại lý thuyết: Thiết kế kiến trúc &amp; Phân tích OO</a></div>
+    <h1 class="page-title">Trắc nghiệm · Chủ đề 4</h1>
+    <p class="page-lead">Thiết kế kiến trúc &amp; Phân tích hướng đối tượng: ba loại analysis class (Boundary/Entity/Control), phân phối hành vi use case, Interaction Diagram (Sequence vs Communication), Analysis Class Diagram, và các Architectural Pattern (MVC, 3-tier, MVVM, MVP, Flux, VIPER). Nộp từng câu để xem đáp án &amp; giải thích. Kết quả được lưu tự động — rời trang rồi quay lại vẫn còn.</p>
+    <div id="quizRoot"></div>
+  </main>
+
+  <aside class="qnav-wrap">
+    <h4>Bảng câu hỏi</h4>
+    <div class="qnav-stat" id="qnavStat"></div>
+    <div class="qnav-grid" id="qnavGrid"></div>
+    <div class="qnav-legend">
+      <span><i class="ok"></i> Đúng</span>
+      <span><i class="no"></i> Sai</span>
+      <span><i class="an"></i> Đang chọn</span>
+    </div>
+    <button class="btn-resetall" id="btnResetAll">↺ Làm lại toàn bộ</button>
+  </aside>
+</div>
+
+<script>
+window.QUIZ = {
+  id: "04-kien-truc",
+  title: "Thiết kế kiến trúc & Phân tích OO",
+  back: "04-kien-truc.html",
+  questions: [
+    /* ===== 1. Tổng quan Architectural Design ===== */
+    {
+      type: "single",
+      q: "Mục đích chính của <b>Architectural Design</b> là gì?",
+      options: [
+        "Đưa ra một thiết kế có thể <b>cài đặt và kiểm chứng được</b> với yêu cầu phần mềm",
+        "Viết mã nguồn thực thi cuối cùng cho hệ thống",
+        "Thu thập và thỏa thuận yêu cầu với khách hàng",
+        "Sinh bộ test case cho pha kiểm thử hệ thống"
+      ],
+      answer: [0],
+      explain: "Architectural Design nhằm đưa ra một thiết kế <b>có thể cài đặt và kiểm chứng được</b> đối với yêu cầu; kiến trúc được thiết kế <b>từ yêu cầu phần mềm</b>. Viết mã là pha implementation; thỏa thuận yêu cầu là pha requirements; sinh test là pha test."
+    },
+    {
+      type: "multi",
+      q: "Đâu là các <b>đầu vào (input)</b> của Architectural Design?",
+      options: [
+        "Use-Case Model",
+        "Glossary &amp; Supplementary Specifications",
+        "Software Architecture Document &amp; Project Specific Guidelines",
+        "Source code đã biên dịch (executable)",
+        "Bộ unit test đã chạy pass"
+      ],
+      answer: [0, 1, 2],
+      explain: "Đầu vào gồm Use-Case Model, Glossary, Supplementary Specifications, Software Architecture Document và Project Specific Guidelines. Source code/executable và unit test là <b>kết quả</b> của các pha sau, không phải đầu vào của thiết kế kiến trúc."
+    },
+    {
+      type: "multi",
+      q: "Đâu là các <b>đầu ra (output)</b> của Architectural Design?",
+      options: [
+        "Analysis Classes",
+        "Analysis Model",
+        "Use-Case Realization",
+        "Deployment Diagram phần cứng cuối cùng",
+        "Database đã được nạp dữ liệu thật"
+      ],
+      answer: [0, 1, 2],
+      explain: "Đầu ra gồm <b>Analysis Classes, Analysis Model</b> và <b>Use-Case Realization</b>. Deployment phần cứng và database nạp dữ liệu thật không phải sản phẩm của pha phân tích/thiết kế kiến trúc này."
+    },
+    {
+      type: "single",
+      q: "Chuỗi tinh chỉnh (refinement) nào đúng khi đi từ yêu cầu tới bản thực thi?",
+      options: [
+        "Use Cases → <b>Analysis Classes</b> → Design Elements → Source Code → Executable",
+        "Source Code → Analysis Classes → Use Cases → Executable",
+        "Design Elements → Use Cases → Analysis Classes → Executable",
+        "Use Cases → Executable → Source Code → Analysis Classes"
+      ],
+      answer: [0],
+      explain: "Chuỗi tinh chỉnh: Use Cases → <b>Analysis Classes</b> → Design Elements → Source Code → Executable. Analysis classes là \"bước đầu tiên hướng tới bản thực thi\". Các thứ tự còn lại đều đảo lộn."
+    },
+    {
+      type: "multi",
+      q: "Một <b>Class (lớp)</b> — theo nhắc lại trong bài — là trừu tượng mô tả nhóm object có chung những gì?",
+      options: [
+        "Properties (attribute)",
+        "Behavior (operation)",
+        "Relationships &amp; Semantics",
+        "Cùng địa chỉ bộ nhớ khi chạy",
+        "Cùng một tên biến trong mã nguồn"
+      ],
+      answer: [0, 1, 2],
+      explain: "Class là một trừu tượng mô tả nhóm object có chung <b>Properties</b> (attribute), <b>Behavior</b> (operation), <b>Relationships</b> và <b>Semantics</b>. Địa chỉ bộ nhớ hay tên biến không phải tiêu chí định nghĩa lớp."
+    },
+
+    /* ===== 2. Ba loại Analysis Class ===== */
+    {
+      type: "single",
+      q: "Toàn bộ hành vi của một use case cần được xử lý như thế nào trong Analysis Model?",
+      options: [
+        "<b>Phân phối (distribute)</b> cho các analysis class, dùng stereotype làm kim chỉ nam",
+        "Gom hết vào một lớp God class duy nhất",
+        "Chỉ đặt vào entity class để dễ lưu trữ",
+        "Bỏ qua vì hành vi thuộc pha implementation"
+      ],
+      answer: [0],
+      explain: "Toàn bộ hành vi của một use case phải được <b>phân phối</b> cho các analysis class, dùng ba <b>stereotype</b> (boundary/entity/control) làm kim chỉ nam. Gom vào một lớp là anti-pattern God class; hành vi cần được mô hình ngay ở pha phân tích."
+    },
+    {
+      type: "single",
+      q: "Lớp <b>&laquo;boundary&raquo;</b> đóng vai trò gì và có đặc điểm nào?",
+      options: [
+        "Trung gian giữa giao diện &amp; thứ bên ngoài hệ thống — <b>phụ thuộc môi trường</b> (environment dependent)",
+        "Lưu &amp; quản lý thông tin trong hệ thống — độc lập môi trường",
+        "Điều phối hành vi của use case — phụ thuộc use case",
+        "Chỉ chứa dữ liệu tĩnh, không có hành vi"
+      ],
+      answer: [0],
+      explain: "&laquo;boundary&raquo; làm <b>trung gian</b> giữa giao diện và môi trường bên ngoài, mang tính <b>phụ thuộc môi trường</b>. \"Lưu &amp; quản lý thông tin, độc lập môi trường\" là entity; \"điều phối use case\" là control."
+    },
+    {
+      type: "single",
+      q: "Lớp <b>&laquo;entity&raquo;</b> có đặc điểm nào?",
+      options: [
+        "Là <b>key abstraction</b>, lưu &amp; quản lý thông tin, <b>độc lập môi trường</b> (environment independent)",
+        "Phụ thuộc môi trường vì gắn với thiết bị nhập/xuất",
+        "Phụ thuộc use case và biến mất khi use case kết thúc",
+        "Chỉ giao tiếp trực tiếp với actor bên ngoài"
+      ],
+      answer: [0],
+      explain: "&laquo;entity&raquo; là <b>key abstraction</b> của hệ thống, dùng để <b>lưu &amp; quản lý thông tin</b> và <b>độc lập môi trường</b>. Phụ thuộc môi trường là boundary; phụ thuộc use case là control; giao tiếp actor là việc của boundary."
+    },
+    {
+      type: "single",
+      q: "Lớp <b>&laquo;control&raquo;</b> có đặc điểm nào?",
+      options: [
+        "<b>Điều phối</b> hành vi của use case — <b>phụ thuộc use case, độc lập môi trường</b>",
+        "Phụ thuộc môi trường và độc lập use case",
+        "Lưu trữ dữ liệu bền vững của hệ thống",
+        "Chỉ trình bày thông tin ra màn hình cho user"
+      ],
+      answer: [0],
+      explain: "&laquo;control&raquo; cung cấp hành vi <b>điều phối</b> của use case: <b>phụ thuộc use case</b> nhưng <b>độc lập môi trường</b>. Lưu dữ liệu là entity; trình bày ra màn hình là boundary."
+    },
+    {
+      type: "single",
+      q: "Về <b>Boundary class</b>, quy tắc số lượng nào là đúng?",
+      options: [
+        "Một boundary class cho <b>mỗi cặp actor / use-case</b>",
+        "Một boundary class cho toàn bộ hệ thống",
+        "Một boundary class cho mỗi entity class",
+        "Một boundary class cho mỗi thuộc tính hiển thị"
+      ],
+      answer: [0],
+      explain: "Quy tắc: tạo <b>một boundary class cho mỗi cặp actor/use-case</b> — mô hình hóa tương tác giữa hệ thống và môi trường. Ba kiểu boundary: User interface, System interface, Device interface."
+    },
+    {
+      type: "multi",
+      q: "Đâu là ba kiểu (type) của <b>Boundary class</b>?",
+      options: [
+        "User interface",
+        "System interface",
+        "Device interface",
+        "Database interface",
+        "Network interface"
+      ],
+      answer: [0, 1, 2],
+      explain: "Ba kiểu boundary: <b>User interface</b>, <b>System interface</b> và <b>Device interface</b>. \"Database\" và \"Network interface\" không phải phân loại boundary trong bài."
+    },
+    {
+      type: "single",
+      q: "Guideline thiết kế Boundary class nhấn mạnh điều gì?",
+      options: [
+        "Tập trung vào <b>trách nhiệm</b> (thông tin nào / giao thức nào), KHÔNG tập trung chi tiết cài đặt UI",
+        "Tập trung tối đa vào chi tiết pixel, font, màu của UI",
+        "Tập trung vào cách lưu dữ liệu xuống database",
+        "Tập trung vào thuật toán tối ưu hiệu năng"
+      ],
+      answer: [0],
+      explain: "Guideline: <b>UI class</b> tập trung <em>thông tin nào</em> trình bày cho user (không phải chi tiết UI); <b>System/Device interface</b> tập trung <em>giao thức nào</em> cần định nghĩa (không phải cách cài đặt) → \"tập trung vào <b>trách nhiệm</b>, không phải chi tiết\"."
+    },
+    {
+      type: "single",
+      q: "Kỹ thuật tìm <b>Entity class</b> chủ yếu dựa vào gì?",
+      options: [
+        "<b>Filtering nouns</b>: gạch chân cụm danh từ trong flow of events rồi loại các ứng viên không hợp lệ",
+        "Gạch chân các động từ trong flow of events",
+        "Đếm số lần một actor xuất hiện",
+        "Phân tích sơ đồ triển khai phần cứng"
+      ],
+      answer: [0],
+      explain: "Entity class được tìm bằng cách <b>gạch chân cụm danh từ</b> (filtering nouns) trong flow of events (kèm Business-Domain Model, Glossary), rồi loại: trùng lặp, mơ hồ, là actor, cấu trúc cài đặt, attribute, operation. Động từ dùng để tìm use case/operation, không phải entity."
+    },
+    {
+      type: "multi",
+      q: "Khi lọc danh từ để tìm entity class, những ứng viên nào cần <b>loại bỏ</b>?",
+      options: [
+        "Ứng viên trùng lặp (redundant) hoặc mơ hồ (vague)",
+        "Danh từ thực chất là <b>actor</b> (nằm ngoài phạm vi)",
+        "Danh từ là cấu trúc cài đặt, hoặc thực chất là attribute / operation",
+        "Mọi danh từ là key abstraction của domain",
+        "Danh từ xuất hiện trong Glossary"
+      ],
+      answer: [0, 1, 2],
+      explain: "Cần loại: ứng viên <b>trùng lặp</b>, <b>mơ hồ</b>, là <b>actor</b> (ngoài phạm vi), là <b>cấu trúc cài đặt</b>, thực ra là <b>attribute</b> (để sau) hay <b>operation</b>. Key abstraction của domain và thuật ngữ trong Glossary thường chính là ứng viên entity nên giữ lại."
+    },
+    {
+      type: "single",
+      q: "Guideline về số lượng <b>Control class</b> cho một use case là gì?",
+      options: [
+        "Thường <b>1 control class cho mỗi use case</b>; use case đơn giản có thể bỏ control (chỉ boundary + entity)",
+        "Luôn cần đúng 3 control class cho mỗi use case",
+        "Mỗi entity class phải có một control class riêng",
+        "Không bao giờ dùng control class trong phân tích"
+      ],
+      answer: [0],
+      explain: "Thường tạo <b>1 control class cho mỗi use case</b>. Use case <b>đơn giản</b> (chỉ thao tác dữ liệu lưu trữ) có thể bỏ control, chỉ dùng entity + boundary; use case <b>phức tạp</b> cần ≥1 control (transaction manager, resource coordinator, error handler)."
+    },
+    {
+      type: "single",
+      q: "Mẫu tương tác chuẩn giữa các analysis class là gì?",
+      options: [
+        "Actor ↔ <b>boundary</b> ↔ <b>control</b> ↔ <b>entity</b>",
+        "Actor ↔ entity ↔ control ↔ boundary",
+        "Actor ↔ control ↔ boundary ↔ entity",
+        "Actor ↔ boundary ↔ entity ↔ control"
+      ],
+      answer: [0],
+      explain: "Mẫu tương tác chuẩn: Actor ↔ <b>boundary</b> (giao tiếp actor) ↔ <b>control</b> (điều phối) ↔ <b>entity</b> (giữ &amp; quản lý thông tin). Actor không nói trực tiếp với entity hay control."
+    },
+
+    /* ===== 3. Phân phối hành vi ===== */
+    {
+      type: "single",
+      q: "Hành vi \"<b>giao tiếp với actor</b>\" nên được giao cho loại lớp nào?",
+      options: [
+        "Boundary class",
+        "Entity class",
+        "Control class",
+        "Actor tự xử lý"
+      ],
+      answer: [0],
+      explain: "Giao tiếp với actor → <b>Boundary class</b>. Dữ liệu đóng gói → Entity class; hành vi đặc thù cho use case / luồng quan trọng → Control class."
+    },
+    {
+      type: "single",
+      q: "Hành vi \"<b>đặc thù cho use case / một luồng quan trọng</b>\" nên giao cho lớp nào?",
+      options: [
+        "Control class",
+        "Boundary class",
+        "Entity class",
+        "Bất kỳ lớp nào cũng được"
+      ],
+      answer: [0],
+      explain: "Hành vi đặc thù cho use case hoặc một luồng quan trọng → <b>Control class</b> (điều phối). Boundary lo giao tiếp actor; Entity lo dữ liệu đóng gói."
+    },
+    {
+      type: "single",
+      q: "Nếu trách nhiệm cần dữ liệu mà <b>nhiều lớp</b> cùng giữ dữ liệu đó, cách xử lý nào KHÔNG được nêu?",
+      options: [
+        "Xóa bớt các lớp cho tới khi chỉ còn một lớp giữ dữ liệu",
+        "Đặt trách nhiệm ở một lớp rồi thêm quan hệ tới lớp kia",
+        "Tạo một lớp mới để giữ trách nhiệm",
+        "Đặt ở control class rồi thêm quan hệ tới các lớp cần thiết"
+      ],
+      answer: [0],
+      explain: "Khi nhiều lớp cùng có dữ liệu: (1) đặt ở một lớp + thêm quan hệ, (2) tạo lớp mới, hoặc (3) đặt ở control class + thêm quan hệ. \"Xóa bớt lớp\" không phải cách được đề xuất. Nếu chỉ một lớp có dữ liệu thì đặt trách nhiệm ngay ở đó."
+    },
+    {
+      type: "single",
+      q: "Kết quả của việc phân phối hành vi use case cho các lớp được gọi là gì?",
+      options: [
+        "Một <b>Use-Case Realization</b> (gồm Sequence, Communication, Class diagram)",
+        "Một Deployment Model",
+        "Một Supplementary Specification",
+        "Một Glossary mới"
+      ],
+      answer: [0],
+      explain: "Kết quả là một <b>Use-Case Realization</b> — tập hợp gồm Sequence, Communication và Class diagram thể hiện use case được hiện thực bởi các lớp phân tích như thế nào."
+    },
+
+    /* ===== 4. Interaction Diagrams ===== */
+    {
+      type: "single",
+      q: "<b>Sequence Diagram</b> nhấn mạnh khía cạnh nào?",
+      options: [
+        "<b>Thứ tự thời gian (time ordering)</b> của các message",
+        "Tổ chức cấu trúc (structural) của các object",
+        "Cấu trúc lớp tĩnh và thừa kế",
+        "Phân bố phần cứng lên các node"
+      ],
+      answer: [0],
+      explain: "Sequence Diagram nhấn mạnh <b>thứ tự thời gian</b> của message, thể hiện object lifeline, message, execution occurrence, reflexive message... \"Tổ chức cấu trúc của object\" là điểm nhấn của Communication Diagram."
+    },
+    {
+      type: "single",
+      q: "<b>Communication Diagram</b> nhấn mạnh khía cạnh nào?",
+      options: [
+        "<b>Tổ chức cấu trúc (structural organization)</b> của các object — object, <b>link</b>, message có đánh số",
+        "Thứ tự thời gian tường minh của message",
+        "Ràng buộc thời gian (timing constraint) của message",
+        "Luồng điều khiển giữa các activity"
+      ],
+      answer: [0],
+      explain: "Communication Diagram nhấn mạnh <b>tổ chức cấu trúc</b> của object: thể hiện object, <b>link</b> giữa object và message trao đổi (có đánh số). Thứ tự thời gian tường minh là Sequence; ràng buộc thời gian là Timing diagram."
+    },
+    {
+      type: "single",
+      q: "Quan hệ giữa Sequence Diagram và Communication Diagram là gì?",
+      options: [
+        "<b>Tương đương về ngữ nghĩa</b> — chuyển đổi qua lại không mất thông tin",
+        "Hoàn toàn khác nhau, không thể chuyển đổi",
+        "Sequence là tập con của Communication",
+        "Communication chỉ dùng cho lớp tĩnh, Sequence cho lớp động"
+      ],
+      answer: [0],
+      explain: "Hai loại <b>tương đương về ngữ nghĩa</b>: chuyển đổi qua lại không mất thông tin, cùng mô hình khía cạnh động của một use-case scenario. Chúng chỉ khác ở điểm nhấn trình bày (thời gian vs cấu trúc)."
+    },
+    {
+      type: "multi",
+      q: "Phát biểu nào đúng khi so sánh Sequence và Communication diagram?",
+      options: [
+        "Sequence: thể hiện trình tự message tường minh &amp; execution occurrence",
+        "Communication: tốt để thấy mọi ảnh hưởng lên một object &amp; trực quan hóa mẫu giao tiếp",
+        "Sequence: tốt cho real-time &amp; kịch bản phức tạp",
+        "Communication: tốt hơn cho luồng tổng thể so với Sequence",
+        "Sequence: dễ dùng nhất khi brainstorm"
+      ],
+      answer: [0, 1, 2],
+      explain: "Sequence thể hiện <b>trình tự message tường minh + execution occurrence</b>, tốt cho <b>luồng tổng thể</b> và <b>real-time/kịch bản phức tạp</b>. Communication tốt để thấy <b>mọi ảnh hưởng lên một object</b> và <b>dễ dùng khi brainstorm</b>. Vì vậy hai phương án cuối bị gán nhầm."
+    },
+    {
+      type: "multi",
+      q: "Đâu là các <b>biến thể</b> của Interaction Diagram được nêu?",
+      options: [
+        "Timing diagram — ràng buộc thời gian của message",
+        "Interaction Overview — cái nhìn cấp cao ghép các tập tương tác",
+        "Class diagram — cấu trúc lớp tĩnh",
+        "Deployment diagram — triển khai node"
+      ],
+      answer: [0, 1],
+      explain: "Biến thể của Interaction diagram gồm <b>Timing diagram</b> (ràng buộc thời gian) và <b>Interaction Overview</b> (ghép các tập tương tác thành chuỗi logic cấp cao). Class diagram và Deployment diagram không phải interaction diagram."
+    },
+    {
+      type: "single",
+      q: "Vì sao một use case thường cần <b>nhiều</b> Interaction diagram?",
+      options: [
+        "Vì một sơ đồ có thể không đủ — cần các sơ đồ cho basic flow và từng alternate flow",
+        "Vì mỗi actor cần một sơ đồ riêng bắt buộc",
+        "Vì mỗi thuộc tính cần một sơ đồ riêng",
+        "Vì chuẩn UML cấm một use case chỉ có một sơ đồ"
+      ],
+      answer: [0],
+      explain: "Một Interaction diagram có thể <b>không đủ</b> để mô tả hết hành vi, nên cần nhiều sơ đồ cho <b>basic flow</b> và các <b>alternate flow</b>. Không có quy định cứng theo actor hay thuộc tính."
+    },
+
+    /* ===== 5. Analysis Class Diagram ===== */
+    {
+      type: "single",
+      q: "Nguyên tắc \"Finding Relationships\" khi rút ra Analysis Class Diagram là gì?",
+      options: [
+        "<b>Mỗi link trong communication diagram → một association</b> trong class diagram (\"relationship for every link\")",
+        "Mỗi message → một association",
+        "Mỗi object → một association",
+        "Mỗi actor → một association"
+      ],
+      answer: [0],
+      explain: "Nguyên tắc: <b>mỗi link</b> trong communication diagram tương ứng <b>một association</b> trong class diagram (\"a relationship for every link\"). Không phải theo message, object hay actor."
+    },
+    {
+      type: "single",
+      q: "Khi lớp :Supplier nhận message <code>PerformResponsibility</code>, ta làm gì với class diagram?",
+      options: [
+        "Thêm một <b>trách nhiệm (responsibility)</b> tương ứng vào lớp Supplier",
+        "Xóa lớp Supplier vì nó bị động",
+        "Chuyển Supplier thành actor",
+        "Gộp Supplier vào boundary class"
+      ],
+      answer: [0],
+      explain: "\"Describe Responsibilities\": mỗi message <code>PerformResponsibility</code> gửi tới :Supplier → <b>thêm trách nhiệm đó vào lớp Supplier</b>. Đây là cách chuyển từ interaction diagram sang trách nhiệm của lớp."
+    },
+    {
+      type: "single",
+      q: "Bước \"<b>Unify Analysis Classes</b>\" nhằm mục đích gì?",
+      options: [
+        "<b>Hợp nhất</b> các lớp trùng vai trò để có class diagram gọn",
+        "Tách một lớp thành nhiều lớp con",
+        "Đổi mọi entity thành boundary",
+        "Thêm càng nhiều lớp càng tốt"
+      ],
+      answer: [0],
+      explain: "Unify Analysis Classes = <b>hợp nhất</b> các lớp có vai trò trùng nhau để class diagram gọn gàng, tránh trùng lặp. Nó là gộp, không phải tách hay nhân bản lớp."
+    },
+    {
+      type: "multi",
+      q: "Theo review points cho Analysis Classes, một lớp tốt cần thỏa những tiêu chí nào?",
+      options: [
+        "Tên phản ánh vai trò &amp; đại diện <b>một</b> abstraction rõ ràng",
+        "Trách nhiệm gắn kết chức năng (functionally coupled) và đủ hành vi cần thiết",
+        "Đáp ứng các yêu cầu đặc thù đặt lên lớp",
+        "Chứa càng nhiều trách nhiệm không liên quan càng tốt",
+        "Trùng vai trò với nhiều lớp khác để dự phòng"
+      ],
+      answer: [0, 1, 2],
+      explain: "Review points: lớp hợp lý, tên phản ánh vai trò, đại diện <b>một</b> abstraction rõ ràng, trách nhiệm <b>gắn kết chức năng</b>, đủ hành vi cần thiết, đáp ứng yêu cầu đặc thù. Nhồi nhiều trách nhiệm không liên quan hay trùng vai trò là dấu hiệu xấu (nên unify)."
+    },
+
+    /* ===== 6. Architectural Patterns ===== */
+    {
+      type: "single",
+      q: "<b>Architectural pattern</b> là gì?",
+      options: [
+        "Giải pháp tổng quát, <b>tái sử dụng</b> cho một vấn đề thường gặp trong kiến trúc phần mềm ở một ngữ cảnh",
+        "Một đoạn mã cụ thể copy-paste được ngay",
+        "Một loại biểu đồ UML tĩnh",
+        "Một công cụ tự sinh mã nguồn"
+      ],
+      answer: [0],
+      explain: "Architectural pattern là <b>giải pháp tổng quát, tái sử dụng</b> cho vấn đề thường gặp (performance, high availability...) ở một ngữ cảnh. Nhiều pattern đã cài trong framework: 3-tier (DotNetNuke), MVC (Laravel, ASP.NET MVC), Microservices (Spring Boot)."
+    },
+    {
+      type: "single",
+      q: "Trong <b>classic (active) MVC</b>, điểm hay bị coi là \"vấn đề\" là gì?",
+      options: [
+        "<b>View phụ thuộc trực tiếp Model</b> (Model notifies View theo observer)",
+        "Controller không bao giờ ghi vào Model",
+        "Model tự render giao diện",
+        "View và Controller là cùng một đối tượng"
+      ],
+      answer: [0],
+      explain: "Trong classic/active MVC: Controller <em>writes</em> Model, Model <em>fills</em> &amp; <em>notifies</em> View (observer), View <em>updates</em>. Vấn đề: <b>View phụ thuộc trực tiếp Model</b>. Ở <b>passive</b> MVC, View không tự lắng nghe Model — Controller gọi View render."
+    },
+    {
+      type: "single",
+      q: "Trong <b>passive MVC</b>, luồng xử lý một request diễn ra thế nào?",
+      options: [
+        "Request → Routing → Controller → tương tác Model → Controller gọi View → render",
+        "Request → View → Model → Controller → render",
+        "Request → Model → View → Routing → Controller",
+        "View tự lắng nghe Model và render mà không qua Controller"
+      ],
+      answer: [0],
+      explain: "Passive MVC: Request → Routing → Controller → tương tác Model (data) → Controller <b>gọi View</b> → render. View <b>không</b> tự lắng nghe Model (đó là điểm khác với active MVC)."
+    },
+    {
+      type: "multi",
+      q: "Ánh xạ giữa <b>3-tier</b> và <b>MVC</b> nào là ĐÚNG?",
+      options: [
+        "Presentation Layer ↔ View",
+        "Business Logic Layer ↔ Controller (+ logic)",
+        "Data Access Layer ↔ Model",
+        "Presentation Layer ↔ Model",
+        "Data Access Layer ↔ View"
+      ],
+      answer: [0, 1, 2],
+      explain: "Ánh xạ: <b>Presentation ↔ View</b>, <b>Business Logic ↔ Controller</b>, <b>Data Access ↔ Model</b>. Hai phương án còn lại đảo lộn vai trò."
+    },
+    {
+      type: "single",
+      q: "Khác biệt cấu trúc giữa 3-tier và MVC là gì?",
+      options: [
+        "3-tier xếp <b>tầng tuyến tính</b> (tầng trên chỉ gọi tầng ngay dưới); MVC là <b>tam giác</b> 3 phần tương tác lẫn nhau",
+        "3-tier là tam giác; MVC là tuyến tính",
+        "Cả hai đều tuyến tính, không khác gì",
+        "Cả hai đều là tam giác, không khác gì"
+      ],
+      answer: [0],
+      explain: "3-tier xếp <b>tầng tuyến tính</b>: tầng trên chỉ gọi tầng ngay dưới. MVC là <b>tam giác</b>: ba phần (Model/View/Controller) tương tác lẫn nhau. Đây là điểm khác biệt cấu trúc cốt lõi."
+    },
+    {
+      type: "single",
+      q: "Về <b>Front-end vs Back-end</b>, phát biểu nào đúng?",
+      options: [
+        "Front-end = UI &amp; API/caching (phía user); Back-end = lưu trữ lớn, xử lý &amp; phân tích chạy lâu; hai bên có thể dùng <b>mẫu kiến trúc khác nhau</b>",
+        "Front-end và Back-end bắt buộc dùng cùng một mẫu kiến trúc",
+        "Back-end lo giao diện người dùng; Front-end lo lưu trữ dữ liệu",
+        "Front-end chạy các phân tích dữ liệu lâu dài"
+      ],
+      answer: [0],
+      explain: "Front-end = UI &amp; API, metadata, caching (phía user); Back-end = lưu trữ lớn, xử lý dữ liệu, phân tích chạy lâu. Quan trọng: hai bên <b>có thể dùng các mẫu kiến trúc khác nhau</b>. Các phương án còn lại đảo vai hoặc sai."
+    },
+    {
+      type: "single",
+      q: "Mẫu kiến trúc nào đặc trưng bởi <b>ViewModel</b> và cơ chế <b>data binding</b>?",
+      options: [
+        "MVVM",
+        "MVP",
+        "Flux",
+        "VIPER"
+      ],
+      answer: [0],
+      explain: "<b>MVVM</b>: View ↔ ViewModel ↔ Model, dùng <b>data binding &amp; commands</b> giữa View–ViewModel, tách Presentation Logic khỏi Business Logic. MVP dùng Presenter; Flux dùng luồng một chiều; VIPER chia 5 phần."
+    },
+    {
+      type: "single",
+      q: "Mẫu kiến trúc nào (thường dùng với React) có <b>luồng dữ liệu một chiều</b>: Action → Dispatcher → Store → View?",
+      options: [
+        "Flux",
+        "MVVM",
+        "MVP",
+        "VIPER"
+      ],
+      answer: [0],
+      explain: "<b>Flux</b> (React) có luồng <b>một chiều</b>: Action → Dispatcher → Store → View → (Action...), với Action Creators tạo action. MVVM/MVP có tương tác hai chiều qua binding/presenter; VIPER chia 5 thành phần."
+    },
+    {
+      type: "single",
+      q: "Trong <b>MVP</b> (thường dùng cho Android), thành phần nào làm trung gian giữa View và Model?",
+      options: [
+        "Presenter",
+        "ViewModel",
+        "Dispatcher",
+        "Wireframe"
+      ],
+      answer: [0],
+      explain: "Trong <b>MVP</b>: View (Activity/Fragment) ↔ <b>Presenter</b> ↔ Model (Interactor → REST/DB). Presenter làm trung gian. ViewModel là của MVVM; Dispatcher là của Flux; Wireframe/Routing là của VIPER."
+    },
+    {
+      type: "single",
+      q: "Chữ viết tắt <b>VIPER</b> (iOS) đại diện cho những thành phần nào?",
+      options: [
+        "View · Interactor · Presenter · Entity · Routing (Wireframe)",
+        "View · Injector · Provider · Entity · Repository",
+        "ViewModel · Interactor · Presenter · Entity · Router",
+        "View · Interface · Pattern · Event · Reducer"
+      ],
+      answer: [0],
+      explain: "<b>VIPER</b> = <b>V</b>iew, <b>I</b>nteractor, <b>P</b>resenter, <b>E</b>ntity, <b>R</b>outing (Wireframe) — tách trách nhiệm rất mịn, thường dùng cho iOS. Các phương án khác bịa nghĩa cho các chữ cái."
+    }
+  ]
+};
+</script>
+<script src="../assets/app.js"></script>
+<script src="../assets/quiz.js"></script>
+</body>
+</html>

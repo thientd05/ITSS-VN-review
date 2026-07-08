@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Trắc nghiệm 7 · Thiết kế lớp — ITSS</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/quiz.css">
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a class="brand" href="../index.html"><span class="dot"></span> ITSS SW Dev <small>· Trắc nghiệm</small></a>
+  <div class="top-spacer"></div>
+  <a class="top-link" href="07-class-design.html">← Lý thuyết</a>
+  <a class="top-link" href="../index.html">Trang chủ</a>
+  <button id="themeBtn" class="icon-btn" onclick="toggleTheme()">☾</button>
+</div></div>
+
+<div class="quiz-layout">
+  <main class="quiz-main">
+    <div class="crumb"><a href="07-class-design.html">← Quay lại lý thuyết: Thiết kế lớp</a></div>
+    <h1 class="page-title">Trắc nghiệm · Chủ đề 7</h1>
+    <p class="page-lead">Thiết kế lớp: Operation vs Method, visibility &amp; scope, quan hệ (association/aggregation/composition/dependency/generalization), multiplicity &amp; navigability, State Machine (state/event/transition/activity/pseudo-state), Attribute (derived), class diagram &amp; review. Nộp từng câu để xem đáp án &amp; giải thích. Kết quả được lưu tự động.</p>
+    <div id="quizRoot"></div>
+  </main>
+
+  <aside class="qnav-wrap">
+    <h4>Bảng câu hỏi</h4>
+    <div class="qnav-stat" id="qnavStat"></div>
+    <div class="qnav-grid" id="qnavGrid"></div>
+    <div class="qnav-legend">
+      <span><i class="ok"></i> Đúng</span>
+      <span><i class="no"></i> Sai</span>
+      <span><i class="an"></i> Đang chọn</span>
+    </div>
+    <button class="btn-resetall" id="btnResetAll">↺ Làm lại toàn bộ</button>
+  </aside>
+</div>
+
+<script>
+window.QUIZ = {
+  id: "07-class-design",
+  title: "Thiết kế lớp",
+  back: "07-class-design.html",
+  questions: [
+    /* ===== 1. Initial design classes ===== */
+    {
+      type: "single",
+      q: "Thứ tự đúng của <b>6 bước Class Design</b> là gì?",
+      options: [
+        "Create Initial Design Classes → Define Operations/Methods → Define Relationships → Define States → Define Attributes → Class Diagram",
+        "Class Diagram → Define Attributes → Define States → Define Relationships → Define Operations → Create Classes",
+        "Define Attributes → Create Classes → Define Operations → Class Diagram → Define States → Define Relationships",
+        "Create Classes → Define Attributes → Define Operations → Define States → Define Relationships → Class Diagram"
+      ],
+      answer: [0],
+      explain: "6 bước: <b>Create Initial Design Classes → Define Operations/Methods → Define Relationships → Define States → Define Attributes → Class Diagram</b>. Attributes được định nghĩa gần cuối (một phần lấy từ state machine)."
+    },
+    {
+      type: "multi",
+      q: "\"Nhiều lớp đơn giản\" (so với ít lớp phức tạp) mang lại ưu điểm gì?",
+      options: [
+        "Mỗi lớp đóng gói ít \"trí tuệ\" hệ thống",
+        "Tái sử dụng cao hơn",
+        "Dễ cài đặt hơn",
+        "Mỗi lớp gánh phần lớn \"trí tuệ\" hệ thống",
+        "Khó cài đặt hơn"
+      ],
+      answer: [0, 1, 2],
+      explain: "Nhiều lớp đơn giản: mỗi lớp đóng gói ít trí tuệ, <b>tái sử dụng cao hơn</b>, <b>dễ cài đặt hơn</b>. Ngược lại, ít lớp phức tạp thì mỗi lớp gánh nhiều trí tuệ, ít tái sử dụng, khó cài đặt. Nguyên tắc: một lớp nên có <b>một</b> mục đích rõ ràng — \"do one thing and do it well\"."
+    },
+    {
+      type: "single",
+      q: "Với <b>Control class</b>, quyết định \"có thực sự cần / có nên tách\" dựa trên yếu tố nào?",
+      options: [
+        "Complexity, change probability, distribution &amp; performance, transaction management",
+        "Màu sắc &amp; font của giao diện",
+        "Số dòng comment trong mã nguồn",
+        "Tên biến trong hàm"
+      ],
+      answer: [0],
+      explain: "Quyết định về control class dựa trên: <b>complexity</b>, <b>change probability</b>, <b>distribution &amp; performance</b>, <b>transaction management</b>. Các yếu tố hình thức (màu, font, comment, tên biến) không liên quan."
+    },
+
+    /* ===== 2. Operation & Method ===== */
+    {
+      type: "single",
+      q: "Phân biệt <b>Operation</b> và <b>Method</b> trong class design là gì?",
+      options: [
+        "Operation = hành vi (từ message); Method = mô tả <b>cách cài đặt</b> operation (thuật toán, object/operation dùng)",
+        "Operation = cách cài đặt; Method = hành vi trừu tượng",
+        "Chúng hoàn toàn giống nhau",
+        "Operation chỉ dùng cho entity, Method chỉ cho control"
+      ],
+      answer: [0],
+      explain: "<b>Operation</b> là hành vi (rút ra từ message trong interaction diagram); <b>Method</b> mô tả <em>cách cài đặt</em> operation đó (thuật toán đặc biệt, dùng object/operation nào, cách hiện thực attribute &amp; relationship)."
+    },
+    {
+      type: "single",
+      q: "Cú pháp <b>signature</b> của operation là gì?",
+      options: [
+        "<code>operationName([direction] parameter: class, ...): returnType</code>, direction = in (mặc định) / out / inout",
+        "<code>returnType operationName(class parameter)</code> — direction luôn là out",
+        "<code>operationName = Type</code> không có tham số",
+        "<code>[visibility] state / activity</code>"
+      ],
+      answer: [0],
+      explain: "Signature: <code>operationName([direction] parameter: class, ...): returnType</code>, với <b>direction</b> = <b>in</b> (mặc định) / out / inout. Kèm mô tả ngắn &amp; ý nghĩa tham số → program documentation (JavaDoc @param/@return/@throws)."
+    },
+    {
+      type: "multi",
+      q: "Đâu là các <b>guideline về signature</b> của operation?",
+      options: [
+        "<b>Càng ít tham số càng tốt</b>",
+        "Truyền <b>object</b> thay vì \"data bits\" rời rạc",
+        "Xét tham số: by value/by reference, có bị đổi, optional, giá trị mặc định, khoảng hợp lệ",
+        "Càng nhiều tham số càng linh hoạt, nên thêm nhiều",
+        "Luôn truyền từng \"data bit\" riêng lẻ thay vì object"
+      ],
+      answer: [0, 1, 2],
+      explain: "Guideline signature: <b>càng ít tham số càng tốt</b>, <b>truyền object thay vì data bits</b>, và cân nhắc kỹ mỗi tham số (by value/reference, có bị đổi, optional, mặc định, khoảng hợp lệ). Hai phương án cuối trái ngược nguyên tắc."
+    },
+    {
+      type: "single",
+      q: "Ba mức <b>visibility</b> và ký hiệu tương ứng là gì?",
+      options: [
+        "<code>+</code> Public · <code>#</code> Protected · <code>-</code> Private",
+        "<code>+</code> Private · <code>#</code> Public · <code>-</code> Protected",
+        "<code>*</code> Public · <code>&amp;</code> Protected · <code>%</code> Private",
+        "<code>-</code> Public · <code>+</code> Protected · <code>#</code> Private"
+      ],
+      answer: [0],
+      explain: "Visibility: <code>+</code> <b>Public</b>, <code>#</code> <b>Protected</b>, <code>-</code> <b>Private</b> — dùng để cưỡng chế encapsulation. Các phương án khác gán nhầm ký hiệu."
+    },
+    {
+      type: "single",
+      q: "Sự khác nhau giữa <b>Instance scope</b> và <b>Classifier scope</b> là gì?",
+      options: [
+        "Instance scope: 1 bản cho mỗi instance; Classifier scope: 1 bản cho <b>toàn bộ</b> instance (như <code>static</code>), vẽ bằng <u>gạch chân</u>",
+        "Instance scope là static; Classifier scope là mỗi object một bản",
+        "Cả hai đều là static",
+        "Classifier scope vẽ bằng in nghiêng, Instance scope gạch chân"
+      ],
+      answer: [0],
+      explain: "<b>Instance scope</b>: mỗi instance có 1 bản riêng. <b>Classifier scope</b>: 1 bản dùng chung cho toàn bộ instance (tương đương <code>static</code>), biểu diễn bằng <b>gạch chân</b> tên attribute/operation."
+    },
+
+    /* ===== 3. Relationships ===== */
+    {
+      type: "single",
+      q: "Quan hệ <b>Association</b> có bản chất gì?",
+      options: [
+        "Quan hệ <b>cấu trúc (structural)</b>: object lớp này nối object lớp kia — \"use-a\"",
+        "Quan hệ tạm thời, phi cấu trúc",
+        "Quan hệ whole-part với part chết cùng whole",
+        "Quan hệ \"is a kind of\" (kế thừa)"
+      ],
+      answer: [0],
+      explain: "<b>Association</b> là quan hệ <b>cấu trúc</b>, lâu dài: object lớp này nối object lớp kia (\"use-a\"), vẽ bằng đường thẳng (có thể có mũi tên navigability). Quan hệ tạm thời là dependency; whole-part là aggregation/composition; \"is a kind of\" là generalization."
+    },
+    {
+      type: "single",
+      q: "Khác biệt cốt lõi giữa <b>Aggregation</b> và <b>Composition</b> là gì?",
+      options: [
+        "Composition mạnh hơn: part <b>không chia sẻ</b> &amp; <b>chết cùng</b> whole (share life-time); Aggregation thì part có thể tồn tại độc lập",
+        "Aggregation mạnh hơn, part chết cùng whole",
+        "Cả hai giống hệt nhau",
+        "Composition vẽ hình thoi rỗng, Aggregation hình thoi đặc"
+      ],
+      answer: [0],
+      explain: "<b>Aggregation</b> (hình thoi rỗng ◇) là whole-part lỏng, part có thể tồn tại độc lập. <b>Composition</b> (hình thoi đặc ◆) mạnh hơn: part <b>không chia sẻ</b> và <b>chết cùng</b> whole (share life-time)."
+    },
+    {
+      type: "single",
+      q: "Quan hệ <b>Dependency</b> được vẽ và hiểu thế nào?",
+      options: [
+        "Đường <b>nét đứt có mũi tên ⇢</b> — quan hệ phi cấu trúc, <b>tạm thời</b>",
+        "Đường thẳng liền — quan hệ cấu trúc lâu dài",
+        "Mũi tên tam giác rỗng — kế thừa",
+        "Hình thoi đặc — whole-part"
+      ],
+      answer: [0],
+      explain: "<b>Dependency</b>: đường <b>nét đứt có mũi tên ⇢</b>, biểu diễn quan hệ <b>phi cấu trúc, tạm thời</b> (limited duration). Đường liền là association; tam giác rỗng là generalization; hình thoi đặc là composition."
+    },
+    {
+      type: "single",
+      q: "Quan hệ <b>Generalization</b> mang ý nghĩa nào và vẽ ra sao?",
+      options: [
+        "\"is a kind of\" — mũi tên <b>tam giác rỗng △</b>; subclass kế thừa cấu trúc/hành vi của superclass",
+        "\"has-a\" — hình thoi rỗng",
+        "\"use-a\" — đường thẳng",
+        "Quan hệ tạm thời — nét đứt"
+      ],
+      answer: [0],
+      explain: "<b>Generalization</b> nghĩa là \"is a kind of\", vẽ bằng mũi tên <b>tam giác rỗng △</b>; subclass kế thừa cấu trúc/hành vi của superclass. \"has-a\" là aggregation; \"use-a\" là association."
+    },
+    {
+      type: "single",
+      q: "Nguyên tắc chuyển từ communication diagram sang class diagram về quan hệ là gì?",
+      options: [
+        "Mỗi <b>link</b> → một <b>association</b> (\"relationship for every link\"); instance của association là một link",
+        "Mỗi message → một association",
+        "Mỗi object → một generalization",
+        "Mỗi actor → một dependency"
+      ],
+      answer: [0],
+      explain: "\"Relationship for every link\": mỗi <b>link</b> trong communication diagram → một <b>association</b> trong class diagram. Instance của một association chính là một link (khi chạy)."
+    },
+    {
+      type: "single",
+      q: "Multiplicity trả lời hai câu hỏi nào?",
+      options: [
+        "Association bắt buộc hay tùy chọn? Số instance tối thiểu &amp; tối đa liên kết được?",
+        "Lớp public hay private? Có bao nhiêu operation?",
+        "Object active hay passive? Persistent hay transient?",
+        "Association hay dependency? Vẽ mũi tên chiều nào?"
+      ],
+      answer: [0],
+      explain: "Multiplicity = số instance lớp này ứng với <b>một</b> instance lớp kia, trả lời: (1) association <b>bắt buộc hay tùy chọn</b>? (2) số instance <b>tối thiểu &amp; tối đa</b> liên kết được?"
+    },
+    {
+      type: "single",
+      q: "Ký hiệu multiplicity <code>0..1</code> nghĩa là gì?",
+      options: [
+        "Zero or One (optional) — không hoặc đúng một",
+        "One or More — một trở lên",
+        "Exactly One — đúng một",
+        "Zero or More — không hoặc nhiều"
+      ],
+      answer: [0],
+      explain: "<code>0..1</code> = <b>Zero or One</b> (optional). Còn <code>1..*</code> = One or More; <code>1</code> = Exactly One; <code>0..*</code> hoặc <code>*</code> = Zero or More."
+    },
+    {
+      type: "single",
+      q: "Ký hiệu multiplicity <code>1..*</code> nghĩa là gì?",
+      options: [
+        "One or More — một trở lên",
+        "Zero or More",
+        "Exactly One",
+        "Zero or One"
+      ],
+      answer: [0],
+      explain: "<code>1..*</code> = <b>One or More</b> (ít nhất một). <code>0..*</code>/<code>*</code> = Zero or More; <code>1</code> = Exactly One; <code>0..1</code> = Zero or One."
+    },
+    {
+      type: "single",
+      q: "Trong Java, cài đặt một association với multiplicity \"many\" (nhiều) nên dùng gì?",
+      options: [
+        "Collection, vd <code>private List&lt;InsuranceContract&gt; contracts;</code>",
+        "Một field đơn kiểu đối tượng",
+        "Một biến static gạch chân",
+        "Một tham số truyền vào constructor"
+      ],
+      answer: [0],
+      explain: "Multiplicity \"many\" → dùng <b>Collection</b>: <code>private List&lt;InsuranceContract&gt; contracts;</code>. Chiều multiplicity \"1\" thì dùng field đơn: <code>private InsuranceCompany refers_to;</code>."
+    },
+    {
+      type: "single",
+      q: "Khi phân vân giữa Association và Aggregation, lời khuyên là gì?",
+      options: [
+        "Hai object gắn chặt whole-part → Aggregation; thường độc lập → Association; <b>khi nghi ngờ, dùng Association</b>",
+        "Khi nghi ngờ, luôn dùng Composition",
+        "Khi nghi ngờ, luôn dùng Aggregation",
+        "Khi nghi ngờ, dùng Dependency"
+      ],
+      answer: [0],
+      explain: "Nếu hai object gắn chặt <b>whole-part</b> → Aggregation; nếu thường độc lập dù hay đi cùng → Association. Nguyên tắc an toàn: <b>khi nghi ngờ, dùng Association</b> (quan hệ nhẹ hơn)."
+    },
+    {
+      type: "single",
+      q: "Trong ví dụ Java, vì sao <code>Engine</code> trong <code>Car</code> là <b>composition</b> còn <code>Door</code> là <b>aggregation</b>?",
+      options: [
+        "Engine được tạo &amp; chết cùng Car (<code>final</code>, sở hữu chặt); Door truyền từ ngoài vào, tồn tại độc lập",
+        "Engine truyền từ ngoài vào; Door tạo bên trong Car",
+        "Cả hai đều là composition",
+        "Cả hai đều là aggregation"
+      ],
+      answer: [0],
+      explain: "<b>Composition</b>: <code>Engine</code> được tạo &amp; chết cùng <code>Car</code> (khai báo <code>final</code>, sở hữu chặt). <b>Aggregation</b>: <code>Door</code> được <em>truyền vào từ ngoài</em> qua constructor → có thể tồn tại độc lập với Car."
+    },
+    {
+      type: "single",
+      q: "Về <b>Navigability</b>, khi nào nên giữ <b>cả hai chiều</b> của association?",
+      options: [
+        "Chỉ khi số instance của <b>cả hai</b> lớp đều lớn &amp; thực sự cần đi cả hai chiều",
+        "Luôn giữ cả hai chiều cho an toàn",
+        "Khi ít nhất một lớp có nhiều instance",
+        "Không bao giờ giữ hai chiều"
+      ],
+      answer: [0],
+      explain: "Chỉ giữ <b>cả hai chiều</b> khi số instance của <b>cả hai</b> lớp đều lớn và cần đi cả hai chiều. Thường một chiều dùng ít / số instance nhỏ → chỉ giữ chiều đó. Mục tiêu: quan hệ càng \"nhẹ\" càng tốt (\"lightest relationships possible\")."
+    },
+    {
+      type: "multi",
+      q: "Đâu là <b>3 kiểu visibility</b> của một Dependency (cách hai lớp \"biết nhau\" tạm thời)?",
+      options: [
+        "Local variable (biến cục bộ trong op)",
+        "Parameter (truyền vào operation)",
+        "Global reference (đối tượng toàn cục)",
+        "Field reference (thuộc tính bền vững)",
+        "Inheritance (kế thừa)"
+      ],
+      answer: [0, 1, 2],
+      explain: "Dependency có 3 kiểu visibility tạm thời: <b>Local variable</b>, <b>Parameter</b>, <b>Global reference</b>. Còn <b>Field reference</b> là cách hai lớp \"biết nhau\" trong <b>Association</b> (cấu trúc, lâu dài) — không phải dependency."
+    },
+    {
+      type: "single",
+      q: "Khi hai lớp có quan hệ <b>lâu dài</b>, nên dùng loại visibility nào?",
+      options: [
+        "Association với <b>field reference</b>",
+        "Dependency với local variable",
+        "Dependency với parameter",
+        "Generalization"
+      ],
+      answer: [0],
+      explain: "Quan hệ <b>lâu dài</b> → dùng <b>association</b> (field reference). Nhiều object dùng chung 1 instance → parameter/global; không dùng chung → local variable. Nguyên tắc: \"strive for the lightest relationships possible\"."
+    },
+
+    /* ===== 4. State Machine ===== */
+    {
+      type: "single",
+      q: "<b>State Machine</b> là gì?",
+      options: [
+        "Đồ thị có hướng gồm <b>state (node)</b> nối bởi <b>transition (cung)</b>; mô tả lịch sử đời của một reactive object",
+        "Sơ đồ lớp tĩnh thể hiện quan hệ",
+        "Lưu đồ dòng dữ liệu giữa các subsystem",
+        "Bảng liệt kê các operation của lớp"
+      ],
+      answer: [0],
+      explain: "State Machine là đồ thị có hướng gồm <b>state (node)</b> nối bởi <b>transition (cung)</b>, mô tả lịch sử đời của một <b>reactive object</b>. Cú pháp transition: <code>Event(args)[guard condition]/activity</code>."
+    },
+    {
+      type: "single",
+      q: "Cú pháp đầy đủ của một <b>transition</b> là gì?",
+      options: [
+        "<code>Event(args)[guard condition]/activity</code>",
+        "<code>State: Entry/Do/Exit</code>",
+        "<code>attributeName : Type = Default</code>",
+        "<code>operationName(): returnType</code>"
+      ],
+      answer: [0],
+      explain: "Transition có dạng <code>Event(args)[guard condition]/activity</code>: khi nhận <b>event</b> (thỏa <b>guard</b>) thì chuyển state &amp; thực hiện <b>activity</b>. Cú pháp thứ hai mô tả action trong state; hai cái còn lại là attribute và operation."
+    },
+    {
+      type: "single",
+      q: "Ba loại <b>activity (action)</b> gắn với một state là gì?",
+      options: [
+        "<b>Entry</b> (khi vào state) · <b>Do</b> (đang chạy) · <b>Exit</b> (khi ra state)",
+        "Start · Run · Stop",
+        "Initial · Choice · Final",
+        "In · Out · Inout"
+      ],
+      answer: [0],
+      explain: "Một state có thể có 3 loại activity: <b>Entry</b> (chạy khi vào state), <b>Do</b> (chạy trong khi ở state), <b>Exit</b> (chạy khi rời state). Initial/Choice/Final là pseudo-state; in/out/inout là direction của tham số."
+    },
+    {
+      type: "multi",
+      q: "Phát biểu nào ĐÚNG về các <b>pseudo-state</b>?",
+      options: [
+        "<b>Initial state</b>: khi object được tạo, <b>bắt buộc</b>, chỉ có 1",
+        "<b>Final state</b>: kết thúc đời object, <b>tùy chọn</b>, có thể có nhiều",
+        "<b>Choice</b>: đánh giá động guard sau, chỉ segment đầu có trigger",
+        "<b>Initial state</b> là tùy chọn và có thể có nhiều",
+        "<b>Final state</b> là bắt buộc và chỉ có đúng một"
+      ],
+      answer: [0, 1, 2],
+      explain: "<b>Initial state</b>: bắt buộc, chỉ 1 (khi object được tạo). <b>Final state</b>: tùy chọn, có thể nhiều. <b>Choice</b>: đánh giá động guard, chỉ segment đầu có trigger. Hai phương án cuối đảo ngược tính chất của initial/final."
+    },
+    {
+      type: "multi",
+      q: "Trường hợp nào <b>KHÔNG cần</b> mô hình State Machine cho object?",
+      options: [
+        "Object ánh xạ thẳng sang cài đặt",
+        "Object không bị điều khiển bởi state",
+        "Object chỉ có <b>một state tính toán</b>",
+        "Object có vai trò được làm rõ bởi state transitions",
+        "Use case phức tạp bị điều khiển bởi state"
+      ],
+      answer: [0, 1, 2],
+      explain: "KHÔNG cần state machine cho: object ánh xạ thẳng sang cài đặt, object không bị điều khiển bởi state, object chỉ có <b>một</b> state tính toán. NÊN mô hình khi object có vai trò được làm rõ bởi state transition, hoặc use case phức tạp bị điều khiển bởi state."
+    },
+    {
+      type: "single",
+      q: "Khi ánh xạ State Machine về mô hình lớp, một <b>state</b> thường được biểu diễn bằng gì?",
+      options: [
+        "Một <b>attribute</b> (đầu vào cho bước Define Attributes)",
+        "Một operation public",
+        "Một association mới",
+        "Một subsystem"
+      ],
+      answer: [0],
+      explain: "Ánh xạ: <b>event → operation</b>; method cập nhật thông tin đặc thù state; và <b>state thường biểu diễn bằng attribute</b> — trở thành đầu vào cho bước Define Attributes."
+    },
+
+    /* ===== 5. Attributes ===== */
+    {
+      type: "single",
+      q: "Cú pháp khai báo một <b>attribute</b> là gì?",
+      options: [
+        "<code>attributeName : Type = Default</code> (kèm visibility +/#/-), Type là kiểu sơ cấp (elementary)",
+        "<code>Event(args)[guard]/activity</code>",
+        "<code>operationName(): returnType</code>",
+        "<code>whole ◆ part</code>"
+      ],
+      answer: [0],
+      explain: "Attribute: <code>attributeName : Type = Default</code> kèm visibility (+/#/-). Type phải là kiểu <b>sơ cấp (elementary)</b> của ngôn ngữ cài đặt (built-in, user-defined type, hoặc user-defined class)."
+    },
+    {
+      type: "multi",
+      q: "Một \"danh từ\" nên trở thành <b>attribute</b> (thay vì lớp) khi nào?",
+      options: [
+        "Chỉ có <b>giá trị</b> của nó là điều quan trọng",
+        "Thông tin thuộc <b>sở hữu duy nhất</b> của một object",
+        "Nó <b>không có hành vi</b>",
+        "Nó có nhiều hành vi phức tạp riêng",
+        "Nó tương tác với nhiều actor"
+      ],
+      answer: [0, 1, 2],
+      explain: "Một danh từ không thành lớp mà thành <b>attribute</b> khi: chỉ giá trị của nó quan trọng, thông tin thuộc <b>sở hữu duy nhất</b> của object, và <b>không có hành vi</b>. Nếu có hành vi phức tạp / tương tác nhiều thì nên là lớp."
+    },
+    {
+      type: "single",
+      q: "<b>Derived Attribute</b> (thuộc tính dẫn xuất) là gì và khi nào dùng?",
+      options: [
+        "Attribute có giá trị được <b>tính từ attribute khác</b>; dùng khi không đủ thời gian tính lại mỗi lần, hoặc đánh đổi performance với bộ nhớ",
+        "Attribute không bao giờ thay đổi giá trị",
+        "Attribute chỉ tồn tại trong một state",
+        "Attribute được kế thừa từ superclass"
+      ],
+      answer: [0],
+      explain: "<b>Derived attribute</b> có giá trị <b>tính từ attribute khác</b>. Dùng khi: không đủ thời gian tính lại mỗi lần cần, hoặc cần <em>đánh đổi</em> runtime performance với bộ nhớ (lưu sẵn giá trị)."
+    },
+
+    /* ===== 6. Class diagram & review ===== */
+    {
+      type: "multi",
+      q: "Class diagram (static view) có thể dùng để mô hình những gì?",
+      options: [
+        "Vocabulary của hệ thống",
+        "Collaborations (sự cộng tác)",
+        "Logical database schema",
+        "Trình tự thời gian gọi hàm giữa object",
+        "Ràng buộc thời gian real-time của message"
+      ],
+      answer: [0, 1, 2],
+      explain: "3 cách dùng class diagram khi mô hình static: <b>vocabulary</b> của hệ thống, <b>collaborations</b>, và <b>logical database schema</b>. Trình tự thời gian gọi hàm là sequence diagram; ràng buộc thời gian là timing diagram."
+    },
+    {
+      type: "multi",
+      q: "Theo review points, một <b>Class</b> tốt cần thỏa gì?",
+      options: [
+        "Tên rõ ràng, đại diện <b>một</b> abstraction",
+        "Attribute/behavior gắn kết chức năng &amp; nhất quán với state machine",
+        "Mô tả đủ vòng đời instance &amp; đủ hành vi cần thiết",
+        "Chứa càng nhiều abstraction khác nhau càng tốt",
+        "Không cần nhất quán với state machine"
+      ],
+      answer: [0, 1, 2],
+      explain: "Review points cho Class: tên rõ, <b>một</b> abstraction, attribute/behavior gắn kết chức năng, có generalization phù hợp, đáp ứng yêu cầu, <b>nhất quán với state machine</b>, mô tả đủ vòng đời instance, đủ hành vi. Nhồi nhiều abstraction hay bỏ qua state machine là dấu hiệu xấu."
+    }
+  ]
+};
+</script>
+<script src="../assets/app.js"></script>
+<script src="../assets/quiz.js"></script>
+</body>
+</html>

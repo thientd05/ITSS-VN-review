@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>2. Version Control &amp; Git — ITSS Ôn tập</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/quiz.css">
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a class="brand" href="../index.html"><span class="dot"></span> ITSS SW Dev <small>· Ôn tập</small></a>
+  <div class="top-spacer"></div>
+  <a class="top-link" href="../index.html">Trang chủ</a>
+  <button id="themeBtn" class="icon-btn" onclick="toggleTheme()">☾</button>
+</div></div>
+
+<div class="layout">
+<aside class="toc"><h4>Mục lục</h4><nav></nav></aside>
+<main class="content">
+  <div class="crumb">Ôn tập ITSS · Chủ đề 2</div>
+  <h1 class="page-title">Quản lý phiên bản (Version Control) &amp; Git</h1>
+  <p class="page-lead">Vì sao cần VCS, ba mô hình quản lý phiên bản, so sánh tập trung vs phân tán, từ vựng chuẩn và bộ lệnh Git cơ bản.</p>
+  <div class="chips"><span class="chip">Lock-Modify-Unlock</span><span class="chip">Copy-Modify-Merge</span><span class="chip">Distributed</span><span class="chip">Git</span></div>
+  <a class="quiz-cta" href="quiz-02-version-control.html"><span class="ic">📝</span> Luyện trắc nghiệm chủ đề này <small>· 27 câu · lưu tiến độ tự động</small></a>
+
+  <section>
+    <h2><span class="num">1</span> Vì sao cần Version Control?</h2>
+    <div class="two">
+      <div class="callout warn"><span class="tt">Kịch bản cá nhân</span>Chương trình đang chạy → sửa "chỉ một thứ" → hỏng → sửa lại về cũ → vẫn hỏng — <em>tại sao?</em> Hoặc: hôm qua chạy tốt, tối cải tiến nhiều nhưng chưa xong, giờ phải nộp <em>ngay</em>.</div>
+      <div class="callout warn"><span class="tt">Kịch bản nhóm</span>Bạn sửa phần A (chạy), đồng nghiệp sửa phần B (chạy), ghép lại → không chạy. Một thay đổi ở phần này đã phá phần kia. <em>Đâu là tất cả các thay đổi?</em> Làm sao <strong>merge</strong>?</div>
+    </div>
+    <div class="callout key"><span class="tt">VCS làm gì</span>
+    <ul style="margin:.2rem 0">
+      <li>Giữ <strong>nhiều phiên bản</strong> (cũ &amp; mới) của mọi thứ (không chỉ mã nguồn).</li>
+      <li>Yêu cầu <strong>comment</strong> cho mỗi thay đổi.</li>
+      <li>Cho <strong>check-in / check-out</strong> để biết ai đang làm file nào.</li>
+      <li>Hiển thị <strong>khác biệt</strong> giữa các phiên bản.</li>
+    </ul></div>
+    <div class="callout note"><span class="tt">Công cụ diff</span><code>diff</code>, <code>rcsdiff</code>, <code>jDiff</code>… hữu ích để tìm <em>số ít</em> khác biệt trong <em>ít</em> file. jDiff là plugin của jEdit: tô màu, cuộn đồng bộ, sửa trực tiếp — nhưng chỉ là công cụ diff, không phải giải pháp hoàn chỉnh.</div>
+  </section>
+
+  <section>
+    <h2><span class="num">2</span> Ba mô hình quản lý phiên bản</h2>
+    <h3>2.1 Lock-Modify-Unlock (khóa)</h3>
+    <p>Chỉ <strong>một người</strong> được sửa file tại một thời điểm: check-out kèm <strong>khóa</strong> → sửa → commit &amp; mở khóa. Người khác phải <strong>chờ</strong>.</p>
+    <div class="callout warn"><span class="tt">Nhược điểm</span>Tuần tự hóa công việc, người khác phải đợi dù sửa vùng khác nhau của file → chậm, dễ tắc nghẽn.</div>
+    <h3>2.2 Copy-Modify-Merge (sao chép–sửa–trộn)</h3>
+    <p>Nhiều người cùng check-out (không khóa) &amp; sửa bản sao cục bộ đồng thời. Ai commit trước thì xong; người sau khi commit gặp <strong>conflict</strong> → phải <strong>update + merge</strong> cục bộ rồi commit bản đã trộn.</p>
+    <div class="callout tip"><span class="tt">Ưu điểm</span>Song song hóa; đa số merge tự động được. Đây là mô hình phổ biến (SVN, Git…).</div>
+    <h3>2.3 Distributed Version Control (phân tán)</h3>
+    <p>Mỗi người <strong>clone</strong> toàn bộ repo về máy (có <strong>local repository</strong> riêng). Làm việc &amp; <strong>commit cục bộ</strong>, sau đó <strong>push</strong> lên remote; nếu remote đã đổi → <strong>pull (fetch + merge)</strong> giải quyết conflict cục bộ rồi push lại.</p>
+    <div class="tw"><table>
+      <thead><tr><th></th><th>Centralized</th><th>Distributed</th></tr></thead>
+      <tbody>
+        <tr><td>Số repository</td><td><strong>Chỉ một</strong> (trên server)</td><td>Một remote + <strong>nhiều local</strong></td></tr>
+        <tr><td>Thao tác chính</td><td>commit / update trực tiếp lên server</td><td>commit cục bộ → push / pull với remote</td></tr>
+        <tr><td>Làm việc offline</td><td>Hạn chế</td><td>Tốt (repo đầy đủ ở local)</td></tr>
+        <tr><td>Ví dụ</td><td>SVN, TFS, SourceSafe</td><td><strong>Git</strong>, Mercurial</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <h2><span class="num">3</span> Từ vựng chuẩn</h2>
+    <div class="tw"><table>
+      <thead><tr><th>Thuật ngữ</th><th>Ý nghĩa</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Repository</strong></td><td>Server lưu file &amp; giữ change log (lịch sử thay đổi).</td></tr>
+        <tr><td><strong>Revision / Version</strong></td><td>Một trạng thái cụ thể của tài liệu sau nhiều thay đổi.</td></tr>
+        <tr><td><strong>Check-Out / Clone</strong></td><td>Lấy bản làm việc (working copy) từ remote về local (có thể kèm khóa).</td></tr>
+        <tr><td><strong>Change</strong></td><td>Một sửa đổi trên file cục bộ đang được quản lý.</td></tr>
+        <tr><td><strong>Change Set / Change List</strong></td><td>Tập thay đổi trên nhiều file sẽ commit cùng lúc.</td></tr>
+        <tr><td><strong>Commit / Check-In</strong></td><td>Gửi thay đổi từ working copy lên repo → tạo phiên bản mới (có thể phát sinh conflict).</td></tr>
+        <tr><td><strong>Update / Get Latest / Fetch / Pull</strong></td><td>Tải phiên bản mới nhất về + trộn file xung đột.</td></tr>
+        <tr><td><strong>Conflict</strong></td><td>Nhiều người sửa cùng file đồng thời; giải quyết tự động hoặc thủ công.</td></tr>
+        <tr><td><strong>Merge</strong></td><td>Trộn thay đổi cục bộ với thay đổi trên repo (phần lớn tự động).</td></tr>
+        <tr><td><strong>Revert / Undo Changes</strong></td><td>Hủy thay đổi cục bộ, phục hồi trạng thái từ repo.</td></tr>
+        <tr><td><strong>Label / Tag</strong></td><td>Đặt tên cho một nhóm file ở phiên bản nhất định (ví dụ: một release).</td></tr>
+        <tr><td><strong>Branch / Branching</strong></td><td>Tách repo thành nhiều luồng làm việc song song.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <h2><span class="num">4</span> Git — lệnh cơ bản</h2>
+    <p>Git: hệ phân tán, làm việc với repo local &amp; remote, có Git bash (CLI), miễn phí &amp; mã nguồn mở.</p>
+    <pre><code><span class="c"># Khởi tạo / lấy repo</span>
+git init                       <span class="c"># tạo repo local ở thư mục hiện tại</span>
+git clone [remote-url]         <span class="c"># nhân bản repo remote về local</span>
+git remote add [name] [url]    <span class="c"># gán tên ngắn cho remote</span>
+
+<span class="c"># Vòng làm việc hằng ngày</span>
+git status                     <span class="c"># xem thay đổi cục bộ</span>
+git add [file]                 <span class="c"># chọn file cho commit (git add . = tất cả)</span>
+git commit -m "message"        <span class="c"># commit vào repo local</span>
+git pull                       <span class="c"># fetch + merge thay đổi mới nhất từ remote</span>
+git push [remote] [branch]     <span class="c"># đẩy thay đổi lên remote</span></code></pre>
+    <div class="callout example"><span class="tt">Ví dụ luồng đầy đủ</span>
+<pre style="margin:.4rem 0"><code>mkdir work &amp;&amp; cd work
+git clone https://github.com/SoftUni/test.git dir
+cd test
+<span class="c"># ...chỉnh sửa file...</span>
+git status
+git add .
+git commit -m "changes"
+git push</code></pre></div>
+    <div class="callout note"><span class="tt">Nơi host dự án</span>GitHub (#1, free cho open-source, có bản trả phí private), Google Code (SVN), SourceForge, CodePlex (TFS), Bitbucket (Mercurial, có private). Cài đặt: Windows dùng msysGit; Linux <code>sudo apt-get install git</code>.</div>
+  </section>
+
+  <nav class="pager">
+    <a href="01-quy-trinh-mo-hinh.html"><span class="dir">← Trước</span><span class="ttl">Quy trình &amp; Mô hình PTPM</span></a>
+    <a class="next" href="03-use-case.html"><span class="dir">Sau →</span><span class="ttl">Mô hình hóa yêu cầu với Use Case</span></a>
+  </nav>
+</main>
+</div>
+<script src="../assets/app.js"></script>
+</body>
+</html>

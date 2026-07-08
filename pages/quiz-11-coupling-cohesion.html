@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Trắc nghiệm 11 · Coupling &amp; Cohesion — ITSS</title>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/quiz.css">
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a class="brand" href="../index.html"><span class="dot"></span> ITSS SW Dev <small>· Trắc nghiệm</small></a>
+  <div class="top-spacer"></div>
+  <a class="top-link" href="11-coupling-cohesion.html">← Lý thuyết</a>
+  <a class="top-link" href="../index.html">Trang chủ</a>
+  <button id="themeBtn" class="icon-btn" onclick="toggleTheme()">☾</button>
+</div></div>
+
+<div class="quiz-layout">
+  <main class="quiz-main">
+    <div class="crumb"><a href="11-coupling-cohesion.html">← Quay lại lý thuyết: Coupling &amp; Cohesion</a></div>
+    <h1 class="page-title">Trắc nghiệm · Chủ đề 11</h1>
+    <p class="page-lead">Coupling &amp; Cohesion: module &amp; modular design, thang Coupling (content→uncoupled), thang Cohesion (functional→coincidental), Law of Demeter, God class. Mục tiêu vàng: "loose coupling, high cohesion". Nộp từng câu để xem đáp án &amp; giải thích. Kết quả được lưu tự động.</p>
+    <div id="quizRoot"></div>
+  </main>
+
+  <aside class="qnav-wrap">
+    <h4>Bảng câu hỏi</h4>
+    <div class="qnav-stat" id="qnavStat"></div>
+    <div class="qnav-grid" id="qnavGrid"></div>
+    <div class="qnav-legend">
+      <span><i class="ok"></i> Đúng</span>
+      <span><i class="no"></i> Sai</span>
+      <span><i class="an"></i> Đang chọn</span>
+    </div>
+    <button class="btn-resetall" id="btnResetAll">↺ Làm lại toàn bộ</button>
+  </aside>
+</div>
+
+<script>
+window.QUIZ = {
+  id: "11-coupling-cohesion",
+  title: "Coupling & Cohesion",
+  back: "11-coupling-cohesion.html",
+  questions: [
+    /* ===== 1. Module & good design ===== */
+    {
+      type: "single",
+      q: "Mục tiêu vàng của thiết kế tốt (good design) là gì?",
+      options: [
+        "<b>Loose coupling and high cohesion</b> (ghép nối lỏng, gắn kết cao)",
+        "High coupling and low cohesion",
+        "Loose coupling and low cohesion",
+        "High coupling and high cohesion"
+      ],
+      answer: [0],
+      explain: "Mục tiêu vàng: <b>loose coupling</b> (phụ thuộc giữa module ít) + <b>high cohesion</b> (mỗi module hướng về một nhiệm vụ). Nhờ đó code dễ đọc/hiểu/mở rộng/bảo trì."
+    },
+    {
+      type: "single",
+      q: "<b>Modular design</b> tập trung vào điều gì?",
+      options: [
+        "Module nào được định nghĩa, đặc tả ra sao, quan hệ thế nào — <b>KHÔNG</b> tập trung cài đặt bên trong",
+        "Chi tiết cài đặt từng dòng lệnh bên trong module",
+        "Tối ưu hiệu năng bộ nhớ của module",
+        "Giao diện đồ họa của module"
+      ],
+      answer: [0],
+      explain: "<b>Modular design</b> tập trung: module nào được định nghĩa, đặc tả ra sao, quan hệ thế nào — <b>không</b> quan tâm cài đặt bên trong. Module = thuật ngữ chung cho class/type/đơn vị thiết kế."
+    },
+    {
+      type: "multi",
+      q: "Đâu là các \"lý tưởng\" của phần mềm <b>modular</b>?",
+      options: [
+        "Decomposable (chia nhỏ) &amp; Composable (ghép lại được)",
+        "Understandable (hiểu từng module độc lập)",
+        "Continuity (thay đổi nhỏ ở yêu cầu → ảnh hưởng ít module)",
+        "Isolation (lỗi được cô lập)",
+        "Maximization of global shared state"
+      ],
+      answer: [0, 1, 2, 3],
+      explain: "Modular lý tưởng: Decomposable, Composable, Understandable, Continuity, Isolation. Tối đa hóa <b>global shared state</b> là phản mẫu (gây common coupling, khó bảo trì)."
+    },
+    {
+      type: "single",
+      q: "Về mặt định nghĩa, <b>Cohesion</b> và <b>Coupling</b> trả lời câu hỏi nào?",
+      options: [
+        "Cohesion: vì sao các sub-module đặt cùng một module? Coupling: mức phụ thuộc giữa các module?",
+        "Cohesion: mức phụ thuộc giữa module? Coupling: vì sao đặt cùng module?",
+        "Cả hai đều đo hiệu năng runtime",
+        "Cả hai đều đo số dòng code"
+      ],
+      answer: [0],
+      explain: "<b>Cohesion</b>: vì sao các sub-module (method) được đặt cùng module (thường để tạo ADT)? <b>Coupling</b>: mức phụ thuộc giữa các module (giảm càng nhiều càng tốt)? \"k module càng coupling càng phải coi như một module lớn hơn\"."
+    },
+
+    /* ===== 2. Coupling ===== */
+    {
+      type: "single",
+      q: "<b>Coupling</b> đo lường điều gì?",
+      options: [
+        "Mức độ mỗi module <b>phụ thuộc</b> vào các module khác",
+        "Mức độ các phần tử trong một module hướng về một nhiệm vụ",
+        "Số lượng method trong một module",
+        "Tốc độ thực thi của module"
+      ],
+      answer: [0],
+      explain: "<b>Coupling</b> = mức độ mỗi module <b>phụ thuộc</b> vào module khác. High coupling khiến sửa hệ thống khó (đổi 1 component ảnh hưởng mọi component nối với nó). \"Phần tử hướng về một nhiệm vụ\" là cohesion."
+    },
+    {
+      type: "single",
+      q: "Thang Coupling từ <b>TỆ nhất → TỐT nhất</b> theo thứ tự nào?",
+      options: [
+        "Content → Common → Control → Stamp → Data → Uncoupled",
+        "Uncoupled → Data → Stamp → Control → Common → Content",
+        "Content → Control → Common → Data → Stamp → Uncoupled",
+        "Data → Content → Common → Stamp → Control → Uncoupled"
+      ],
+      answer: [0],
+      explain: "Thang coupling từ tệ → tốt: <b>Content</b> (tệ nhất) → <b>Common</b> → <b>Control</b> → <b>Stamp</b> → <b>Data</b> → <b>Uncoupled</b> (tốt nhất). Content cao nhất/tệ nhất, Uncoupled thấp nhất/tốt nhất."
+    },
+    {
+      type: "single",
+      q: "<b>Content coupling</b> (tệ nhất) nghĩa là gì?",
+      options: [
+        "Component này tham chiếu/sửa <b>nội dung bên trong</b> component khác (sửa data, nhảy vào giữa routine)",
+        "Hai component chia sẻ global data",
+        "Truyền control parameter điều khiển component kia",
+        "Chỉ truyền data đơn giản"
+      ],
+      answer: [0],
+      explain: "<b>Content coupling</b> (cao nhất, tệ nhất): component tham chiếu/sửa <b>nội dung bên trong</b> component khác — sửa trực tiếp data, nhảy vào giữa routine. Chia sẻ global data là common; control parameter là control."
+    },
+    {
+      type: "single",
+      q: "<b>Common coupling</b> là gì?",
+      options: [
+        "Hai component <b>chia sẻ dữ liệu</b> (global data structure, common block)",
+        "Component sửa nội dung bên trong component khác",
+        "Truyền cả cấu trúc dữ liệu mà component không dùng hết",
+        "Không có phụ thuộc"
+      ],
+      answer: [0],
+      explain: "<b>Common coupling</b>: hai component <b>chia sẻ dữ liệu</b> (global data structure/common block) — thường là lựa chọn kém: thiếu trách nhiệm rõ ràng, khó bảo trì/tái sử dụng/kiểm soát truy cập."
+    },
+    {
+      type: "single",
+      q: "<b>Stamp coupling</b> khác <b>Data coupling</b> ở điểm nào?",
+      options: [
+        "Stamp: truyền <b>cả cấu trúc dữ liệu</b> mà component không dùng toàn bộ (phải biết cách thao tác); Data: chỉ truyền data đơn giản mọi phần tử đều dùng",
+        "Stamp truyền data đơn giản; Data truyền cả cấu trúc",
+        "Cả hai giống nhau",
+        "Stamp là uncoupled; Data là content coupling"
+      ],
+      answer: [0],
+      explain: "<b>Stamp coupling</b>: truyền <b>cả cấu trúc dữ liệu</b> cho component không dùng toàn bộ (nó phải biết cách thao tác cấu trúc → biết cài đặt). <b>Data coupling</b> (tốt hơn): chỉ truyền data đơn giản/cấu trúc mà mọi phần tử đều dùng."
+    },
+    {
+      type: "single",
+      q: "Khi nào <b>Control coupling</b> được xem là chấp nhận được (tốt)?",
+      options: [
+        "Khi tham số giúp factoring &amp; tái sử dụng; xấu nếu bên nhận phải biết cấu trúc/logic bên trong bên gửi",
+        "Luôn luôn tốt trong mọi trường hợp",
+        "Luôn luôn xấu, không bao giờ chấp nhận",
+        "Chỉ tốt khi truyền global data"
+      ],
+      answer: [0],
+      explain: "Control coupling (component truyền control parameter điều khiển component kia) <b>tùy</b>: xấu nếu bên nhận phải biết cấu trúc/logic bên trong; <b>tốt</b> nếu tham số giúp factoring &amp; tái sử dụng. Vd module q trả flag \"không hoàn thành task\" (truyền data) là ok; trả flag rồi vì đó ghi message cụ thể là control coupling xấu."
+    },
+
+    /* ===== 3. Cohesion ===== */
+    {
+      type: "single",
+      q: "<b>Cohesion</b> được định nghĩa thế nào?",
+      options: [
+        "Mức độ mọi phần tử của component đều hướng về <b>MỘT nhiệm vụ</b>; \"internal glue\", high is good",
+        "Mức độ module phụ thuộc module khác",
+        "Số lượng tham số của một method",
+        "Tốc độ thực thi của component"
+      ],
+      answer: [0],
+      explain: "<b>Cohesion</b>: mức độ mọi phần tử của component đều hướng về <b>một nhiệm vụ</b> (và mọi phần tử phục vụ nhiệm vụ đó nằm gọn trong component). \"Internal glue\", <b>high is good</b>. Phụ thuộc giữa module là coupling."
+    },
+    {
+      type: "single",
+      q: "Thang Cohesion từ <b>TỐT nhất → TỆ nhất</b> theo thứ tự nào?",
+      options: [
+        "Functional → Informational → Sequential → Communicational → Procedural → Temporal → Logical → Coincidental",
+        "Coincidental → Logical → Temporal → Procedural → Communicational → Sequential → Informational → Functional",
+        "Functional → Sequential → Informational → Temporal → Procedural → Communicational → Logical → Coincidental",
+        "Logical → Functional → Sequential → Temporal → Procedural → Communicational → Informational → Coincidental"
+      ],
+      answer: [0],
+      explain: "Thang cohesion từ tốt → tệ: <b>Functional</b> (tốt nhất) → Informational → Sequential → Communicational → Procedural → Temporal → Logical → <b>Coincidental</b> (tệ nhất)."
+    },
+    {
+      type: "single",
+      q: "<b>Functional cohesion</b> (lý tưởng) nghĩa là gì?",
+      options: [
+        "Mọi phần tử thiết yếu cho <b>một phép tính đơn</b>",
+        "Phần tử liên quan chỉ bởi vị trí trong source code",
+        "Phần tử liên quan bởi thời điểm (timing)",
+        "Phần tử liên quan về logic nhưng không về chức năng"
+      ],
+      answer: [0],
+      explain: "<b>Functional cohesion</b> (cao nhất): mọi phần tử thiết yếu cho <b>một phép tính đơn</b>. \"Vị trí source code\" là coincidental; \"timing\" là temporal; \"logic không chức năng\" là logical."
+    },
+    {
+      type: "single",
+      q: "<b>Coincidental cohesion</b> (tệ nhất) nghĩa là gì?",
+      options: [
+        "Phần tử chỉ liên quan bởi <b>vị trí trong source code</b> (accidental)",
+        "Mọi phần tử thiết yếu cho một phép tính đơn",
+        "Output phần này là input phần kia",
+        "Phần tử thao tác trên cùng dữ liệu"
+      ],
+      answer: [0],
+      explain: "<b>Coincidental cohesion</b> (thấp/tệ nhất): các phần tử chỉ liên quan bởi <b>vị trí trong source code</b> (accidental — tình cờ nằm cạnh nhau), không có liên hệ chức năng nào."
+    },
+    {
+      type: "single",
+      q: "<b>Sequential cohesion</b> đặc trưng bởi điều gì?",
+      options: [
+        "<b>Output</b> của phần này là <b>input</b> của phần kia (tự nhiên trong lập trình hàm)",
+        "Phần tử liên quan chỉ để đảm bảo thứ tự thực thi",
+        "Phần tử liên quan bởi timing",
+        "Phần tử liên quan bởi vị trí source code"
+      ],
+      answer: [0],
+      explain: "<b>Sequential cohesion</b>: output của phần này là input của phần kia — tự nhiên trong lập trình hàm, được xem là tốt. \"Chỉ đảm bảo thứ tự thực thi\" là procedural (yếu hơn)."
+    },
+    {
+      type: "single",
+      q: "\"Routine khởi tạo hệ thống\" gom các phần tử vì cùng chạy lúc khởi động — đây là loại cohesion nào?",
+      options: [
+        "Temporal cohesion",
+        "Functional cohesion",
+        "Sequential cohesion",
+        "Informational cohesion"
+      ],
+      answer: [0],
+      explain: "Phần tử liên quan bởi <b>thời điểm (timing)</b> — vd routine khởi tạo hệ thống — là <b>Temporal cohesion</b> (yếu): khó đổi, tăng nguy cơ regression, khó tái sử dụng."
+    },
+    {
+      type: "single",
+      q: "Module \"đọc input từ tape/disk/network\" gom chung, client chọn một phần tử — đây là loại cohesion nào?",
+      options: [
+        "Logical cohesion",
+        "Functional cohesion",
+        "Temporal cohesion",
+        "Coincidental cohesion"
+      ],
+      answer: [0],
+      explain: "Phần tử liên quan <b>về mặt logic nhưng không về chức năng</b>, client chọn một phần tử (đọc từ tape/disk/network cùng module) → <b>Logical cohesion</b> (yếu)."
+    },
+    {
+      type: "single",
+      q: "Nguyên tắc <b>separation of concerns</b> gợi ý điều gì (vd BinarySearch có nên biết kiểu object đang sort)?",
+      options: [
+        "Một module nên chỉ giải quyết <b>một tập concern</b>; không nhồi trách nhiệm không liên quan",
+        "Một module nên biết mọi thứ để linh hoạt tối đa",
+        "BinarySearch nên chứa cả logic giá bulk pricing",
+        "Càng nhiều concern trong một module càng tốt"
+      ],
+      answer: [0],
+      explain: "<b>Separation of concerns</b>: một module chỉ nên giải quyết <b>một tập concern</b> (high cohesion). Vd BinarySearch không nên biết kiểu object đang sort; ShoppingCart không nên biết bulk pricing — nhồi trách nhiệm không liên quan làm giảm cohesion."
+    },
+
+    /* ===== 4. Dependencies & Law of Demeter ===== */
+    {
+      type: "multi",
+      q: "Đâu là các loại \"mũi tên\" phụ thuộc (dependence) được nêu?",
+      options: [
+        "Aggregation (\"is part of\")",
+        "Composition (\"is entirely made of\", part sống-chết cùng whole)",
+        "Subtyping (\"is-a\", thay thế được)",
+        "Invokes (\"executes\")",
+        "Compilation (\"is compiled by\")"
+      ],
+      answer: [0, 1, 2, 3],
+      explain: "Các loại phụ thuộc: <b>Aggregation</b> (\"is part of\"), <b>Composition</b> (\"is entirely made of\"), <b>Subtyping</b> (\"is-a\"), <b>Invokes</b> (\"executes\"). \"Compilation\" không nằm trong danh sách này. Làm rõ loại phụ thuộc là điều then chốt."
+    },
+    {
+      type: "single",
+      q: "<b>Law of Demeter</b> (Karl Lieberherr) khuyên gì?",
+      options: [
+        "Một object nên biết <b>càng ít càng tốt</b> về cấu trúc bên trong object khác — \"chỉ nói chuyện với bạn thân trực tiếp\"",
+        "Một object nên truy cập sâu vào mọi cấu trúc bên trong object khác",
+        "Mọi object phải là global để dễ truy cập",
+        "Nên dùng chuỗi getter dài để rõ ràng"
+      ],
+      answer: [0],
+      explain: "<b>Law of Demeter</b>: object nên biết <b>càng ít càng tốt</b> về cấu trúc bên trong của object khác — \"chỉ nói chuyện với bạn thân trực tiếp\". Chuỗi <code>a.getB().getC().getD()</code> vi phạm LoD (chuỗi coupling)."
+    },
+    {
+      type: "multi",
+      q: "Theo Law of Demeter, một object <b>NÊN</b> gửi message tới những đối tượng nào?",
+      options: [
+        "Chính nó (<code>this</code>) &amp; instance variable của nó",
+        "Tham số của method &amp; object nó tạo ra",
+        "Object trả về bởi lời gọi tới một method của <code>this</code>",
+        "Object trả về bởi message gửi tới một object <b>khác</b> (chuỗi)",
+        "Bất kỳ object global nào trong hệ thống"
+      ],
+      answer: [0, 1, 2],
+      explain: "Object nên gửi message tới: <code>this</code>, instance variable của nó, tham số của method, object nó tạo, object trả về bởi method của <code>this</code>, object trong collection của các thứ trên. <b>Không nên</b> gửi tới object trả về bởi message gửi cho object <b>khác</b> (chuỗi coupling). Đây là guideline, không phải luật cứng."
+    },
+    {
+      type: "single",
+      q: "\"Coupling is the path to the dark side\" mô tả chuỗi hệ quả nào?",
+      options: [
+        "Coupling → complexity → confusion → suffering",
+        "Coupling → simplicity → clarity → joy",
+        "Cohesion → coupling → speed",
+        "Coupling → performance → success"
+      ],
+      answer: [0],
+      explain: "\"Coupling is the path to the dark side\": <b>Coupling → complexity → confusion → suffering</b>. Một khi đã đi vào con đường coupling, nó sẽ chi phối bạn mãi — cần chủ động giảm coupling."
+    },
+    {
+      type: "single",
+      q: "<b>God class</b> là anti-pattern thế nào?",
+      options: [
+        "Lớp \"ôm\" quá nhiều data/chức năng; cohesion kém; giảm coupling giả tạo bằng cách gộp nhiều module thành một",
+        "Lớp nhỏ chỉ có một trách nhiệm rõ ràng",
+        "Lớp có cohesion cao và coupling thấp lý tưởng",
+        "Một interface thuần túy không có cài đặt"
+      ],
+      answer: [0],
+      explain: "<b>God class</b>: lớp ôm quá nhiều data/chức năng của hệ thống — <b>cohesion kém</b> (ít lý do vì sao gộp chung); nó chỉ giảm coupling bằng cách gộp nhiều module thành một (biến dependency giữa module thành dependency trong module). Là <b>anti-pattern</b> — cách làm dở đã biết trước."
+    }
+  ]
+};
+</script>
+<script src="../assets/app.js"></script>
+<script src="../assets/quiz.js"></script>
+</body>
+</html>
