@@ -24,8 +24,13 @@
   <div class="chips"><span class="chip">SRP</span><span class="chip">OCP</span><span class="chip">LSP</span><span class="chip">ISP</span><span class="chip">DIP</span></div>
   <a class="quiz-cta" href="quiz-12-solid.html"><span class="ic">📝</span> Luyện trắc nghiệm chủ đề này <small>· 25 câu · lưu tiến độ tự động</small></a>
 
+  <div class="guide open"><span class="who">🧑‍🏫 Giảng viên dẫn chuyện · Vào chương</span>
+  <p>“Chương 11 cho ta ĐÍCH đến (loose coupling, high cohesion) nhưng chưa chỉ ĐƯỜNG đi. Chương 12 chính là tấm bản đồ đó: <strong>SOLID — năm lời khuyên vàng của Robert C. Martin ('Uncle Bob') để thiết kế lớp cho khéo</strong>. Cái tên SOLID là chữ đầu của năm nguyên lý ghép lại cho dễ nhớ. Đây là một trong những chương 'được yêu thích' nhất của cả ngành, vì áp dụng được ngay và thấy code đẹp lên thật.”</p>
+  <p>“Một sợi chỉ đỏ xuyên suốt năm nguyên lý, bạn nắm được là hiểu nửa chương: <strong>gần như tất cả đều xoay quanh chữ ‘abstraction’ (trừu tượng hóa) — hãy phụ thuộc vào 'bản hợp đồng/interface' chứ đừng phụ thuộc vào 'người cụ thể'.</strong> Nhớ hình ảnh <em>ổ cắm điện chuẩn</em> (đã gặp ở Chương 6): thiết bị cắm vào ổ, không hàn cứng vào dây — nên đổi thiết bị thoải mái. Ta sẽ đi từng chữ S-O-L-I-D, mỗi chữ một câu phát biểu, một ví dụ đời thường, và một 'dấu hiệu vi phạm' để bạn tự soi code. Cuối chương có case study 'chương trình nhắc nghỉ giải lao' để ráp năm nguyên lý lại.”</p></div>
+
   <section>
     <h2><span class="num">0</span> Tổng quan</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Nhìn toàn cảnh trước</span>“Bảng dưới là 'mục lục' của cả chương — mỗi dòng một nguyên lý kèm một câu tóm. Đừng cố hiểu sâu ngay, chỉ cần đọc lướt để não có cái khung. Mẹo nhớ nhanh năm chữ: <strong>S</strong> (một lớp một việc) · <strong>O</strong> (thêm mới đừng sửa cũ) · <strong>L</strong> (con thay được cha) · <strong>I</strong> (interface nhỏ gọn thay vì to bự) · <strong>D</strong> (dựa vào abstraction). Định vị: SOLID nằm ở tầng 'nguyên lý' — cao hơn khái niệm OO cơ bản, và là bệ phóng cho Design Patterns (Chương 13).”</div>
     <div class="tw"><table>
       <thead><tr><th>Chữ</th><th>Nguyên lý</th><th>Một câu</th></tr></thead>
       <tbody>
@@ -41,6 +46,7 @@
 
   <section>
     <h2><span class="num">1</span> SRP — Single Responsibility Principle</h2>
+    <div class="guide"><span class="who">🧑‍🏫 S — Một lớp, một việc</span>“Nguyên lý đơn giản nhất mà khó làm đúng nhất. Bản chất <strong>SRP: mỗi lớp chỉ nên có ĐÚNG MỘT lý do để phải sửa</strong> — tức chỉ gánh một loại trách nhiệm. Đây chính là 'high cohesion' (Chương 11) khoác áo nguyên lý. Cách kiểm cực hay: tự hỏi 'lớp này có thể phải sửa vì những lý do nào?' — nếu kể ra được hai lý do chẳng liên quan (ví dụ 'vì đổi cách tính lương' VÀ 'vì đổi định dạng file xuất'), thì nó đang ôm hai việc, phải tách. Hình dung <em>con dao Thụy Sĩ vs bộ dao chuyên dụng</em>: dao đa năng nghe tiện nhưng hỏng cái mở nút chai là phải thay cả con; bộ dao tách rời thì hỏng cái nào thay cái đó.”</div>
     <div class="callout key"><span class="tt">Phát biểu</span>"Never be more than <strong>one reason</strong> for a class to change" — mỗi lớp chỉ có <strong>một loại trách nhiệm</strong>. Đơn giản nhất nhưng khó làm đúng nhất.</div>
     <p><strong>Responsibility = một lý do để thay đổi.</strong> Mỗi module làm một việc &amp; làm tốt. Đo bằng Cohesion (&amp; Coupling). Vi phạm → thiết kế mong manh (fragile), vỡ theo cách bất ngờ khi thay đổi.</p>
     <div class="callout example"><span class="tt">Ví dụ Modem</span>Interface Modem có <code>dial/hangup</code> (quản lý kết nối) + <code>send/recv</code> (truyền dữ liệu) → <strong>2 trách nhiệm</strong> → nên tách thành <code>Connection</code> &amp; <code>DataChannel</code>.</div>
@@ -49,6 +55,7 @@
 
   <section>
     <h2><span class="num">2</span> OCP — Open-Closed Principle</h2>
+    <div class="guide"><span class="who">🧑‍🏫 O — Thêm mới, đừng đụng cũ</span>“Bản chất <strong>OCP: khi cần thêm hành vi mới, hãy MỞ RỘNG (viết code mới) thay vì SỬA code cũ đã chạy tốt.</strong> Vì sao? Vì sửa code đang chạy ổn là 'nghịch dại' — dễ làm vỡ những thứ vốn đang tốt, kéo theo cả dây phải kiểm thử lại. Hình dung <em>ổ cắm điện trên tường</em>: muốn dùng thiết bị mới, bạn cắm thêm phích vào ổ (mở rộng), chứ không đục tường nối lại dây điện (sửa cũ). 'Chìa khóa' để đạt OCP — đọc kỹ khung 'Abstraction là chìa khóa' — là cho code phụ thuộc vào một <em>interface/lớp trừu tượng</em>, rồi thêm hành vi mới bằng cách viết lớp con mới. Dấu hiệu vi phạm kinh điển: chuỗi <code>if(type==A)... else if(type==B)...</code> — cứ thêm loại là phải sửa. Thuốc chữa: <em>đa hình (polymorphism)</em>.”</div>
     <div class="callout key"><span class="tt">Phát biểu (Bertrand Meyer, 1988)</span>"Software entities (class, module, function…) should be <strong>open for extension, but closed for modification</strong>." → Mở rộng hành vi mà <em>không sửa code đã chạy tốt</em>.</div>
     <div class="two">
       <div class="callout tip"><span class="tt">Open for extension</span>Hành vi module có thể mở rộng, ứng xử theo cách mới khi yêu cầu đổi → reusability &amp; maintainability.</div>
@@ -61,6 +68,7 @@
 
   <section>
     <h2><span class="num">3</span> LSP — Liskov Substitution Principle</h2>
+    <div class="guide"><span class="who">🧑‍🏫 L — Con phải thay được cha</span>“Bản chất <strong>LSP: ở đâu dùng được lớp CHA thì phải nhét được lớp CON vào mà không có gì trục trặc</strong> — con không được 'phá vỡ lời hứa' của cha. Nghe hiển nhiên nhưng cực dễ vi phạm. Hai ví dụ kinh điển sẽ khai sáng: <em>Đà điểu là Chim, nhưng nếu 'Chim' hứa 'bay được' thì Đà điểu kế thừa sẽ nói dối</em>; <em>Hình vuông là Hình chữ nhật trên lý thuyết, nhưng nếu ai đó set chiều rộng 10, chiều cao 20 rồi mong diện tích 200, thì Hình vuông làm sai bét</em>. Hình dung: pin 'thay thế được' phải vừa khe VÀ đúng điện áp — cắm pin sai điện áp tuy vừa khe nhưng làm hỏng máy, đó là vi phạm LSP. Nhớ hai vế: con <em>'đòi hỏi không nhiều hơn, hứa hẹn không ít hơn'</em> cha.”</div>
     <div class="callout key"><span class="tt">Phát biểu</span>"Functions that use pointers/references to base classes must be able to use objects of derived classes <strong>without knowing it</strong>." → Lớp con phải <strong>thay thế được</strong> lớp cha. Mọi cài đặt của interface phải <em>tuân thủ đầy đủ</em> yêu cầu của interface đó.</div>
     <div class="callout def"><span class="tt">2 quy tắc</span><strong>Demand no more:</strong> lớp con chấp nhận <em>mọi</em> đối số mà cha chấp nhận. <strong>Promise no less:</strong> mọi giả định đúng khi dùng cha phải đúng khi dùng con.</div>
     <div class="two">
@@ -73,6 +81,7 @@
 
   <section>
     <h2><span class="num">4</span> ISP — Interface Segregation Principle</h2>
+    <div class="guide"><span class="who">🧑‍🏫 I — Interface nhỏ, đừng 'béo'</span>“Bản chất <strong>ISP: đừng bắt ai phụ thuộc vào những thứ họ không dùng.</strong> Thay vì một interface khổng lồ ôm đủ thứ method (gọi là 'fat interface'), hãy chẻ thành nhiều interface nhỏ, mỗi cái phục vụ một loại client. Vì sao? Vì với 'fat interface', chỉ cần một client đòi đổi một method là <em>tất cả</em> client khác bị vạ lây, phải biên dịch lại. Hình dung <em>thực đơn nhà hàng</em>: thà có menu 'món chay', menu 'đồ uống', menu 'trẻ em' riêng, còn hơn một cuốn menu 200 trang mà ai cũng phải lật cả cuốn chỉ để gọi một ly nước. ISP với interface cũng chính là tinh thần SRP áp cho interface.”</div>
     <div class="callout key"><span class="tt">Phát biểu</span>"Client should not be forced to depend upon interface that they do not use." → "Nhiều interface chuyên biệt cho client tốt hơn một interface đa dụng."</div>
     <div class="two">
       <div class="callout danger"><span class="tt">Bad design — Fat interface</span>Một Service "béo" gồm methods cho ClientA + ClientB + ClientC. Vấn đề: thay đổi do <em>một</em> client (A) khiến Service &amp; <em>các client khác</em> (B, C) phải recompile.</div>
@@ -83,6 +92,7 @@
 
   <section>
     <h2><span class="num">5</span> DIP — Dependency Inversion Principle</h2>
+    <div class="guide"><span class="who">🧑‍🏫 D — Dựa vào abstraction, không vào chi tiết</span>“Nguyên lý 'trùm' gói lại cả chương. Bản chất <strong>DIP: cả module cấp cao (logic nghiệp vụ) lẫn cấp thấp (chi tiết kỹ thuật) đều nên phụ thuộc vào một ABSTRACTION ở giữa, chứ cấp cao đừng phụ thuộc thẳng vào cấp thấp.</strong> 'Inversion' (đảo ngược) nghĩa là: bình thường tầng trên gọi thẳng tầng dưới; giờ ta chèn một interface vào giữa và <em>để tầng trên sở hữu interface đó</em> — đảo ngược chiều phụ thuộc. Hình dung <em>mỏ hàn cắm vào ổ điện qua phích chuẩn</em> (ví dụ ngay dưới): thợ hàn (cấp cao) không quan tâm nhà máy điện (cấp thấp) phát điện kiểu gì, chỉ cần đúng chuẩn phích cắm (abstraction). Nhờ vậy thay nhà cung cấp điện thoải mái. Đây là 'linh hồn' của mọi thiết kế linh hoạt, và là gạch nối sang Design Patterns.”</div>
     <div class="callout key"><span class="tt">Phát biểu</span>"High-level modules should not depend upon low-level modules. Both should depend upon <strong>abstractions</strong>." · "Abstractions should not depend upon details. Details should depend upon abstraction." · "Depend upon Abstractions. Do not depend upon concretions."</div>
     <p>Low-level module dễ thay đổi hơn; high-level module (business policy) ổn định hơn (là mục đích hệ thống). → High-level nên phụ thuộc <strong>abstraction của low-level</strong>, buộc low-level phải đổi theo. Vi phạm → thay đổi ở low-level ép high-level đổi.</p>
     <div class="callout example"><span class="tt">Ví dụ mỏ hàn</span>Mỏ hàn cắm vào ổ điện qua <em>chuẩn phích cắm</em> (abstraction), không hàn cứng trực tiếp.</div>
@@ -92,11 +102,14 @@
 
   <section>
     <h2><span class="num">6</span> Case study &amp; thực hành</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Ráp cả năm nguyên lý</span>“Kết chương bằng một bài tập gộp: lấy một chương trình viết ngây thơ (naive) rồi soi bằng 'kính lúp SOLID' xem nó vi phạm chữ nào. Đây là cách học tốt nhất — vì trong đời thực bạn sẽ không được phát biểu 'hãy áp dụng OCP', mà phải tự ngửi ra 'code này khó thêm tính năng' rồi mới nhớ tới nguyên lý phù hợp. Hãy đọc case study như một trò chơi thám tử: mỗi 'mùi khó chịu' (nối lại code smells ở Chương 10) ứng với một nguyên lý bị vi phạm.”</div>
     <div class="callout example"><span class="tt">Reminder program ("Nhắc nhở nghỉ giải lao")</span>Chương trình định kỳ kiểm tra thời gian; sau một khoảng, nhắc/bắt buộc người dùng nghỉ (nghe nhạc, tập thể dục tại chỗ…). <strong>Naive design:</strong> một method hiển thị message &amp; gợi ý bài tập + vòng lặp gọi method theo thời gian. → Dùng làm bài tập áp dụng &amp; kiểm tra SRP/OCP/LSP/ISP/DIP trong codebase.</div>
     <div class="callout note"><span class="tt">Thực hành đề xuất</span>Rà codebase: có lớp nào không tuân SRP &amp; OCP? có vi phạm LSP, ISP, DIP? → tách trách nhiệm, dựa abstraction, tách interface.</div>
   </section>
 
   <div class="callout note"><span class="tt">Liên kết</span>SOLID xây trên <a href="11-coupling-cohesion.html">Coupling &amp; Cohesion</a> và dẫn tới <a href="13-design-patterns.html">Design Patterns</a> (nhiều pattern là hiện thân của OCP/DIP).</div>
+
+  <div class="guide open"><span class="who">🧑‍🏫 Khép chương · Dẫn sang Chương 13 (chương cuối!)</span>“Ta đã có nguyên lý (SOLID) để biết thiết kế thế nào là tốt. Nhưng khi gặp một bài toán CỤ THỂ hay lặp lại (kiểu 'làm sao đảm bảo cả hệ thống chỉ có đúng một object này?', 'làm sao tạo object mà không gắn cứng tên lớp?'), chẳng lẽ ai cũng phải tự nghĩ lại từ đầu? Không — những bậc thầy đi trước đã đúc kết sẵn các 'lời giải mẫu' cho các bài toán kinh điển. Đó là <strong>Design Patterns</strong> — chương cuối cùng của hành trình. Và điều đẹp đẽ: bạn sẽ nhận ra hầu hết pattern chỉ là <em>SOLID được đóng gói thành công thức</em>, đặc biệt là OCP và DIP. Mười ba chương, một mạch truyện — ta cùng về đích ở Chương 13.”</div>
 
   <nav class="pager">
     <a href="11-coupling-cohesion.html"><span class="dir">← Trước</span><span class="ttl">Coupling &amp; Cohesion</span></a>
@@ -105,5 +118,6 @@
 </main>
 </div>
 <script src="../assets/app.js"></script>
+<script src="../assets/glossary.js"></script>
 </body>
 </html>

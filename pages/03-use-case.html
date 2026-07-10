@@ -24,8 +24,13 @@
   <div class="chips"><span class="chip">Actor · Use Case</span><span class="chip">include / extend / generalization</span><span class="chip">Scenario · Flow of Events</span><span class="chip">Glossary · Supplementary Spec</span></div>
   <a class="quiz-cta" href="quiz-03-use-case.html"><span class="ic">📝</span> Luyện trắc nghiệm chủ đề này <small>· 45 câu · lưu tiến độ tự động</small></a>
 
+  <div class="guide open"><span class="who">🧑‍🏫 Giảng viên dẫn chuyện · Vào chương</span>
+  <p>“Hai chương đầu là chuẩn bị công trường. Từ đây, ta chính thức đặt viên gạch đầu tiên — và trong xây dựng cũng như làm phần mềm, viên gạch đầu tiên <em>không phải</em> là code, mà là câu hỏi: <strong>rốt cuộc khách hàng muốn phần mềm này làm được gì?</strong> Nghe tưởng dễ, nhưng đây là chỗ hầu hết dự án chết: khách nói một đằng, lập trình viên hiểu một nẻo, làm xong mới ngã ngửa. Đây chính là bước <em>2.1 Requirements Analysis</em> bạn đã thấy trong bộ khung 6 bước ở Chương 1.”</p>
+  <p>“Cả nhân loại làm phần mềm đã tìm ra một cách rất thông minh để ghi lại 'khách muốn gì' mà ai đọc cũng hiểu: kể ra <strong>từng câu chuyện sử dụng</strong> — 'ai đó làm gì với hệ thống để đạt được điều gì'. Mỗi câu chuyện như vậy gọi là một <strong>Use Case</strong>. Chương này dạy bạn: vẽ bức tranh tổng thể các use case (<em>Use-Case Diagram</em>), rồi viết chi tiết từng câu chuyện (<em>Specification &amp; Scenario</em>), cộng thêm vài phụ kiện (Activity diagram, Glossary, Supplementary Spec). Xuyên suốt ta bám một ví dụ duy nhất — hệ thống <strong>Đăng ký học phần</strong> (Course Registration) — để mọi khái niệm có chỗ bấu víu.”</p></div>
+
   <section>
     <h2><span class="num">1</span> Requirements &amp; các sản phẩm</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Mục này ở đâu trong câu chuyện</span>“Trước khi học công cụ (Use Case), phải hiểu ta đang làm việc này <strong>để làm gì</strong> và nó đẻ ra những sản phẩm giấy tờ nào. Bản chất của 'Requirements': tạo ra một <strong>bản thỏa thuận rõ ràng giữa khách và đội làm</strong> về việc 'hệ thống sẽ làm gì' — để sau này không ai cãi được. Hình dung như <em>hợp đồng xây nhà có bản vẽ đính kèm</em>: chốt trước để khỏi 'anh xây thế này đâu phải ý tôi'. Mục này liệt kê mục đích và ba loại 'giấy tờ' sẽ nộp.”</div>
     <div class="callout key"><span class="tt">Mục đích của Requirements</span>
     <ul style="margin:.2rem 0">
       <li>Thiết lập &amp; duy trì <strong>thỏa thuận</strong> với khách hàng/stakeholder về việc hệ thống <em>làm gì</em>.</li>
@@ -33,6 +38,7 @@
       <li>Cơ sở để lập kế hoạch nội dung kỹ thuật của các vòng lặp.</li>
       <li>Cơ sở <strong>ước lượng chi phí &amp; thời gian</strong>; định nghĩa giao diện người dùng.</li>
     </ul></div>
+    <div class="guide mini">“Dòng dưới liệt kê <strong>ba loại giấy tờ</strong> bạn phải giao ở bước này — hãy ghim tên chúng, vì cả chương xoay quanh đúng ba thứ này: <em>Use-Case Model</em> (bức tranh chức năng), <em>Glossary</em> (từ điển thuật ngữ để mọi người nói cùng ngôn ngữ), và <em>Supplementary Specification</em> (những yêu cầu 'phi chức năng' như tốc độ, bảo mật — không thuộc use case nào).”</div>
     <p><strong>Bộ artifact yêu cầu:</strong> Use-Case Model (Actors + Use Cases + Use-Case Specifications) · <strong>Glossary</strong> · <strong>Supplementary Specification</strong>.</p>
     <div class="callout note"><span class="tt">Không mô hình đơn lẻ nào đủ</span>Mỗi hệ thống phi tầm thường cần một tập mô hình gần độc lập nhưng liên hệ nhau (Logical, Implementation, Process, Deployment view — quanh Use-Case view).</div>
     <p><strong>Nhắc lại — 5 nhóm nội dung mô tả yêu cầu:</strong> điều kiện môi trường hệ thống · yêu cầu chức năng &amp; giao diện · định nghĩa dữ liệu/DB · yêu cầu phi chức năng (reliability, usability, time efficiency) · qualification requirements.</p>
@@ -40,18 +46,22 @@
 
   <section>
     <h2><span class="num">2</span> Use-Case Diagram — tổng quan</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Bước vào công cụ chính</span>“Giờ đến ngôi sao của chương. Bản chất <strong>Use-Case Diagram</strong> là một bức tranh trả lời hai câu: <em>ai dùng hệ thống</em> (các <strong>actor</strong>, vẽ hình người que) và <em>họ làm được những việc gì</em> (các <strong>use case</strong>, vẽ hình bầu dục). Hình dung như <em>tấm menu nhà hàng dán ngoài cửa</em>: nhìn phát là biết quán phục vụ ai và có những món gì — chưa cần biết bếp nấu ra sao. Nhớ: nó thuộc nhóm 'động' (mô tả hệ thống <em>làm gì</em>), khớp với cặp static/dynamic ở Chương 1.”</div>
     <p>Sơ đồ mô hình hóa khía cạnh <strong>động</strong>, mô tả yêu cầu <em>chức năng</em> của phần mềm dưới dạng use case; đồng thời là mô hình các <strong>chức năng (use case)</strong> và <strong>môi trường (actor)</strong>.</p>
     <div class="callout tip"><span class="tt">Lợi ích của Use-Case Model</span><strong>Communication</strong> (giao tiếp giữa các bên) · <strong>Identification</strong> (xác định chức năng) · <strong>Verification</strong> (kiểm chứng).</div>
     <h3>Khái niệm chính</h3>
+    <div class="guide mini">“Hai định nghĩa dưới là nền móng, đọc kỹ. <strong>Actor</strong>: bản chất là 'người/thứ đứng NGOÀI hệ thống và tương tác với nó' — mấu chốt là chữ <em>ngoài</em>. Hình dung: bạn là actor của cây ATM, còn bản thân cái máy thì không. <strong>Use Case</strong>: bản chất là 'một việc trọn vẹn mà actor làm để nhận được kết quả đáng giá'. Hình dung: 'Rút tiền' là một use case (xong việc bạn cầm tiền về); còn 'nhấn nút số 5' thì không — nó quá vụn, chưa mang lại giá trị.”</div>
     <div class="two">
       <div class="callout def"><span class="tt">Actor</span>Đại diện <strong>bất cứ thứ gì tương tác</strong> với phần mềm. Là một <strong>vai trò</strong> (role) mà người dùng đóng — có thể là người, máy, hệ thống khác, thiết bị, hay database. <strong>Actor nằm NGOÀI hệ thống (EXTERNAL).</strong></div>
       <div class="callout def"><span class="tt">Use Case</span>Mô tả một <strong>chuỗi sự kiện</strong> do phần mềm thực hiện, mang lại <strong>kết quả có giá trị quan sát được</strong> cho một actor cụ thể. Mô hình hóa đối thoại giữa actor và hệ thống.</div>
     </div>
     <div class="callout example"><span class="tt">Actor là vai trò</span>Charlie (giáo sư toán, đang học kinh tế) và Jodie đều đóng vai <strong>Student</strong>; Charlie còn đóng vai <strong>Professor</strong>. Một người → nhiều vai; một vai → nhiều người.</div>
+    <div class="guide after"><span class="who">💡 Nói lại cho dễ</span>“Điểm dễ nhầm nhất về actor: nó là <strong>VAI DIỄN, không phải con người cụ thể</strong>. Giống trong một vở kịch, cùng một diễn viên (Charlie) có thể vào vai 'Sinh viên' ở cảnh này và vai 'Giáo sư' ở cảnh khác; ngược lại vai 'Sinh viên' do hàng nghìn người khác nhau đóng. Vì thế trên sơ đồ ta vẽ các <em>vai</em>, không vẽ từng người — gọn hơn nhiều.”</div>
   </section>
 
   <section>
     <h2><span class="num">3</span> Tìm Actor &amp; Use Case</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Từ lý thuyết sang thực chiến</span>“Biết actor/use case là gì rồi, câu hỏi thực tế là: <strong>cho một đoạn mô tả bài toán, làm sao moi ra chúng?</strong> Có một mẹo cực kỳ đơn giản và đề thi rất thích: gạch chân <strong>danh từ</strong> → ứng viên cho <em>actor</em> (và cả các lớp sau này); gạch chân <strong>động từ</strong> → ứng viên cho <em>use case</em>. Hình dung như đọc một câu 'Sinh viên đăng ký môn học': 'Sinh viên' (danh từ) là actor, 'đăng ký' (động từ) là use case. Các câu hỏi gợi ý bên dưới chỉ là cách moi cho hết, không bỏ sót.”</div>
     <div class="two">
       <div class="card"><h4>Guideline tìm Actor</h4><p>Chú ý <strong>danh từ</strong> trong mô tả bài toán → rút ra chủ thể hành động. Kiểm tra không thừa/thiếu so với mô tả. Tên actor phải <strong>thể hiện rõ vai trò &amp; trách nhiệm</strong>.</p></div>
       <div class="card"><h4>Guideline tìm Use Case</h4><p>Chú ý <strong>động từ</strong> → rút ra chuỗi hành động thành use case. Kiểm tra nhất quán với actor liên quan &amp; không thừa/thiếu; khảo sát để mọi người hiểu chung tên/mô tả.</p></div>
@@ -65,6 +75,7 @@
 
   <section>
     <h2><span class="num">4</span> Quan hệ (Relationships)</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Phần dễ rối nhất — đọc chậm</span>“Khi có nhiều use case, chúng bắt đầu có <strong>liên hệ</strong> với nhau, và đây là chỗ sinh viên hay 'chết' vì mấy mũi tên <code>&laquo;include&raquo;</code>, <code>&laquo;extend&raquo;</code>. Đừng lo, tôi sẽ gỡ từng cái. Bản chất chung: các quan hệ này chỉ để <strong>tránh viết lặp</strong> và <strong>gom việc chung ra một chỗ</strong>. Nhớ lời cảnh báo ngay dưới: <em>dùng càng ít càng tốt</em>, vẽ nhiều mũi tên chỉ khiến sơ đồ rối như tơ vò. Ta sẽ tập trung vào cặp gây lú nhất: <strong>include vs extend</strong>.”</div>
     <div class="callout warn"><span class="tt">Lưu ý</span><strong>Không nên dùng quá nhiều</strong> quan hệ giữa các use case — làm sơ đồ rối. Chỉ dùng khi cần thiết. Trong use-case diagram, <em>không</em> thể hiện thứ tự các use case.</div>
     <p>3 nhóm quan hệ:</p>
     <div class="tw"><table>
@@ -83,21 +94,25 @@
     <h3>4.2 Actor ↔ Use Case (Communicates-Association)</h3>
     <p>Kênh giao tiếp giữa actor và use case, vẽ bằng một <strong>đường thẳng</strong>. Đầu mũi tên <em>tùy chọn</em>: có mũi tên = ai khởi tạo (initiator); không mũi tên = cả hai đầu <strong>đều có thể</strong> khởi tạo.</p>
     <h3>4.3 Giữa Use Case</h3>
+    <div class="guide mini">“Ba tấm thẻ dưới là trọng tâm. Hình dung bằng ví dụ 'đặt hàng online' (Place order): <strong>&laquo;include&raquo;</strong> = việc <em>luôn luôn</em> phải làm, tách ra để dùng lại — 'Đặt hàng' thì <em>luôn</em> phải 'Thanh toán', nên Thanh toán được include. <strong>&laquo;extend&raquo;</strong> = việc <em>thỉnh thoảng mới</em> làm thêm — chỉ khi khách chọn 'giao hỏa tốc' mới chèn thêm 'Place rush order'; không chọn thì bỏ qua, đơn hàng vẫn xong. <strong>Generalization</strong> = 'cha–con', con là một kiểu đặc biệt của cha (như 'Kiểm tra mật khẩu' và 'Quét võng mạc' đều là kiểu của 'Xác thực người dùng').”</div>
     <div class="grid">
       <div class="card"><h4>Generalization</h4><p>Use case con <strong>kế thừa</strong> hành vi &amp; ý nghĩa của cha; có thể thêm/ghi đè; có thể thay thế cha ở bất cứ đâu (cả cha &amp; con đều có thể có instance cụ thể). VD: Validate user ← Check password / Retinal scan.</p></div>
       <div class="card"><h4>&laquo;include&raquo; — luôn dùng</h4><p>Use case gốc <strong>luôn</strong> tích hợp hành vi của use case được include tại một vị trí xác định trong gốc. Use case được include <strong>không đứng một mình</strong>, chỉ chạy như một phần của gốc. VD: Place order &laquo;include&raquo; Pay order.</p></div>
       <div class="card"><h4>&laquo;extend&raquo; — đôi khi dùng</h4><p>Use case gốc <strong>ngầm</strong> tích hợp hành vi của use case mở rộng tại vị trí do use case mở rộng chỉ ra. Gốc <strong>đứng độc lập được</strong>, nhưng trong điều kiện nhất định bị mở rộng. VD: Place order ←&laquo;extend&raquo;← Place rush order.</p></div>
     </div>
     <div class="callout key"><span class="tt">Phân biệt nhanh include vs extend</span><strong>include</strong> = <em>luôn luôn</em> gọi (hành vi bắt buộc, tách ra để tái sử dụng). <strong>extend</strong> = <em>đôi khi/tùy điều kiện</em>, gốc vẫn chạy được nếu không mở rộng.</div>
+    <div class="guide after"><span class="who">💡 Mẹo nhớ vĩnh viễn</span>“Nếu chỉ nhớ một câu: <strong>include là 'BẮT BUỘC luôn có'</strong> (như tim đập trong cơ thể), <strong>extend là 'TÙY CHỌN thêm vào'</strong> (như đeo thêm phụ kiện). Câu thần chú: <em>'include – always; extend – maybe'</em>. Và để ý chiều mũi tên ngược nhau: gốc <em>trỏ tới</em> cái nó include; còn cái extend thì <em>trỏ vào</em> gốc (vì nó là phần thêm chủ động chèn vào).”</div>
   </section>
 
   <section>
     <h2><span class="num">5</span> Use-Case Specification &amp; Scenario</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Từ 'menu' sang 'công thức nấu'</span>“Use-Case Diagram mới chỉ là <em>tấm menu</em> — biết có món 'Đăng ký môn' nhưng chưa biết làm từng bước ra sao. Mục này là <strong>công thức chi tiết</strong>: <em>Use-Case Specification</em> viết ra từng bước hệ thống và người dùng trao đổi. Hai từ dễ lẫn cần tách bạch ngay: <strong>Flow of Events</strong> là 'công thức gốc' (mọi nhánh có thể xảy ra), còn <strong>Scenario</strong> là 'một lần nấu cụ thể' (một đường đi thật qua công thức đó). Ví như công thức phở có nhiều biến thể, còn 'tô phở tôi ăn sáng nay' là một scenario.”</div>
     <p>Use-Case Diagram cho cái nhìn tổng thể; <strong>Use-Case Specification</strong> mô tả chi tiết từng use case. Nó là <strong>hợp đồng</strong> giữa khách hàng &amp; developer, dùng ở mọi pha phát triển.</p>
     <h4>Nội dung một Use-Case Specification</h4>
     <p class="muted">Code · Name · Brief description · <strong>Flow of Events</strong> · Relationships · Activity diagrams · Use-Case diagrams · Special requirements · <strong>Pre-conditions</strong> · <strong>Post-conditions</strong> · Other diagrams.</p>
     <div class="callout def"><span class="tt">Scenario</span>Một <strong>scenario</strong> là một <em>instance (thể hiện)</em> của use case — một đường đi cụ thể qua flow of events.</div>
     <h3>Flow of Events</h3>
+    <div class="guide mini">“Bản chất: kịch bản gồm <strong>một đường 'thuận buồm xuôi gió'</strong> (basic flow — mọi thứ đúng như mơ) và nhiều <strong>đường rẽ khi có chuyện</strong> (alternative flows). Hình dung như chỉ đường đi làm: đường chính mỗi ngày vẫn đi; nhưng nếu kẹt xe (odd case), nếu đường ngập (exceptional) thì rẽ lối khác. Ví dụ ATM ngay dưới minh họa đủ 3 loại rẽ nhánh.”</div>
     <p>Gồm <strong>một luồng chính (basic/normal flow)</strong> và nhiều <strong>luồng thay thế (alternative flows)</strong>:</p>
     <ul>
       <li><strong>Regular variants</strong> — biến thể thông thường.</li>
@@ -124,15 +139,18 @@
     <h3>Hành vi lặp lại → Subflow</h3>
     <p>Hành vi lặp đơn giản → viết trong basic flow. Lặp phức tạp → bắt bằng <strong>subflow</strong> (VD "S1: Obtain Course Information"), gọi từ basic flow.</p>
     <h3>Pre-conditions &amp; Post-conditions</h3>
+    <div class="guide mini">“Hai khái niệm này đơn giản hơn tên gọi. <strong>Precondition</strong> = 'điều phải đúng TRƯỚC khi bắt đầu' (như muốn rút tiền thì thẻ phải đã cắm vào máy). <strong>Postcondition</strong> = 'điều chắc chắn đúng SAU khi xong' (rút xong thì số dư đã bị trừ). Hình dung như nấu ăn: precondition = 'đã có nguyên liệu', postcondition = 'món đã chín trên bàn'.”</div>
     <div class="two">
       <div class="callout def"><span class="tt">Precondition</span>Trạng thái hệ thống <strong>phải có TRƯỚC</strong> khi use case bắt đầu. Là phát biểu đơn giản, <em>không</em> tham chiếu use case khác cần chạy trước; phải dễ kiểm chứng. <em>Tùy chọn</em>.</div>
       <div class="callout def"><span class="tt">Postcondition</span>Trạng thái hệ thống <strong>khi use case kết thúc</strong>. Không tham chiếu use case tiếp theo; dễ kiểm chứng. <em>Tùy chọn</em>.</div>
     </div>
     <div class="callout key"><span class="tt">Chuỗi use case</span>Các use case <strong>không</strong> tương tác trực tiếp với nhau; nhưng <em>postcondition của UC này có thể trùng precondition của UC khác</em> → dùng để "xâu chuỗi" thứ tự.</div>
+    <div class="guide after"><span class="who">💡 Nói lại cho dễ</span>“Ý tinh tế mà hay bị bỏ qua: use case <em>không</em> tự gọi nhau như hàm. Vậy làm sao biết cái nào làm trước? Câu trả lời là <strong>khớp đầu–cuối</strong>: 'điều kiện sau' của việc A vô tình chính là 'điều kiện trước' của việc B → tự nhiên A phải xong trước B. Giống trò domino: quân này đổ (postcondition) tạo điều kiện cho quân kế tiếp đổ (precondition), chứ không quân nào 'ra lệnh' cho quân nào.”</div>
   </section>
 
   <section>
     <h2><span class="num">6</span> Activity Diagram (trong Use-Case Model)</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Một phụ kiện trực quan</span>“Viết flow bằng chữ (Mục 5) rất chính xác nhưng khó thấy 'bức tranh luồng'. <strong>Activity Diagram</strong> chính là vẽ cái luồng đó ra thành sơ đồ mũi tên — bản chất nó là <em>lưu đồ (flowchart)</em> mà bạn từng gặp thời phổ thông. Hình dung như <em>bản đồ mê cung</em>: các ô là việc cần làm, chỗ rẽ nhánh là quyết định (hình thoi), thanh ngang là 'làm song song rồi chờ nhau'. Tốt cho người tư duy bằng hình, nhưng phải công chăm cho khớp với bản đặc tả chữ.”</div>
     <p>Về bản chất là <strong>lưu đồ (flow chart)</strong> thể hiện dòng điều khiển giữa các activity/action trong một use case — công cụ trực quan hóa hành vi, tốt để nhận diện luồng thay thế.</p>
     <p><strong>Ký hiệu:</strong> Activity/Action · Decision (rẽ nhánh) + Guard condition · <strong>Synchronization bar</strong> — Fork (tách luồng song song) / Join (gộp) · Transition · Initial &amp; Final node.</p>
     <div class="two">
@@ -144,10 +162,12 @@
 
   <section>
     <h2><span class="num">7</span> Glossary &amp; Supplementary Specification</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Hai loại giấy tờ còn lại</span>“Nhớ ở Mục 1 ta nói có ba loại giấy tờ chứ? Use-Case Model đã xong, giờ là hai cái còn lại. <strong>Glossary</strong> — bản chất là <em>cuốn từ điển chung của dự án</em>: 'sinh viên', 'học phần', 'tín chỉ' nghĩa chính xác là gì, để khách và lập trình viên không hiểu lệch nhau. Chỉ có <strong>một</strong> cho cả hệ thống. <strong>Supplementary Specification</strong> — bản chất là nơi gom mọi yêu cầu <em>không thuộc riêng use case nào</em>, đặc biệt là 'phi chức năng' (nhanh cỡ nào, an toàn ra sao). Người ta gom chúng theo 5 chữ cái dễ nhớ: <strong>FURPS</strong>.”</div>
     <div class="two">
       <div class="callout def"><span class="tt">Glossary (từ điển thuật ngữ)</span>Định nghĩa các <strong>thuật ngữ quan trọng</strong> dùng chung cho mọi mô hình. <strong>Chỉ có MỘT Glossary</strong> cho cả hệ thống. Giúp domain expert &amp; developer giao tiếp nhất quán. Gồm: Introduction + các Terms (định nghĩa rõ, không mập mờ).</div>
       <div class="callout def"><span class="tt">Supplementary Specification</span>Chứa yêu cầu <strong>phi chức năng</strong> (và cả chức năng) <em>không</em> gắn với một use case cụ thể — theo mô hình <strong>FURPS</strong>: <strong>F</strong>unctionality, <strong>U</strong>sability, <strong>R</strong>eliability, <strong>P</strong>erformance, <strong>S</strong>upportability.</div>
     </div>
+    <div class="guide mini">“<strong>FURPS</strong> là chữ viết tắt để nhớ 5 loại yêu cầu chất lượng: <em>F</em>unctionality (chức năng chung), <em>U</em>sability (dễ dùng), <em>R</em>eliability (tin cậy, ít lỗi), <em>P</em>erformance (nhanh), <em>S</em>upportability (dễ bảo trì). Mẹo: đọc như một từ 'phơ-ps'. Đây là bộ 'tiêu chí phi chức năng' sẽ còn quay lại ở các chương thiết kế &amp; kiểm thử.”</div>
     <div class="tw"><table>
       <thead><tr><th>Mục (FURPS)</th><th>Nội dung</th></tr></thead>
       <tbody>
@@ -162,6 +182,7 @@
 
   <section>
     <h2><span class="num">8</span> Checkpoints (tự rà soát)</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Danh sách kiểm tra</span>“Kết chương là một <strong>checklist tự soi</strong> — giống thợ xây đi một vòng gõ gõ nghiệm thu trước khi bàn giao. Bạn không cần thuộc, chỉ cần biết 'à, khi làm xong Use-Case Model, tôi nên tự hỏi những câu này để chắc không sót actor, không thừa use case, tên không mập mờ'. Rất hữu ích khi đi thi hoặc làm đồ án.”</div>
     <div class="grid">
       <div class="card"><h4>Actors</h4><p>Đã xác định hết? Mỗi actor liên quan ≥1 use case? Có thực sự là vai không (nên gộp/tách)? Hai actor có đóng cùng vai với một use case? Tên trực giác, cả user &amp; customer đều hiểu?</p></div>
       <div class="card"><h4>Use Cases</h4><p>Mỗi UC liên quan ≥1 actor? Độc lập với nhau? Có UC hành vi rất giống nhau? Tên duy nhất, rõ ràng, không lẫn lộn?</p></div>
@@ -170,6 +191,8 @@
     </div>
   </section>
 
+  <div class="guide open"><span class="who">🧑‍🏫 Khép chương · Dẫn sang Chương 4</span>“Vậy là ta đã chốt được <strong>khách muốn gì</strong> (các use case) — nhưng đó mới là mô tả hành vi 'nhìn từ ngoài vào'. Câu hỏi lớn tiếp theo bật ra rất tự nhiên: <em>bên TRONG hệ thống cần những 'nhân vật' nào để thực thi được các câu chuyện đó?</em> Ai lo giao diện, ai giữ dữ liệu, ai điều phối? Đó chính là bước biến use case thành <strong>các lớp phân tích</strong> và bộ khung kiến trúc — nội dung Chương 4. Ta sẽ mổ mỗi use case ra thành ba loại nhân vật: Boundary, Control, Entity. Hẹn gặp ở chặng thiết kế.”</div>
+
   <nav class="pager">
     <a href="02-version-control.html"><span class="dir">← Trước</span><span class="ttl">Version Control &amp; Git</span></a>
     <a class="next" href="04-kien-truc.html"><span class="dir">Sau →</span><span class="ttl">Thiết kế kiến trúc &amp; Phân tích OO</span></a>
@@ -177,5 +200,6 @@
 </main>
 </div>
 <script src="../assets/app.js"></script>
+<script src="../assets/glossary.js"></script>
 </body>
 </html>

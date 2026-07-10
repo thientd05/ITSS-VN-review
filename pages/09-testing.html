@@ -24,8 +24,13 @@
   <div class="chips"><span class="chip">V-Model · Test levels</span><span class="chip">Black vs White box</span><span class="chip">C0 / C1 coverage</span><span class="chip">JUnit</span><span class="chip">Integration</span></div>
   <a class="quiz-cta" href="quiz-09-testing.html"><span class="ic">📝</span> Luyện trắc nghiệm chủ đề này <small>· 37 câu · lưu tiến độ tự động</small></a>
 
+  <div class="guide open"><span class="who">🧑‍🏫 Giảng viên dẫn chuyện · Vào chương</span>
+  <p>“Ta đã xây xong phần mềm. Nhưng có một sự thật phũ phàng: <strong>không ai viết code mà không có bug</strong>. Chương 9 là chương của người 'nghiệm thu' — làm sao <em>săn lỗi</em> trước khi khách hàng gặp phải. Nhớ điều quan trọng nhất về triết lý test (dễ ra đề): <strong>test chỉ CHỨNG MINH ĐƯỢC có lỗi, KHÔNG chứng minh được hết lỗi</strong>. Giống bác sĩ xét nghiệm: kết quả dương tính khẳng định có bệnh, nhưng âm tính không đảm bảo hoàn toàn khỏe. Vì thế ta cần nhiều loại 'xét nghiệm' khác nhau.”</p>
+  <p>“Câu chuyện chương này có hai trục lớn. Trục thứ nhất — <strong>tầm nhìn</strong>: test ở nhiều cấp độ, từ soi từng con ốc (<em>Unit</em>) đến lắp ráp (<em>Integration</em>) đến chạy cả cỗ máy (<em>System</em>) đến khách duyệt (<em>Acceptance</em>). Trục thứ hai — <strong>cách nhìn vào 'hộp'</strong>: <em>Black-box</em> (không thèm biết ruột, chỉ thử 'bỏ vào cái này ra cái kia có đúng không') và <em>White-box</em> (mở nắp, đảm bảo mọi dòng code đều được chạy qua). Rồi ta học các mẹo nghĩ ra test thông minh, công cụ <strong>JUnit</strong> để tự động hóa, và cách test khi ghép nhiều module. Đây là chương rất thực dụng — nghề nào cũng dùng.”</p></div>
+
   <section>
     <h2><span class="num">1</span> Tổng quan Testing &amp; QA</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Đặt nền &amp; các cấp độ</span>“Trước hết phân biệt hai từ hay lẫn: <strong>Testing</strong> chỉ là một phần của <strong>QA (đảm bảo chất lượng)</strong> — QA còn gồm review code, phân tích tĩnh, cải tiến quy trình… 'Không món võ đơn lẻ nào đảm bảo chất lượng'. Sau đó là <strong>V-Model &amp; 4 cấp test</strong>: hình dung như kiểm tra một chiếc xe — thử từng bộ phận (Unit) → thử cụm động cơ đã lắp (Integration) → lái thử cả xe (System) → giao khách chạy thử (Acceptance). Càng lên cao càng gần 'thực chiến'. Đọc bảng theo hình ảnh chiếc xe đó.”</div>
     <div class="callout def"><span class="tt">Software test</span>Thực thi chương trình để xác định một <strong>tính chất (property)</strong> của nó có <em>đúng hay không</em>. Test <strong>pass</strong> nếu property <em>holds</em>, <strong>fail</strong> nếu <em>không holds</em> trong lần chạy đó.</div>
     <p><strong>QA (Software Quality Assurance)</strong> = testing + nhiều hoạt động khác: static analysis (đánh giá không chạy code), proofs of correctness, code review, software process… <em>"Không hoạt động đơn lẻ nào đảm bảo được chất lượng phần mềm."</em></p>
     <h3>V-Model &amp; các mức test</h3>
@@ -43,6 +48,7 @@
 
   <section>
     <h2><span class="num">2</span> Black box vs White box</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Hai cách nhìn vào 'hộp'</span>“Đây là cặp khái niệm xương sống của chương. Tên gọi lấy từ hình ảnh cái hộp: <strong>Black-box = HỘP ĐEN, không nhìn thấy ruột</strong> — ta chỉ biết đặc tả 'bỏ vào X phải ra Y', rồi thử đủ kiểu input xem output có đúng không (như thử một máy bán nước: bấm nút, xem có ra đúng lon không, chẳng cần biết bên trong). <strong>White-box = HỘP TRẮNG/trong suốt, nhìn thấy code</strong> — ta đảm bảo mọi dòng lệnh, mọi nhánh rẽ đều được chạy thử ít nhất một lần (như thợ mở nắp máy, kiểm từng đường dây). Không cái nào thay được cái kia — thực tế phối hợp cả hai. Mục 3 khai thác black-box, Mục 4 khai thác white-box.”</div>
     <div class="tw"><table>
       <thead><tr><th></th><th>Black box</th><th>White box</th></tr></thead>
       <tbody>
@@ -56,22 +62,28 @@
 
   <section>
     <h2><span class="num">3</span> Kỹ thuật Black-box</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Nghĩ ra test thông minh, không thử vô tận</span>“Vấn đề thực tế: input có thể vô hạn (điểm số từ −∞ đến +∞), không thể thử hết. Mục này là <strong>bốn mẹo chọn ÍT test mà bắt được NHIỀU lỗi</strong>. Bám một ví dụ xuyên suốt — 'chương trình xét đỗ/trượt' (Examination Judgment). Bốn mẹo: (1) gom input thành nhóm cho cùng kết quả rồi mỗi nhóm thử một cái; (2) đặc biệt soi các giá trị ở 'ranh giới'; (3) lập bảng khi nhiều điều kiện đan nhau; (4) sinh test từ chính các kịch bản use case. Đọc từng cái, tôi giải thích ngay trước mỗi mục con.”</div>
     <h3>3.1 Equivalence Partitioning (phân vùng tương đương)</h3>
+    <div class="guide mini">“<strong>Bản chất: gom các input 'cùng số phận' vào một nhóm, mỗi nhóm chỉ cần thử MỘT đại diện.</strong> Hình dung: muốn kiểm 'quán có bán cho người đủ 18 tuổi', bạn không cần thử mọi số tuổi 0,1,2…—chỉ cần một người 'dưới 18' và một người 'từ 18 trở lên'; hai nhóm này là hai lớp tương đương. Lưu ý cực kỳ hay bị quên (và hay bị trừ điểm): phải thử cả input <em>không hợp lệ</em> (điểm âm, điểm >100), không chỉ mấy giá trị đẹp.”</div>
     <p>Chia không gian input thành các <strong>lớp tương đương</strong>; mọi input trong cùng lớp cho <em>cùng kết quả</em> → mỗi lớp lấy 1 test case.</p>
     <div class="callout example"><span class="tt">Examination Judgment Program</span>Passed nếu: cả Math &amp; Physics ≥ 70; <strong>hoặc</strong> trung bình Math &amp; Physics ≥ 80. Ngược lại Failed. → 7 lớp tương đương ⇒ ≥7 test case. <strong>Quan trọng:</strong> phải thêm test cho <em>"invalid value"</em> (VD Math=-15, Physics=120…) — chỉ hợp lệ là chưa đủ.</div>
     <h3>3.2 Boundary-value Analysis (phân tích giá trị biên)</h3>
+    <div class="guide mini">“<strong>Bản chất: bug thích núp ở RANH GIỚI, nên nhắm thẳng vào đó mà bắn.</strong> Vì sao? Lập trình viên rất hay nhầm <code>&gt;</code> với <code>&gt;=</code> — sai một ly ở biên. Hình dung ngưỡng đỗ là 70 điểm: đừng thử 50 hay 90 (giữa vùng, ít lỗi), hãy thử <em>69 và 70</em> (hai bên lằn ranh). Đây là 'người bạn thân' của phân vùng tương đương: phân vùng chỉ ra các nhóm, boundary-value bảo 'test ngay mép mỗi nhóm'.”</div>
     <p>Lấy test data ở <strong>biên</strong> → nhiều defect nằm ở đó (VD lập trình viên viết <code>if(mathscore &gt; 70)</code> thay vì <code>&gt;= 70</code>).</p>
     <div class="callout example"><span class="tt">Biên của điểm Math (ngưỡng 70)</span>Invalid value | <strong>-1  0</strong> … failed … <strong>69  70</strong> passed … <strong>100  101</strong> | Invalid value. (Kiểm cả 69/70 &amp; 79/80 cho trung bình.)</div>
     <h3>3.3 Decision Table (bảng quyết định)</h3>
+    <div class="guide mini">“<strong>Bản chất: khi kết quả phụ thuộc NHIỀU điều kiện đan xen, lập một bảng liệt kê mọi tổ hợp Yes/No để không sót ca nào.</strong> Hình dung như bảng 'nếu–thì' của bảo hiểm: dưới 30 tuổi? nam? đã kết hôn? — mỗi tổ hợp cho một mức phí. Lập bảng giúp bạn thấy ngay 'à, tổ hợp này mình chưa test'. Rất mạnh khi logic rối như tơ.”</div>
     <p>Biểu diễn quan hệ giữa <strong>điều kiện</strong> &amp; <strong>nội dung xử lý</strong> dưới dạng bảng — công cụ tốt khi <em>nhiều điều kiện kết hợp</em>.</p>
     <div class="callout example"><span class="tt">Ví dụ: report từ file nhân viên</span>Điều kiện: Under age 30 (Y/N) · Male (Y/N) · Married (Y/N) → chọn Output Report 1–4 (đánh dấu X theo tổ hợp). Với Examination Judgment: Condition1 Math≥70, Condition2 Physics≥70, Condition3 avg≥80 → các cột TC cho "Passed"/"Failed".</div>
     <h3>3.4 Testing for Use Case</h3>
+    <div class="guide mini">“<strong>Bản chất: mỗi 'kịch bản' (scenario) của use case ở Chương 3 chính là một ca kiểm thử sẵn có.</strong> Nhớ luồng chính + luồng thay thế chứ? Mỗi đường đi đó → một test case. Hình dung use case 'Đăng nhập': test đường thành công (PIN đúng), đường thất bại (PIN sai < 3 lần), đường khóa thẻ (sai đúng 3 lần). Đây là chỗ đẹp nhất cho thấy các chương KHỚP nhau: <em>công sức viết use case ở Chương 3 giờ được 'thu hoạch' thành bộ test</em>.”</div>
     <p>Từ use case → test cases: xác định mọi <strong>scenario</strong>; luồng thay thế vẽ thành graph theo từng action; tạo test cho basic flow + mỗi alternative flow + tổ hợp hợp lý + vòng lặp vô hạn.</p>
     <div class="callout example"><span class="tt">Test cases "Log in"</span>"Thành công" (PIN đúng) · "Thất bại" (PIN sai &amp; số lần sai &lt; 3) · "Khóa tài khoản" (PIN sai &amp; số lần sai = 3). Kết hợp boundary: số lần sai = 2, 4.</div>
   </section>
 
   <section>
     <h2><span class="num">4</span> Kỹ thuật White-box</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Mở nắp, đảm bảo 'không dòng nào bị bỏ quên'</span>“Đổi góc nhìn: giờ ta được xem code. Bản chất white-box đo bằng <strong>độ phủ (coverage)</strong> — bao nhiêu phần trăm code đã được test chạy qua. Hai thước đo cần thuộc: <strong>C0 (statement) = mọi CÂU LỆNH đều được chạy ít nhất một lần</strong>; <strong>C1 (branch) = mọi NHÁNH RẼ (cả nhánh đúng lẫn nhánh sai của mỗi <code>if</code>) đều được đi qua</strong>. Hình dung một mê cung: C0 đòi 'giẫm chân lên mọi ô'; C1 đòi 'đi qua mọi ngã rẽ'. C1 chặt hơn C0. Nhưng nhớ giới hạn ở khung cảnh báo: coverage cao vẫn <em>không phát hiện được chức năng QUÊN chưa viết</em> — vì không có code thì lấy gì mà phủ.”</div>
     <p>Test case phải phủ mọi cấu trúc xử lý trong code.</p>
     <div class="tw"><table>
       <thead><tr><th>Độ phủ</th><th>Công thức</th><th>Ý nghĩa 100%</th></tr></thead>
@@ -83,6 +95,7 @@
     <div class="callout warn"><span class="tt">Giới hạn White-box</span>Ngăn statement/branch bị bỏ sót, nhưng <strong>KHÔNG phát hiện được chức năng chưa được cài đặt</strong> (vì không có code thì không có gì để phủ).</div>
     <div class="callout example"><span class="tt">Control flow test</span>100% C0 có thể chỉ cần 2 test (TC1int, TC2int) nhưng <em>chưa phủ hết nhánh</em>. 100% C1 cần thêm test (TC3int…). C1 mạnh hơn C0 nhưng số test vẫn có thể ít hơn số lớp tương đương của black-box (vì black-box còn xét invalid/functional). → Kết hợp cả hai.</div>
     <h3>Testing vòng lặp (loop)</h3>
+    <div class="guide mini">“Vòng lặp là ổ bug đặc biệt, nên có công thức riêng: <strong>test ở các 'điểm nhạy cảm' của số vòng lặp</strong> — 0 lần (bỏ qua), 1 lần, m lần bình thường, và quanh giới hạn n (n−1, n, n+1). Đây lại chính là tư duy boundary-value (Mục 3.2) áp lên 'số lần lặp'. Hình dung kiểm thang máy: thử lúc không ai vào (0), một người, đông vừa, gần đầy, đầy, và quá tải (n+1 → phải báo lỗi).”</div>
     <p>Thay C0/C1, dùng 6 ca (dựa boundary-value): <strong>Skip vòng lặp · chạy 1 lần · m lần điển hình · n-1 · n · n+1</strong> (n = số tối đa, m = số điển hình, m&lt;n).</p>
     <div class="callout example"><span class="tt">n=50</span>số SV = 0, 1, 20 (điển hình), 49, 50, 51(→invalid). <strong>Nested loop:</strong> cố định vòng ngoài ở số điển hình, test vòng trong như loop đơn; rồi đổi vai.</div>
     <div class="callout note"><span class="tt">Data/message path test (integration)</span>Dùng sequence chart để white-box test tích hợp: chạy mọi message path/flow → 100% message path coverage.</div>
@@ -90,6 +103,7 @@
 
   <section>
     <h2><span class="num">5</span> Kết hợp Black/White &amp; quy trình test hiệu quả</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Chốt: dùng cả hai theo thứ tự</span>“Mục ngắn này trả lời 'vậy rốt cuộc làm theo trình tự nào?'. Bản chất công thức hai bước: <strong>trước hết test theo đặc tả ngoài (black-box)</strong> — pass hết nghĩa là 'mọi thứ khách yêu cầu đều chạy đúng'; <strong>rồi bổ sung test theo ruột code (white-box) cho đủ 100% coverage</strong> — pass hết nghĩa là 'không có đường code nào bị bỏ sót, cũng không có mã thừa'. Hình dung nghiệm thu nhà: đầu tiên đối chiếu với bản hợp đồng (đủ phòng, đúng công năng), sau đó đi soi từng ngóc ngách xem có chỗ nào xây thừa/thiếu.”</div>
     <div class="two">
       <div class="callout tip"><span class="tt">Ưu Black box</span>Test bao trùm dựa <strong>external spec</strong>; nền tảng &amp; mạnh để tạo phần mềm chất lượng cao.</div>
       <div class="callout tip"><span class="tt">Ưu White box</span>Nếu path/flow không xuất hiện trong spec đã viết → black-box có thể bỏ sót; white-box bắt được (VD <code>if 0 =&lt; score =&lt; 100</code>).</div>
@@ -99,6 +113,7 @@
 
   <section>
     <h2><span class="num">6</span> JUnit</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Công cụ tự động chạy test</span>“Lý thuyết test đã đủ; giờ là công cụ thật để 'khỏi phải kiểm tay'. Bản chất <strong>JUnit = khung để viết test thành code, bấm nút là nó tự chạy hết và báo xanh/đỏ</strong>. Nắm ba ý cốt lõi: (1) mỗi phép kiểm là một method <code>@Test</code>; (2) trong đó dùng <code>assertEquals(mongđợi, thựctế)</code> để máy tự so — đúng thì im, sai thì 'đỏ'; (3) <code>setUp()/tearDown()</code> dọn bàn sạch trước/sau mỗi test để chúng độc lập nhau. Hình dung như một dàn máy chấm bài trắc nghiệm: bạn nạp 'đáp án đúng', nó tự đối chiếu và tô đỏ câu sai. Đây chính là hiện thực hóa 'programming by contract' — kiểm precondition/postcondition mà bạn gặp ở Chương 3.”</div>
     <p>Công cụ cho <strong>test-driven development</strong> (junit.org), tích hợp nhiều IDE (Eclipse, BlueJ…). Họ xUnit có bản cho nhiều ngôn ngữ.</p>
     <div class="callout key"><span class="tt">Viết TestCase (kiểu cổ điển)</span>Kế thừa <code>junit.framework.TestCase</code>; tên lớp dạng <code>TestMyClass</code>/<code>MyClassTest</code>; method test dạng <code>testXxx()</code> — theo <strong>programming by contract</strong>: set up <em>precondition</em> → thực thi chức năng → kiểm <em>postcondition</em>.</div>
     <div class="tw"><table>
@@ -123,12 +138,14 @@
     <span class="k">new</span> ArrayIntList().get(4);  <span class="c">// mong đợi exception → pass</span>
   }
 }</code></pre></div>
+    <div class="guide mini">“Một cặp dễ nhầm ở khung dưới: <strong>Failure = 'bài sai đáp án'</strong> (test chạy xong nhưng kết quả không như mong đợi — assert thất bại); <strong>Error = 'máy hỏng giữa chừng'</strong> (code văng exception ngoài dự kiến, như null pointer, chưa kịp so đáp án). Hình dung chấm thi: failure = thí sinh khoanh sai; error = tờ bài rách không chấm được. Các 'hints' còn lại đều nhắm một tinh thần: <em>mỗi test kiểm đúng một thứ, đặt tên thật rõ, và độc lập thứ tự chạy</em>.”</div>
     <div class="callout tip"><span class="tt">Failure vs Error &amp; hints</span><strong>Failure:</strong> test không pass (oracle sai). <strong>Error:</strong> có sự cố ngoài dự kiến (VD null pointer). Green bar = pass, red bar = fail/error. Hints: <em>test một thứ mỗi method</em> (10 test nhỏ &gt; 1 test lớn); tiết kiệm <code>assert</code> (assert đầu fail sẽ dừng); test độc lập thứ tự; dùng <code>@Test(expected=...)</code> thay try/catch; đặt tên test mô tả (thường rất dài); <code>@RunWith(Suite.class)</code> gom test suite.</div>
     <div class="callout note"><span class="tt">RandomHello — kiểm tính ngẫu nhiên</span>Test getGreeting: (1) chạy không ném exception; (2) trả về một trong các greeting đã định nghĩa; (3) chạy 100 lần, nếu có greeting <em>không bao giờ</em> xuất hiện → khó là ngẫu nhiên; (4) dùng thống kê chi-squared để bắt "sleazy developer" chỉ luân phiên 2 greeting.</div>
   </section>
 
   <section>
     <h2><span class="num">7</span> Integration Test</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Khi các mảnh ghép lại</span>“Từng module chạy tốt riêng lẻ CHƯA đảm bảo ghép lại chạy tốt — chỗ nối mới hay 'vênh'. Integration test lo đúng chỗ nối đó. Vấn đề thực tế: muốn test module A cần module B mà B chưa xong, thì sao? Ta dựng đồ giả: <strong>Stub = 'diễn viên đóng thế' cho module CẤP DƯỚI chưa có</strong> (trả đại một giá trị); <strong>Driver = 'người điều khiển' đóng thế cho module CẤP TRÊN</strong> (gọi xuống module đang test). Mẹo nhớ: <em>stub ở DƯỚI (bị gọi), driver ở TRÊN (đi gọi)</em>. Từ đó sinh ra các chiến lược lắp ghép (top-down, bottom-up…) ở bảng dưới.”</div>
     <p>Kiểm giao diện <strong>giữa các module</strong> cùng input/output.</p>
     <div class="callout def"><span class="tt">Stub / Driver</span>Chương trình <strong>giả lập</strong> chức năng của module cấp thấp hơn (<em>stub</em>) hoặc cấp cao hơn (<em>driver</em>).</div>
     <div class="tw"><table>
@@ -140,8 +157,11 @@
         <tr><td><strong>Sandwich</strong></td><td>Module cấp thấp test bottom-up, cấp cao test top-down.</td></tr>
       </tbody>
     </table></div>
+    <div class="guide mini">“Khái niệm khép chương rất đời: <strong>Regression Test = 'test lại đồ cũ sau khi sửa đổi', đề phòng vá chỗ này lại làm thủng chỗ kia.</strong> Hình dung sửa ống nước trong nhà: chỉnh vòi bếp xong phải chạy đi kiểm luôn vòi tắm, biết đâu áp lực đổi làm hỏng. Vì thế người ta chạy lại toàn bộ test cũ <em>càng thường xuyên càng tốt</em>, và tự động hóa nó — đây chính là lý do JUnit (Mục 6) quý giá.”</div>
     <div class="callout key"><span class="tt">Regression Test</span>"Khi sửa một bug, bạn tạo ra vài bug mới." → Test lại sau khi code đổi để chắc vẫn chạy đúng: chạy lại test case cũ; kiểm side-effect. Chạy <strong>càng thường xuyên càng tốt</strong>, dùng công cụ regression tự động.</div>
   </section>
+
+  <div class="guide open"><span class="who">🧑‍🏫 Khép chương · Dẫn sang Chương 10</span>“Ta đã biết cách săn lỗi. Nhưng test chỉ nói cho bạn 'có lỗi', chứ code viết cẩu thả thì săn hoài không hết. Vậy nên bốn chương cuối (10 → 13) chuyển hướng: từ 'làm cho CHẠY' sang '<strong>làm cho ĐẸP và BỀN</strong>' — tức chất lượng bên trong của mã. Mở màn là Chương 10 — <strong>Lập trình hiệu quả</strong>: phong cách code, khi nào nên tối ưu, nghệ thuật <em>refactoring</em> (dọn dẹp code mà không đổi hành vi), nhận diện <em>code smells</em> ('mùi' code hư), và cách gỡ lỗi (debug) khoa học. Ta bước vào 'tay nghề thủ công' của người lập trình.”</div>
 
   <nav class="pager">
     <a href="08-data-modeling.html"><span class="dir">← Trước</span><span class="ttl">Mô hình hóa dữ liệu</span></a>
@@ -150,5 +170,6 @@
 </main>
 </div>
 <script src="../assets/app.js"></script>
+<script src="../assets/glossary.js"></script>
 </body>
 </html>

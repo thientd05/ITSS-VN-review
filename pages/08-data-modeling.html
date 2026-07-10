@@ -24,8 +24,13 @@
   <div class="chips"><span class="chip">Conceptual/Logical/Physical</span><span class="chip">ER Diagram</span><span class="chip">Mapping class → ER</span><span class="chip">Normalization 1-2-3NF</span></div>
   <a class="quiz-cta" href="quiz-08-data-modeling.html"><span class="ic">📝</span> Luyện trắc nghiệm chủ đề này <small>· 32 câu · lưu tiến độ tự động</small></a>
 
+  <div class="guide open"><span class="who">🧑‍🏫 Giảng viên dẫn chuyện · Vào chương</span>
+  <p>“Chương 7 để lại một nỗi lo: các object sống trong bộ nhớ, tắt máy là bay sạch. Chương 8 giải quyết bằng cách <strong>đem dữ liệu cất vào database</strong> — nơi lưu trữ bền, mai mở lên vẫn còn. Nhưng có một trục trặc thú vị: thế giới hướng đối tượng (các <em>lớp</em> có hành vi) và thế giới cơ sở dữ liệu quan hệ (các <em>bảng</em> phẳng gồm hàng và cột) <strong>nói hai ngôn ngữ khác nhau</strong>. Cả chương này thực chất là học nghề 'phiên dịch' giữa hai thế giới đó.”</p>
+  <p>“Mạch chuyện: đầu tiên phân biệt <strong>ba mức mô hình dữ liệu</strong> (ý tưởng → chọn công nghệ → cài đặt thật) và làm quen <em>ER Diagram</em> — bản vẽ dữ liệu (Mục 1–3); rồi học luật <strong>phiên dịch class → bảng</strong> (Mục 4): lớp thành bảng, association thành 'khóa ngoại', quan hệ nhiều-nhiều phải đẻ thêm bảng trung gian… Cuối cùng là phần 'làm sạch' quan trọng nhất: <strong>Chuẩn hóa (Normalization) 1NF–2NF–3NF</strong> (Mục 5) — nghệ thuật sắp xếp bảng sao cho <em>không lưu trùng lặp, không mâu thuẫn</em>. Đừng sợ mấy chữ NF — tôi sẽ kể nó như dọn tủ quần áo.”</p></div>
+
   <section>
     <h2><span class="num">1</span> Data Models</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Ba mức: từ ý tưởng đến ổ cứng</span>“Bản chất mục này: cùng một dữ liệu được nhìn ở <strong>ba độ 'gần với máy'</strong> khác nhau. <em>Conceptual</em> = ý tưởng thuần, chưa quan tâm dùng phần mềm CSDL nào (như bản phác ý trên giấy ăn). <em>Logical</em> = đã chọn kiểu CSDL (quan hệ/mạng/cây). <em>Physical</em> = đã cài xuống ổ cứng thật. Hình dung xây nhà: <em>ý tưởng trong đầu → bản vẽ kỹ thuật → ngôi nhà đã xây</em>. Ngôi sao ta dùng nhiều nhất là <strong>ER Diagram</strong> ở mức conceptual, gồm đúng 3 thứ: Thực thể, Quan hệ, Thuộc tính.”</div>
     <div class="callout def"><span class="tt">Data modeling</span>Trừu tượng hóa &amp; tổ chức cấu trúc thông tin thế giới thực (object) để đưa vào database. Luồng: <em>Real world → Data model → Database</em>.</div>
     <h3>3 mức data model</h3>
     <div class="tw"><table>
@@ -37,6 +42,7 @@
       </tbody>
     </table></div>
     <p><strong>E-R Diagram — 3 phần tử:</strong> Entities · Relationships · Attributes.</p>
+    <div class="guide mini">“Ba tấm thẻ dưới là ba 'kiểu tổ chức kho dữ liệu' trong lịch sử. <strong>Hierarchical</strong> = cây gia phả, mỗi con có đúng một cha (1:n) — cứng nhắc. <strong>Network</strong> = mạng lưới, con có nhiều cha (m:n) — rối. <strong>Relational</strong> = bảng như Excel (hàng &amp; cột), có 'khóa chính' để nhận diện mỗi hàng — đơn giản, mạnh, và là kiểu <em>thống trị ngày nay</em>. Cứ nhớ 'relational = mấy cái bảng nối nhau bằng khóa' là đủ dùng cả chương.”</div>
     <h3>3 kiểu logical data model</h3>
     <div class="grid">
       <div class="card"><h4>Hierarchical (cây)</h4><p>Chia record thành parent/child theo cây; parent–child là <strong>1:n</strong>.</p></div>
@@ -49,6 +55,7 @@
 
   <section>
     <h2><span class="num">2</span> Object Model ↔ Relational Data Model</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Hai thế giới lệch pha</span>“Đây là lý do cả chương tồn tại. Hai thế giới có 'tính cách' trái ngược: <strong>Hướng đối tượng mê HÀNH VI và GIẤU dữ liệu</strong> (object có method, dữ liệu private); còn <strong>CSDL quan hệ mê DỮ LIỆU và PHƠI nó ra</strong> (bảng chỉ có cột giá trị, ai cũng đọc được). Hình dung: OO như một người kín đáo chỉ cho bạn xem 'tôi làm được gì'; RDBMS như một bảng tin công khai dán hết thông tin. Vì lệch pha nên khi ghép chúng luôn có ma sát — dân trong nghề gọi vui là 'trở kháng' — và ta cần luật ánh xạ ở Mục 4 để hòa giải.”</div>
     <div class="tw"><table>
       <thead><tr><th></th><th>RDBMS</th><th>Object-Oriented</th></tr></thead>
       <tbody>
@@ -62,8 +69,10 @@
 
   <section>
     <h2><span class="num">3</span> Entity, Relationship &amp; loại quan hệ</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Ngữ pháp của bảng dữ liệu</span>“Mục này dạy 'ngữ pháp' để nối các bảng. Trước hết là <strong>cardinality (1:1, 1:n, m:n)</strong> — 'một cái này ứng với mấy cái kia', y hệt multiplicity ở Chương 7. Nhớ một luật vàng sẽ dùng suốt: <em>quan hệ nhiều-nhiều (m:n) luôn phải TÁCH ra bằng một bảng trung gian</em> (vì bảng phẳng không chứa nổi 'nhiều-nhiều' trực tiếp). Sau đó là cặp <strong>Dependency vs Independency</strong>: con có tự sống được khi vắng cha không. Hai khái niệm nhỏ nhưng phân biệt bằng một câu hỏi ở khung dưới.”</div>
     <p><strong>Entity → Table</strong> khi thiết kế physical DB: Columns = attribute, Rows = giá trị cụ thể của attribute.</p>
     <p><strong>Multiplicity/Cardinality:</strong> One-to-one (1:1) · One-to-many (1:m) · Many-to-one (m:1) · Many-to-many (m:n). <em>Thông thường m:n được tách thành 1:m + m:1.</em></p>
+    <div class="guide mini">“Phân biệt hai khung dưới bằng câu hỏi: <em>'con có TỰ SỐNG được khi không có cha không?'</em> <strong>Dependency (phụ thuộc)</strong> = KHÔNG — 'Chi tiết hóa đơn' vô nghĩa nếu không có 'Hóa đơn' mẹ; dấu hiệu kỹ thuật: khóa ngoại NẰM TRONG khóa chính của con, vẽ đường liền. <strong>Independency (độc lập)</strong> = CÓ — 'Hóa đơn' vẫn tồn tại kể cả 'Khách hàng' bị xóa; khóa ngoại KHÔNG nằm trong khóa chính, vẽ nét đứt. Mẹo: <em>liền = dính chặt, đứt = lỏng lẻo</em>.”</div>
     <div class="two">
       <div class="callout def"><span class="tt">Dependency relationship</span>Entity con <strong>chỉ tồn tại khi</strong> entity cha tồn tại. FK tham chiếu PK của cha &amp; <strong>FK NẰM TRONG PK</strong> của con. Vẽ bằng <strong>đường liền</strong>. VD: HoaDon → ChiTietHD → Sach.</div>
       <div class="callout def"><span class="tt">Independency relationship</span>Entity con <strong>tồn tại được</strong> dù cha không tồn tại. FK tham chiếu PK cha nhưng <strong>FK KHÔNG nằm trong PK</strong> con. Vẽ bằng <strong>đường nét đứt</strong>. VD: KhachHang → HoaDon.</div>
@@ -72,6 +81,7 @@
 
   <section>
     <h2><span class="num">4</span> Ánh xạ Class Diagram → E-R Diagram</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Cẩm nang phiên dịch class → bảng</span>“Đây là trái tim thực hành của chương: <strong>bộ luật biến bản vẽ lớp (Chương 7) thành bản vẽ bảng</strong>. Nắm 4 luật chính, mỗi luật một câu: (1) <em>Lớp 'cần lưu lâu' (persistent) → một Bảng</em>. (2) <em>Association → khóa ngoại (foreign key)</em> — nhét mã của bảng kia vào một cột để 'trỏ' sang. (3) <em>Kế thừa (inheritance) → bảng không hiểu, phải né</em>: hoặc tách bảng cha–con riêng (normalized), hoặc chép hết cột cha xuống con (de-normalized). (4) <em>Nhiều-nhiều → đẻ bảng trung gian</em> chứa hai khóa ngoại. Hình dung như dịch một cuốn truyện tranh sang tiểu thuyết chữ: cùng nội dung, nhưng phải theo quy tắc chuyển thể.”</div>
     <p>Map lớp thiết kế <strong>persistent</strong> → Entity; map quan hệ lớp → Relation.</p>
     <div class="tw"><table>
       <thead><tr><th>Từ class diagram</th><th>Sang E-R / relational</th></tr></thead>
@@ -83,6 +93,7 @@
         <tr><td><strong>Many-to-many</strong></td><td>Thêm <strong>entity trung gian "C"</strong> chứa 2 FK trỏ tới 2 PK của A &amp; B (+ attribute nếu cần).</td></tr>
       </tbody>
     </table></div>
+    <div class="guide mini">“Hai ví dụ dưới minh họa hai cách xử lý kế thừa — đánh đổi kinh điển. <strong>Normalized</strong> = tách bảng cha (User) riêng, bảng con (Student, Lecturer) riêng, nối bằng khóa: <em>gọn, không trùng, nhưng truy vấn phải join nhiều bảng</em>. <strong>De-normalized</strong> = chép hết cột của cha xuống mỗi bảng con: <em>truy vấn nhanh (khỏi join) nhưng dữ liệu lặp lại, dễ mâu thuẫn</em>. Hình dung: normalized như để đồ dùng chung ở một tủ (đỡ tốn chỗ, nhưng phải đi lấy); de-normalized như mỗi phòng sắm một bộ riêng (tiện nhưng tốn &amp; dễ lệch).”</div>
     <div class="two">
       <div class="callout example"><span class="tt">Normalized (inheritance)</span>User entity (userID PK...) + Student entity + Lecturer entity (lecturerID PK, eduBackground) — mỗi lớp con một bảng riêng, PK dùng lại.</div>
       <div class="callout example"><span class="tt">De-normalized (inheritance)</span>Student entity &amp; Lecturer entity mỗi bảng <strong>lặp lại (replication)</strong> mọi cột của User (userName, email, phone, address) + cột riêng.</div>
@@ -92,10 +103,12 @@
 
   <section>
     <h2><span class="num">5</span> Normalization (Chuẩn hóa)</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Nghệ thuật dọn tủ dữ liệu</span>“Đây là phần 'đắt' nhất chương, nhưng bản chất cực đời thường: <strong>chuẩn hóa = sắp lại các bảng sao cho mỗi thông tin chỉ nằm ĐÚNG MỘT CHỖ</strong>, để khỏi lưu trùng và khỏi mâu thuẫn. Vì sao trùng lặp là tai họa? Tưởng tượng địa chỉ khách hàng bị chép ở 50 dòng đơn hàng; khách đổi nhà, bạn sửa sót 3 dòng → dữ liệu 'ông nói gà bà nói vịt'. Chuẩn hóa đi qua các nấc <strong>1NF → 2NF → 3NF</strong>, mỗi nấc bóc thêm một kiểu trùng lặp. Khái niệm chìa khóa để hiểu tất cả là <em>Functional Dependency (X → Y)</em>: 'biết X là suy ra được đúng một Y' — biết mã số sinh viên thì ra đúng một cái tên. Giữ ý đó, ba nấc NF sẽ hóa dễ.”</div>
     <div class="callout def"><span class="tt">Normalization</span>Quá trình các bước nhằm <strong>loại bỏ dư thừa (redundancy)</strong> trong thiết kế DB. Mục đích: cải thiện <strong>storage efficiency, data integrity, scalability</strong>. Thường tách bảng lớn thành nhiều bảng (phải join lại khi truy vấn).</div>
     <div class="callout note"><span class="tt">Lịch sử &amp; phạm vi</span>Edgar F. Codd đề xuất 1NF, 2NF, 3NF. 3NF được xem là <strong>đủ cho hầu hết ứng dụng</strong>; đa số bảng đạt 3NF cũng đạt BCNF (Boyce-Codd NF).</div>
     <div class="callout def"><span class="tt">Functional Dependency (X → Y)</span>Trong một bảng, tập cột X <strong>xác định hàm</strong> cột Y nếu mỗi giá trị X ứng với <strong>tối đa một</strong> giá trị Y. "Biết X thì chỉ có một khả năng cho Y."</div>
     <h3>Các normal form</h3>
+    <div class="guide mini">“Ba nấc, kể như dọn tủ: <strong>1NF</strong> — 'mỗi ô chỉ chứa MỘT món' (không nhét 3 số điện thoại vào một ô); giá trị phải 'nguyên tử'. <strong>2NF</strong> — 'món trong ô phải phụ thuộc TOÀN BỘ khóa, không phải một nửa' (bỏ partial dependency; chỉ xảy ra khi khóa gồm nhiều cột). <strong>3NF</strong> — 'món không được phụ thuộc GIÁN TIẾP qua một cột không phải khóa' (bỏ transitive dependency, kiểu Order→Customer→Address). Mẹo thi kinh điển: <em>'phụ thuộc vào khóa, toàn bộ khóa, và không gì ngoài khóa'</em> — đúng cả 1-2-3NF.”</div>
     <div class="tw"><table>
       <thead><tr><th>NF</th><th>Điều kiện</th></tr></thead>
       <tbody>
@@ -112,8 +125,11 @@
       <p style="margin:.2rem 0"><strong>3NF</strong> (bỏ transitive {Order}→{Address}): {<u>Product</u>, UnitPrice} · {<u>Order, Product</u>, Quantity} · {<u>Order</u>, Customer} · {<u>Customer</u>, Address}</p>
       <p style="margin:.2rem 0">Kết quả 4 bảng: Prices · Amounts · Purchase · Details.</p>
     </div>
+    <div class="guide after"><span class="who">💡 Nói lại cho dễ — đọc ví dụ trên thế nào</span>“Đừng bị 'ngợp' bởi ký hiệu. Câu chuyện của ví dụ chỉ là: ban đầu nhồi tất cả (đơn, sản phẩm, khách, địa chỉ, giá…) vào MỘT bảng khổng lồ → trùng lặp tùm lum. Rồi ta lần lượt 'tách bàn': giá sản phẩm ra một bảng riêng (vì giá chỉ phụ thuộc sản phẩm, chép lại ở mỗi đơn là thừa); địa chỉ khách ra bảng riêng (địa chỉ phụ thuộc khách, không phụ thuộc đơn)… Sau ba nấc, một bảng bừa bộn thành 4 bảng gọn, <strong>mỗi sự thật chỉ nằm một chỗ</strong>. Đó chính là toàn bộ tinh thần chuẩn hóa.”</div>
     <div class="callout tip"><span class="tt">Áp dụng Course Registration</span>Từ E-R (CourseRegistration, Course, Schedule, Subject, Prerequisite, StudyHistory, Student, Lecturer) → chuẩn hóa 1NF → 2NF → 3NF, tách dần các attribute phụ thuộc sai key.</div>
   </section>
+
+  <div class="guide open"><span class="who">🧑‍🏫 Khép chương · Dẫn sang Chương 9</span>“Tới đây, bức tranh 'xây phần mềm' gần như hoàn chỉnh: ta đã có yêu cầu, kiến trúc, lớp, và nơi cất dữ liệu. Nhưng khoan mừng — <strong>làm xong CHƯA chắc đã ĐÚNG</strong>. Bản thiết kế đẹp mấy cũng có thể sai, code viết ra luôn có bug. Vậy làm sao <em>chứng minh phần mềm chạy đúng</em> trước khi giao cho khách? Đó là cả một môn khoa học: <strong>Kiểm thử (Testing)</strong>. Chương 9 dạy các cấp độ kiểm thử, hai trường phái hộp-đen/hộp-trắng, cách nghĩ ra bộ test thông minh, và công cụ JUnit. Ta chuyển từ 'xây' sang 'nghiệm thu'.”</div>
 
   <nav class="pager">
     <a href="07-class-design.html"><span class="dir">← Trước</span><span class="ttl">Thiết kế lớp</span></a>
@@ -122,5 +138,6 @@
 </main>
 </div>
 <script src="../assets/app.js"></script>
+<script src="../assets/glossary.js"></script>
 </body>
 </html>

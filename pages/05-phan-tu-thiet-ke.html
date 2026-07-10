@@ -24,14 +24,20 @@
   <div class="chips"><span class="chip">Analysis → Design</span><span class="chip">Package</span><span class="chip">Encapsulation</span><span class="chip">Package coupling</span></div>
   <a class="quiz-cta" href="quiz-05-phan-tu-thiet-ke.html"><span class="ic">📝</span> Luyện trắc nghiệm chủ đề này <small>· 19 câu · lưu tiến độ tự động</small></a>
 
+  <div class="guide open"><span class="who">🧑‍🏫 Giảng viên dẫn chuyện · Vào chương</span>
+  <p>“Chương 4 để lại cho ta một đống <em>analysis class</em> (Boundary, Control, Entity) nằm rải rác. Hãy tưởng tượng bạn vừa đổ cả nghìn viên LEGO ra sàn — đúng loại đủ màu, nhưng lộn xộn. Chương 5 rất ngắn và chỉ làm một việc đời thường nhưng cực quan trọng: <strong>dọn dẹp và phân loại</strong>. Biến các lớp 'phác thảo' (analysis) thành lớp 'thi công' (design), rồi <strong>gom chúng vào từng hộp</strong> cho ngăn nắp.”</p>
+  <p>“Cái hộp đó tên là <strong>Package</strong> — hình dung y như các <em>thư mục (folder)</em> trên máy tính bạn, hay các <em>ngăn kéo có dán nhãn</em>. Vì sao phải gom hộp? Vì khi dự án có hàng trăm lớp, không ai chịu nổi một mớ phẳng lì; chia hộp để 'đội A sửa hộp này không đụng hộp kia'. Và đã có hộp thì phải có <strong>luật đi lại giữa các hộp</strong> (package coupling) — hộp nào được phụ thuộc hộp nào — nếu không sẽ thành mớ bòng bong 'rút một sợi động cả búi'. Cuối chương ta gặp thêm người anh cao cấp của package là <em>Subsystem</em>, để dành nói kỹ ở Chương 6.”</p></div>
+
   <section>
     <h2><span class="num">1</span> Mục đích &amp; vị trí trong lifecycle</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Định vị mục này</span>“Định vị nhanh: đây là việc của <strong>Architect</strong> ở bước 'tinh chỉnh kiến trúc' (nhớ bảng 10 bước OOAD ở Chương 1 chứ?). Bản chất: nhận vào mô hình phân tích còn thô, trả ra <strong>Design Model</strong> — tức bộ phần tử thiết kế đủ chín để đội lập trình cầm mà code. Nói ngắn: đây là nhịp cầu 'từ ý tưởng sang bản vẽ thi công'.”</div>
     <div class="callout def"><span class="tt">Mục đích</span>Phân tích tương tác của analysis class → xác định các phần tử của <strong>Design Model</strong> (Design classes, Package, Subsystem). Thực hiện ở bước "Refine the Architecture" (do Architect).</div>
     <p><strong>Đầu vào:</strong> Analysis Model, Software Architecture Document, Supplementary Specifications, Project Specific Guidelines → <strong>Đầu ra:</strong> Design Model (design elements).</p>
   </section>
 
   <section>
     <h2><span class="num">2</span> Từ Analysis Class → Design Element</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Điểm hay gây hiểu lầm</span>“Nhiều bạn tưởng mỗi analysis class biến thành đúng một design class — 1 đổi 1. <strong>Sai.</strong> Bản chất là quan hệ <em>nhiều–nhiều</em>: một lớp phân tích 'béo' có thể tách thành vài lớp thiết kế, hoặc phình lên thành cả một package/subsystem; ngược lại vài lớp nhỏ có thể gộp lại. Hình dung: bản phác thảo 'nhà bếp' của kiến trúc sư, khi ra bản thi công có thể nở thành bếp + kho + khu rửa. Đừng máy móc 1–1.”</div>
     <div class="callout key"><span class="tt">Ánh xạ Many-to-Many</span>Analysis class (boundary/entity/control) ánh xạ tới design element theo quan hệ <strong>nhiều-nhiều</strong>, không phải 1-1.</div>
     <div class="tw"><table>
       <thead><tr><th>Analysis class</th><th>Có thể trở thành</th></tr></thead>
@@ -47,6 +53,7 @@
 
   <section>
     <h2><span class="num">3</span> Package — nhóm các Design Class</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Nhân vật chính: cái 'hộp'</span>“Đây là khái niệm cốt lõi của chương. Bản chất <strong>Package = một cái hộp/thư mục gom nhiều lớp lại thành một nhóm có tên</strong>. Nó không 'làm' gì cả — chỉ để <em>tổ chức cho gọn</em> và làm 'đơn vị quản lý' (giao cả hộp cho một nhóm phụ trách, hoặc versioning cả hộp). Hình dung đúng như folder ảnh trong điện thoại: 'Du lịch', 'Gia đình'… giúp bạn khỏi lạc giữa 5000 tấm ảnh. Phần 'tiêu chí đóng gói' bên dưới chỉ trả lời: <em>nên xếp lớp nào vào chung một hộp?</em>”</div>
     <div class="two">
       <div class="callout def"><span class="tt">Class</span>Mô tả tập object chia sẻ cùng responsibilities, relationships, operations, attributes, semantics.</div>
       <div class="callout def"><span class="tt">Package</span>Cơ chế tổng quát để <strong>tổ chức các phần tử thành nhóm</strong>; là một model element có thể <em>chứa</em> các model element khác. Dùng để: tổ chức mô hình đang phát triển · làm đơn vị quản lý cấu hình (configuration management).</div>
@@ -62,6 +69,7 @@
 
   <section>
     <h2><span class="num">4</span> Packaging Tips</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Bí kíp xếp hộp</span>“Mục này là các mẹo thực chiến trả lời câu 'lớp nào chung hộp, lớp nào tách hộp'. Nguyên tắc ngầm xuyên suốt — cũng chính là mầm mống của Chương 11 (Coupling &amp; Cohesion): <strong>những thứ hay đổi cùng nhau thì để chung một hộp; những thứ chẳng liên quan thì tách ra</strong>. Đặc biệt để ý mẹo về boundary: nếu giao diện <em>hay thay đổi</em> (đổi màu, đổi layout xoành xoạch) thì nhốt riêng nó một hộp để 'cháy nhà không lan' — thay đổi được cô lập.”</div>
     <h3>4.1 Boundary Classes</h3>
     <div class="two">
       <div class="callout tip"><span class="tt">Nếu giao diện DỄ thay đổi nhiều</span>Đặt boundary class vào <strong>package riêng</strong> (cô lập thay đổi).</div>
@@ -78,26 +86,32 @@
     </ul>
     <div class="callout warn"><span class="tt">KHÔNG đặt chung package khi</span>Hai lớp liên quan tới <strong>các actor khác nhau</strong>; hoặc một lớp <em>optional</em> và một lớp <em>mandatory</em>.</div>
     <h3>4.3 Package Element Visibility</h3>
+    <div class="guide mini">“Bản chất: trong một hộp, có lớp cho phép người ngoài nhìn thấy (<strong>public</strong>) và lớp giấu kín bên trong (<strong>private</strong>, kí hiệu <code>-</code>). Chỉ lớp public mới được gọi từ hộp khác. Hình dung như một công ty: có <em>lễ tân</em> (public — khách được gặp) và <em>phòng kế toán nội bộ</em> (private — khách không được vào). Đây chính là nguyên lý <strong>Encapsulation (đóng gói)</strong> — giấu ruột, chỉ lộ mặt tiền — sẽ theo bạn tới tận SOLID (Chương 12).”</div>
     <div class="callout key"><span class="tt">Encapsulation</span><strong>Chỉ các lớp public</strong> mới được tham chiếu từ ngoài package sở hữu. Lớp private (kí hiệu <code>-</code>) bị ẩn. → Nguyên lý OO: Encapsulation.</div>
   </section>
 
   <section>
     <h2><span class="num">5</span> Package Coupling — quy tắc phụ thuộc</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Luật đi lại giữa các hộp</span>“Đã chia hộp thì phải có luật: hộp nào được 'dựa vào' hộp nào. Bản chất <strong>coupling giữa package = mức các hộp phụ thuộc lẫn nhau</strong>, và mục tiêu là giữ nó thật lỏng. Hình dung các hộp như các tầng của tòa nhà: tầng trên tựa lên tầng dưới thì OK, nhưng nếu tầng dưới lại đi tựa ngược lên tầng trên (hoặc hai tầng ôm chặt nhau) thì cả tòa rung rinh — sửa một chỗ vỡ dây chuyền. Ba điều cấm bên dưới đều là biến thể của một tinh thần đó.”</div>
     <div class="callout danger"><span class="tt">3 vi phạm coupling (đánh dấu X)</span>
     <ul style="margin:.2rem 0">
       <li>Package <strong>không được cross-coupled</strong> (phụ thuộc vòng lẫn nhau).</li>
       <li>Package ở tầng dưới <strong>không được phụ thuộc</strong> package ở tầng trên.</li>
       <li>Nhìn chung, phụ thuộc <strong>không nên nhảy tầng (skip layers)</strong>.</li>
     </ul></div>
+    <div class="guide after"><span class="who">💡 Nói lại cho dễ</span>“Ba điều cấm gói gọn thành: (1) <strong>đừng để hai hộp ôm nhau</strong> (cross-coupled — A cần B, B lại cần A → gỡ không ra); (2) <strong>hộp dưới đừng với lên hộp trên</strong> (tầng nền không được phụ thuộc tầng mái); (3) <strong>đừng nhảy cóc qua tầng</strong> (skip layers). Nhớ hình ảnh: dòng phụ thuộc nên chảy <em>một chiều, từ trên xuống, qua từng tầng kề nhau</em> — như nước, không chảy ngược, không nhảy bậc.”</div>
     <div class="callout example"><span class="tt">Ví dụ Registration Package</span>MainStudentForm ◇ RegisterForCoursesForm &laquo;boundary&raquo; → RegistrationController &laquo;control&raquo;. MainRegistrarForm ◇ CloseRegistrationForm &laquo;boundary&raquo; → CloseRegistrationController &laquo;control&raquo;. (Boundary phụ thuộc vào control cùng package.)</div>
     <div class="callout note"><span class="tt">External System Interfaces Package</span>Chứa các &laquo;Interface&raquo; như <code>IBillingSystem</code>, <code>ICourseCatalogSystem</code> — cô lập hệ thống ngoài. University Artifacts Package chứa entity (Student, CourseOffering, Course, Professor, Schedule…) với generalization &amp; association.</div>
   </section>
 
   <section>
     <h2><span class="num">6</span> Subsystem (giới thiệu)</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Người anh cao cấp của Package</span>“Chốt chương bằng một khái niệm để dành cho Chương 6. Bản chất khác biệt: <strong>Package chỉ là 'hộp gom đồ' — mở ra thấy hết bên trong; còn Subsystem là 'hộp kín có một ô cửa nhỏ (interface)' — bên ngoài chỉ được giao tiếp qua ô cửa đó, ruột bên trong giấu tiệt.</strong> Hình dung: package như cái rổ (nhìn xuyên qua), subsystem như cái lò vi sóng (bạn chỉ bấm nút bên ngoài, không cần biết bên trong sóng chạy ra sao). Vì thế subsystem 'đóng gói hoàn toàn' và <em>cung cấp hành vi</em>, còn package thì không.”</div>
     <p>Ngoài package, một analysis class phức tạp có thể trở thành <strong>subsystem</strong> — đơn vị đóng gói hành vi sau một interface. Chi tiết ở chủ đề <a href="06-interface-design.html">Thiết kế giao diện</a> (Subsystem &amp; Interface, Package vs Subsystem, gates).</p>
     <div class="callout tip"><span class="tt">Xem tiếp</span>Subsystem <em>cung cấp hành vi</em> &amp; <em>đóng gói hoàn toàn</em> nội dung; khác với package chỉ nhóm phần tử.</div>
   </section>
+
+  <div class="guide open"><span class="who">🧑‍🏫 Khép chương · Dẫn sang Chương 6</span>“Ta vừa học cách gom lớp vào hộp và đặt luật đi lại. Nhưng có một 'hộp' đặc biệt mà người dùng nhìn thấy và chạm vào mỗi ngày: <strong>giao diện</strong>. Và cũng có kiểu 'hộp kín' quan trọng là <strong>subsystem giao tiếp qua interface</strong> mà ta vừa hé lộ. Chương 6 gộp cả hai: thiết kế <em>giao diện người dùng</em> (màn hình, luồng chuyển màn hình) và thiết kế <em>giao diện hệ thống/thiết bị</em> (subsystem &amp; interface). Ta đi từ 'bộ khung bên trong' ra tới 'bộ mặt bên ngoài'.”</div>
 
   <nav class="pager">
     <a href="04-kien-truc.html"><span class="dir">← Trước</span><span class="ttl">Thiết kế kiến trúc &amp; Phân tích OO</span></a>
@@ -106,5 +120,6 @@
 </main>
 </div>
 <script src="../assets/app.js"></script>
+<script src="../assets/glossary.js"></script>
 </body>
 </html>

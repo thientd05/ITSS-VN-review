@@ -24,8 +24,13 @@
   <div class="chips"><span class="chip">GoF · 3 nhóm</span><span class="chip">Singleton</span><span class="chip">Template Method</span><span class="chip">Factory Method</span><span class="chip">Abstract Factory</span></div>
   <a class="quiz-cta" href="quiz-13-design-patterns.html"><span class="ic">📝</span> Luyện trắc nghiệm chủ đề này <small>· 32 câu · lưu tiến độ tự động</small></a>
 
+  <div class="guide open"><span class="who">🧑‍🏫 Giảng viên dẫn chuyện · Chương cuối cùng</span>
+  <p>“Chào mừng bạn đến chặng cuối của hành trình 13 chương! Ta khởi đầu từ 'phần mềm là gì, làm ra sao', đi qua thu thập yêu cầu, thiết kế, lập trình, kiểm thử, rồi các nguyên lý thiết kế. Chương 13 là 'kho báu' cuối: <strong>Design Patterns — những lời giải MẪU cho các bài toán thiết kế lặp đi lặp lại</strong>, được các bậc thầy đúc kết sẵn. Ý tưởng gốc rất đẹp: có những bài toán mà lập trình viên khắp thế giới cứ gặp đi gặp lại; thay vì mỗi người tự mò, ta có sẵn 'công thức' đã kiểm chứng — như những 'thế cờ' hay trong cờ vua mà kỳ thủ nào cũng nên thuộc.”</p>
+  <p>“Bạn sẽ thấy một sự thật thú vị khép lại cả cuốn: <strong>hầu hết pattern chỉ là SOLID (Chương 12) được đóng gói thành công thức cụ thể</strong> — đặc biệt là OCP ('thêm mới đừng sửa cũ') và DIP ('dựa vào abstraction'). Chương giới thiệu bộ 'Gang of Four' và ba nhóm pattern, rồi đi sâu <strong>bốn mẫu trọng tâm của môn</strong>: <em>Singleton</em> (đảm bảo chỉ một instance), <em>Template Method</em> (khung thuật toán cố định, chừa vài bước cho lớp con), <em>Factory Method</em> &amp; <em>Abstract Factory</em> (tạo object mà không gắn cứng tên lớp). Mỗi mẫu tôi sẽ nói: nó giải bài toán ĐỜI THƯỜNG nào, và 'chiêu' của nó là gì.”</p></div>
+
   <section>
     <h2><span class="num">1</span> Design Pattern là gì?</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Hiểu 'pattern' trước khi học từng cái</span>“Đừng vội nhảy vào từng mẫu. Bản chất <strong>một design pattern = một cặp 'VẤN ĐỀ hay gặp ↔ GIẢI PHÁP mẫu' đã được đặt tên</strong>. Điều quan trọng là chữ 'đặt tên': khi cả nhóm cùng biết 'Singleton' hay 'Factory', chỉ cần nói một từ là hiểu nhau — pattern trở thành <em>ngôn ngữ chung</em> của dân thiết kế. Bộ nổi tiếng nhất do 'Gang of Four' (bốn tác giả) tổng hợp, chia làm ba nhóm theo việc chúng lo: <strong>Creational</strong> (lo việc TẠO object), <strong>Structural</strong> (lo việc GHÉP object), <strong>Behavioral</strong> (lo việc object GIAO TIẾP). Nhớ ba nhóm này như ba giai đoạn: sinh ra → lắp ráp → làm việc cùng nhau.”</div>
     <div class="callout def"><span class="tt">Định nghĩa (Christopher Alexander)</span>"Mỗi pattern mô tả một <strong>vấn đề</strong> lặp đi lặp lại trong môi trường, rồi mô tả <strong>cốt lõi của giải pháp</strong> — để bạn có thể dùng lại giải pháp đó hàng triệu lần mà không bao giờ làm giống hệt nhau."</div>
     <p><strong>Design pattern =</strong> giải pháp chuẩn cho vấn đề lập trình thường gặp · kỹ thuật làm code <em>linh hoạt</em> hơn (giảm coupling) · cách nói tắt để mô tả thiết kế (static structure &amp; dynamic behaviour).</p>
     <div class="callout note"><span class="tt">GoF — Gang of Four</span>Gamma, Helm, Johnson, Vlissides (xuất bản 1994). Empiricist, không lý thuyết suông; quy tắc: <strong>không gì thành pattern trừ khi tìm được ≥3 ví dụ thực tế</strong>.</div>
@@ -38,11 +43,13 @@
         <tr><td><strong>Behavioral</strong></td><td>Cách <em>giao tiếp</em> giữa object</td><td>Command, Interpreter, Iterator, Mediator, Observer, State, Strategy, Chain of Responsibility, Visitor, Template Method</td></tr>
       </tbody>
     </table></div>
+    <div class="guide mini">“Khung dưới cho biết 'lý lịch chuẩn' của một pattern. Bốn phần cốt lõi cần nhớ (rất hay ra đề): <strong>Name</strong> (tên — để gọi nhau), <strong>Problem</strong> (khi nào thì dùng), <strong>Solution</strong> (cách giải, tả trừu tượng không gắn ngôn ngữ), <strong>Consequences</strong> (được gì, mất gì — vì pattern nào cũng có cái giá). Đọc bất kỳ pattern nào cũng nên tự hỏi đủ bốn câu đó.”</div>
     <div class="callout note"><span class="tt">Cách mô tả một pattern</span><strong>Elements chính:</strong> Pattern Name · Problem (context + điều kiện áp dụng) · Solution (mô tả trừu tượng, các element/quan hệ/trách nhiệm, như template, language-neutral) · Consequences (kết quả &amp; trade-off, ảnh hưởng flexibility/extensibility/portability). Mẫu đầy đủ GoF: Name &amp; classification, Also Known As, Motivation, Applicability, Structure, Participants, Collaboration, Consequences, Implementation, Sample Code, Known Uses, Related Patterns.</div>
   </section>
 
   <section>
     <h2><span class="num">2</span> Singleton (Creational)</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Mẫu 1 — 'Chỉ được có một'</span>“Bài toán đời thường: có những thứ mà cả hệ thống <strong>chỉ được phép tồn tại ĐÚNG MỘT bản</strong> — một kết nối database, một hàng đợi máy in, một giỏ hàng. Nếu lỡ tạo hai bản, dữ liệu sẽ 'ông nói gà bà nói vịt'. <strong>Singleton = chiêu đảm bảo một lớp chỉ có một instance, và cho mọi nơi một cửa chung để lấy nó.</strong> Hình dung <em>chức Tổng thống của một nước</em>: chỉ có một, và ai cần cũng gọi qua đúng một văn phòng. Chiêu kỹ thuật gồm 3 miếng (xem dưới): khóa cửa sổ constructor lại (private), giữ sẵn một bản tĩnh, và mở đúng một cửa <code>getInstance()</code>.”</div>
     <div class="callout def"><span class="tt">Singleton</span>Đảm bảo một lớp có <strong>chính xác một instance</strong> &amp; cung cấp <strong>điểm truy cập toàn cục</strong> tới nó.</div>
     <h3>Cách hiện thực</h3>
     <ul>
@@ -50,6 +57,7 @@
       <li>Khai báo một instance <code>private static</code> của lớp.</li>
       <li>Cung cấp method <code>public static getInstance()</code> trả về instance duy nhất (có thể cần <code>synchronized</code> để chạy đúng đa luồng).</li>
     </ul>
+    <div class="guide mini">“Hai kiểu code dưới khác nhau ở <strong>thời điểm tạo instance</strong>. <strong>Eager (háo hức)</strong> = tạo sẵn ngay từ đầu, dù có dùng hay không — đơn giản, an toàn đa luồng, nhưng tốn nếu chẳng dùng tới. <strong>Lazy (lười)</strong> = đợi khi nào có người gọi mới tạo — tiết kiệm, nhưng phải khóa <code>synchronized</code> kẻo hai luồng cùng tạo ra hai bản. Hình dung: eager như nấu sẵn cơm chờ khách; lazy như khách gọi mới nấu. Với object nặng, lazy đáng giá.”</div>
     <div class="two">
       <div class="callout example"><span class="tt">Eager (khởi tạo sớm)</span><pre style="margin:.3rem 0"><code><span class="k">public class</span> Singleton {
   <span class="k">private static final</span> Singleton
@@ -76,8 +84,10 @@
 
   <section>
     <h2><span class="num">3</span> Template Method (Behavioral)</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Mẫu 2 — 'Khung cố định, chừa vài ô trống'</span>“Bài toán: nhiều quy trình <strong>giống nhau ở khung xương, chỉ khác vài bước nhỏ</strong>. Pha trà và pha cà phê: đều đun nước → cho vào cốc → (bước riêng: hãm trà / lọc cà phê) → thêm gia vị. <strong>Template Method = viết sẵn KHUNG thuật toán ở lớp cha, để trống vài bước cho lớp con điền vào.</strong> Hình dung <em>tờ đơn in sẵn</em>: bố cục cố định, bạn chỉ điền vào chỗ trống. Câu thần chú của mẫu này là nguyên tắc Hollywood: <em>'Đừng gọi chúng tôi, chúng tôi sẽ gọi bạn'</em> — nghĩa là lớp cha nắm quyền điều khiển trình tự và gọi xuống các bước của con, chứ không phải ngược lại. Đây là hiện thân trực tiếp của OCP: thêm loại đồ uống mới = viết lớp con mới, không đụng vào khung.”</div>
     <div class="callout def"><span class="tt">Intent</span>Định nghĩa <strong>khung xương của một thuật toán</strong> trong một operation, <strong>hoãn một số bước cho lớp con</strong>. Lớp con định nghĩa lại vài bước mà <em>không thay đổi cấu trúc thuật toán</em>. Nguyên tắc Hollywood: <em>"Don't call us, we'll call you!"</em></div>
     <p><strong>Cấu trúc:</strong> <code>AbstractClass</code> có <code>templateMethod()</code> (gọi các <code>step1..stepN</code>), một số step là <em>abstract/primitive</em>; <code>ConcreteClass</code> hiện thực các primitive operation.</p>
+    <div class="guide mini">“Khung dưới liệt kê các 'chế độ' cho từng bước — thực chất là chọn từ khóa Java để quy định 'ai được đụng vào bước này'. Nắm ý: <strong>abstract</strong> = 'con BẮT BUỘC phải điền' (bước bỏ trống); <strong>hook</strong> = 'con MUỐN thì điền thêm, không thì thôi' (bước tùy chọn); <strong>final</strong> = 'CẤM con sửa' (bước khóa cứng để giữ khung); <strong>private</strong> = 'của riêng cha, con không thấy'. Nhớ liên hệ visibility ở Chương 7 — cùng một bộ công cụ +/#/− và final.”</div>
     <div class="callout key"><span class="tt">Ba chế độ của bước (steps)</span>
       <ul style="margin:.2rem 0">
         <li><strong>Buộc</strong> lớp con hiện thực bước → <code>abstract</code> / interface.</li>
@@ -92,6 +102,7 @@
 
   <section>
     <h2><span class="num">4</span> Factory Method (Creational)</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Mẫu 3 — 'Đừng tự tay new, hãy nhờ xưởng'</span>“Bài toán: khi code có một mớ <code>if type == "A" new A() else if "B" new B()...</code> để tạo object, thì cứ thêm loại mới là phải mở ra sửa (vi phạm OCP), và việc 'tạo' trộn lẫn với việc 'dùng' (vi phạm SRP). <strong>Factory Method = giao việc TẠO object cho một 'xưởng' (factory) riêng, và để LỚP CON của xưởng quyết định tạo ra loại cụ thể nào.</strong> Hình dung: bạn vào tiệm pizza gọi 'cho một cái Hawaii', KHÔNG tự vào bếp nhào bột — bếp (factory) lo phần tạo, bạn chỉ việc dùng. Nhờ tách 'tạo' khỏi 'dùng', thêm món mới không phá vỡ phần phục vụ. Đọc ví dụ PizzaStore ngay dưới để thấy 'mùi code hư' rồi cách chữa.”</div>
     <div class="callout example"><span class="tt">Vấn đề: PizzaStore</span><pre style="margin:.3rem 0"><code>Pizza orderPizza(String type){
   Pizza pizza;
   <span class="k">if</span>(type.equals(<span class="s">"cheese"</span>)) pizza = <span class="k">new</span> CheesePizza();
@@ -103,11 +114,13 @@
     <div class="callout key"><span class="tt">Ý tưởng</span>Tách <strong>quá trình tạo (creation)</strong> khỏi <strong>sử dụng (usage)</strong>: đóng gói code tạo object vào một lớp riêng (<code>SimplePizzaFactory.createPizza(type)</code>). Lớp đó vẫn phụ thuộc concrete class nhưng dependency đó <em>không còn ảnh hưởng</em> code preparation. (Simple Factory vẫn vi phạm OCP khi thêm loại → nâng lên Factory Method.)</div>
     <div class="callout def"><span class="tt">Factory Method — Structure</span>Định nghĩa một interface để tạo object, nhưng để <strong>lớp con quyết định lớp nào được khởi tạo</strong>. <code>Creator</code> có <code>factoryMethod()</code> (abstract) &amp; <code>anOperation()</code> dùng nó; <code>ConcreteCreator</code> override <code>factoryMethod()</code> trả về <code>ConcreteProduct</code>.</div>
     <div class="callout tip"><span class="tt">Khi nào dùng &amp; cách hiện thực</span><strong>Dùng khi:</strong> client không cần/không được biết cách tạo object; thông tin tạo phức tạp/cồng kềnh → đơn giản hóa interface, khu trú logic khởi tạo; lớp cần lớp con chỉ định object tạo ra; không biết trước kiểu object cần tạo. <strong>Hiện thực:</strong> factory không nên bị instantiate (constructor private); dùng static method để tạo; interface đơn giản (đừng đòi nhiều tham số, có thể overload); thiết kế để tái sử dụng.</div>
+    <div class="guide mini">“Khung dưới liệt kê các factory 'có sẵn' trong thư viện Java — đọc để thấy pattern này ở KHẮP NƠI, không phải lý thuyết suông. Điểm chung dễ nhận: thay vì <code>new</code> trực tiếp, bạn gọi một method như <code>DateFormat.getDateInstance()</code> hay <code>Toolkit.getDefaultToolkit()</code>. Lợi ích: bạn khỏi phải biết lớp cụ thể nào được tạo, và khỏi truyền một đống tham số rối rắm vào constructor.”</div>
     <div class="callout example"><span class="tt">Ví dụ Java (factory có sẵn)</span><strong>DateFormat:</strong> <code>getDateInstance()</code>, <code>getTimeInstance()</code>, <code>getDateInstance(FULL, Locale.FRANCE)</code> — không truyền hàng loạt option, subtype tạo ra không cần biết. <strong>Toolkit:</strong> <code>Toolkit.getDefaultToolkit()</code> rồi <code>tk.getImage("x.gif")</code> (không <code>new Image()</code>). <strong>ImageFactory.loadImage()</strong> gói code cồng kềnh. <strong>BorderFactory.createRaisedBevelBorder()</strong>, <strong>KeyStroke.getKeyStroke()</strong> — tránh constructor quá nhiều "option/flag".</div>
   </section>
 
   <section>
     <h2><span class="num">5</span> Abstract Factory (Creational)</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Mẫu 4 — 'Xưởng của cả một BỘ sản phẩm'</span>“Nâng cấp Factory Method lên một bậc. Bài toán: đôi khi ta cần tạo cả một <strong>BỘ sản phẩm ĂN KHỚP với nhau</strong>, và muốn đổi cả bộ một lúc. Ví dụ giao diện: nút bấm, thanh cuộn, cửa sổ theo phong cách Windows phải đi cùng nhau, không lẫn với phong cách macOS. <strong>Abstract Factory = một 'xưởng tổng' trừu tượng sinh ra cả HỌ sản phẩm cùng phong cách; đổi phong cách chỉ cần đổi xưởng.</strong> Hình dung <em>bộ nội thất đồng bộ</em>: chọn 'gói Bắc Âu' là được cả bàn, ghế, tủ cùng tông; muốn đổi sang 'gói cổ điển' chỉ cần đổi nhà cung cấp, không lắp lẻ từng món kẻo lệch tông. Phân biệt với Factory Method: Factory Method tạo MỘT sản phẩm, Abstract Factory tạo CẢ HỌ.”</div>
     <div class="callout def"><span class="tt">Abstract Factory</span>Khi <strong>lớp factory cấp cao nhất &amp; method tạo của nó đều abstract</strong>. Factory Method là factory có thể được khởi tạo &amp; có method tạo overridable; Abstract Factory nâng lên mức "họ sản phẩm".</div>
     <div class="callout key"><span class="tt">Khi nào dùng</span>Hệ thống nên <em>độc lập</em> với cách sản phẩm được tạo/kết hợp/biểu diễn; cấu hình được với <strong>một trong nhiều họ sản phẩm (families)</strong>; một họ object liên quan phải <em>dùng cùng nhau</em> &amp; cần cưỡng chế ràng buộc đó; muốn cung cấp thư viện sản phẩm chỉ lộ interface, không lộ cài đặt.</div>
     <div class="callout example"><span class="tt">Ví dụ Widget</span><code>WidgetFactory (abstract)</code> với <code>CreateScrollBar()</code>, <code>CreateWindow()</code>; <code>MotifWidgetFactory</code> &amp; <code>PMWidgetFactory</code> tạo MotifWindow/PMWindow, MotifScrollBar/PMScrollBar. Client chỉ dùng interface trừu tượng.</div>
@@ -119,9 +132,14 @@
         <tr><td>Cưỡng chế tính nhất quán giữa các sản phẩm</td><td>(Nhưng không quá tệ trong ngôn ngữ định kiểu động)</td></tr>
       </tbody>
     </table></div>
+    <div class="guide after"><span class="who">💡 Cái giá của Abstract Factory</span>“Bảng ưu/nhược trên dạy một bài học chung cho MỌI pattern: <strong>không có bữa trưa miễn phí</strong>. Abstract Factory tuyệt vời khi đổi CẢ HỌ sản phẩm (dễ như trở bàn tay), nhưng lại rất phiền khi thêm MỘT loại sản phẩm mới (phải sửa xưởng tổng và mọi xưởng con). Nhớ lại phần 'Consequences' đầu chương: chọn pattern là chọn đánh đổi — dùng đúng chỗ thì lợi, dùng sai chỗ thì tự trói mình. Đây cũng là lời nhắc: pattern là công cụ, không phải khuôn vàng bắt buộc.”</div>
   </section>
 
   <div class="callout note"><span class="tt">Liên kết</span>Design patterns nằm ở tầng cao nhất, xây trên <a href="11-coupling-cohesion.html">Coupling &amp; Cohesion</a> và <a href="12-solid.html">SOLID</a> (Factory Method/Abstract Factory hiện thân OCP+DIP; Template Method hiện thân OCP).</div>
+
+  <div class="guide open"><span class="who">🧑‍🏫 Hết hành trình · Lời tạm biệt</span>
+  <p>“Vậy là bạn đã đi trọn 13 chương — một vòng đời phần mềm hoàn chỉnh. Hãy dừng lại một nhịp và nhìn lại cả câu chuyện: ta bắt đầu bằng <em>tấm bản đồ</em> (quy trình &amp; mô hình), học cách <em>làm việc nhóm</em> (Git), <em>lắng nghe khách</em> (Use Case), <em>dựng khung</em> (kiến trúc, package, giao diện), <em>chạm khắc từng viên gạch</em> (class, dữ liệu), <em>nghiệm thu</em> (testing), rồi mài giũa cho <em>đẹp và bền</em> (lập trình sạch, coupling/cohesion, SOLID), và cuối cùng là <em>kho tàng lời giải mẫu</em> (design patterns).”</p>
+  <p>“Nếu chỉ mang theo MỘT thứ từ cả cuốn, hãy mang theo sợi chỉ đỏ này — nó nối liền 13 chương: <strong>quản lý sự phụ thuộc và sự thay đổi.</strong> Mọi thứ ta học — từ tách boundary/entity/control, đóng gói package, loose coupling, đến SOLID và các pattern — đều nhằm một mục tiêu duy nhất: làm cho phần mềm <em>dễ thay đổi mà không vỡ</em>. Vì phần mềm tốt không phải thứ hoàn hảo lúc sinh ra, mà là thứ <em>lớn lên được</em> qua thời gian. Chúc bạn ôn thi thật vững — và quan trọng hơn, mang được tư duy này vào nghề. Hẹn gặp lại! 🎓”</p></div>
 
   <nav class="pager">
     <a href="12-solid.html"><span class="dir">← Trước</span><span class="ttl">Nguyên lý SOLID</span></a>
@@ -130,5 +148,6 @@
 </main>
 </div>
 <script src="../assets/app.js"></script>
+<script src="../assets/glossary.js"></script>
 </body>
 </html>

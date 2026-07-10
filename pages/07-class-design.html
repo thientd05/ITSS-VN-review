@@ -24,8 +24,13 @@
   <div class="chips"><span class="chip">Operation · visibility · scope</span><span class="chip">Association/Aggregation/Composition</span><span class="chip">Multiplicity · Navigability</span><span class="chip">State Machine</span></div>
   <a class="quiz-cta" href="quiz-07-class-design.html"><span class="ic">📝</span> Luyện trắc nghiệm chủ đề này <small>· 35 câu · lưu tiến độ tự động</small></a>
 
+  <div class="guide open"><span class="who">🧑‍🏫 Giảng viên dẫn chuyện · Vào chương</span>
+  <p>“Suốt các chương trước, 'lớp' (class) mới chỉ là cái tên trong một ô chữ nhật. Chương 7 là lúc ta <strong>mổ xẻ từng ô chữ nhật đó ra xem bên trong có gì</strong> và các ô nối với nhau bằng loại dây gì. Nếu ví phần mềm là một thành phố, thì tới giờ ta đã có bản đồ khu phố (Chương 4–6); bây giờ ta ngồi vẽ <em>bản thiết kế chi tiết từng ngôi nhà</em>: nhà có mấy phòng (attribute), làm được những việc gì (operation), ai được vào phòng nào (visibility +/#/−), và nhà này nối với nhà kia bằng con đường kiểu gì.”</p>
+  <p>“Chương đi theo 6 bước rất ngăn nắp, nhưng bạn chỉ cần dồn sức vào <strong>hai phần xương sống</strong>. Thứ nhất là <em>các loại quan hệ giữa lớp</em> (Mục 3) — đây là chỗ sinh viên hay lú nhất: association, aggregation, composition, dependency, generalization; tôi sẽ cho bạn một hình ảnh đời thường cho từng cái. Thứ hai là <em>State Machine</em> (Mục 4) — cách vẽ 'cuộc đời đổi trạng thái' của một object. Phần còn lại (operation, attribute, class diagram) nhẹ nhàng hơn. Ta vẫn bám case study Đăng ký học phần và thêm vài ví dụ Xe hơi cho dễ nuốt.”</p></div>
+
   <section>
     <h2><span class="num">1</span> Tạo Design Class ban đầu</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Câu hỏi mở màn: chia lớp thế nào?</span>“Trước khi đi vào chi tiết một lớp, có một quyết định lớn: nên có <strong>nhiều lớp nhỏ mỗi lớp làm một việc</strong>, hay <strong>ít lớp to ôm nhiều việc</strong>? Bản chất đây là bài toán đánh đổi, và câu trả lời vàng — nhớ lấy vì nó là mầm của cả Chương 11 &amp; 12 — là: <em>mỗi lớp nên làm MỘT việc và làm cho tốt</em> ('do one thing well'). Hình dung: thà có bộ dụng cụ nhiều món chuyên dụng (mỗi cái một việc, dễ thay, dễ mượn) còn hơn một con dao đa năng cồng kềnh làm gì cũng dở.”</div>
     <p>6 bước của Class Design: <strong>Create Initial Design Classes → Define Operations/Methods → Define Relationships → Define States → Define Attributes → Class Diagram</strong>. Analysis class → Design element theo ánh xạ many-to-many.</p>
     <div class="callout key"><span class="tt">Bao nhiêu lớp là đủ?</span>
       <div class="two" style="margin-top:.3rem">
@@ -43,6 +48,7 @@
 
   <section>
     <h2><span class="num">2</span> Định nghĩa Operation &amp; Method</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Lớp 'làm được gì'</span>“Mục này định nghĩa các <strong>việc mà lớp làm được</strong>. Đầu tiên gỡ một cặp hay lẫn: <strong>Operation = 'CÁI GÌ' làm được</strong> (lời hứa, ví dụ 'tính điểm trung bình'); <strong>Method = 'LÀM THẾ NÀO'</strong> (đoạn code cụ thể thực hiện lời hứa đó). Hình dung: operation là <em>tên món trên thực đơn</em>, method là <em>công thức nấu trong bếp</em>. Phần cần để ý kỹ là <strong>visibility (+/#/−)</strong> — luật 'ai được gọi việc này' — vì nó chính là encapsulation trong hành động.”</div>
     <div class="callout def"><span class="tt">Operation vs Method</span><strong>Operation</strong>: hành vi (từ message trong interaction diagram). <strong>Method</strong>: mô tả <em>cách cài đặt</em> operation (thuật toán đặc biệt, dùng object/operation nào, cách hiện thực attribute &amp; relationship).</div>
     <h3>Đặt tên &amp; signature</h3>
     <ul>
@@ -52,6 +58,7 @@
     </ul>
     <div class="callout tip"><span class="tt">Guideline signature</span>Xét tham số: truyền by value/by reference, có bị đổi, optional, giá trị mặc định, khoảng hợp lệ. <strong>Càng ít tham số càng tốt</strong>. <strong>Truyền object thay vì "data bits"</strong>.</div>
     <h3>Visibility &amp; Scope</h3>
+    <div class="guide mini">“Hai khái niệm nhỏ, cần thuộc ký hiệu. <strong>Visibility = 'ai được phép gọi'</strong>: <code>+</code> public (ai cũng gọi được — như cửa hàng mở cửa), <code>#</code> protected (chỉ họ hàng con cháu — như phòng riêng gia đình), <code>-</code> private (chỉ nội bộ lớp — như két sắt). <strong>Scope</strong>: instance = 'mỗi object một bản riêng' (mỗi người một ví tiền); classifier/static = 'cả lớp xài chung một bản' (cái đồng hồ treo tường chung phòng), vẽ bằng <u>gạch chân</u>.”</div>
     <div class="two">
       <div class="callout def"><span class="tt">Visibility (bao đóng)</span><code>+</code> Public · <code>#</code> Protected · <code>-</code> Private. Dùng để cưỡng chế encapsulation.</div>
       <div class="callout def"><span class="tt">Scope</span><strong>Instance scope:</strong> 1 bản cho mỗi instance. <strong>Classifier scope:</strong> 1 bản cho toàn bộ instance (như <code>static</code>) — biểu diễn bằng <u>gạch chân</u> tên attribute/operation.</div>
@@ -60,6 +67,7 @@
 
   <section>
     <h2><span class="num">3</span> Quan hệ giữa các lớp</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Phần khó nhất chương — đọc thật chậm</span>“Đây là 'trùm cuối' của chương. Năm loại 'dây nối' giữa các lớp nghe na ná nhau, nên tôi tặng bạn năm hình ảnh đời thường để phân biệt dứt điểm — dùng ví dụ chiếc xe hơi: <strong>Association</strong> = 'quen biết, dùng nhau' (Tài xế ↔ Xe: hai bên độc lập, chỉ liên hệ). <strong>Aggregation</strong> (thoi rỗng ◇) = 'tổng thể – bộ phận nhưng RỜI được' (Xe ◇ Bánh xe: tháo bánh lắp xe khác vẫn OK). <strong>Composition</strong> (thoi đặc ◆) = 'bộ phận SỐNG CHẾT cùng tổng thể' (Xe ◆ Khung sườn: đập bỏ xe thì khung cũng đi luôn, không xài lại). <strong>Generalization</strong> (tam giác △) = 'là một loại của' (Xe điện △ Xe: cha–con). <strong>Dependency</strong> (nét đứt ⇢) = 'chỉ nhờ vả thoáng qua' (Xe ⇢ Trạm xăng: ghé đổ rồi đi, không gắn bó). Giữ năm hình ảnh này, cả bảng dưới sẽ sáng.”</div>
     <div class="tw"><table>
       <thead><tr><th>Quan hệ</th><th>Ký hiệu</th><th>Ý nghĩa</th></tr></thead>
       <tbody>
@@ -73,6 +81,7 @@
     <div class="callout key"><span class="tt">Từ link → association</span>Mỗi <strong>link</strong> trong communication diagram → một <strong>association</strong> trong class diagram ("relationship for every link"). Instance của association là một link.</div>
 
     <h3>3.1 Role &amp; Multiplicity</h3>
+    <div class="guide mini">“<strong>Multiplicity = 'một cái này đi với BAO NHIÊU cái kia'</strong> — con số ở hai đầu đường nối. Hình dung sổ hộ khẩu: một 'Nhà' có <code>1..*</code> 'Người' (ít nhất 1, nhiều thì tùy), một 'Người' thuộc <code>1</code> 'Nhà'. Cách đọc ký hiệu: <code>*</code> = 'bao nhiêu cũng được', <code>0..1</code> = 'có hoặc không', <code>1..*</code> = 'ít nhất một'. Đây là thứ trực tiếp dịch thành code (một trường đơn hay một <code>List</code>) như ví dụ Java bên dưới.”</div>
     <p><strong>Role</strong> = "khuôn mặt" lớp đóng trong association (VD Instructor, Department Head, Prerequisites).</p>
     <div class="callout def"><span class="tt">Multiplicity</span>Số instance của lớp này ứng với <strong>một</strong> instance của lớp kia. Trả lời 2 câu: association bắt buộc hay tùy chọn? Số instance tối thiểu &amp; tối đa liên kết được?</div>
     <div class="tw"><table>
@@ -90,6 +99,7 @@
     <div class="callout example"><span class="tt">Cài đặt Java</span>Multiplicity "many" → dùng Collection: <code>private List&lt;InsuranceContract&gt; contracts;</code>. Chiều 1 → field đơn: <code>private InsuranceCompany refers_to;</code>.</div>
 
     <h3>3.2 Association vs Aggregation vs Composition</h3>
+    <div class="guide mini">“Ba anh em này khác nhau ở <strong>độ 'dính' và số phận chung</strong>. Thang từ lỏng đến chặt: <em>Association</em> (chỉ quen) → <em>Aggregation</em> (là bộ phận nhưng tháo rời được, sống riêng được) → <em>Composition</em> (bộ phận chết theo tổng thể). Mẹo phân biệt cặp khó Aggregation vs Composition qua ví dụ Java bên dưới: <strong>bộ phận được TRUYỀN TỪ NGOÀI vào</strong> (Door đưa vào Car) → aggregation, rời được; <strong>bộ phận do tổng thể TỰ TẠO và giữ <code>final</code></strong> (Car tự tạo Engine) → composition, dính chặt. Và câu bùa hộ mệnh khi bí: <em>'nghi ngờ thì cứ dùng Association'</em>.”</div>
     <div class="callout tip"><span class="tt">Khi nào dùng gì</span>Hai object gắn chặt <em>whole-part</em> → <strong>Aggregation</strong>. Thường độc lập dù hay đi cùng → <strong>Association</strong>. <strong>Khi nghi ngờ, dùng Association.</strong></div>
     <div class="two">
       <div class="callout example"><span class="tt">Aggregation (Java)</span><pre style="margin:.3rem 0"><code>class Car {
@@ -106,10 +116,12 @@
     </div>
 
     <h3>3.3 Navigability</h3>
+    <div class="guide mini">“<strong>Navigability = 'từ object này có LẦN RA được object kia không'</strong>, thể hiện bằng chiều mũi tên. Hình dung đường một chiều vs hai chiều: nếu chỉ 'Đơn hàng → biết Khách' mà không cần chiều ngược, thì để mũi tên một chiều cho nhẹ. Bài học cốt lõi (và cũng là tinh thần loose coupling ở Chương 11): <em>chỉ giữ chiều nào THẬT SỰ cần</em> — thêm mũi tên hai chiều vô tội vạ khiến hai lớp dính chặt, sửa một bên phải lo bên kia.”</div>
     <p>Cho biết có thể "đi" từ lớp nguồn tới lớp đích qua association hay không (mũi tên).</p>
     <div class="callout key"><span class="tt">Chọn chiều nào cần thật sự?</span>Khám phá interaction diagram. Ngay cả khi cả 2 chiều "có vẻ" cần, thường một chiều dùng ít / số instance nhỏ → chỉ giữ chiều đó. Chỉ giữ <strong>cả hai chiều</strong> khi số instance của <em>cả hai</em> lớp đều lớn &amp; cần đi cả hai chiều. Mục tiêu: quan hệ càng "nhẹ" càng tốt.</div>
 
     <h3>3.4 Dependency vs Association</h3>
+    <div class="guide mini">“Cặp cuối, phân biệt bằng <strong>độ bền của mối quan hệ</strong>. <strong>Association = quan hệ LÂU DÀI</strong>, lớp giữ hẳn một 'ngăn' (field) trỏ tới lớp kia — như bạn lưu số điện thoại người thân trong danh bạ. <strong>Dependency = quan hệ THOÁNG QUA</strong>, chỉ mượn tạm trong lúc chạy một hàm (biến cục bộ, tham số) rồi quên — như hỏi đường một người lạ xong đường ai nấy đi. Vẽ nét đứt vì nó 'mờ nhạt, tạm thời'. Kim chỉ nam: <em>'quan hệ càng nhẹ càng tốt'</em>.”</div>
     <div class="tw"><table>
       <thead><tr><th></th><th>Association</th><th>Dependency</th></tr></thead>
       <tbody>
@@ -125,6 +137,7 @@
 
   <section>
     <h2><span class="num">4</span> Define States — State Machine</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Vẽ 'cuộc đời' của một object</span>“Một số object có 'tâm trạng' thay đổi theo thời gian, và cách nó phản ứng phụ thuộc vào tâm trạng hiện tại. <strong>State Machine = bản đồ các trạng thái và các sự kiện làm object nhảy từ trạng thái này sang trạng thái khác</strong> (nhớ chứ — đây là sơ đồ 'động' theo phân loại Chương 1). Hình dung cây <strong>đèn giao thông</strong>: các <em>state</em> là Xanh/Vàng/Đỏ; <em>event</em> là 'hết giờ' làm nó chuyển; <em>guard</em> là điều kiện kèm theo; <em>activity</em> là việc làm khi vào/ra mỗi đèn. Đọc cú pháp <code>Event[guard]/activity</code> theo nghĩa: 'khi có SỰ KIỆN, NẾU điều kiện đúng, thì LÀM việc kia rồi đổi trạng thái'.”</div>
     <div class="callout def"><span class="tt">State Machine</span>Đồ thị có hướng gồm <strong>state (node)</strong> nối bởi <strong>transition (cung)</strong>; mô tả lịch sử đời của một <em>reactive object</em>. Transition: <code>Event(args)[guard condition]/activity</code>.</div>
     <div class="grid">
       <div class="card"><h4>State</h4><p>Trạng thái của object. VD CourseInfo: Opened (numStudents ≥ 3) / Closed (&lt; 3).</p></div>
@@ -133,12 +146,14 @@
       <div class="card"><h4>Activity (Action)</h4><p><strong>Entry</strong> (khi vào state) · <strong>Do</strong> (đang chạy) · <strong>Exit</strong> (khi ra state).</p></div>
     </div>
     <div class="callout note"><span class="tt">Pseudo-states</span><strong>Initial state</strong> (khi object được tạo, bắt buộc, chỉ 1). <strong>Choice</strong> (đánh giá động guard sau, chỉ segment đầu có trigger). <strong>Final state</strong> (kết thúc đời object, tùy chọn, có thể nhiều).</div>
+    <div class="guide mini">“Đừng phí công vẽ State Machine cho mọi lớp! Khung dưới cho tiêu chí: chỉ những object 'có tính khí thất thường' — cùng một lệnh nhưng phản ứng khác nhau tùy trạng thái — mới cần. Object 'hiền', làm gì cũng như nhau (chỉ đọc/ghi dữ liệu) thì <strong>không cần</strong>. Hình dung: cần vẽ 'cuộc đời' cho <em>đơn hàng</em> (Mới → Đã trả tiền → Đang giao → Hoàn tất), nhưng khỏi vẽ cho <em>một dòng địa chỉ</em>.”</div>
     <div class="callout key"><span class="tt">Object nào cần State Machine?</span>Object có vai trò được làm rõ bởi state transitions; use case phức tạp bị điều khiển bởi state. <strong>KHÔNG cần</strong> mô hình cho: object ánh xạ thẳng sang cài đặt; object không bị điều khiển bởi state; object chỉ có <strong>một state tính toán</strong>.</div>
     <div class="callout note"><span class="tt">Ánh xạ về mô hình</span>Event → operation; method cập nhật thông tin đặc thù state; state thường biểu diễn bằng <strong>attribute</strong> (đầu vào cho bước Define Attributes).</div>
   </section>
 
   <section>
     <h2><span class="num">5</span> Define Attributes</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Lớp 'biết/nhớ những gì'</span>“Nếu operation là 'lớp làm được gì' thì <strong>attribute là 'lớp nhớ những gì'</strong> — các mẩu dữ liệu nó mang theo (tên, tuổi, số dư). Hình dung như <em>các ô trong tờ khai lý lịch</em> của object. Mẹo tìm attribute: những 'danh từ' bạn từng gạch chân nhưng thấy quá nhỏ để làm hẳn một lớp, chỉ có giá trị mà không có hành vi → cho làm attribute. Để ý khái niệm <strong>Derived Attribute</strong> ('thuộc tính dẫn xuất') — sẽ giải thích ngay dưới.”</div>
     <div class="callout def"><span class="tt">Attribute</span><code>attributeName : Type = Default</code> (kèm visibility +/#/-). Type phải là kiểu dữ liệu <strong>sơ cấp (elementary)</strong> của ngôn ngữ cài đặt (built-in, user-defined type, hoặc user-defined class).</div>
     <h3>Cách tìm attribute</h3>
     <ul>
@@ -146,11 +161,13 @@
       <li>"Danh từ" không trở thành lớp: giá trị của nó là điều quan trọng · thông tin thuộc <em>sở hữu duy nhất</em> của object · không có hành vi.</li>
       <li>Xem mô tả method, xem states, xem thông tin lớp phải tự duy trì.</li>
     </ul>
+    <div class="guide mini">“<strong>Derived attribute = giá trị TÍNH RA từ cái khác, không lưu độc lập</strong>, thường ký hiệu bằng dấu <code>/</code> phía trước. Hình dung: 'ngày sinh' là attribute thật (phải nhớ), còn 'tuổi' là derived — luôn tính từ ngày sinh, không cần lưu riêng (lưu riêng thì năm sau lại sai). Ta chỉ 'lưu sẵn' nó khi việc tính lại quá tốn — đó là đánh đổi tốc độ ↔ bộ nhớ.”</div>
     <div class="callout def"><span class="tt">Derived Attribute (thuộc tính dẫn xuất)</span>Attribute mà giá trị được <strong>tính từ attribute khác</strong>. Dùng khi: không đủ thời gian tính lại mỗi lần cần, hoặc cần <em>đánh đổi</em> runtime performance với bộ nhớ.</div>
   </section>
 
   <section>
     <h2><span class="num">6</span> Class Diagram &amp; Review</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Ráp tất cả thành một bản vẽ</span>“Bước cuối: gom mọi thứ vừa làm (lớp + thuộc tính + phương thức + quan hệ) thành <strong>Class Diagram</strong> — 'tấm ảnh đội hình' tĩnh của cả hệ thống (cặp static/dynamic ở Chương 1). Điểm đáng nhớ: cùng một class diagram phục vụ ba mục đích — từ điển khái niệm của hệ thống, bản đồ cộng tác giữa lớp, và <em>lược đồ database</em> (chính là cầu nối sang Chương 8 sắp tới!). Phần Review points là checklist tự nghiệm thu — không cần thuộc, chỉ cần biết có nó để rà.”</div>
     <p>Class diagram = static view. 3 cách dùng khi mô hình static: mô hình <strong>vocabulary</strong> của hệ thống · <strong>collaborations</strong> · <strong>logical database schema</strong>.</p>
     <div class="callout key"><span class="tt">Review points</span>
       <div class="two" style="margin-top:.3rem">
@@ -161,6 +178,8 @@
     </div>
   </section>
 
+  <div class="guide open"><span class="who">🧑‍🏫 Khép chương · Dẫn sang Chương 8</span>“Ta vừa thiết kế xong các lớp — những object này sống trong bộ nhớ khi chương trình chạy. Nhưng tắt máy là chúng bay hết! Câu hỏi sống còn: <strong>làm sao CẤT giữ dữ liệu của chúng lâu dài, để mai mở lên vẫn còn?</strong> Đó là việc của <em>database</em>. Và như tôi vừa gợi ý — class diagram cũng chính là bản nháp cho lược đồ CSDL. Chương 8 dạy cách <strong>biến các lớp (nhất là Entity) thành bảng dữ liệu</strong>: mô hình ER, ánh xạ class → bảng, và chuẩn hóa (normalization) để dữ liệu gọn gàng không trùng lặp.”</div>
+
   <nav class="pager">
     <a href="06-interface-design.html"><span class="dir">← Trước</span><span class="ttl">Thiết kế giao diện</span></a>
     <a class="next" href="08-data-modeling.html"><span class="dir">Sau →</span><span class="ttl">Mô hình hóa dữ liệu</span></a>
@@ -168,5 +187,6 @@
 </main>
 </div>
 <script src="../assets/app.js"></script>
+<script src="../assets/glossary.js"></script>
 </body>
 </html>

@@ -24,8 +24,13 @@
   <div class="chips"><span class="chip">GUI · Screen transition</span><span class="chip">Subsystem &amp; Interface</span><span class="chip">Package vs Subsystem</span><span class="chip">Gates</span></div>
   <a class="quiz-cta" href="quiz-06-interface-design.html"><span class="ic">📝</span> Luyện trắc nghiệm chủ đề này <small>· 26 câu · lưu tiến độ tự động</small></a>
 
+  <div class="guide open"><span class="who">🧑‍🏫 Giảng viên dẫn chuyện · Vào chương</span>
+  <p>“Chữ 'Interface' (giao diện) trong chương này có <strong>hai nghĩa hoàn toàn khác nhau</strong>, và nếu không tách bạch ngay từ đầu bạn sẽ rối cả chương. Nghĩa thứ nhất — quen thuộc — là <em>giao diện người dùng (GUI)</em>: cái màn hình có nút bấm, ô nhập mà người ta nhìn thấy. Nghĩa thứ hai — kỹ thuật hơn — là <em>giao diện giữa các khối phần mềm</em>: cái 'ô cửa' để một subsystem nói chuyện với subsystem khác hay với thiết bị. Chương chia đúng làm hai nửa như thế.”</p>
+  <p>“Nửa đầu (Mục 1) là chuyện 'bộ mặt cho người dùng' — nhớ các <em>Boundary class</em> ở Chương 4 chứ? Giờ ta biến chúng thành màn hình thật, và làm bốn việc rất quy củ: <strong>thống nhất chuẩn → vẽ ảnh màn hình → vẽ sơ đồ chuyển màn → viết đặc tả từng ô</strong>. Nửa sau (Mục 2) nối thẳng từ 'subsystem giao tiếp qua interface' mà Chương 5 vừa hé lộ: cái 'lò vi sóng có ô cửa' đó được thiết kế thế nào. Sợi chỉ đỏ chung của cả hai nửa chỉ một chữ: <strong>nhất quán &amp; đóng gói</strong> — người dùng cần màn hình nhất quán, còn khối phần mềm cần giấu ruột chỉ lộ ô cửa.”</p></div>
+
   <section>
     <h2><span class="num">1</span> Graphical User Interface Design</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Nửa đầu: bộ mặt cho người dùng</span>“Bản chất mục này: biến các <em>Boundary class</em> (bồi bàn ở Chương 4) thành <strong>màn hình thật</strong>, một cách bài bản. Điều quan trọng nhất cần thấm là tinh thần <strong>chuẩn hóa (standardize)</strong>: mọi màn hình trong app phải giống nhau về cách đặt nút, báo lỗi, phối màu. Hình dung một chuỗi cửa hàng tiện lợi: quầy thu ngân luôn ở bên phải, biển giá cùng một font — khách quen mắt, đỡ bỡ ngỡ. Bốn bước dưới (chuẩn hóa → ảnh → chuyển màn → đặc tả) chỉ là quy trình để đạt sự nhất quán đó.”</div>
     <p>4 bước: (1.1) chuẩn hóa cấu hình màn hình · (1.2) tạo ảnh màn hình · (1.3) tạo sơ đồ chuyển màn · (1.4) tạo đặc tả màn hình.</p>
 
     <h3>1.1 Chuẩn hóa cấu hình màn hình</h3>
@@ -48,6 +53,7 @@
     <div class="callout note"><span class="tt">Công cụ GUI</span>Đơn giản: Notepad, Office. Chuyên nghiệp free: InVision, Eclipse/NetBeans. Thương mại: Dreamweaver, Axure RP, Photoshop, Visual Studio.</div>
 
     <h3>1.3 Sơ đồ chuyển màn (Screen Transition Diagram) — 4 mẫu</h3>
+    <div class="guide mini">“Bản chất: sơ đồ vẽ 'bấm ở màn này thì nhảy sang màn nào' — như <em>bản đồ các phòng và cửa nối giữa chúng</em>. Bốn mẫu dưới khác nhau ở chỗ: cửa sổ con mở ra thì cửa sổ cha còn bấm được không, và có mang dữ liệu theo không. Mẹo phân biệt cặp dễ lẫn: <strong>dependent = 'con mở thì cha ĐỨNG HÌNH'</strong> (như hộp thoại 'Bạn có chắc?' — phải trả lời xong mới làm tiếp được); <strong>independent = 'con mở nhưng cha VẪN dùng được'</strong> (như cửa sổ chat nổi bên cạnh).”</div>
     <div class="tw"><table>
       <thead><tr><th>Mẫu chuyển</th><th>Ý nghĩa</th></tr></thead>
       <tbody>
@@ -59,6 +65,7 @@
     </table></div>
 
     <h3>1.4 Đặc tả màn hình &amp; field attributes</h3>
+    <div class="guide mini">“Bước cuối: viết 'lý lịch' chi tiết cho từng màn hình để lập trình viên làm y hệt, khỏi đoán. Bản chất <strong>field attributes = mô tả kỹ tính chất của mỗi ô nhập/hiển thị</strong>: ô này nhập số hay chữ, dài mấy ký tự, sai thì nhấp nháy đỏ… Hình dung như <em>tờ khai mẫu ở ngân hàng</em>: ô 'Số CMND' ghi rõ 'chỉ nhập số, 12 chữ số' — đặc tả field chính là ghi trước những luật đó.”</div>
     <ul>
       <li><strong>Screen image:</strong> ảnh màn hình sẽ hiển thị (đính bản in nếu có).</li>
       <li><strong>List of functions:</strong> tên các bộ phận (nút…), mô tả sự kiện, đặc tả input check &amp; output.</li>
@@ -68,9 +75,11 @@
 
   <section>
     <h2><span class="num">2</span> System / Device Interface Design</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Nửa sau: 'ô cửa' giữa các khối</span>“Đổi hệ quy chiếu: nửa này KHÔNG nói về màn hình cho người, mà về cách các <strong>khối phần mềm lớn (subsystem)</strong> và thiết bị ngoài nói chuyện với nhau qua <strong>Interface</strong>. Đây là phần trừu tượng nhất chương, nên bám chặt một hình ảnh: <em>Interface là ổ cắm điện chuẩn trên tường</em>. Bạn cắm quạt, nồi cơm, sạc điện thoại — thiết bị nào cũng được, miễn đúng chuẩn ổ cắm; và bạn chẳng cần biết sau bức tường dây điện đi thế nào. Interface trong phần mềm y hệt: một 'bản hợp đồng' về việc 'gọi được những gì', còn ruột bên trong subsystem giấu kín. Ba bước: tìm subsystem → định nghĩa interface của nó → thiết kế bên trong.”</div>
     <p>3 bước: (2.1) Identify subsystem · (2.2) Identify subsystem interfaces · (2.3) Subsystem design.</p>
 
     <h3>2.1 Subsystem &amp; Interface</h3>
+    <div class="guide mini">“Nối tiếp Chương 5: <strong>Subsystem = khối phần mềm giấu kín ruột, chỉ lộ ra vài 'ô cửa' (interface)</strong>. Khung 'Package vs Subsystem' bên dưới là điểm rất hay ra đề — nhớ bằng một câu: <em>package chỉ GOM (như cái rổ nhìn xuyên qua), subsystem thì GIẤU và LÀM (như lò vi sóng — bấm nút bên ngoài, ruột kín mít)</em>. Vì giấu được ruột nên subsystem 'dễ thay thế': đổi cái lò vi sóng khác cùng loại nút bấm, bếp vẫn chạy.”</div>
     <div class="callout def"><span class="tt">Subsystem</span>Một phần tử <strong>hiện thực (realize) một hoặc nhiều interface</strong> định nghĩa hành vi của nó. Đặc điểm: <strong>đóng gói hoàn toàn hành vi</strong>; đại diện một năng lực độc lập với interface rõ ràng (tiềm năng tái sử dụng); có thể mô hình nhiều biến thể cài đặt.</div>
     <div class="callout key"><span class="tt">Package vs Subsystem</span>
       <div class="two" style="margin-top:.3rem">
@@ -85,15 +94,20 @@
     <h3>2.2 Identify Subsystem Interfaces</h3>
     <p>Mục đích: xác định interface của subsystem dựa trên trách nhiệm. Các bước: tìm tập interface ứng viên → tìm điểm tương đồng → định nghĩa dependency giữa interface → map interface tới subsystem → đặc tả hành vi interface → đóng gói interface.</p>
     <div class="callout key"><span class="tt">Interface Guidelines</span><strong>Tên</strong> phản ánh vai trò (bắt đầu bằng "I", VD <code>ICourseCatalogSystem</code>). <strong>Description</strong> truyền tải trách nhiệm. <strong>Operation:</strong> tên phản ánh kết quả, mô tả rõ tham số &amp; kết quả. <strong>Documentation:</strong> đính sequence/state diagram, test plan. → "Interface ổn định, well-defined là chìa khóa cho kiến trúc bền vững."</div>
+    <div class="guide mini">“Hai từ trái nghĩa cần thuộc: <strong>Provided interface = 'tôi CUNG CẤP dịch vụ này'</strong> (ký hiệu que có bóng tròn ─○, như cái 'chuôi cắm'); <strong>Required interface = 'tôi CẦN dịch vụ này'</strong> (ký hiệu que có nửa vòng ○–, như cái 'ổ cắm'). Hình dung ổ cắm điện: bên tường cung cấp (provided), thiết bị cần (required) — ghép hai nửa lại là chạy. Và nhớ quy ước nhỏ mà đề rất hay soi: <em>tên interface luôn bắt đầu bằng chữ 'I'</em> (như <code>ICourseCatalogSystem</code>).”</div>
     <div class="callout example"><span class="tt">Modeling convention</span>Interface bắt đầu bằng "I". Required interface (đường có ổ cắm ○–) vs Provided interface (đường có bóng ─○). VD: RegistrationController cần <code>ICourseCatalogSystem</code> (required); subsystem CourseCatalogSystem cung cấp (provided).</div>
 
     <h3>2.3 Subsystem Design</h3>
     <p>Các bước: (1) phân phối hành vi subsystem cho phần tử · (2) tài liệu hóa phần tử · (3) mô tả dependency của subsystem · (4) checkpoints.</p>
     <div class="callout key"><span class="tt">Subsystem Design — Goals &amp; Suggestions</span><strong>Goals:</strong> Loose coupling · Portability/plug-and-play · Insulation from change · Independent evolution. <strong>Strong suggestions:</strong> KHÔNG lộ chi tiết — chỉ interface; chỉ phụ thuộc vào interface khác. → "Chìa khóa là <em>abstraction &amp; encapsulation</em>."</div>
+    <div class="guide mini">“Hai cặp khái niệm nhỏ nhưng hay hỏi. <strong>Gate</strong> = 'cổng ra/vào ở mép sơ đồ' — điểm mà tin nhắn đi vào hay đi ra khỏi subsystem; hình dung như <em>cổng bảo vệ của khu chung cư</em>, mọi ra vào đều qua đó. <strong>Black-box vs White-box</strong>: nhìn 'hộp đen' là đứng ngoài chỉ thấy cổng và hành vi (không biết bên trong); nhìn 'hộp trắng' là mở nắp ra thấy các phần tử bên trong phối hợp thế nào. Cùng một subsystem, hai góc nhìn.”</div>
     <div class="callout def"><span class="tt">Gates</span>Một <strong>điểm kết nối</strong> trong tương tác cho message đi vào/ra khỏi tương tác — điểm trên biên của sequence diagram; tên message kết nối = tên gate. Phân biệt <strong>Black-box view</strong> (subsystem interaction) và <strong>White-box view</strong> (Internal structure: Subsystem Manager điều phối các Design Element bên trong).</div>
     <div class="callout tip"><span class="tt">Subsystem Dependencies</span>Ưu tiên phụ thuộc vào <strong>subsystem qua interface</strong> (flexible, preferred); phụ thuộc vào package thì dùng cẩn thận (use with care).</div>
     <div class="callout note"><span class="tt">Checkpoints: Design Subsystems</span>Có realization association cho mỗi interface được cung cấp? Có dependency cho mỗi interface được dùng? Không phần tử nào trong subsystem có public visibility? Mỗi operation của interface có được tài liệu hóa trong interaction diagram (1:1 mapping)?</div>
+    <div class="guide after"><span class="who">💡 Chốt cả Mục 2 trong một câu</span>“Toàn bộ nửa sau chương gói vào một triết lý: <strong>abstraction &amp; encapsulation</strong> — 'chỉ lộ ô cửa (interface), giấu hết ruột'. Mọi mục tiêu (loose coupling, dễ thay thế, tiến hóa độc lập) đều là hệ quả của việc giấu ruột này. Đây cũng chính là hạt giống của <em>DIP – 'phụ thuộc vào abstraction'</em> trong SOLID (Chương 12), và của <em>loose coupling</em> (Chương 11). Nhớ: chương này gieo hạt, hai chương đó gặt.”</div>
   </section>
+
+  <div class="guide open"><span class="who">🧑‍🏫 Khép chương · Dẫn sang Chương 7</span>“Ta đã thiết kế xong 'bộ mặt ngoài' (giao diện) và cách các khối lớn ghép nối. Giờ là lúc <strong>phóng to vào TỪNG viên gạch</strong> — từng lớp một. Cho tới đây, các lớp vẫn còn ở mức 'tên gọi và trách nhiệm'; Chương 7 sẽ dạy cách thiết kế chi tiết bên trong một lớp: nó có những <em>thuộc tính</em> gì, <em>phương thức</em> nào (kèm dấu +/#/− quy định ai được gọi), nối với lớp khác bằng loại quan hệ nào, và nếu lớp có 'vòng đời trạng thái' thì vẽ bằng <em>State Machine</em> ra sao. Ta đang đi từ 'bản vẽ khu phố' xuống 'bản vẽ từng ngôi nhà'.”</div>
 
   <nav class="pager">
     <a href="05-phan-tu-thiet-ke.html"><span class="dir">← Trước</span><span class="ttl">Xác định phần tử thiết kế</span></a>
@@ -102,5 +116,6 @@
 </main>
 </div>
 <script src="../assets/app.js"></script>
+<script src="../assets/glossary.js"></script>
 </body>
 </html>

@@ -24,8 +24,13 @@
   <div class="chips"><span class="chip">Coding style</span><span class="chip">Code tuning</span><span class="chip">Refactoring · Code Smells</span><span class="chip">Debugging</span></div>
   <a class="quiz-cta" href="quiz-10-programming.html"><span class="ic">📝</span> Luyện trắc nghiệm chủ đề này <small>· 32 câu · lưu tiến độ tự động</small></a>
 
+  <div class="guide open"><span class="who">🧑‍🏫 Giảng viên dẫn chuyện · Vào chương</span>
+  <p>“Từ đây bắt đầu bốn chương cuối — nhóm 'tay nghề thủ công'. Chương 9 giúp phần mềm CHẠY ĐÚNG; Chương 10 này giúp nó <strong>ĐẸP, DỄ ĐỌC, DỄ SỬA</strong>. Có một câu của Martin Fowler tóm cả chương, bạn nên khắc ghi: <em>'Máy nào cũng hiểu được code; lập trình viên GIỎI viết code cho CON NGƯỜI hiểu.'</em> Vì phần mềm sống hàng chục năm, được đọc đi đọc lại bởi người khác (và bởi chính bạn 6 tháng sau đã quên), nên 'dễ đọc' quan trọng chẳng kém 'chạy đúng'.”</p>
+  <p>“Chương gồm bốn mảng đời thường của nghề code: <strong>phong cách viết</strong> (đặt tên, comment, hằng số) để code sạch mắt; <strong>tối ưu tốc độ (code tuning)</strong> — và bài học lớn nhất ở đây là 'ĐỪNG tối ưu vội'; <strong>refactoring</strong> — nghệ thuật dọn dẹp code mà không đổi hành vi, cùng bộ 'mùi code hư' (code smells) để biết chỗ nào cần dọn; và <strong>debugging</strong> — săn lỗi một cách khoa học thay vì mò mẫm. Xuyên suốt là hai chữ vàng <em>KISS (giữ đơn giản)</em> và <em>DRY (đừng lặp lại)</em>, hai câu này sẽ vang vọng sang cả Chương 11–12.”</p></div>
+
   <section>
     <h2><span class="num">1</span> Bốn cách để code "đúng"</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Phân biệt mấy từ hay lẫn</span>“Mở màn bằng việc gỡ rối vài từ na ná. Ý quan trọng nhất cần khắc: <strong>Test ≠ Debug</strong>. <em>Test</em> chỉ 'bật đèn báo có lỗi ở đâu đó' (Chương 9); <em>Debug</em> mới là 'lần theo dây để tìm ĐÚNG chỗ hỏng và VÌ SAO hỏng'. Còn <em>Defensive programming</em> là thói quen 'vừa viết vừa đề phòng', như lái xe phòng thủ — luôn giả định điều tệ có thể xảy ra. Bốn thẻ dưới chỉ đang phân vai bốn hoạt động đó.”</div>
     <div class="grid">
       <div class="card"><h4>Verification / QA</h4><p>Vạch trần vấn đề &amp; tăng độ tin cậy; kết hợp reasoning + test.</p></div>
       <div class="card"><h4>Debugging</h4><p>Tìm ra <em>vì sao</em> chương trình không hoạt động đúng ý.</p></div>
@@ -37,6 +42,7 @@
 
   <section>
     <h2><span class="num">2</span> Programming Style (coding convention)</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Luật lệ để code sạch mắt</span>“Bản chất mục này: một bộ 'quy tắc ăn ở' để nhiều người cùng viết mà code trông như một người viết. Không có gì cao siêu — đặt tên biến có nghĩa (<code>taxRate</code> chứ đừng <code>x</code>), thay số ma thuật bằng hằng số có tên, comment giải thích 'vì sao' chứ đừng kể lể 'làm gì'. Hình dung như <em>quy tắc trình bày một bài văn</em>: xuống dòng, chấm phẩy đúng chỗ thì người đọc đỡ nhọc. Công cụ <strong>Checkstyle</strong> tự động soi bạn có tuân luật không.”</div>
     <ul>
       <li>Dùng <strong>hằng số</strong> cho mọi giá trị hằng (VD thuế); khai báo hằng trước biến ở đầu thủ tục.</li>
       <li>Dùng biến khi có thể; đặt tên <strong>mô tả</strong> (có/không prefix, VD <code>btnDone</code>).</li>
@@ -49,8 +55,10 @@
 
   <section>
     <h2><span class="num">3</span> Code Tuning / Optimization</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Bài học: đừng vội tối ưu!</span>“Đây là mục nhiều 'bẫy tư duy' nhất. Bản chất <strong>code tuning = chỉnh code cho chạy nhanh hơn</strong> — nhưng thông điệp thực sự của cả mục lại là <em>'khoan đã, đừng làm sớm'</em>. Nhớ hai điều vàng: (1) Quy tắc <strong>80/20</strong> — 20% code ngốn 80% thời gian, nên tối ưu lung tung chỗ còn lại là công cốc; (2) <strong>'Make it right, then make it fast'</strong> — chạy đúng đã, rồi ĐO xem chỗ nào thật sự chậm mới tối ưu. Hình dung bác sĩ: phải chẩn đoán (đo) đúng bệnh rồi mới bốc thuốc, chứ không kê thuốc bừa. Danh sách 'Myths' bên dưới đều là niềm tin SAI phổ biến — đọc để tránh.”</div>
     <div class="callout def"><span class="tt">Code tuning</span>Sửa code <em>đúng</em> để chạy <em>hiệu quả hơn</em>. KHÔNG phải cách rẻ/hiệu quả nhất để cải thiện performance. Quy tắc 80/20: <strong>20% method tiêu tốn 80% thời gian chạy</strong>.</div>
     <h3>Myths (đều SAI!)</h3>
+    <div class="guide mini">“Cảnh báo: mọi dòng dưới đây là <strong>quan niệm SAI</strong> mà dân mới hay tin. Điểm chung của chúng: <em>đoán mò thay vì đo</em>, và <em>tối ưu quá sớm</em>. Đọc mỗi dòng rồi tự nhủ 'à, cái này tưởng đúng mà hóa ra sai vì…'. Câu bất hủ của Donald Knuth: 'tối ưu sớm là gốc rễ mọi tội lỗi'.”</div>
     <ul>
       <li>"Giảm số dòng code high-level thì code máy nhanh/nhỏ hơn" — <strong>sai</strong>.</li>
       <li>"Chương trình nhanh cũng quan trọng như chương trình đúng" — <strong>sai</strong>.</li>
@@ -73,9 +81,11 @@
 
   <section>
     <h2><span class="num">4</span> Refactoring</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Dọn nhà mà không đập tường</span>“Khái niệm đẹp và quan trọng. Bản chất <strong>Refactoring = sửa cho code SẠCH và GỌN hơn nhưng KHÔNG đổi những gì nó làm</strong> (nhìn từ ngoài, hành vi y hệt). Hình dung <em>dọn dẹp và sắp xếp lại một căn phòng bừa bộn</em>: đồ vẫn đủ chừng ấy, công năng phòng không đổi, nhưng đi lại dễ hơn, tìm đồ nhanh hơn. Câu hỏi sống còn: làm sao chắc mình 'dọn' mà không 'làm vỡ' gì? Câu trả lời nối thẳng Chương 9: <strong>có bộ unit test làm lưới an toàn</strong> — dọn xong chạy test, xanh hết là yên tâm. Chưa có test thì viết test trước đã.”</div>
     <div class="callout def"><span class="tt">Refactoring — Martin Fowler</span>"Cải thiện thiết kế &amp; chất lượng của mã nguồn hiện có <strong>mà không thay đổi hành vi bên ngoài</strong>." Là quy trình từng bước biến bad code thành good code, dựa trên <em>refactoring patterns</em>.</div>
     <div class="callout key"><span class="tt">Khi nào refactor?</span><strong>Bad smells</strong> báo hiệu cần refactor: để thêm chức năng dễ hơn · khi fix bug · khi review code người khác · khi có technical debt · khi làm TDD. <strong>Unit test bảo đảm refactoring không đổi hành vi</strong> — nếu chưa có test thì viết test trước.</div>
     <h3>Nguyên tắc &amp; quy trình</h3>
+    <div class="guide mini">“Hai chữ viết tắt cần thuộc nằm lòng vì chúng là 'kim chỉ nam' của cả nghề: <strong>KISS = 'Keep It Simple, Stupid'</strong> — càng đơn giản càng tốt, đừng khôn lỏi; <strong>DRY = 'Don't Repeat Yourself'</strong> — thấy code lặp là gom lại một chỗ. Thêm <strong>Boy Scout Rule</strong>: 'rời khu cắm trại sạch hơn lúc bạn đến' — mỗi lần đụng vào code, dọn giúp nó tốt hơn một chút. Ba câu này sẽ trở lại ở Chương 11 (cohesion/coupling) và 12 (SOLID).”</div>
     <div class="two">
       <div class="callout tip"><span class="tt">Main Principles</span>KISS (keep it simple) · DRY (avoid duplication) · self-documenting · giảm tổng lượng code · tách concern (decoupling) · mức trừu tượng phù hợp · <strong>Boy scout rule</strong> (để code sạch hơn lúc bạn tới).</div>
       <div class="callout tip"><span class="tt">Typical Process</span>(1) Lưu/backup code hiện tại · (2) Chuẩn bị test bảo đảm hành vi · (3) refactor <strong>từng cái một</strong>, giữ nhỏ · (4) chạy test, pass thì tiếp/không thì revert · (5) check-in.</div>
@@ -84,6 +94,7 @@
 
   <section>
     <h2><span class="num">5</span> Code Smells — 6 nhóm</h2>
+    <div class="guide"><span class="who">🧑‍🏫 'Mùi' của code hư</span>“Cái tên đã nói hết: <strong>code smell = một 'mùi khó chịu' bốc lên từ code, báo hiệu có thể đang có vấn đề cần dọn (refactor)</strong>. Chú ý: mùi hôi <em>gợi ý</em> chứ chưa chắc chắn có bug — như mùi lạ trong tủ lạnh, đáng đi kiểm tra chứ chưa hẳn đồ đã hỏng. Người ta gom vô số 'mùi' thành <strong>6 nhóm</strong> cho dễ nhớ, và cái hay là mỗi nhóm ứng với một nguyên lý bạn sắp học: <em>Bloaters</em> (phình to → vi phạm 'làm một việc'), <em>Change Preventers</em> (đụng đâu vỡ đó → phá SRP/coupling), <em>Couplers</em> (dính chặt nhau → đúng chủ đề Chương 11)… Đừng học thuộc từng mùi, hãy nắm 'tinh thần mỗi nhóm'.”</div>
     <div class="callout def"><span class="tt">Code smell</span>Các cấu trúc trong code <em>gợi ý</em> khả năng cần refactoring.</div>
     <div class="tw"><table>
       <thead><tr><th>Nhóm</th><th>Các smell tiêu biểu</th></tr></thead>
@@ -101,6 +112,7 @@
 
   <section>
     <h2><span class="num">6</span> Debugging</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Săn lỗi một cách khoa học</span>“Phần cuối, cũng là phần dùng nhiều nhất trong đời thực. Điểm mấu chốt để đổi đời việc debug: <strong>đừng ngồi mò đoán, hãy làm như một nhà khoa học</strong> — nhìn hiện tượng → đặt giả thuyết → làm thí nghiệm để kiểm → điều chỉnh. Nhưng thông điệp lớn hơn cả là thứ tự ưu tiên trong khung 'Defense in depth': <em>debug là biện pháp CUỐI CÙNG</em>. Tốt nhất là làm cho lỗi <strong>không thể xảy ra</strong>; không được thì <strong>đừng gây ra lỗi</strong>; không được nữa thì làm lỗi <strong>lộ ra thật sớm</strong> (fail-fast); hết cách rồi mới debug. Hình dung phòng cháy: thiết kế chống cháy > báo khói sớm > chữa cháy. Chữa cháy (debug) là hạ sách.”</div>
     <p>Thuật ngữ: Error → Bug → Fault → Defect → Failure. "Bug" đầu tiên thực sự là một con bướm đêm kẹt trong relay (Grace Hopper).</p>
     <h3>6.1 Defense in depth (phòng thủ nhiều tầng)</h3>
     <div class="tw"><table>
@@ -112,6 +124,7 @@
         <tr><td><strong>4. Debugging (last resort)</strong></td><td>Cần khi failure (hậu quả) xa cause (defect). Dùng phương pháp khoa học.</td></tr>
       </tbody>
     </table></div>
+    <div class="guide mini">“<strong>Fail-fast = 'thà vỡ ngay còn hơn giấu bệnh'.</strong> Nghe ngược đời: sao lại muốn chương trình sập sớm? Vì lỗi bị giấu sẽ trôi đi thật xa rồi mới bùng ở chỗ chẳng liên quan, cực khó truy. Dùng <strong>assertion</strong> để bắt lỗi ngay tại nguồn. Hình dung: thà đèn 'check engine' sáng ngay khi máy vừa chớm hỏng, còn hơn xe chạy thêm 200km rồi chết máy giữa đèo — lúc đó tìm nguyên nhân đã muộn. Đây chính là tinh thần của <em>defensive programming</em> và cũng là lý do người ta test sớm.”</div>
     <div class="callout key"><span class="tt">Fail-fast — Đừng che giấu lỗi</span>Đừng làm code "robust" giả tạo bằng cách <em>không</em> fail. Assertion giúp document &amp; kiểm invariant: biến lỗi thành failure ngay. Lỗi phát hiện càng sớm càng dễ sửa (giảm khoảng cách defect ↔ detection). Câu hỏi trong production: có nên giữ assertion? — <em>tùy ngữ cảnh</em> (Ariane 5 crash vì exception overflow không xử lý). Trích: Hoare — "thiết kế đơn giản để hiển nhiên không có lỗi vs phức tạp đến mức không có lỗi hiển nhiên"; Kernighan — "debug khó gấp đôi viết code, nên đừng viết code khôn ranh hết mức".</div>
     <h3>6.2 Quy trình Debugging (4 bước)</h3>
     <ol>
@@ -120,10 +133,14 @@
       <li><strong>Fix:</strong> typo hay lỗi thiết kế? có xuất hiện ở chỗ khác?</li>
       <li><strong>Re-run all tests</strong> (thêm test vào regression suite).</li>
     </ol>
+    <div class="guide mini">“Một mẹo cực mạnh, đáng vàng, ở khung dưới: <strong>Binary search (tìm kiếm nhị phân) trên đường đi của lỗi</strong>. Thay vì dò từng dòng, hãy kiểm ở 'điểm giữa': nếu giữa chừng dữ liệu còn đúng thì lỗi ở nửa sau, sai rồi thì lỗi ở nửa trước — mỗi lần cắt đôi phạm vi. Hình dung tìm đoạn ống nước rò trong đường ống dài: kiểm ở giữa, khô thì rò ở nửa kia; vài lần là ra. Nhờ vậy tìm lỗi trong O(log n) thay vì O(n). Kèm mẹo 'thu nhỏ input' đến ca nhỏ nhất còn tái hiện được lỗi.”</div>
     <div class="callout tip"><span class="tt">Kỹ thuật &amp; scientific method</span>Debug là quá trình khoa học có hệ thống: formulate hypothesis → design experiment → perform → adjust. <strong>Binary search</strong> trên code lỗi (kiểm kết quả trung gian ở nửa đường → về defect trong O(log n)). <strong>Reducing input size</strong> (divide-and-conquer, "very very happy" → "aab"…). <strong>Localizing:</strong> bỏ dần từng phần tới khi hết failure / thêm dần tới khi failure xuất hiện.</div>
+    <div class="guide mini">“<strong>Heisenbug = con bug 'ma quái' cứ nhìn vào là biến mất.</strong> Tên chơi chữ từ nguyên lý Heisenberg trong vật lý ('quan sát làm thay đổi kết quả'). Xảy ra với timing/đa luồng: bạn bật debugger hay thêm dòng in ra để soi thì nó chạy đúng, tắt đi thì lại lỗi. Hình dung tiếng kêu lạ trong xe: mang ra thợ thì im re, về nhà lại kêu. Mẹo đối phó ở khung dưới: ghi <strong>log</strong> lại để 'xem lại quá khứ', thu nhỏ input, và luôn nghi mấy lỗi ngớ ngẩn trước (đảo thứ tự tham số, nhầm <code>==</code> với <code>.equals()</code>).”</div>
     <div class="callout warn"><span class="tt">Heisenbugs &amp; hard bugs</span>Heisenbug: chương trình tuần tự deterministic thì failure lặp lại được, nhưng thực tế có input liên tục/timing/concurrency → failure ngẫu nhiên, khó tái hiện (dùng debugger/assertion thì bug biến mất!). Mẹo: rebuild từ đầu; giải thích cho bạn bè; minimize input; add checks; dùng <strong>Logging Events</strong> (circular buffer) để tái dựng quá khứ. Where is the bug? — tìm lỗi ngớ ngẩn trước (đảo thứ tự tham số <code>Collections.copy(src,dest)</code>, <code>@Override</code> bắt typo, <code>a==b</code> vs <code>a.equals(b)</code>, recompile everything).</div>
     <div class="callout note"><span class="tt">Công cụ (Eclipse plug-in)</span><strong>Checkstyle</strong> (tuân coding standard) · <strong>FindBugs</strong> (static analysis tìm bug &amp; performance issue, &gt;200 rule: Correctness, Bad practice, Performance, Dodgy; input là file .class, dùng "bug patterns").</div>
   </section>
+
+  <div class="guide open"><span class="who">🧑‍🏫 Khép chương · Dẫn sang Chương 11</span>“Suốt chương này, hễ nói tới 'code hư' là ta lại chạm vào hai từ: code <strong>dính chặt nhau quá</strong> (nhóm Couplers) và một lớp <strong>ôm đồm quá nhiều việc chẳng liên quan</strong>. Đó không phải trùng hợp — chúng là hai 'căn bệnh' nền tảng nhất của thiết kế, và giờ ta sẽ mổ xẻ chúng thành hai khái niệm có thang đo đàng hoàng: <strong>Coupling</strong> (độ dính giữa các module) và <strong>Cohesion</strong> (độ gắn kết bên trong một module). Mục tiêu vàng của mọi thiết kế đẹp — bạn sắp gặp — gói trong một câu: <em>'loose coupling, high cohesion'</em>. Chương 11 đang đợi.”</div>
 
   <nav class="pager">
     <a href="09-testing.html"><span class="dir">← Trước</span><span class="ttl">Kiểm thử</span></a>
@@ -132,5 +149,6 @@
 </main>
 </div>
 <script src="../assets/app.js"></script>
+<script src="../assets/glossary.js"></script>
 </body>
 </html>

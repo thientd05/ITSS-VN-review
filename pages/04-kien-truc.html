@@ -24,8 +24,13 @@
   <div class="chips"><span class="chip">Boundary · Entity · Control</span><span class="chip">Sequence vs Communication</span><span class="chip">Use-Case Realization</span><span class="chip">MVC · 3-tier</span></div>
   <a class="quiz-cta" href="quiz-04-kien-truc.html"><span class="ic">📝</span> Luyện trắc nghiệm chủ đề này <small>· 46 câu · lưu tiến độ tự động</small></a>
 
+  <div class="guide open"><span class="who">🧑‍🏫 Giảng viên dẫn chuyện · Vào chương</span>
+  <p>“Chương 3 kết thúc với một câu hỏi treo lơ lửng: ta đã biết khách muốn gì (các use case) — giờ <strong>bên trong hệ thống cần những nhân vật nào để diễn được các câu chuyện đó?</strong> Chương 4 trả lời, và đây là bước ngoặt lớn: ta rời khỏi 'nhìn từ ngoài' để lần đầu bước vào <em>bên trong</em> phần mềm.”</p>
+  <p>“Ý tưởng đẹp nhất của chương — và bạn hãy khắc ghi — là: <strong>mọi phần mềm, dù to đến đâu, đều có thể chia nhân vật thành đúng 3 loại vai</strong>. Hình dung một nhà hàng: có <em>bồi bàn</em> (nói chuyện với khách), có <em>bếp trưởng</em> (điều phối, ra lệnh nấu món nào trước), và có <em>kho nguyên liệu</em> (giữ đồ). Trong phần mềm, ba vai đó tên là <strong>Boundary</strong> (bồi bàn — giao tiếp bên ngoài), <strong>Control</strong> (bếp trưởng — điều phối), <strong>Entity</strong> (kho — giữ dữ liệu). Cả chương chỉ xoay quanh: tìm ra ba loại vai này (Mục 2), cho chúng 'diễn thử' một use case bằng sơ đồ tương tác (Mục 3–4), rồi chốt lại thành sơ đồ lớp (Mục 5). Cuối cùng, Mục 6 lùi ra xa nhìn các 'kiểu bố trí nhà hàng' nổi tiếng: MVC, 3-tier…”</p></div>
+
   <section>
     <h2><span class="num">1</span> Tổng quan Architectural Design</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Mục này ở đâu trong câu chuyện</span>“Trước khi gặp ba loại vai, hãy định vị: đây chính là bước <em>2.2 Architectural Design</em> trong bộ khung 6 bước (Chương 1). Bản chất công việc: biến những mong muốn (use case) thành một <strong>bản thiết kế có thể lập trình được</strong>. Nhớ 'chuỗi tinh chỉnh' dưới đây — nó là sợi chỉ đỏ của mấy chương tới: <em>Use Case → Analysis Class → Design Element → Code → chương trình chạy</em>. Analysis class (thứ ta học ngay sau đây) là nấc đầu tiên trên con đường biến ý tưởng thành mã.”</div>
     <div class="callout def"><span class="tt">Mục đích</span>"Đưa ra thiết kế có thể cài đặt và kiểm chứng được với yêu cầu". Kiến trúc được thiết kế <strong>từ yêu cầu phần mềm</strong>.</div>
     <p><strong>Đầu vào:</strong> Use-Case Model, Glossary, Supplementary Specifications, Software Architecture Document, Project Specific Guidelines. <strong>Đầu ra:</strong> Analysis Classes, Analysis Model, Use-Case Realization.</p>
     <p><strong>3 nội dung top-level:</strong> cấu trúc phần mềm &amp; component · giao diện ngoài &amp; giữa component · thiết kế database.</p>
@@ -35,6 +40,7 @@
 
   <section>
     <h2><span class="num">2</span> Ba loại Analysis Class</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Trái tim của chương</span>“Đây là ý tưởng vàng đã hứa ở đầu chương. Bản chất: người ta phát hiện rằng nếu cứ nhét mọi thứ vào một lớp thì rối, nên chia trách nhiệm thành <strong>ba vai không chồng chéo</strong>. Nhớ bằng hình ảnh nhà hàng: <strong>Boundary = bồi bàn</strong> (đứng ở cửa, nói chuyện với thế giới bên ngoài — màn hình, actor, hệ thống khác); <strong>Entity = kho hàng</strong> (chỉ lo cất giữ dữ liệu quý, như Sinh viên, Học phần); <strong>Control = bếp trưởng</strong> (không tiếp khách, không giữ kho, mà điều phối 'làm bước này trước, gọi kho kia lấy đồ'). Vì sao chia vậy? Vì khi giao diện đổi (bồi bàn thay đồng phục) thì kho và bếp không phải sửa — đó là sức mạnh.”</div>
     <p>Toàn bộ hành vi của một use case phải được <strong>phân phối</strong> cho các analysis class. Dùng <strong>stereotype</strong> làm kim chỉ nam.</p>
     <div class="tw"><table>
       <thead><tr><th>Loại</th><th>Vai trò</th><th>Đặc điểm</th><th>Ký hiệu</th></tr></thead>
@@ -46,21 +52,26 @@
     </table></div>
 
     <h3>2.1 Boundary Classes</h3>
+    <div class="guide mini">“<strong>Boundary = 'bồi bàn', lớp đứng ở BIÊN GIỚI hệ thống.</strong> Bất cứ chỗ nào phần mềm phải 'nói chuyện' với thế giới ngoài đều cần một boundary: nói với người → <em>User interface</em>; nói với hệ thống khác → <em>System interface</em>; nói với thiết bị (máy in, cảm biến) → <em>Device interface</em>. Mẹo thực chiến: <em>mỗi cặp (actor ↔ use case) đẻ ra một boundary</em>. Điều quan trọng cần nhớ ở guideline dưới: chỉ quan tâm 'trình bày THÔNG TIN GÌ', đừng sa đà 'nút màu gì' — đó là việc của chương giao diện sau.”</div>
     <p>3 kiểu: <strong>User interface</strong>, <strong>System interface</strong>, <strong>Device interface</strong>. Quy tắc: <strong>một boundary class cho mỗi cặp actor/use-case</strong>. Mô hình hóa tương tác giữa hệ thống &amp; môi trường.</p>
     <div class="callout tip"><span class="tt">Guideline</span><strong>UI class:</strong> tập trung <em>thông tin nào</em> trình bày cho user, KHÔNG tập trung chi tiết UI. <strong>System/Device interface:</strong> tập trung <em>giao thức nào</em> cần định nghĩa, KHÔNG tập trung cách cài đặt. → "Tập trung vào <strong>trách nhiệm</strong>, không phải chi tiết!"</div>
 
     <h3>2.2 Entity Classes</h3>
+    <div class="guide mini">“<strong>Entity = 'kho hàng', lớp giữ dữ liệu cốt lõi mà hệ thống phải nhớ lâu dài</strong> (thường sẽ thành bảng trong database ở Chương 8). Chúng là 'key abstraction' — những danh từ quan trọng nhất của bài toán: Student, Course, Schedule. Mẹo tìm y hệt Chương 3: <em>gạch chân cụm danh từ</em> trong flow of events rồi lọc bỏ rác. Đặc điểm quý: entity <strong>độc lập môi trường</strong> — dù đổi giao diện hay đổi công nghệ, 'Sinh viên vẫn có mã và tên'.”</div>
     <p>Là <strong>key abstraction</strong> của hệ thống. Đầu vào: flow of events của use case, Business-Domain Model, Glossary.</p>
     <div class="callout tip"><span class="tt">Cách tìm (filtering nouns)</span>Gạch chân <strong>cụm danh từ</strong> trong flow of events → loại: ứng viên trùng lặp · mơ hồ · là actor (ngoài phạm vi) · cấu trúc cài đặt · attribute (để sau) · operation.</div>
 
     <h3>2.3 Control Classes</h3>
+    <div class="guide mini">“<strong>Control = 'bếp trưởng', lớp điều phối các bước của một use case</strong> — nó không giữ dữ liệu, không tiếp khách, mà ra lệnh 'lấy cái này từ entity, hiện cái kia lên boundary, theo đúng thứ tự'. Mẹo: <em>mỗi use case thường có một control</em>. Use case đơn giản (chỉ đọc/ghi dữ liệu) có thể bỏ bếp trưởng, để bồi bàn nói thẳng với kho. Nhìn ngay khung 'Mẫu tương tác chuẩn' bên dưới — nó tóm cả Mục 2 vào một dòng.”</div>
     <p>Cung cấp hành vi <strong>điều phối</strong>; mô hình hành vi điều khiển đặc thù cho ≥1 use case. Phụ thuộc use case, độc lập môi trường.</p>
     <div class="callout key"><span class="tt">Guideline</span>Thường <strong>1 control class cho mỗi use case</strong>. Use case đơn giản (chỉ thao tác dữ liệu lưu trữ) có thể bỏ control, chỉ dùng entity + boundary. Use case phức tạp cần ≥1 control (VD: transaction manager, resource coordinator, error handler).</div>
     <div class="callout example"><span class="tt">Mẫu tương tác chuẩn</span>Actor ↔ <strong>boundary</strong> ↔ <strong>control</strong> ↔ <strong>entity</strong>. Boundary giao tiếp actor; control điều phối; entity giữ &amp; quản lý thông tin.</div>
+    <div class="guide after"><span class="who">💡 Nói lại cho dễ — dây chuyền vàng</span>“Hãy thuộc lòng đường đi này, nó xuất hiện ở mọi use case: <strong>Actor → Boundary → Control → Entity</strong> (rồi vọng ngược lại). Kể thành truyện: khách (Actor) gọi món với bồi bàn (Boundary); bồi bàn báo bếp trưởng (Control); bếp trưởng sai người xuống kho lấy nguyên liệu (Entity) rồi nấu; món xong đi ngược ra lại tới khách. Quy tắc ngầm quan trọng: <em>Actor không bao giờ nói thẳng với Entity</em> — khách không tự xuống kho bốc đồ. Luôn qua trung gian.”</div>
   </section>
 
   <section>
     <h2><span class="num">3</span> Phân phối hành vi use case → lớp</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Cho các vai 'diễn thử'</span>“Đã có ba loại diễn viên, giờ dựng vở. Bản chất mục này: cầm từng bước trong flow of events của use case và <strong>giao mỗi bước cho đúng loại lớp</strong> — bước 'hiện màn hình' giao boundary, 'lưu điểm' giao entity, 'kiểm tra điều kiện rồi quyết định' giao control. Sản phẩm của việc dàn dựng này gọi là <strong>Use-Case Realization</strong> (hiện thực hóa use case): tức là 'màn kịch cho thấy ba loại lớp phối hợp thế nào để làm xong một use case'. Đây là lúc use case trừu tượng biến thành hành động cụ thể của các đối tượng.”</div>
     <p>Với mỗi flow of events của use case: (1) xác định analysis classes · (2) phân bổ trách nhiệm cho lớp · (3) mô hình tương tác bằng <strong>Interaction Diagram</strong>. Kết quả là một <strong>Use-Case Realization</strong> (gồm Sequence, Communication, Class diagrams).</p>
     <div class="tw"><table>
       <thead><tr><th>Loại hành vi</th><th>Giao cho lớp</th></tr></thead>
@@ -75,12 +86,14 @@
 
   <section>
     <h2><span class="num">4</span> Interaction Diagrams</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Công cụ để vẽ 'màn kịch'</span>“Muốn 'dàn dựng' ở Mục 3, ta cần giấy bút — đó là <strong>Interaction Diagram</strong>: sơ đồ vẽ ra cảnh các object nhắn tin (gọi hàm) cho nhau. Có hai kiểu vẽ cùng một cảnh, và điểm mấu chốt cần nhớ: <em>chúng nói y hệt nhau, chỉ khác cách trình bày</em>. <strong>Sequence</strong> nhấn 'thứ tự thời gian' (đọc từ trên xuống như kịch bản phim). <strong>Communication</strong> nhấn 'ai nối với ai' (như sơ đồ mối quan hệ). Hình dung: cùng một cuộc họp, Sequence là <em>biên bản ghi theo phút</em>, Communication là <em>sơ đồ chỗ ngồi có mũi tên ai nói với ai</em>.”</div>
     <p>Thuật ngữ chung cho các sơ đồ nhấn mạnh <strong>tương tác giữa object</strong>: Sequence Diagram, Communication Diagram (+ biến thể Timing, Interaction Overview).</p>
     <div class="two">
       <div class="callout def"><span class="tt">Sequence Diagram</span>Nhấn mạnh <strong>thứ tự thời gian</strong> của message. Thể hiện: object tham gia · trình tự message trao đổi. Thành phần: object lifeline, message, execution occurrence, reflexive message, đánh số phân cấp, interaction occurrence (ref).</div>
       <div class="callout def"><span class="tt">Communication Diagram</span>Nhấn mạnh <strong>tổ chức (structural)</strong> của các object tham gia. Thể hiện: object · <strong>link</strong> giữa object · message trao đổi (có đánh số).</div>
     </div>
     <h3>Sequence vs Communication</h3>
+    <div class="guide after"><span class="who">💡 Ý dễ ra đề</span>“Câu hay bị hỏi: 'Sequence và Communication khác gì nhau?' — Trả lời chuẩn: <strong>không khác về nội dung, chỉ khác trọng tâm trình bày</strong> (thời gian vs cấu trúc), và <em>chuyển qua lại được mà không mất thông tin</em>. Dùng Sequence khi cần thấy rõ 'cái gì xảy ra trước–sau'; dùng Communication khi cần thấy 'một object dính tới bao nhiêu object khác'.”</div>
     <div class="callout note"><span class="tt">Tương đương ngữ nghĩa</span>Hai loại <strong>tương đương về ngữ nghĩa</strong> — chuyển đổi qua lại không mất thông tin; cùng mô hình khía cạnh động &amp; một use-case scenario.</div>
     <div class="tw"><table>
       <thead><tr><th>Sequence diagram</th><th>Communication diagram</th></tr></thead>
@@ -96,6 +109,7 @@
 
   <section>
     <h2><span class="num">5</span> Analysis Class Diagram</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Chốt lại thành bản vẽ tĩnh</span>“Sau khi cho các vai diễn thử (sơ đồ động ở Mục 3–4), giờ ta chụp lại một 'tấm ảnh đội hình' — <strong>Analysis Class Diagram</strong> (nhớ cặp động/tĩnh ở Chương 1 chứ?). Bản chất mục này gói trong hai câu thần chú: (1) <em>mỗi tin nhắn một object nhận được → trở thành một trách nhiệm (method) của lớp đó</em>; (2) <em>mỗi đường nối (link) trong sơ đồ tương tác → trở thành một quan hệ (association) trong sơ đồ lớp</em> — 'a relationship for every link'. Nói cách khác: quan sát các vai nói chuyện với nhau, rồi ghi lại thành sơ đồ 'ai biết ai, ai làm được gì'.”</div>
     <p>Từ Interaction diagram → rút ra <strong>trách nhiệm (responsibility)</strong> &amp; <strong>quan hệ</strong> cho lớp.</p>
     <ul>
       <li><strong>Describe Responsibilities:</strong> mỗi message <code>PerformResponsibility</code> gửi tới :Supplier → thêm trách nhiệm vào lớp Supplier.</li>
@@ -107,6 +121,7 @@
 
   <section>
     <h2><span class="num">6</span> Architectural Patterns</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Lùi ra xa nhìn 'kiểu bố trí'</span>“Xong phần chi tiết, giờ ta lùi lại nhìn tổng thể. Bản chất <strong>Architectural Pattern</strong> là những 'kiểu bố trí nhà' đã được đúc kết sẵn cho các bài toán hay gặp — thay vì tự nghĩ, ta dùng lại công thức người đi trước đã kiểm chứng. Ngôi sao là <strong>MVC</strong>: chia phần mềm thành <em>Model</em> (dữ liệu — chính là Entity của ta), <em>View</em> (màn hình — họ hàng của Boundary), <em>Controller</em> (điều phối — họ hàng của Control). Nghe quen chứ? Đúng vậy — MVC chỉ là ba vai ở Mục 2 khoác tên khác. Phần còn lại (3-tier, MVP, MVVM, Flux, VIPER) là các biến tấu; đừng học thuộc hết, chỉ cần nắm 'chúng đều cố tách giao diện – logic – dữ liệu ra cho gọn'.”</div>
     <div class="callout def"><span class="tt">Architectural pattern</span>Giải pháp tổng quát, tái sử dụng cho một vấn đề thường gặp trong kiến trúc phần mềm ở một ngữ cảnh (VD: performance, high availability). Nhiều pattern đã được cài trong framework: 3-layer/3-tier (DotNetNuke), MVC (Laravel, ASP.NET MVC), Microservices (Spring Boot, vert.x).</p></div>
     <h3>6.1 MVC (Model-View-Controller)</h3>
     <div class="two">
@@ -114,6 +129,7 @@
       <div class="card"><h4>Passive MVC</h4><p>Request → Routing → Controller → tương tác Model (data) → Controller gọi View → render. View không tự lắng nghe Model.</p></div>
     </div>
     <h3>6.2 MVC vs 3-tier Architecture</h3>
+    <div class="guide mini">“Hai cái này rất hay bị lẫn. Bản chất khác biệt nằm ở <strong>hình dạng luồng</strong>: <em>3-tier xếp chồng THẲNG ĐỨNG</em> — tầng trên chỉ được gọi tầng ngay dưới (Presentation → Business → Data), như các tầng của một tòa nhà, không nhảy cóc. Còn <em>MVC là TAM GIÁC</em> — ba phần nói chuyện qua lại với nhau. Mẹo nhớ: <strong>3-tier = cầu thang bộ (đi từng bậc); MVC = tam giác (ba đỉnh liên lạc nhau)</strong>.”</div>
     <div class="tw"><table>
       <thead><tr><th>3-tier</th><th>MVC</th></tr></thead>
       <tbody>
@@ -133,6 +149,8 @@
     </div>
   </section>
 
+  <div class="guide open"><span class="who">🧑‍🏫 Khép chương · Dẫn sang Chương 5</span>“Ta đã có các <em>analysis class</em> — nhưng chúng còn ở mức 'phác thảo ý tưởng', chưa phải bản vẽ thi công. Khi hệ thống lớn lên tới hàng trăm lớp, câu hỏi thực tế nảy sinh: <strong>làm sao gom đống lớp này thành từng 'khu' cho gọn, để đội này sửa khu A không đụng khu B?</strong> Đó là lúc cần khái niệm <em>Package</em> và <em>Subsystem</em> — cách đóng gói và tổ chức các phần tử thiết kế. Chương 5 sẽ lo đúng việc 'dọn nhà cho ngăn nắp' đó.”</div>
+
   <nav class="pager">
     <a href="03-use-case.html"><span class="dir">← Trước</span><span class="ttl">Mô hình hóa yêu cầu với Use Case</span></a>
     <a class="next" href="05-phan-tu-thiet-ke.html"><span class="dir">Sau →</span><span class="ttl">Xác định phần tử thiết kế</span></a>
@@ -140,5 +158,6 @@
 </main>
 </div>
 <script src="../assets/app.js"></script>
+<script src="../assets/glossary.js"></script>
 </body>
 </html>

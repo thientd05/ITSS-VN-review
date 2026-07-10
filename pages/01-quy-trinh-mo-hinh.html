@@ -24,11 +24,17 @@
   <div class="chips"><span class="chip">SLCP · ISO/IEC 12207</span><span class="chip">OOAD</span><span class="chip">UML</span><span class="chip">Waterfall/Iterative/Spiral/RUP</span><span class="chip">Agile</span></div>
   <a class="quiz-cta" href="quiz-01-quy-trinh-mo-hinh.html"><span class="ic">📝</span> Luyện trắc nghiệm chủ đề này <small>· 46 câu · lưu tiến độ tự động</small></a>
 
+  <div class="guide open"><span class="who">🧑‍🏫 Giảng viên dẫn chuyện · Mở màn</span>
+  <p>“Chào bạn. Trước khi lao vào từng con chữ, hãy để tôi kể cho bạn nghe <em>bức tranh lớn</em>. Cả môn học này, gói gọn lại, chỉ trả lời đúng một câu hỏi: <strong>làm thế nào để một nhóm người biến một ý tưởng mơ hồ trong đầu khách hàng thành một phần mềm chạy được, đúng hạn, ít lỗi?</strong> Nghe thì đơn giản, nhưng cũng giống như xây một tòa nhà: nếu cứ thấy gạch là xây, không bản vẽ, không thứ tự, thì nhà sẽ sập. 13 chương phía trước chính là 13 chặng của công trình đó.”</p>
+  <p>“Và đây — Chương 1 — là tấm bản đồ. Ta chưa đụng vào gạch vữa (code) vội. Ta lùi lại thật xa để nhìn <strong>toàn bộ vòng đời</strong> của một phần mềm: nó sinh ra, lớn lên, rồi 'nghỉ hưu' như thế nào (đó là <em>SLCP</em>); ai làm bước nào (đó là <em>OOAD</em>); ta vẽ bản thiết kế bằng thứ ngôn ngữ chung nào (đó là <em>UML</em>); và có mấy 'kiểu' tổ chức công việc để đi từ đầu đến cuối (đó là các <em>mô hình phát triển</em>, từ Waterfall cổ điển đến Agile hiện đại). Nắm được chương này, bạn sẽ không bao giờ bị lạc ở 12 chương sau — vì bạn luôn biết mình đang đứng ở chặng nào của công trình.”</p></div>
+
   <section>
     <h2><span class="num">1</span> Software Life Cycle Process (SLCP)</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Mục này nói gì</span>“Ta bắt đầu từ chỗ trừu tượng nhất nhưng cũng nền tảng nhất. Hãy tưởng tượng cả thế giới làm phần mềm, mỗi công ty một kiểu, gọi tên các bước một khác — thì khi công ty A đặt công ty B làm phần mềm, họ sẽ nói chuyện với nhau bằng cách nào? Người ta cần một <strong>bộ từ điển chung</strong>. <em>SLCP (ISO/IEC 12207)</em> chính là bộ từ điển đó: nó liệt kê ra <strong>mọi loại công việc</strong> có thể có trong đời một phần mềm và đặt tên chuẩn cho chúng. Đừng học thuộc con số — hãy nhớ tinh thần: đây là 'ngôn ngữ chung' để bên đặt hàng và bên làm hiểu nhau.”</div>
     <div class="callout def"><span class="tt">Định nghĩa</span>
     <strong>SLCP</strong> là chuẩn quốc tế <em>ISO/IEC 12207:2008</em> — "Systems and software engineering — Software life cycle processes". Vòng đời bắt đầu từ một ý tưởng/nhu cầu và kết thúc khi phần mềm ngừng sử dụng (retirement).</div>
     <p>Chuẩn tổ chức các hoạt động thành <strong>7 nhóm process</strong>, mỗi process gồm nhiều <em>activity</em>, mỗi activity gồm nhiều <em>task</em> (phân cấp process → activity → task).</p>
+    <div class="guide mini">“Nhìn bảng 7 nhóm dưới đây, bạn đừng cố nhớ hết. Hãy hình dung như <strong>các phòng ban của một công ty xây dựng</strong>: có phòng ký hợp đồng (Agreement), phòng hậu cần cho cả công ty (Organizational), phòng quản lý dự án (Project), phòng kỹ thuật tổng (Technical)… Trong tất cả, hàng số 5 — <strong>Software Implementation</strong> — mới là 'đội thợ trực tiếp xây nhà'. <em>Chính nhóm số 5 này là trái tim của cả môn học</em>, và ta sẽ mổ xẻ nó ngay ở Mục 2.”</div>
     <div class="tw"><table>
       <thead><tr><th>#</th><th>Nhóm process</th><th>Số process</th></tr></thead>
       <tbody>
@@ -44,6 +50,7 @@
     <div class="callout key"><span class="tt">Ghi nhớ</span>SLCP là <strong>ngôn ngữ chung</strong> giữa các bên liên quan (acquirer &amp; supplier) để giao tiếp/đặt hàng phát triển phần mềm. Mục đích nhóm <strong>Implementation</strong>: "to produce a specified system element implemented as a software product or service".</div>
     <div class="callout note"><span class="tt">ISO viết tắt</span>ISO = International Organization for Standardization · IEC = International Electrotechnical Commission · JTC1 = Joint Technical Committee. WTO/TBT khuyến nghị dùng chuẩn ISO cho mua sắm chính phủ.</div>
     <h3>Yếu tố quyết định thành công dự án (learning point)</h3>
+    <div class="guide mini">“Phần này định nghĩa 'thế nào là một dự án thành công'. Bản chất: phần mềm <strong>chạy được thôi là chưa đủ</strong> — phải đồng thời đúng chức năng, đúng hạn, đủ chất lượng và bảo trì được. Hình dung như một bữa tiệc cưới: món ngon (chức năng) chưa đủ, còn phải dọn đúng giờ (deadline), hợp vệ sinh (chất lượng) và dọn dẹp gọn sau tiệc (bảo trì).”</div>
     <ul>
       <li>Phần mềm đáp ứng đúng <strong>yêu cầu chức năng (functional)</strong>.</li>
       <li>Giao đúng hẹn (<strong>delivery date</strong>).</li>
@@ -54,6 +61,7 @@
 
   <section>
     <h2><span class="num">2</span> Software Implementation Process (6 process con)</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Vì sao mục này quan trọng nhất</span>“Nhớ 'đội thợ xây' ở nhóm số 5 chứ? Giờ ta phóng to nó ra. Đội thợ đó làm việc theo <strong>6 bước nối tiếp</strong>, và điều kỳ diệu là: 6 bước này chính là <em>mục lục thu nhỏ của cả 13 chương</em>. Hãy để ý mà xem — 2.1 Requirements Analysis là Chương 3 (Use Case); 2.2 Architectural Design là Chương 4–5; 2.3 Detailed Design là Chương 6–8 (thiết kế lớp, dữ liệu); 2.4 Construction là Chương 10 (lập trình); 2.5 Integration & 2.6 Testing là Chương 9. Nói cách khác: <strong>bạn không học 13 chủ đề rời rạc — bạn đang đi lần lượt qua 6 bước xây phần mềm.</strong> Mỗi bước có một câu 'Purpose' — hãy nhớ mục đích, đừng nhớ chữ.”</div>
     <p>Được thực hiện <em>sau</em> System Requirements Analysis và System Architectural Design. Đây chính là "xương sống" của môn học — mỗi bước có một <strong>Purpose</strong> cần nhớ.</p>
     <div class="tw"><table>
       <thead><tr><th>Process</th><th>Purpose (mục đích)</th><th>Sản phẩm chính</th></tr></thead>
@@ -66,15 +74,20 @@
         <tr><td><strong>2.6 Qualification Testing</strong></td><td>Xác nhận sản phẩm tích hợp đáp ứng yêu cầu đã định</td><td>Test cases/procedures theo qualification requirements + audit</td></tr>
       </tbody>
     </table></div>
+    <div class="guide after"><span class="who">💡 Nói lại cho dễ</span>“Nếu thấy bảng rối, hãy nhớ 6 bước này như <strong>xây một ngôi nhà</strong>: 2.1 hỏi khách muốn nhà thế nào (Requirements) → 2.2 vẽ bản thiết kế tổng (Architectural) → 2.3 vẽ chi tiết từng phòng (Detailed) → 2.4 xây thật (Construction) → 2.5 lắp ghép các phần (Integration) → 2.6 nghiệm thu bàn giao (Qualification Testing). <strong>Chính 6 bước này là khung xương của cả 13 chương</strong> — cứ thấy mình đang học chương nào, hãy tự hỏi 'nó rơi vào bước nào trong 6 bước này?'.”</div>
   </section>
 
   <section>
     <h2><span class="num">3</span> Object-Oriented Analysis &amp; Design (OOAD)</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Nối tiếp câu chuyện</span>“Ở Mục 2 ta biết <em>phải làm những bước nào</em>. Nhưng làm <strong>theo kiểu tư duy gì</strong>? Có nhiều trường phái, và môn này chọn <strong>hướng đối tượng (Object-Oriented)</strong> — tức là nhìn phần mềm như một xã hội thu nhỏ gồm nhiều 'đối tượng' (Sinh viên, Môn học, Hóa đơn…) biết tự giữ dữ liệu và tự làm việc của mình. <em>OOAD</em> đơn giản là 'quy trình biến yêu cầu → thiết kế' theo tư duy đó. Đừng sợ bảng 10 bước phía dưới: nó chỉ đang trả lời câu hỏi rất đời thường — <strong>ai làm việc gì</strong>. Có hai vai chính: <strong>Architect</strong> (kiến trúc sư trưởng, lo bộ khung tổng thể) và <strong>Designer</strong> (thợ thiết kế chi tiết từng phòng). Nhớ được 'ai làm bước nào' là đủ.”</div>
     <div class="callout key"><span class="tt">Mục đích của Analysis &amp; Design</span>
     <ul style="margin:.2rem 0"><li>Chuyển <strong>yêu cầu</strong> thành <strong>thiết kế</strong> của hệ thống-sẽ-xây.</li><li>Tạo ra <strong>kiến trúc vững chắc (robust)</strong>.</li><li>Điều chỉnh thiết kế cho phù hợp môi trường cài đặt (performance).</li></ul></div>
+    <div class="guide mini">“Nắm bản chất OOAD như một cái <strong>máy xay</strong>: bỏ vào những thứ mô tả 'khách muốn gì' (Use-Case Model, Glossary…), lấy ra bản thiết kế để lập trình (Design Model, Data Model…). Dòng dưới chính là 'đầu vào → đầu ra' của cái máy đó.”</div>
     <p><strong>Đầu vào → đầu ra:</strong> Use-Case Model + Glossary + Supplementary Specification → (Analysis &amp; Design) → <strong>Design Model</strong>, Data Model, Architecture Document.</p>
+    <div class="guide mini">“Một ý dễ gây bối rối, nói trước cho rõ. Có người thiết kế 'từ trên xuống' (chia nhỏ dần), có người 'từ dưới lên' (ghép mảnh nhỏ). OOAD <strong>đứng ở giữa</strong>: khởi đầu từ Use Case rồi tỏa ra cả hai phía. Hình dung như xây nhà bắt đầu từ 'các phòng chức năng', rồi vừa vẽ lên khung tổng thể, vừa vẽ xuống từng viên gạch.”</div>
     <div class="callout note"><span class="tt">Không phải Top-Down cũng không phải Bottom-Up</span>Từ Use Cases (mức trung gian) ta khai triển ra cả subsystems (đi lên) lẫn analysis/design classes (đi xuống).</div>
     <h3>10 bước OOAD (nắm ai làm — Architect vs Designer)</h3>
+    <div class="guide mini">“Bảng dưới trông đồ sộ nhưng mẹo là chỉ nhìn <strong>cột cuối: ai làm</strong>. Bản chất: việc lớn về bộ khung → <strong>Architect</strong>; việc chi tiết từng lớp → <strong>Designer</strong>. Như công trình: kiến trúc sư trưởng quyết bố cục cả tòa nhà, đội thiết kế nội thất lo từng phòng.”</div>
     <div class="tw"><table>
       <thead><tr><th>Hoạt động</th><th>Bước</th><th>Ghi chú</th><th>Người làm</th></tr></thead>
       <tbody>
@@ -94,7 +107,9 @@
 
   <section>
     <h2><span class="num">4</span> UML &amp; mô hình hóa</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Vì sao đột nhiên nói về UML</span>“Ta vừa nói 'biến yêu cầu thành thiết kế'. Nhưng thiết kế phải <strong>vẽ ra được</strong> thì cả nhóm mới cùng nhìn, cùng bàn. Kiến trúc sư có bản vẽ nhà; người làm phần mềm có <strong>UML</strong> — một bộ ký hiệu chuẩn để vẽ phần mềm. Trước hết hãy thấm một ý rất sâu: <em>'mô hình là bản đơn giản hóa của hiện thực'</em> — ta cố tình bỏ bớt chi tiết để nhìn cho rõ, y như bản đồ tàu điện bỏ hết đường phố thật để bạn dễ đi. Và vì một bản vẽ không nói hết được mọi thứ, UML có <strong>nhiều loại sơ đồ nhìn hệ thống từ nhiều góc</strong> (gọi là các 'view'). Cặp phân biệt quan trọng nhất bạn cần khắc cốt: <strong>Static</strong> (ảnh chụp đứng yên: có những ai, quan hệ ra sao) và <strong>Dynamic</strong> (đoạn phim: họ tương tác, đổi trạng thái theo thời gian).”</div>
     <div class="callout def"><span class="tt">Model</span>Một <strong>mô hình là sự đơn giản hóa của hiện thực</strong>. Không mô hình đơn lẻ nào là đủ — hệ thống phi tầm thường cần một tập các mô hình gần độc lập.</div>
+    <div class="guide mini">“Câu hỏi rất thực: vẽ vời chi cho mệt, sao không code luôn? Bản chất 4 lý do dưới đây gói lại là: vẽ để <strong>nhìn</strong>, để <strong>nói chính xác</strong>, để <strong>làm theo</strong>, để <strong>lưu lại</strong>. Hình dung: không ai xây nhà 20 tầng bằng cách cứ thế xếp gạch — càng lớn càng bắt buộc có bản vẽ.”</div>
     <p><strong>Vì sao mô hình hóa (4 mục đích):</strong> giúp <em>visualize</em> hệ thống như ta muốn · <em>specify</em> cấu trúc/hành vi · làm <em>template</em> hướng dẫn xây dựng · <em>document</em> các quyết định. Hệ thống càng phức tạp, mô hình càng quan trọng (máy bay giấy vs máy bay chiến đấu).</p>
     <h3>UML là ngôn ngữ để 4V</h3>
     <div class="grid">
@@ -105,6 +120,7 @@
     </div>
     <div class="callout note"><span class="tt">Lịch sử</span>UML tổng hợp từ Booch, Rumbaugh (OMT), Jacobson (OOSE — use case) → Unified Method 0.8 → UML 0.9/0.91 → 1.0/1.1 → 1.5 → 2.0.</div>
     <h3>4 View của UML &amp; các loại sơ đồ</h3>
+    <div class="guide mini">“Đây là chỗ nhiều bạn ngợp vì cả rừng sơ đồ. Bản chất: UML nhìn phần mềm từ <strong>4 nhóm góc nhìn</strong> (Structural – Dynamic – Physical – Model Mgmt), mỗi nhóm dùng vài loại sơ đồ. Hình dung như xem một ngôi nhà qua nhiều bản vẽ khác nhau: mặt bằng, mặt đứng, sơ đồ điện nước… mỗi bản tô đậm một khía cạnh. Đừng học thuộc cả bảng — chỉ cần biết 'sơ đồ này thuộc nhóm tĩnh hay động'.”</div>
     <div class="tw"><table>
       <thead><tr><th>Major area</th><th>View</th><th>Diagram</th></tr></thead>
       <tbody>
@@ -118,27 +134,36 @@
         <tr><td><strong>Model Mgmt</strong></td><td>Model management / Profile</td><td>Package diagram</td></tr>
       </tbody>
     </table></div>
+    <div class="guide mini">“Nếu chỉ được nhớ MỘT điều ở mục UML, hãy nhớ cặp này — nó theo bạn suốt các chương sau: <strong>tĩnh</strong> là 'ảnh chụp' (có ai, nối với ai), <strong>động</strong> là 'đoạn phim' (họ làm gì theo thời gian).”</div>
     <div class="callout key"><span class="tt">Static vs Dynamic</span><strong>Static view</strong> = vai trò các bộ phận &amp; quan hệ giữa chúng (đội hình bóng đá đứng yên). <strong>Dynamic view</strong> = các thành phần tương tác/đổi trạng thái theo thời gian (trận đấu đang diễn ra).</div>
+    <div class="guide after"><span class="who">💡 Nói lại cho dễ</span>“Cặp bóng đá này đáng để dán lên tường: <strong>Static = tấm ảnh đội hình đứng chụp trước trận</strong> (ai đá vị trí nào) — ở các chương sau là Class diagram, ER diagram. <strong>Dynamic = đoạn video trận đấu</strong> (bóng chuyền qua chuyền lại) — là Sequence, Activity, State machine. Mỗi khi gặp một sơ đồ mới ở chương sau, chỉ cần hỏi 'đây là ảnh hay video?' là bạn xếp được nó vào đúng ngăn.”</div>
   </section>
 
   <section>
     <h2><span class="num">5</span> Các mô hình phát triển phần mềm</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Cao trào của chương</span>“Đây là phần 'đắt' nhất và cũng dễ nhớ nhất, vì nó rất đời. Ta đã biết <em>phải làm bước nào</em> (Mục 2). Nhưng <strong>sắp xếp các bước đó theo trình tự nào</strong>? Đây chính là chỗ các trường phái cãi nhau suốt mấy chục năm. Hãy đọc phần này như một <strong>lịch sử tiến hóa</strong>: <em>Waterfall</em> — làm một mạch từ đầu đến cuối, xong bước này mới sang bước kia (như xây nhà theo bản vẽ cứng); nhưng đời thay đổi, khách đổi ý, nên người ta nghĩ ra <em>Iterative</em> — làm từng vòng nhỏ, mỗi vòng ra một bản chạy được; <em>Prototype</em> — dựng mẫu nháp cho khách sờ thử; <em>Spiral</em> — thêm hẳn một góc chuyên lo rủi ro; <em>RUP</em> — gói tất cả thành 4 pha bài bản; và đỉnh cao hiện đại là <em>Agile</em> — 'ôm lấy sự thay đổi' thay vì chống lại nó. Đọc theo mạch 'cái sau sinh ra để chữa nhược điểm của cái trước', bạn sẽ không cần học vẹt.”</div>
     <h3>Waterfall (thác nước)</h3>
+    <div class="guide mini">“Bản chất: làm <strong>tuần tự một chiều</strong> — xong hẳn pha này mới sang pha kia. Hình dung như nước chảy từ bậc thang cao xuống thấp, không chảy ngược. Ưu điểm: rõ ràng, dễ quản. Nhược điểm chí mạng: đến tận cuối mới phát hiện sai thì quay lại sửa cực kỳ đắt.”</div>
     <p>Tuyến tính, các pha nối tiếp: Requirement Analysis &amp; Definition → System &amp; software design → Implementation &amp; unit testing → Integration &amp; system testing → Installation → Operation &amp; maintenance.</p>
     <div class="two">
       <div class="callout warn"><span class="tt">Waterfall thuần</span>Tuyến tính, <strong>không có phản hồi</strong> (no feedback) giữa các pha.</div>
       <div class="callout tip"><span class="tt">Iterative Waterfall</span>Giống Waterfall nhưng cho phép <strong>quay lui</strong> giữa các pha kề nhau (có feedback).</div>
     </div>
     <h3>Iterative Model</h3>
+    <div class="guide mini">“Bản chất: chia dự án thành <strong>nhiều vòng nhỏ</strong>, mỗi vòng làm đủ các bước và cho ra một bản chạy được (executable). Hình dung: thay vì vẽ xong cả bức tranh mới cho xem, họa sĩ phác từng lớp — mỗi lớp đã ra hình để khách góp ý sớm. Đây là 'thuốc chữa' cho nhược điểm 'đến cuối mới biết sai' của Waterfall.”</div>
     <p>Mỗi vòng lặp sinh ra một <strong>bản thực thi (executable)</strong>. Vòng gồm: Initial Planning → Planning → Requirements → Analysis &amp; Design → Implementation → Test → Deployment → Evaluation (quanh Management/Environment). "Each iteration results in an executable release."</p>
     <h3>Prototype Model</h3>
+    <div class="guide mini">“Bản chất: dựng nhanh một <strong>bản mẫu nháp</strong> cho khách sờ thử, rồi mới làm thật. Hình dung: kiến trúc sư dựng mô hình nhà bằng bìa cứng để khách kịp nói 'à, tôi muốn cửa sổ to hơn' <em>trước khi</em> đổ bê tông. Dùng khi khách còn mơ hồ chưa biết mình muốn gì.”</div>
     <p>Chu trình 4 bước lặp: (1) thu thập yêu cầu · (2) thiết kế &amp; dựng prototype · (3) khách hàng dùng thử (test-drive) · (4) tinh chỉnh yêu cầu. Xoay quanh "Listen to Customer → Build/Revise → Customer Test-Drives".</p>
     <h3>Spiral Model</h3>
+    <div class="guide mini">“Bản chất: giống Iterative nhưng thêm hẳn một khâu <strong>phân tích rủi ro</strong> ở mỗi vòng. Hình dung: mỗi vòng xoáy, trước khi đi tiếp bạn dừng lại tự hỏi 'chỗ nào dễ toang nhất?' và xử lý nó trước. Hợp với dự án lớn, đắt tiền, nhiều bất định.”</div>
     <p>Kết hợp lặp + <strong>quản trị rủi ro</strong>. Mỗi vòng xoáy đi qua 4 góc phần tư: Planning · Risk analysis · Engineering · Customer evaluation (Customer communication → ... → Construction &amp; release).</p>
     <h3>RUP — Rational Unified Process</h3>
+    <div class="guide mini">“Bản chất: một quy trình 'đóng hộp' bài bản, gói mọi thứ vào <strong>4 pha</strong> (Inception → Elaboration → Construction → Transition), mỗi pha nhiều vòng lặp. Hình dung như quy trình xây nhà chuẩn của một tập đoàn lớn: khảo sát → thiết kế kỹ → thi công → bàn giao. Điểm hay: các loại việc (yêu cầu, thiết kế, test…) chạy song song nhưng đậm nhạt khác nhau tùy pha.”</div>
     <p>4 pha: <strong>Inception → Elaboration → Construction → Transition</strong>, mỗi pha nhiều iteration; các discipline (Business Modeling, Requirements, Analysis &amp; Design, Implementation, Test, Deployment…) chạy song song với cường độ khác nhau theo pha.</p>
 
     <h3>Agile</h3>
+    <div class="guide mini">“Đến đây là 'nhân vật chính' của thời hiện đại. Waterfall coi thay đổi là kẻ thù (đã ký bản vẽ thì cấm sửa). Agile lật ngược: <strong>thay đổi là chuyện đương nhiên, hãy thiết kế cách làm việc để đón nó</strong>. Bản Manifesto 4 giá trị bên dưới đọc như một 'tuyên ngôn': mỗi dòng đều là 'coi trọng A hơn B' — chú ý, <em>không phải vứt bỏ B</em>, chỉ là khi phải chọn thì nghiêng về A. Hãy đọc 4 dòng đó như 4 lời thề, rồi các nguyên lý phía sau chỉ là cách hiện thực hóa 4 lời thề này.”</div>
     <div class="callout def"><span class="tt">Agility</span>"Khả năng vừa <strong>tạo ra</strong> vừa <strong>đáp ứng thay đổi</strong> để có lợi trong môi trường kinh doanh biến động" (Jim Highsmith). Mục tiêu: phát triển <strong>nhanh</strong> &amp; <strong>đáp ứng thay đổi</strong>. Làm theo sprint lặp (Plan→Design→Build→Test→Review→Launch).</div>
     <h4>Agile Manifesto — 4 giá trị</h4>
     <div class="tw"><table>
@@ -151,6 +176,7 @@
       </tbody>
     </table></div>
     <h4>Các nguyên lý Agile (chọn lọc)</h4>
+    <div class="guide mini">“Bản chất: các nguyên lý dưới đây là cách 'thi hành' 4 giá trị vừa nêu vào công việc hằng ngày. Đừng học vẹt — đọc từng dòng và gật gù 'ừ, câu này đang phục vụ giá trị nào'. Xuyên suốt chỉ có một tinh thần: <strong>giao giá trị sớm, đón thay đổi, tin vào con người và giữ nhịp bền vững</strong>.”</div>
     <ul>
       <li>Ưu tiên cao nhất: làm khách hàng hài lòng qua việc <strong>giao phần mềm giá trị sớm &amp; liên tục</strong>.</li>
       <li>Chào đón <strong>thay đổi yêu cầu</strong>, kể cả muộn.</li>
@@ -166,6 +192,7 @@
 
   <section>
     <h2><span class="num">6</span> Công cụ trong môn học</h2>
+    <div class="guide mini">“Cuối cùng, một mục nhẹ nhàng: những 'đồ nghề' bạn sẽ cầm trên tay. Không cần học thuộc — chỉ cần biết mỗi công cụ phục vụ chặng nào: <strong>Astah</strong> để vẽ (UML ở Mục 4), <strong>Java + Eclipse</strong> để xây (Construction), <strong>Git/GitHub</strong> để nhiều người cùng làm không giẫm chân nhau (đúng chủ đề Chương 2 kế tiếp), <strong>JUnit</strong> để kiểm thử (Chương 9).”</div>
     <div class="grid">
       <div class="card"><h4>Thiết kế</h4><p>Astah (free cho SV)</p></div>
       <div class="card"><h4>Ngôn ngữ / IDE</h4><p>Java · Eclipse</p></div>
@@ -174,6 +201,8 @@
     </div>
   </section>
 
+  <div class="guide open"><span class="who">🧑‍🏫 Khép chương · Dẫn sang Chương 2</span>“Vậy là ta đã có tấm bản đồ toàn cảnh: vòng đời phần mềm, ai làm gì, vẽ bằng UML, và các kiểu tổ chức công việc. Nhưng chú ý một chi tiết ta vừa chạm tới: mọi mô hình hiện đại (Iterative, Agile) đều có <strong>nhiều người cùng làm, cùng sửa một mớ mã, lặp đi lặp lại</strong>. Câu hỏi tự nhiên bật ra: <em>làm sao để cả chục người cùng viết mà không ghi đè lên nhau, và lỡ hỏng thì quay lại được?</em> Đó chính xác là điều Chương 2 — <strong>Version Control & Git</strong> — sẽ giải quyết. Hẹn gặp bạn ở chặng tiếp theo.”</div>
+
   <nav class="pager">
     <a class="disabled" href="#"><span class="dir">← Trước</span><span class="ttl">—</span></a>
     <a class="next" href="02-version-control.html"><span class="dir">Sau →</span><span class="ttl">Version Control &amp; Git</span></a>
@@ -181,5 +210,6 @@
 </main>
 </div>
 <script src="../assets/app.js"></script>
+<script src="../assets/glossary.js"></script>
 </body>
 </html>

@@ -24,8 +24,13 @@
   <div class="chips"><span class="chip">Module · Modular design</span><span class="chip">Coupling (7 mức)</span><span class="chip">Cohesion (8 mức)</span><span class="chip">Law of Demeter</span></div>
   <a class="quiz-cta" href="quiz-11-coupling-cohesion.html"><span class="ic">📝</span> Luyện trắc nghiệm chủ đề này <small>· 28 câu · lưu tiến độ tự động</small></a>
 
+  <div class="guide open"><span class="who">🧑‍🏫 Giảng viên dẫn chuyện · Vào chương</span>
+  <p>“Suốt mười chương qua, ta cứ nhắc đi nhắc lại 'thiết kế tốt', 'tách cho gọn', 'đừng dính nhau'. Chương 11 là lúc <strong>đặt tên và cân đo</strong> chính xác cho hai chất lượng nền tảng nhất của mọi thiết kế đẹp. Cả chương chỉ nhằm khắc sâu một câu thần chú — hãy xăm nó vào trí nhớ: <strong>‘Loose coupling, high cohesion’</strong> (dính lỏng bên ngoài, gắn chặt bên trong).”</p>
+  <p>“Hai khái niệm sinh đôi, đừng lẫn: <strong>Coupling = độ DÍNH GIỮA các module</strong> (module này phụ thuộc module kia nhiều hay ít) — ta muốn nó THẤP; <strong>Cohesion = độ GẮN KẾT BÊN TRONG một module</strong> (mọi thứ trong module có cùng phục vụ một mục đích không) — ta muốn nó CAO. Hình dung một tòa nhà văn phòng lý tưởng: mỗi phòng ban làm trọn vẹn một chức năng (cohesion cao), và các phòng ban trao đổi với nhau qua vài cửa giao tiếp gọn gàng thay vì đục tường thông nhau lung tung (coupling thấp). Điểm thú vị của chương: cả hai đều có <strong>thang đo nhiều bậc</strong> từ tệ đến tốt — bạn sẽ học đọc các bậc thang đó. Khép chương là hai 'án tử' cần tránh: <em>God class</em> và vi phạm <em>Law of Demeter</em>.”</p></div>
+
   <section>
     <h2><span class="num">1</span> Nền tảng: Module &amp; Good Design</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Đặt nền: 'module' là gì</span>“Trước khi cân đo, thống nhất từ vựng. <strong>Module</strong> ở đây chỉ là tên gọi chung cho 'một đơn vị thiết kế' — có thể là một class, một package, một hàm. <strong>Modular design</strong> = nghệ thuật chia hệ thống thành các module và sắp xếp quan hệ giữa chúng cho khéo. Bản chất mục này trả lời 'thế nào là thiết kế tốt', và câu trả lời cô đọng lại đúng vào hai từ coupling &amp; cohesion. Đọc danh sách 'lý tưởng modular' (decomposable, composable…) như các lợi ích bạn GẶT được khi chia module khéo: dễ chia việc, dễ ghép, dễ hiểu, lỗi bị cô lập.”</div>
     <div class="callout def"><span class="tt">Module &amp; Modular design</span><strong>Module</strong> = thuật ngữ chung cho class/type/đơn vị thiết kế. <strong>Modular design</strong> tập trung: module nào được định nghĩa, đặc tả ra sao, quan hệ thế nào — <em>không</em> tập trung cài đặt bên trong.</div>
     <p><strong>Lý tưởng của phần mềm modular:</strong> Decomposable (chia nhỏ để giảm phức tạp &amp; teamwork) · Composable (ghép lại được) · Understandable (hiểu từng module độc lập) · Continuity (thay đổi nhỏ ở yêu cầu → ảnh hưởng ít module) · Isolation (lỗi được cô lập).</p>
     <div class="callout key"><span class="tt">Good design = ?</span>Dễ phát triển/đọc/hiểu · dễ giao tiếp · dễ mở rộng (thêm feature) · dễ bảo trì. ⇒ Đạt được bằng <strong>"Loose coupling and high cohesion"</strong>.</div>
@@ -35,8 +40,10 @@
 
   <section>
     <h2><span class="num">2</span> Coupling (độ ghép nối)</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Khái niệm 1: độ dính giữa module</span>“Bản chất <strong>Coupling = một module phải 'biết' và 'phụ thuộc' vào module khác nhiều đến mức nào</strong>. Dính càng nhiều thì sửa một chỗ càng dễ làm vỡ chỗ khác — đó là ác mộng bảo trì. Hình dung <em>tai nghe có dây rối</em>: rút một sợi là cả búi giật theo. Ta muốn ngược lại: các module như các thiết bị Bluetooth, tháo lắp độc lập. Cái hay là coupling có cả một <strong>thang bậc từ TỆ đến TỐT</strong> ngay dưới — không phải chuyện 'có/không' mà là 'nặng/nhẹ'.”</div>
     <div class="callout def"><span class="tt">Coupling / Dependency</span>Mức độ mỗi module <strong>phụ thuộc</strong> vào các module khác. High coupling khiến sửa hệ thống khó (đổi 1 component ảnh hưởng mọi component nối với nó). Ideal: tách thiết kế thành phần <em>ít tương tác</em> nhau.</div>
     <h3>Thang Coupling (từ TỆ → TỐT)</h3>
+    <div class="guide mini">“Cách đọc thang này (đỏ = tệ, xanh = tốt): càng lên đầu, hai module càng 'thọc tay vào ruột nhau'; càng xuống dưới càng 'lịch sự, chỉ trao đổi qua cửa'. Mẹo nhớ đại ý: <strong>Content</strong> (thò tay sửa thẳng ruột nhau — tệ nhất) → <strong>Common</strong> (xài chung biến toàn cục) → <strong>Control</strong> (truyền cờ điều khiển 'mày làm cái này đi') → <strong>Stamp</strong> (đưa cả cục dữ liệu dù chỉ cần một mẩu) → <strong>Data</strong> (chỉ đưa đúng mẩu dữ liệu cần — tốt) → <strong>Uncoupled</strong> (chẳng cần nhau — lý tưởng). Không cần thuộc lòng 6 bậc; chỉ cần nắm 'đưa càng ÍT và càng ĐƠN GIẢN thì càng tốt'.”</div>
     <div class="ladder">
       <div class="rung" data-q="bad"><span class="lbl">Content</span><span class="meta">Component này tham chiếu/sửa <em>nội dung bên trong</em> component khác (sửa data, nhảy vào giữa routine). Cao nhất — tệ nhất.</span></div>
       <div class="rung" data-q="bad"><span class="lbl">Common</span><span class="meta">Hai component <em>chia sẻ dữ liệu</em> (global data structure, common block). Thường là lựa chọn kém: thiếu trách nhiệm rõ ràng, khó bảo trì/tái sử dụng/kiểm soát truy cập.</span></div>
@@ -50,9 +57,11 @@
 
   <section>
     <h2><span class="num">3</span> Cohesion (độ gắn kết)</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Khái niệm 2: độ gắn kết bên trong</span>“Người anh em sinh đôi của coupling, nhưng nhìn vào BÊN TRONG một module. Bản chất <strong>Cohesion = mọi thứ trong một module có cùng phục vụ MỘT nhiệm vụ rõ ràng không</strong>. Cao là tốt — trái ngược với coupling (thấp mới tốt), nên đừng lẫn. Hình dung một <em>ngăn kéo nhà bếp</em>: cohesion cao = ngăn 'chỉ đựng dao kéo' (mở ra biết ngay tìm gì); cohesion thấp = ngăn 'đủ thứ hầm bà lằng' dao chung với pin chung với hóa đơn (lộn xộn, khó tìm, khó sửa). Cohesion cũng có <strong>thang bậc từ TỐT đến TỆ</strong> ngay dưới. Lý do phổ biến nhất để gom đồ vào một module: tạo một 'kiểu dữ liệu trừu tượng' (ADT) trọn vẹn.”</div>
     <div class="callout def"><span class="tt">Cohesion</span>Mức độ <strong>mọi phần tử của một component đều hướng về MỘT nhiệm vụ</strong>, và mọi phần tử phục vụ nhiệm vụ đó đều nằm gọn trong một component. "Internal glue"; <strong>High is good</strong>.</div>
     <p>Lý do phổ biến đặt data + behavior chung = tạo <strong>ADT</strong>. Nguyên tắc <em>separation of concerns</em>: một module nên chỉ giải quyết một tập concern (VD: Item/DiscountItem có nên biết về giảm giá khi mua ≥20 món? ShoppingCart có nên biết bulk pricing? BinarySearch có nên biết kiểu object đang sort?).</p>
     <h3>Thang Cohesion (từ TỐT → TỆ)</h3>
+    <div class="guide mini">“Chú ý thang này chạy NGƯỢC thang coupling: ở đây <strong>đầu bảng (xanh) là TỐT, cuối bảng (đỏ) là TỆ</strong>. Đỉnh cao là <strong>Functional</strong> — module làm đúng một việc trọn vẹn (như 'tính thuế'). Đáy vực là <strong>Coincidental</strong> — các thứ ở chung chỉ vì 'tình cờ nằm cạnh nhau trong file', chẳng liên quan gì (như ngăn kéo đồ tạp). Mẹo: càng gom vì 'chúng cùng phục vụ MỘT mục đích' thì càng cao; càng gom vì lý do hời hợt ('cùng chạy lúc khởi động', 'cùng loại thao tác') thì càng thấp. Nắm hai đầu thang là đủ dùng.”</div>
     <div class="ladder">
       <div class="rung" data-q="good"><span class="lbl">Functional</span><span class="meta">Mọi phần tử thiết yếu cho <em>một phép tính đơn</em>. Lý tưởng — cao nhất.</span></div>
       <div class="rung" data-q="good"><span class="lbl">Informational</span><span class="meta">Module thực hiện nhiều action, mỗi action có <em>entry riêng, code riêng</em>, đều trên cùng dữ liệu. Khác logical: mỗi đoạn single entry/exit. ADT &amp; OO thúc đẩy.</span></div>
@@ -67,6 +76,7 @@
 
   <section>
     <h2><span class="num">4</span> Các kiểu phụ thuộc &amp; Law of Demeter</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Hai 'án tử' cần tránh</span>“Chương khép lại bằng một quy tắc vàng và một anti-pattern. Quy tắc: <strong>Law of Demeter — 'chỉ nói chuyện với bạn thân trực tiếp'</strong>, đừng thò tay qua object này để với tới object của object khác. Hình dung: muốn trả tiền, bạn đưa ví cho thu ngân để họ tự móc tiền, hay bạn tự thò tay vào túi họ? Chuỗi <code>a.getB().getC().getD().làmGì()</code> chính là 'thò tay vào túi người khác' — dính chặt, dễ vỡ. Còn <strong>God class</strong> là 'ông trùm ôm hết' — một lớp biết tuốt, làm tuốt: cohesion thảm hại, và là ví dụ điển hình của 'anti-pattern' (cách làm dở đã được đặt tên để tránh). Cả hai đều là hệ quả của việc quên câu thần chú đầu chương.”</div>
     <p><strong>Các loại "mũi tên" (dependence):</strong> Aggregation ("is part of") · Composition ("is entirely made of", part sống-chết cùng whole) · Subtyping ("is-a", thay thế được) · Invokes ("executes"). Làm rõ loại phụ thuộc là điều then chốt.</p>
     <div class="callout key"><span class="tt">Law of Demeter (Karl Lieberherr)</span>Một object nên biết <em>càng ít càng tốt</em> về cấu trúc bên trong của object khác mà nó tương tác — "chỉ nói chuyện với bạn thân trực tiếp". Liên quan chặt tới representation exposure &amp; (im)mutability.</div>
     <div class="two">
@@ -79,9 +89,12 @@
     <p><strong>Một object chỉ nên gửi message tới:</strong> chính nó (<code>this</code>) · instance variable của nó · tham số của method · object nó tạo · object trả về bởi lời gọi tới một method của <code>this</code> · object trong collection của các thứ trên. <em>Không nên</em>: object trả về bởi message gửi tới object khác. (Guideline, không phải luật cứng.)</p>
     <div class="callout warn"><span class="tt">"Coupling is the path to the dark side"</span>Coupling → complexity → confusion → suffering. Một khi đã đi vào con đường coupling, nó sẽ chi phối bạn mãi.</div>
     <div class="callout danger"><span class="tt">God class (anti-pattern)</span>Lớp "ôm" quá nhiều data/chức năng của hệ thống. Cohesion kém (ít suy nghĩ vì sao gộp chung); chỉ giảm coupling bằng cách <em>gộp nhiều module thành một</em> (biến dependency giữa module thành dependency trong module). Là ví dụ <strong>anti-pattern</strong> — cách làm dở đã biết trước.</div>
+    <div class="guide after"><span class="who">💡 Cảnh báo cái bẫy</span>“Cái bẫy tinh vi của God class: nó 'gian lận' để coupling nhìn có vẻ thấp — bằng cách nuốt hết mọi module vào làm một, thì đâu còn hai module để mà 'dính' nhau nữa! Nhưng đó là thắng giả: coupling giữa-module giảm thì cohesion trong-module sụp đổ (một lớp ôm đồm trăm việc chẳng liên quan). Bài học: <strong>hai chỉ số phải cân BẰNG NHAU, không hi sinh cái này lấy cái kia</strong>. God class là minh chứng sống cho việc vì sao 'loose coupling' và 'high cohesion' phải đi CÙNG nhau.”</div>
   </section>
 
   <div class="callout note"><span class="tt">Liên kết</span>Coupling &amp; cohesion là nền cho <a href="12-solid.html">Nguyên lý SOLID</a> (SRP = high cohesion; DIP/OCP giảm coupling) và <a href="13-design-patterns.html">Design Patterns</a>.</div>
+
+  <div class="guide open"><span class="who">🧑‍🏫 Khép chương · Dẫn sang Chương 12</span>“Ta đã có mục tiêu (loose coupling, high cohesion) và biết đo nó. Nhưng câu hỏi thực tế còn treo: <strong>làm CÁCH NÀO để đạt được nó một cách có hệ thống?</strong> Đó chính là lúc năm nguyên lý <strong>SOLID</strong> bước ra sân khấu ở Chương 12 — chúng là 'năm lời khuyên vàng' để tự động tạo ra thiết kế coupling thấp, cohesion cao. Bạn sẽ thấy chúng gắn khít với chương này: <em>SRP</em> chính là 'high cohesion' đóng chai; <em>DIP &amp; OCP</em> chính là công cụ để 'loose coupling'. Chương 11 nêu ĐÍCH; Chương 12 chỉ ĐƯỜNG.”</div>
 
   <nav class="pager">
     <a href="10-programming.html"><span class="dir">← Trước</span><span class="ttl">Lập trình hiệu quả</span></a>
@@ -90,5 +103,6 @@
 </main>
 </div>
 <script src="../assets/app.js"></script>
+<script src="../assets/glossary.js"></script>
 </body>
 </html>

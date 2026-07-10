@@ -104,6 +104,38 @@ hr{border:none;border-top:1px solid var(--line);margin:2rem 0}
 .callout.example .tt{color:var(--violet)}
 .callout.note{border-left-color:var(--line-strong)} .callout.note .tt{color:var(--ink-soft)}
 
+/* ---- guide: "lời dẫn" của giảng viên ảo (in nghiêng, mờ, kể chuyện) ---- */
+.guide{
+  position:relative;font-style:italic;color:var(--ink-soft);
+  background:color-mix(in srgb,var(--primary) 4%,transparent);
+  border-left:3px dashed color-mix(in srgb,var(--primary) 42%,var(--line-strong));
+  border-radius:0 10px 10px 0;padding:.6rem .95rem .6rem 1rem;margin:.85rem 0;
+  font-size:.95rem;line-height:1.62;
+}
+.guide::before{
+  content:"🧑‍🏫";font-style:normal;position:absolute;left:-.05rem;top:-.7rem;
+  font-size:.9rem;background:var(--bg);padding:0 .25rem;filter:grayscale(.15);
+}
+.guide p{margin:.4rem 0}
+.guide p:first-child{margin-top:0} .guide p:last-child{margin-bottom:0}
+.guide strong,.guide em{font-style:italic;color:var(--primary-2);font-weight:700}
+.guide .who{font-style:normal;font-weight:700;font-size:.7rem;letter-spacing:.06em;
+  text-transform:uppercase;color:color-mix(in srgb,var(--primary) 70%,var(--ink-soft));
+  display:block;margin-bottom:.15rem}
+/* Lời mở chương: to hơn, dẫn vào cả bài như mở đầu một chương truyện */
+.guide.open{font-size:1.02rem;background:color-mix(in srgb,var(--primary) 7%,transparent);
+  border-left-style:solid;border-left-width:4px;padding:.9rem 1.1rem;margin:1.1rem 0 1.6rem}
+/* Lời dẫn nhỏ, ngay trước một dòng khái niệm/callout */
+.guide.mini{margin:.7rem 0 -.2rem;font-size:.9rem;padding:.45rem .8rem;
+  background:transparent;border-left-style:dotted}
+.guide.mini::before{top:-.6rem;font-size:.8rem}
+/* Lời giải thích SAU một dòng: "nói lại cho dễ / ví dụ cụ thể" */
+.guide.after{margin:-.15rem 0 .95rem;background:color-mix(in srgb,var(--accent) 6%,transparent);
+  border-left:3px solid color-mix(in srgb,var(--accent) 55%,var(--line-strong));font-size:.92rem}
+.guide.after::before{content:"💡";filter:none}
+.guide.after .who{color:color-mix(in srgb,var(--accent) 75%,var(--ink-soft))}
+.guide.after strong,.guide.after em{color:var(--accent)}
+
 /* ---- tables ---- */
 .tw{overflow-x:auto;margin:1rem 0;border:1px solid var(--line-strong);border-radius:12px;box-shadow:var(--shadow)}
 table{border-collapse:collapse;width:100%;background:var(--bg-card);font-size:.94rem}
@@ -171,3 +203,41 @@ pre .c{color:#8b849b} pre .k{color:#f0a37a} pre .s{color:#8fd6a0} pre .t{color:#
 .sec-label{max-width:1180px;margin:1.6rem auto .2rem;padding:0 1.1rem;font-size:.8rem;font-weight:700;
   text-transform:uppercase;letter-spacing:.1em;color:var(--primary-2)}
 footer.foot{border-top:1px solid var(--line);color:var(--ink-soft);font-size:.85rem;text-align:center;padding:1.6rem}
+
+/* ===== Glossary — thuật ngữ tiếng Anh rê chuột hiện giải thích ===== */
+/* Thuật ngữ được engine tự bọc: gạch chân chấm mờ, rõ hơn khi rê chuột */
+.gloss{
+  border-bottom:1px dotted color-mix(in srgb,var(--accent-2) 50%,var(--line-strong));
+  cursor:help;text-underline-offset:2px;transition:background .12s,border-color .12s;
+}
+.gloss:hover{
+  background:color-mix(in srgb,var(--accent-2) 13%,transparent);
+  border-bottom-color:var(--accent-2);border-radius:3px;
+}
+/* Tooltip bám con trỏ */
+#gloss-tip{
+  position:fixed;left:0;top:0;z-index:100;max-width:330px;pointer-events:none;
+  opacity:0;transform:translateY(4px);transition:opacity .12s,transform .12s;
+  background:var(--bg-card);color:var(--ink);font-style:normal;
+  border:1px solid var(--line-strong);border-left:4px solid var(--accent-2);
+  border-radius:11px;box-shadow:var(--shadow);padding:.6rem .78rem;
+  font-size:.9rem;line-height:1.5;
+}
+#gloss-tip.show{opacity:1;transform:none}
+#gloss-tip .gt-term{font-weight:800;color:var(--accent-2);font-size:.98rem;margin-bottom:.28rem;letter-spacing:-.01em}
+#gloss-tip .gt-w{margin:.12rem 0}
+#gloss-tip .gt-v{margin:.12rem 0;color:var(--ink-soft)}
+#gloss-tip b{font-weight:700;color:var(--ink)}
+#gloss-tip .gt-v b{color:var(--accent)}
+/* Gợi ý lần đầu */
+#gloss-hint{
+  position:fixed;left:50%;bottom:18px;transform:translate(-50%,120%);z-index:101;
+  display:flex;align-items:center;gap:.7rem;max-width:min(92vw,460px);
+  background:var(--ink);color:var(--bg);border-radius:12px;padding:.6rem .8rem .6rem .95rem;
+  box-shadow:0 10px 30px rgba(0,0,0,.28);font-size:.9rem;opacity:0;transition:transform .3s,opacity .3s;
+}
+#gloss-hint.show{transform:translate(-50%,0);opacity:1}
+#gloss-hint u{text-decoration-color:var(--primary-2);text-underline-offset:2px}
+#gloss-hint button{flex:none;cursor:pointer;border:none;background:transparent;color:var(--bg);
+  opacity:.65;font-size:1rem;line-height:1;padding:.15rem .25rem}
+#gloss-hint button:hover{opacity:1}

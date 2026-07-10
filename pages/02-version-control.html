@@ -24,8 +24,13 @@
   <div class="chips"><span class="chip">Lock-Modify-Unlock</span><span class="chip">Copy-Modify-Merge</span><span class="chip">Distributed</span><span class="chip">Git</span></div>
   <a class="quiz-cta" href="quiz-02-version-control.html"><span class="ic">📝</span> Luyện trắc nghiệm chủ đề này <small>· 26 câu · lưu tiến độ tự động</small></a>
 
+  <div class="guide open"><span class="who">🧑‍🏫 Giảng viên dẫn chuyện · Vào chương</span>
+  <p>“Ở cuối Chương 1 tôi đã gieo cho bạn một hạt thắc mắc: các cách làm hiện đại đều có <strong>nhiều người cùng viết, cùng sửa, lặp đi lặp lại</strong> — vậy làm sao họ không giẫm chân nhau? Chương 2 này trả lời đúng câu đó. Hãy hình dung một cuốn <strong>truyện được viết chung bởi 5 tác giả</strong>: nếu ai cũng gạch xóa thẳng lên bản thảo duy nhất, chỉ vài hôm là loạn — không biết ai sửa gì, muốn quay lại đoạn cũ cũng chịu.”</p>
+  <p>“<strong>Version Control (quản lý phiên bản)</strong> chính là 'cỗ máy thời gian + sổ ghi chép' cho mã nguồn: nó lưu lại mọi phiên bản, ai đổi gì, và cho phép quay lại bất kỳ lúc nào, đồng thời trộn (merge) công sức của nhiều người. Câu chuyện của chương đi theo trình tự rất tự nhiên: <em>vì sao cần nó</em> → <em>ba 'triết lý' quản lý</em> (từ khóa cứng đến phân tán) → <em>bộ từ vựng chung</em> → và cuối cùng là <em>Git</em>, công cụ bạn dùng thật. Đây là chương ngắn và 'thực dụng' nhất — đọc xong bạn dùng được ngay.”</p></div>
+
   <section>
     <h2><span class="num">1</span> Vì sao cần Version Control?</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Mục này ở đâu trong câu chuyện</span>“Trước khi học công cụ, phải thấm được 'nỗi đau' đã. Mục này bày ra hai tình huống ai làm phần mềm cũng từng dính: một mình thì 'sửa xong hỏng, quay lại vẫn hỏng'; làm nhóm thì 'ghép code của hai người vào là vỡ'. Bản chất: khi <strong>không có ai ghi lại lịch sử thay đổi</strong>, ta mất khả năng quay lui và không biết thay đổi nào gây lỗi. Hãy đọc hai kịch bản dưới và thấy 'đau', rồi phần sau sẽ là liều thuốc.”</div>
     <div class="two">
       <div class="callout warn"><span class="tt">Kịch bản cá nhân</span>Chương trình đang chạy → sửa "chỉ một thứ" → hỏng → sửa lại về cũ → vẫn hỏng — <em>tại sao?</em> Hoặc: hôm qua chạy tốt, tối cải tiến nhiều nhưng chưa xong, giờ phải nộp <em>ngay</em>.</div>
       <div class="callout warn"><span class="tt">Kịch bản nhóm</span>Bạn sửa phần A (chạy), đồng nghiệp sửa phần B (chạy), ghép lại → không chạy. Một thay đổi ở phần này đã phá phần kia. <em>Đâu là tất cả các thay đổi?</em> Làm sao <strong>merge</strong>?</div>
@@ -37,19 +42,26 @@
       <li>Cho <strong>check-in / check-out</strong> để biết ai đang làm file nào.</li>
       <li>Hiển thị <strong>khác biệt</strong> giữa các phiên bản.</li>
     </ul></div>
+    <div class="guide mini">“Ngay dưới là một 'người anh em nhỏ' của VCS: công cụ <strong>diff</strong> — chỉ làm đúng một việc là <em>tô ra chỗ khác nhau giữa hai file</em>. Nói trước để bạn không nhầm: diff hữu ích nhưng chưa phải VCS.”</div>
     <div class="callout note"><span class="tt">Công cụ diff</span><code>diff</code>, <code>rcsdiff</code>, <code>jDiff</code>… hữu ích để tìm <em>số ít</em> khác biệt trong <em>ít</em> file. jDiff là plugin của jEdit: tô màu, cuộn đồng bộ, sửa trực tiếp — nhưng chỉ là công cụ diff, không phải giải pháp hoàn chỉnh.</div>
+    <div class="guide after"><span class="who">💡 Nói lại cho dễ</span>“Chốt Mục 1: <strong>diff = kính lúp soi khác biệt; VCS = cả cỗ máy thời gian có sổ lịch sử</strong>. Bốn gạch đầu dòng ở khung 'VCS làm gì' phía trên chính là 4 siêu năng lực bạn đổi lấy: nhớ mọi phiên bản, bắt ghi chú mỗi lần đổi, biết ai đang giữ file nào, và chỉ ra khác biệt. Giữ 4 điều này trong đầu — phần sau chỉ là cách hiện thực hóa chúng.”</div>
   </section>
 
   <section>
     <h2><span class="num">2</span> Ba mô hình quản lý phiên bản</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Trái tim của chương</span>“Đây là phần cốt lõi. Có ba 'triết lý' để nhiều người cùng làm một mớ file, và chúng là một <strong>câu chuyện tiến hóa</strong>: mỗi cái sinh ra để chữa nhược điểm của cái trước. Hãy đọc theo mạch đó — (1) <em>Khóa lại cho chắc</em> → chậm; (2) <em>Ai cũng sửa rồi trộn</em> → nhanh nhưng phụ thuộc server; (3) <em>Mỗi người một bản đầy đủ</em> → tự do, chính là Git. Nắm được 'vì sao đẻ ra cái sau' thì khỏi cần học thuộc.”</div>
     <h3>2.1 Lock-Modify-Unlock (khóa)</h3>
+    <div class="guide mini">“Bản chất: <strong>mỗi lần chỉ một người được sửa file</strong> — muốn sửa phải 'mượn chìa khóa', sửa xong trả khóa người khác mới vào được. Hình dung như <em>nhà vệ sinh một buồng có ổ khóa</em>: ai vào thì khóa trái, người sau xếp hàng đợi.”</div>
     <p>Chỉ <strong>một người</strong> được sửa file tại một thời điểm: check-out kèm <strong>khóa</strong> → sửa → commit &amp; mở khóa. Người khác phải <strong>chờ</strong>.</p>
     <div class="callout warn"><span class="tt">Nhược điểm</span>Tuần tự hóa công việc, người khác phải đợi dù sửa vùng khác nhau của file → chậm, dễ tắc nghẽn.</div>
     <h3>2.2 Copy-Modify-Merge (sao chép–sửa–trộn)</h3>
+    <div class="guide mini">“Bản chất: bỏ khóa đi — <strong>ai cũng được copy về sửa cùng lúc</strong>, đến khi gộp lại nếu đụng nhau thì mới ngồi trộn (merge). Hình dung như <em>mỗi người photo một bản đề cương về nhà sửa</em>, cuối buổi ghép lại; hai người lỡ sửa trùng một dòng thì gọi là <strong>conflict</strong>, phải bàn nhau chọn bản nào. Đây chính là cách SVN, Git dùng.”</div>
     <p>Nhiều người cùng check-out (không khóa) &amp; sửa bản sao cục bộ đồng thời. Ai commit trước thì xong; người sau khi commit gặp <strong>conflict</strong> → phải <strong>update + merge</strong> cục bộ rồi commit bản đã trộn.</p>
     <div class="callout tip"><span class="tt">Ưu điểm</span>Song song hóa; đa số merge tự động được. Đây là mô hình phổ biến (SVN, Git…).</div>
     <h3>2.3 Distributed Version Control (phân tán)</h3>
+    <div class="guide mini">“Bản chất: nâng cấp mô hình 2.2 — mỗi người không chỉ copy vài file, mà <strong>clone nguyên cả kho lịch sử về máy mình</strong>, thành một repo hoàn chỉnh chạy offline được. Hình dung: thay vì mượn đề cương gốc, <em>mỗi người có hẳn một bản sao đầy đủ của cả thư viện</em>; làm xong mới 'đẩy' (push) đóng góp lên kho chung. Đây là triết lý của <strong>Git</strong>.”</div>
     <p>Mỗi người <strong>clone</strong> toàn bộ repo về máy (có <strong>local repository</strong> riêng). Làm việc &amp; <strong>commit cục bộ</strong>, sau đó <strong>push</strong> lên remote; nếu remote đã đổi → <strong>pull (fetch + merge)</strong> giải quyết conflict cục bộ rồi push lại.</p>
+    <div class="guide mini">“Bảng dưới đặt hai thế giới cạnh nhau. Bản chất khác biệt chỉ nằm ở một câu: <strong>Centralized có đúng MỘT kho (trên server); Distributed thì mỗi máy là một kho đầy đủ</strong>. Mọi dòng còn lại (offline được không, thao tác gì) đều suy ra từ điều đó.”</div>
     <div class="tw"><table>
       <thead><tr><th></th><th>Centralized</th><th>Distributed</th></tr></thead>
       <tbody>
@@ -63,6 +75,7 @@
 
   <section>
     <h2><span class="num">3</span> Từ vựng chuẩn</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Vì sao có mục này</span>“Ba mô hình trên đã hé lộ một loạt từ lạ: commit, merge, conflict, branch… Mục này là <strong>cuốn từ điển bỏ túi</strong> để bạn không bị 'khựng' khi gặp chúng. Mẹo hình dung xuyên suốt: coi repo như <em>một cuốn nhật ký chung</em> — <strong>commit</strong> là 'chốt một trang và ghi ngày tháng', <strong>branch</strong> là 'xé một nhánh nhật ký riêng để thử nghiệm', <strong>merge</strong> là 'nhập nhánh đó về lại cuốn chính', <strong>tag</strong> là 'dán nhãn trang này là bản phát hành 1.0'. Đọc bảng với hình ảnh cuốn nhật ký đó, mọi từ sẽ có chỗ đứng.”</div>
     <div class="tw"><table>
       <thead><tr><th>Thuật ngữ</th><th>Ý nghĩa</th></tr></thead>
       <tbody>
@@ -84,6 +97,7 @@
 
   <section>
     <h2><span class="num">4</span> Git — lệnh cơ bản</h2>
+    <div class="guide"><span class="who">🧑‍🏫 Phần thực hành</span>“Lý thuyết đã đủ; giờ là công cụ bạn gõ thật hằng ngày. Đừng học thuộc từng lệnh rời — hãy nhớ theo <strong>hai nhóm</strong> đúng như câu chuyện phía trên. Nhóm 'khởi đầu' làm một lần (<code>init</code> tạo kho mới, <code>clone</code> tải kho về). Nhóm 'vòng lặp hằng ngày' lặp mãi: <em>xem gì đổi (status) → chọn thay đổi (add) → chốt lại (commit) → lấy về của người khác (pull) → đẩy của mình lên (push)</em>. Đúng là chu trình copy–modify–merge ở Mục 2, chỉ khác là gọi bằng tên lệnh.”</div>
     <p>Git: hệ phân tán, làm việc với repo local &amp; remote, có Git bash (CLI), miễn phí &amp; mã nguồn mở.</p>
     <pre><code><span class="c"># Khởi tạo / lấy repo</span>
 git init                       <span class="c"># tạo repo local ở thư mục hiện tại</span>
@@ -105,8 +119,11 @@ git status
 git add .
 git commit -m "changes"
 git push</code></pre></div>
+    <div class="guide after"><span class="who">💡 Nói lại cho dễ</span>“Đọc ví dụ trên như một câu chuyện: <em>tải kho về (clone) → sửa file → hỏi 'tôi đã đổi gì' (status) → gói ghém (add .) → chốt và ghi chú (commit -m) → gửi lên kho chung (push)</em>. Chỉ 6 bước này là bạn đã cộng tác được với cả nhóm. <code>add</code> rồi mới <code>commit</code> nghe thừa, nhưng đó là chủ ý của Git: bạn được chọn <em>đúng những thay đổi nào</em> gói vào lần chốt này.”</div>
     <div class="callout note"><span class="tt">Nơi host dự án</span>GitHub (#1, free cho open-source, có bản trả phí private), Google Code (SVN), SourceForge, CodePlex (TFS), Bitbucket (Mercurial, có private). Cài đặt: Windows dùng msysGit; Linux <code>sudo apt-get install git</code>.</div>
   </section>
+
+  <div class="guide open"><span class="who">🧑‍🏫 Khép chương · Dẫn sang Chương 3</span>“Xong hai chương 'chuẩn bị công trường': Chương 1 cho bạn tấm bản đồ toàn cảnh, Chương 2 cho bạn cách nhiều người cùng làm mà không loạn. Từ Chương 3 trở đi, ta thật sự <strong>bắt tay xây phần mềm</strong> — và bước đầu tiên của mọi công trình là gì? Là hỏi cho rõ <em>khách hàng thực sự muốn gì</em>. Đó là mảnh 'Requirements Analysis' (bước 2.1 bạn gặp ở Chương 1). Công cụ để nắm bắt và vẽ ra mong muốn của khách một cách có hệ thống chính là <strong>Use Case</strong> — nhân vật chính của Chương 3.”</div>
 
   <nav class="pager">
     <a href="01-quy-trinh-mo-hinh.html"><span class="dir">← Trước</span><span class="ttl">Quy trình &amp; Mô hình PTPM</span></a>
@@ -115,5 +132,6 @@ git push</code></pre></div>
 </main>
 </div>
 <script src="../assets/app.js"></script>
+<script src="../assets/glossary.js"></script>
 </body>
 </html>
